@@ -561,6 +561,11 @@ html[dir=rtl] .breadcrumb > li::after {
 .product-grid .product-thumb .image {
 	float: none;
 }
+/* VU */
+.hide {
+	display: none;
+}
+/* END */
 @media (min-width: 767px) {
 .product-list .product-thumb .image {
 	float: left;

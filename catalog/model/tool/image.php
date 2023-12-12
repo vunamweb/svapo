@@ -1,6 +1,17 @@
 <?php
 class ModelToolImage extends Model {
 	public function resize($filename, $width, $height) {
+        if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $filename)), 0, strlen(DIR_IMAGE)) != str_replace('\\', '/', DIR_IMAGE)) {
+            return;
+        }
+        if ($this->request->server['HTTPS']) {
+			return 'admin/timthumb.php?src=' . HTTPS_SERVER . 'image/' . $filename . '&w='.$width.'&h='.$height.'';
+        } else {
+			return 'admin/timthumb.php?src=' . HTTP_SERVER . 'image/' . $filename . '&w='.$width.'&h='.$height.'';
+        }       
+	}
+	
+	public function resize_($filename, $width, $height) {
 		if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $filename)), 0, strlen(DIR_IMAGE)) != str_replace('\\', '/', DIR_IMAGE)) {
 			return;
 		}
@@ -13,12 +24,8 @@ class ModelToolImage extends Model {
 		if (!is_file(DIR_IMAGE . $image_new) || (filemtime(DIR_IMAGE . $image_old) > filemtime(DIR_IMAGE . $image_new))) {
 			list($width_orig, $height_orig, $image_type) = getimagesize(DIR_IMAGE . $image_old);
 				 
-			if (!in_array($image_type, array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF, IMAGETYPE_WEBP))) { 
-				if ($this->request->server['HTTPS']) {
-					return $this->config->get('config_ssl') . 'image/' . $image_old;
- 				} else {
-					return $this->config->get('config_url') . 'image/' . $image_old;
-				}
+			if (!in_array($image_type, array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF))) { 
+				return DIR_IMAGE . $image_old;
 			}
 						
 			$path = '';
