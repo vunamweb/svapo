@@ -18,6 +18,10 @@ class ControllerAccountAddress extends Controller {
 		$this->getList();
 	}
 
+	public function order() {
+		
+	}
+
 	public function add() {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/address', '', true);

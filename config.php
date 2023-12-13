@@ -28,3 +28,8 @@ define('DB_PASSWORD', '');
 define('DB_DATABASE', 'pharmacy');
 define('DB_PORT', '3306');
 define('DB_PREFIX', 'oc_');
+
+// SMTP
+define('SMTP_HOST', 'w0118b8d.kasserver.com');
+define('SMTP_USER', 'test@7sc.eu');
+define('SMTP_PASSWORD', 'FKEUcsvv2HtgtWvJ');
