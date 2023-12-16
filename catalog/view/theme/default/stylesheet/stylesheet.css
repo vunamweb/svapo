@@ -565,6 +565,27 @@ html[dir=rtl] .breadcrumb > li::after {
 .hide {
 	display: none;
 }
+
+.panel {
+	border: 0px solid transparent !important;
+}
+
+.panel-default>.panel-heading {
+	display: none !important;
+}
+
+.upload_file {
+	margin-bottom: 20px;
+}
+
+.upload_1 {
+	display: inline-block;
+}
+
+.upload_2 {
+	display: inline-block;
+	float: right
+}
 /* END */
 @media (min-width: 767px) {
 .product-list .product-thumb .image {

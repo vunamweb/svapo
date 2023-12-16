@@ -1,9 +1,19 @@
-<form class="form-horizontal">
+<form class="form-horizontal" id="uploadForm" enctype="multipart/form-data">
   {% if addresses %}
-  <div class="radio">
+  <div class="radio hide">
     <label>
       <input type="radio" name="payment_address" value="existing" checked="checked" />
       {{ text_address_existing }}</label>
+  </div>
+  <div class="upload_file">
+    <div class="upload_1">
+    <label>Take a photo of the recipe </label>
+    <input type="file" name="file_1">
+    </div>
+    <div class="upload_2">
+    <label>Upload recipe </label>
+    <input type="file" name="file_2">
+    </div>
   </div>
   <div id="payment-existing">
     <select name="address_id" class="form-control">
@@ -16,7 +26,7 @@
       {% endfor %}
     </select>
   </div>
-  <div class="radio">
+  <div class="radio hide">
     <label>
       <input type="radio" name="payment_address" value="new" />
       {{ text_address_new }}</label>
