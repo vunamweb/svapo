@@ -420,7 +420,25 @@ $(document).delegate('#button-payment-address', 'click', function() {
                         //alert('ffff');
                         //$('#button-payment-method').click();
 
-                        //setTimeout($('#button-payment-method').click(), 2000);
+                        //setTimeout($('#button-payment-method').click(), 8000);
+                        //setTimeout($('#button-payment-method').trigger('click'), 200);
+                        //document.addEventListener('DOMContentLoaded', function() {
+  // Check if the button is loaded (you might need to adjust the selector)
+  /*var checkExist = setInterval(function() {
+    if ($('#button-payment-method').length) {
+      clearInterval(checkExist);
+$('#button-payment-method').click();
+      //alert('ok')
+
+      // Button is loaded, now attach a click event listener
+      $('#myButton').on('click', function() {
+        // Your action to perform when the button is clicked
+        console.log('Button clicked!');
+        // Add your code here to handle the click event
+      });
+    }
+  }, 100);*/ // Check every 100 milliseconds if the button is loaded
+//});
                     },
                     error: function(xhr, ajaxOptions, thrownError) {
                         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -770,57 +788,22 @@ $(document).delegate('#button-shipping-method', 'click', function() {
     });
 });
 
-$(document).delegate('#button-payment-method', 'click', function() {
-    $.ajax({
-        url: 'index.php?route=checkout/payment_method/save',
-        type: 'post',
-        data: $('#collapse-payment-method input[type=\'radio\']:checked, #collapse-payment-method input[type=\'checkbox\']:checked, #collapse-payment-method textarea'),
-        dataType: 'json',
-        beforeSend: function() {
-         	$('#button-payment-method').button('loading');
-		},
-        success: function(json) {
-            $('.alert-dismissible, .text-danger').remove();
+var checkExist = setInterval(function() {
+    if ($('#button-payment-method').length) {
+     var element = $('#button-payment-method');
 
-            if (json['redirect']) {
-                location = json['redirect'];
-            } else if (json['error']) {
-                $('#button-payment-method').button('reset');
-                
-                if (json['error']['warning']) {
-                    $('#collapse-payment-method .panel-body').prepend('<div class="alert alert-danger alert-dismissible">' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                }
-            } else {
-                $.ajax({
-                    url: 'index.php?route=checkout/confirm',
-                    dataType: 'html',
-                    complete: function() {
-                        $('#button-payment-method').button('reset');
-                    },
-                    success: function(html) {
-                        $('#collapse-checkout-confirm .panel-body').html(html);
+// Get the events attached to the element
+var events = $._data(element[0], 'events');
 
-						$('#collapse-checkout-confirm').parent().find('.panel-heading .panel-title').html('<a href="#collapse-checkout-confirm" data-toggle="collapse" data-parent="#accordion" class="accordion-toggle">{{ text_checkout_confirm }} <i class="fa fa-caret-down"></i></a>');
-
-						$('a[href=\'#collapse-checkout-confirm\']').trigger('click');
-					},
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-                    }
-                });
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  // Simulate click event on each tab's link
-  $('.panel-collapse]').each(function() {
-    $(this).show();
-  });
-});
+// Check if there are click events
+if (events && events.click) {
+   $('#button-payment-method').click();
+   //clearInterval(checkExist);
+} else {
+    //alert('ok');
+    console.log('The element does not have any click event listener.');
+}
+}
+  }, 100);
 //--></script>
 {{ footer }}
