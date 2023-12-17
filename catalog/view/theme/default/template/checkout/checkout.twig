@@ -798,7 +798,20 @@ var events = $._data(element[0], 'events');
 // Check if there are click events
 if (events && events.click) {
    $('#button-payment-method').click();
-   //clearInterval(checkExist);
+   console.log($('#collapse-checkout-confirm').height());
+
+   //if($('#collapse-checkout-confirm').hasClass('in') && $('#collapse-checkout-confirm').height() > 150)
+     //clearInterval(checkExist);
+  if($('#button-confirm').length) {
+      var element_1 = $('#button-confirm');
+
+var events_1 = $._data(element_1[0], 'events');
+
+if (events_1 && events_1.click) {
+$('#button-confirm').click();
+clearInterval(checkExist);
+}
+}   
 } else {
     //alert('ok');
     console.log('The element does not have any click event listener.');

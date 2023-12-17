@@ -12,3 +12,4 @@
 2023-12-16 10:50:47 - PHP Warning:  Undefined variable $data in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_method.php on line 5
 2023-12-16 10:51:29 - PHP Warning:  Undefined variable $data in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_method.php on line 5
 2023-12-16 10:51:32 - PHP Warning:  Undefined variable $data in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_method.php on line 5
+2023-12-17 9:44:39 - PHP Warning:  Trying to access array offset on value of type bool in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/extension/total/voucher.php on line 54
