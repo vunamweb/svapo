@@ -55,18 +55,14 @@ class ControllerCheckoutPaymentAddress extends Controller {
 		$targetDirectory = "uploads/"; // Directory where uploaded files will be saved
 		$targetFile = $targetDirectory . basename($_FILES["file_1"]["name"]); // Get the file name
 		
-		// Check if file already exists
-		if (file_exists($targetFile)) {
-			echo "File already exists.";
-		} else {
-			// Try to upload the file
+		// Try to upload the file
 			if (move_uploaded_file($_FILES["file_1"]["tmp_name"], $targetFile)) {
-				echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-				$_SESSION['upload_file'] = $_FILES["file_1"]["tmp_name"];
+				//echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+				$this->session->data['upload_file'] = $_FILES["file_1"]["name"];
+				//$_SESSION['upload_file'] = 'naddd'; //$_FILES["file_1"]["tmp_name"];
 			} else {
 				echo "Sorry, there was an error uploading your file.";
 			}
-		}
 	}
 
 	public function save() {

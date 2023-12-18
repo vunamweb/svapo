@@ -591,12 +591,12 @@ html[dir=rtl] .breadcrumb > li::after {
   height: 200px !important;
 }
 
-#collapse-checkout-confirm .panel-body {
-	display: nonezz;
+#collapse-checkout-confirm {
+	display: none;
 }
 
 #collapse-payment-method {
-	display: nonezz;
+	display: none;
 }
 
 .loading_confirm {

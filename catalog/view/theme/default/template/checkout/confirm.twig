@@ -48,30 +48,25 @@
 </div>
 <div class="buttons">
   <div class="pull-right">
-    <input type="button" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary" />
+    <input type="button" value="Kostenpflichtig bestellen" id="button-confirm" class="btn btn-primary" data-loading-text="Lade ..">
   </div>
 </div>
 <script type="text/javascript"><!--
 $('#button-confirm').on('click', function() {
 	$.ajax({
-		url: 'index.php?route=extension/payment/cod/confirm',
-		dataType: 'json',
+		type: 'get',
+		url: 'index.php?route=extension/payment/free_checkout/confirm',
+		cache: false,
 		beforeSend: function() {
 			$('#button-confirm').button('loading');
 		},
 		complete: function() {
 			$('#button-confirm').button('reset');
 		},
-		success: function(json) {
-			if (json['redirect']) {
-				location = json['redirect'];	
-			}
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		success: function() {
+			location = 'http://localhost/pharmacy/index.php?route=checkout/success';
 		}
 	});
 });
 //--></script>
-
 
