@@ -51,8 +51,28 @@ class ControllerCheckoutPaymentAddress extends Controller {
 		$this->response->setOutput($this->load->view('checkout/payment_address', $data));
 	}
 
+	public function uploadFile() {
+		$targetDirectory = "uploads/"; // Directory where uploaded files will be saved
+		$targetFile = $targetDirectory . basename($_FILES["file_1"]["name"]); // Get the file name
+		
+		// Check if file already exists
+		if (file_exists($targetFile)) {
+			echo "File already exists.";
+		} else {
+			// Try to upload the file
+			if (move_uploaded_file($_FILES["file_1"]["tmp_name"], $targetFile)) {
+				echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+				$_SESSION['upload_file'] = $_FILES["file_1"]["tmp_name"];
+			} else {
+				echo "Sorry, there was an error uploading your file.";
+			}
+		}
+	}
+
 	public function save() {
 		$this->load->language('checkout/checkout');
+
+		//$this->uploadFile();
 
 		$json = array();
 

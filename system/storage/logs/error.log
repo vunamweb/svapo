@@ -13,3 +13,827 @@
 2023-12-16 10:51:29 - PHP Warning:  Undefined variable $data in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_method.php on line 5
 2023-12-16 10:51:32 - PHP Warning:  Undefined variable $data in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_method.php on line 5
 2023-12-17 9:44:39 - PHP Warning:  Trying to access array offset on value of type bool in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/extension/total/voucher.php on line 54
+2023-12-17 10:51:19 - PHP Warning:  Undefined array key "file_1" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 56
+2023-12-17 10:51:19 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 56
+2023-12-17 10:51:19 - PHP Unknown:  basename(): Passing null to parameter #1 ($path) of type string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 56
+2023-12-17 10:51:45 - PHP Warning:  Undefined array key "file_1" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 56
+2023-12-17 10:51:45 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 56
+2023-12-17 10:51:45 - PHP Unknown:  basename(): Passing null to parameter #1 ($path) of type string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 56
+2023-12-17 11:01:23 - PHP Warning:  Undefined array key "file_1" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 56
+2023-12-17 11:01:23 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 56
+2023-12-17 11:01:23 - PHP Unknown:  basename(): Passing null to parameter #1 ($path) of type string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 56
+2023-12-17 11:18:34 - PHP Warning:  Undefined array key "file_1" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 56
+2023-12-17 11:18:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 56
+2023-12-17 11:18:34 - PHP Unknown:  basename(): Passing null to parameter #1 ($path) of type string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 56
+2023-12-17 13:57:17 - PHP Warning:  Undefined array key "fileToUpload" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 13:57:17 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 13:57:17 - PHP Unknown:  basename(): Passing null to parameter #1 ($path) of type string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 13:59:22 - PHP Warning:  Undefined array key "fileToUpload" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 13:59:22 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 13:59:22 - PHP Unknown:  basename(): Passing null to parameter #1 ($path) of type string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 14:08:42 - PHP Warning:  Undefined array key "fileToUpload" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 14:08:42 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 14:08:42 - PHP Unknown:  basename(): Passing null to parameter #1 ($path) of type string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 14:08:42 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:42 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:42 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:42 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:43 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:44 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:45 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:46 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:08:46 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:33 - PHP Warning:  Undefined array key "fileToUpload" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 14:10:33 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 14:10:33 - PHP Unknown:  basename(): Passing null to parameter #1 ($path) of type string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 14:10:33 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:33 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:33 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:33 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:33 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:33 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:33 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:33 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:10:36 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:14 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:15 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:16 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:17 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:17 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:17 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:17 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:17 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:13:17 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:39:58 - PHP Warning:  Undefined array key "fileToUpload" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 14:39:58 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 14:39:58 - PHP Unknown:  basename(): Passing null to parameter #1 ($path) of type string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/payment_address.php on line 64
+2023-12-17 14:43:01 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:43:01 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:43:45 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:43:45 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:52 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:52 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:52 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:52 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:56 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:50:56 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:43 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:43 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:48 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:48 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:48 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:48 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:48 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:48 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:48 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:48 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:49 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:50 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:51:51 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:02 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:02 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:03 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:03 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:04 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:05 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:06 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:07 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:52:07 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:18 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:18 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:18 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:18 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:18 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:18 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:18 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:18 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:19 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:20 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:21 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:54 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:56 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:56 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:56 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:56 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:56 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:56 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:56 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-17 14:59:56 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:10:33 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:10:33 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:10:56 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:10:56 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:20:10 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:20:10 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:27:16 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:27:16 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:27:32 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:27:32 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:27:52 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:27:52 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:31:51 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:31:51 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:44:10 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:44:10 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:48:12 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:48:12 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:51:04 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:51:04 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:52:11 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:52:11 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:53:48 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:53:48 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:53:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:53:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:55:37 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 2:55:37 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:08:49 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:08:49 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:15:05 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:15:05 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:15:11 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:15:11 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:15:21 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:15:21 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:15:44 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:15:44 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:16:47 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:16:47 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:16:47 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:16:47 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:17:39 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:17:39 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:17:40 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:17:40 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:17:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:17:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:17:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:17:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:18:00 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:18:00 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:18:00 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:18:00 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:20:19 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:20:19 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:20:33 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:20:33 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:20:37 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:20:37 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:20:47 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:20:47 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:20:47 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:20:47 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:21:44 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:21:44 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:21:44 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:21:44 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:27:10 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:27:10 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:27:26 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 3:27:26 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:02:57 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:02:57 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:04:22 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:04:22 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:04:48 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:04:48 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:13:37 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:13:37 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:13:55 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:13:55 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:15:27 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:15:27 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:16:05 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:16:05 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:27:21 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:27:21 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:28:01 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:28:01 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:30:37 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:30:37 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:31:30 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:31:30 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:32:32 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:32:32 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:32:45 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:32:45 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:33:13 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:33:13 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:33:31 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:33:31 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:35:28 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:35:28 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:40:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:40:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:41:15 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:41:15 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:42:27 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:42:27 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:43:03 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:43:03 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:43:20 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:43:20 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:44:51 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:44:51 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:45:26 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:45:26 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:50:16 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 14:50:16 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:24:41 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:24:41 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:25:48 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:25:48 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:25:51 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:25:51 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:28:39 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:28:39 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:30:46 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:30:46 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:34:08 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:34:08 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:34:11 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:34:11 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:34:29 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:34:29 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:34:31 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:34:31 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:35:57 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:35:57 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:00 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:00 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:04 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:04 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:06 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:06 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:20 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:20 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:21 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:21 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:36 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:36:36 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:39:32 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:39:32 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:41:50 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:41:50 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:42:07 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:42:07 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:42:13 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:42:13 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:42:19 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:42:19 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:42:26 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:42:26 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:42:32 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:42:32 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:42:53 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:42:53 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:43:38 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:43:38 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:43:59 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:43:59 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:44:00 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:44:00 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:45:09 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:45:09 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:45:18 - PHP Warning:  Undefined array key "comment" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 260
+2023-12-18 15:45:18 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:45:18 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:45:18 - PHP Warning:  Undefined array key "payment_method" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:45:18 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:45:18 - PHP Unknown:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/engine/action.php on line 65
+2023-12-18 15:45:38 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:45:38 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:46:36 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:46:36 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:46:59 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:46:59 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:47:11 - PHP Warning:  Undefined array key "comment" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 260
+2023-12-18 15:47:11 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:47:11 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:47:11 - PHP Warning:  Undefined array key "payment_method" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:47:11 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:47:11 - PHP Unknown:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/engine/action.php on line 65
+2023-12-18 15:47:31 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:47:31 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:47:47 - PHP Warning:  Undefined array key "comment" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 260
+2023-12-18 15:47:47 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:47:47 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:47:47 - PHP Warning:  Undefined array key "payment_method" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:47:47 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:47:47 - PHP Unknown:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/engine/action.php on line 65
+2023-12-18 15:48:57 - PHP Warning:  Undefined array key "comment" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 260
+2023-12-18 15:48:57 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:48:57 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:48:57 - PHP Warning:  Undefined array key "payment_method" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:48:57 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:48:57 - PHP Unknown:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/engine/action.php on line 65
+2023-12-18 15:50:35 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:50:35 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:52:10 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:52:10 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:52:31 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:52:31 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:52:49 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:52:49 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:52:49 - PHP Warning:  Undefined array key "payment_method" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:52:49 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:52:49 - PHP Unknown:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/engine/action.php on line 65
+2023-12-18 15:52:58 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:52:58 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:52:58 - PHP Warning:  Undefined array key "payment_method" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:52:58 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:52:58 - PHP Unknown:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/engine/action.php on line 65
+2023-12-18 15:53:12 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:53:12 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:53:12 - PHP Warning:  Undefined array key "payment_method" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:53:12 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:53:12 - PHP Unknown:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/engine/action.php on line 65
+2023-12-18 15:53:32 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:53:32 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:57:42 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:57:42 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:57:42 - PHP Warning:  Undefined array key "payment_method" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:57:42 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:57:42 - PHP Unknown:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/engine/action.php on line 65
+2023-12-18 15:58:10 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:58:10 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 15:58:10 - PHP Warning:  Undefined array key "payment_method" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:58:10 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 15:58:10 - PHP Unknown:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/engine/action.php on line 65
+2023-12-18 16:17:56 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 16:17:56 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 16:18:17 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 16:18:17 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 16:19:02 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 16:19:02 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 16:19:03 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 16:19:03 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 16:19:34 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 16:19:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 16:19:34 - PHP Warning:  Undefined array key "payment_method" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 16:19:34 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 16:19:34 - PHP Unknown:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/engine/action.php on line 65
+2023-12-18 16:19:58 - PHP Warning:  Undefined global variable $_SESSION in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 16:19:58 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/model/checkout/order.php on line 4
+2023-12-18 16:19:58 - PHP Warning:  Undefined array key "payment_method" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 16:19:58 - PHP Warning:  Trying to access array offset on value of type null in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/checkout/confirm.php on line 410
+2023-12-18 16:19:58 - PHP Unknown:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/engine/action.php on line 65

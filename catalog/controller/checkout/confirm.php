@@ -53,7 +53,7 @@ class ControllerCheckoutConfirm extends Controller {
 			}
 		}
 
-		if (!$redirect) {
+		if (true) {
 			$order_data = array();
 
 			$totals = array();

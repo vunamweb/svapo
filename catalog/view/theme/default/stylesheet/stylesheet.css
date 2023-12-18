@@ -586,6 +586,25 @@ html[dir=rtl] .breadcrumb > li::after {
 	display: inline-block;
 	float: right
 }
+
+#collapse-checkout-confirm {
+  height: 200px !important;
+}
+
+#collapse-checkout-confirm .panel-body {
+	display: nonezz;
+}
+
+#collapse-payment-method {
+	display: nonezz;
+}
+
+.loading_confirm {
+	position: absolute;
+	left: 50%;
+	/*top: 50%;*/
+    font-size: 3em;
+}
 /* END */
 @media (min-width: 767px) {
 .product-list .product-thumb .image {
