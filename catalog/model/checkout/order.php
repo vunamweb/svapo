@@ -1,5 +1,8 @@
 <?php
 class ModelCheckoutOrder extends Model {
+	public function editPhotoOrder($order_id, $namePhoto) {
+		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET upload_file = '".$namePhoto."' where order_id = ".$order_id."");
+    }
 	public function addOrder($data) {
 		session_start();
 

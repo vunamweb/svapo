@@ -1,5 +1,23 @@
 <?php
 class ControllerApiOrder extends Controller {
+	public function uploadFile() {
+		$this->load->model('checkout/order');
+
+		$order_id = $this->request->get['order_id'];
+
+		$namePhoto = $_FILES["upload_file"]["name"];
+
+		$targetDirectory = "uploads/"; // Directory where uploaded files will be saved
+		$targetFile = $targetDirectory . basename($namePhoto); // Get the file name
+		
+		// Try to upload the file
+			if (move_uploaded_file($_FILES["upload_file"]["tmp_name"], $targetFile)) {
+				$this->model_checkout_order->editPhotoOrder($order_id, $namePhoto);
+			} else {
+				echo "Sorry, there was an error uploading your file.";
+			}
+	}
+
 	public function add() {
 		$this->load->language('api/order');
 
