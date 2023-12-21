@@ -210,7 +210,7 @@ class ControllerSaleOrder extends Controller {
 			'filter_order_id'        => $filter_order_id,
 			'filter_customer'	     => $filter_customer,
 			'filter_order_status'    => $filter_order_status,
-			'filter_order_status_id' => $filter_order_status_id,
+			//'filter_order_status_id' => $filter_order_status_id,
 			'filter_total'           => $filter_total,
 			'filter_date_added'      => $filter_date_added,
 			'filter_date_modified'   => $filter_date_modified,
@@ -223,6 +223,7 @@ class ControllerSaleOrder extends Controller {
 		$order_total = $this->model_sale_order->getTotalOrders($filter_data);
 
 		$results = $this->model_sale_order->getOrders($filter_data);
+		//print_r($results); die();
 
 		foreach ($results as $result) {
 			$data['orders'][] = array(

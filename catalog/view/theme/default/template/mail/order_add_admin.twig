@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html dir="{{ direction }}" lang="{{ lang }}">
+<head>
+<meta charset="UTF-8" />
+<title>{{ title }}</title>
+<base href="{{ store_url }}admin" />
+<style>
+	table, tr, td { border: none !important; }
+	.table thead td {
+		font-weight: 400;
+	}
+	span { font-size: .8em; }
+	.inv { font-size: 1.5em; font-weight:600; text-transform: uppercase; color:#000; }
+	.table-bordered td { border-bottom: solid 1px #999 !important; }
+	.table.top thead > tr > td, .table tbody > tr > td {
+		vertical-align: top; margin-top:3em !important; font-size:.8em;
+	}
+	body, html { margin-bottom: 0; padding-bottom: 0; }
+	hr { margin: 0; }
+</style>
+</head>
+
+<body style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #000000;">
+{{ mail_header }}
+
+{{ text_inform_order_admin }}<br>
+first name: {{ firstname }}<br>
+last name: {{ lastname }}<br>
+email: {{ email }}<br>
+phone: {{ telephone }}<br>
+order id: {{ order_id }}<br>
+
+{{ mail_footer }}
+</body>
+

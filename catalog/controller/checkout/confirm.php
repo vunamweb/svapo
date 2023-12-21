@@ -1,4 +1,10 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+
+require "PHPMailer.php";
+require "SMTP.php";
+require "Exception.php";
+
 class ControllerCheckoutConfirm extends Controller {
 	public function index() {
 		$redirect = '';
@@ -53,7 +59,7 @@ class ControllerCheckoutConfirm extends Controller {
 			}
 		}
 
-		if (!$redirect) {
+		if (true) {
 			$order_data = array();
 
 			$totals = array();
@@ -99,8 +105,9 @@ class ControllerCheckoutConfirm extends Controller {
 			$order_data['totals'] = $totals;
 
 			$this->load->language('checkout/checkout');
-
-			$order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
+			$this->load->language('mail/order_add');
+			
+            $order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
 			$order_data['store_id'] = $this->config->get('config_store_id');
 			$order_data['store_name'] = $this->config->get('config_name');
 
@@ -321,7 +328,29 @@ class ControllerCheckoutConfirm extends Controller {
 
 			$this->load->model('checkout/order');
 
+			//echo '1zz'; die();
+
 			$this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
+
+			$data['mail_header'] = HEADER;
+		    $data['mail_footer'] = FOOTER;
+			$data['text_inform_order'] = $this->language->get('text_inform_order');
+			$data['text_inform_order_admin'] = $this->language->get('text_inform_order_admin');
+			$data['firstname'] = $customer_info['firstname'];
+			$data['lastname'] = $customer_info['lastname'];
+			$data['email'] = $customer_info['email'];
+			$data['telephone'] = $customer_info['telephone'];
+			$data['order_id'] = $this->session->data['order_id'];
+			
+			$subject = 'Order' . ' ' . $this->session->data['order_id'];
+		    $fromName = 'Pharmacy';
+			$message = $this->load->view('mail/order_add_customer', $data);
+			$message_1 = $this->load->view('mail/order_add_admin', $data);
+			
+            $this->sendMailSMTP($order_data['email'], $subject, 'test@7sc.eu', $fromName, $message);
+			$this->sendMailSMTP($this->config->get('config_email'), $subject, 'test@7sc.eu', $fromName, $message_1);
+			//$this->load->controller('mail/order/add');
+			//$this->session->data['order_id'] . 'ddd'; die();
 
 			$this->load->model('tool/upload');
 
@@ -414,4 +443,31 @@ class ControllerCheckoutConfirm extends Controller {
 
 		$this->response->setOutput($this->load->view('checkout/confirm', $data));
 	}
+
+	function sendMailSMTP($to, $subject, $from, $fromName, $message)
+    {
+		$mail = new PHPMailer();
+		$mail->IsSMTP(); // telling the class to use SMTP
+		$mail->SMTPDebug = 0; // enables SMTP debug information (for testing)
+		$mail->SMTPAuth = true; // enable SMTP authentication
+		$mail->SMTPSecure = "ssl"; // sets the prefix to the servier
+		$mail->Host = SMTP_HOST; // sets GMAIL as the SMTP server
+		$mail->Port = 465; // set the SMTP port for the GMAIL server
+		$mail->Username = SMTP_USER; // GMAIL username
+		$mail->Password = SMTP_PASSWORD;
+		$mail->CharSet = 'UTF-8';
+		$mail->AddAddress($to);
+		$mail->addBcc("vukynamkhtn@gmail.com");
+		$mail->Subject = $subject;
+		$mail->FromName = $fromName;
+		$mail->From = $from;
+		$mail->IsHTML(true);
+		$mail->Body = $message;
+
+		if (!$mail->Send()) {
+			//echo "Mailer Error: " . $mail->ErrorInfo;
+		} else {
+			//echo "Message sent!";
+		}
+    }
 }

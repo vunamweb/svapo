@@ -34,3 +34,5 @@ $_['text_download']			= 'Sobald die Zahlung bestätigt ist, kann auf den Link ge
 $_['text_comment']			= 'Kommentar zur Bestellung lautet:';
 $_['text_footer']			= 'Bitte auf dieses Email antworten sollten noch Fragen offen sein.';
 $_['text_inform_order']		= 'Wir haben Ihre Bestellung erhalten und werden Ihnen schnellstmöglich Bescheid geben';
+$_['text_inform_order_admin']		= 'Der Kunde hat gerade eine Bestellung mit den folgenden Informationen aufgegeben';
+
