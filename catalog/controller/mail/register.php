@@ -61,7 +61,10 @@ class ControllerMailRegister extends Controller {
 		$data['login'] = $this->url->link('account/login', '', true);		
 		$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
-		$mail = new Mail($this->config->get('config_mail_engine'));
+		$data['mail_header'] = HEADER;
+		$data['mail_footer'] = FOOTER;
+		
+        $mail = new Mail($this->config->get('config_mail_engine'));
 		$mail->parameter = $this->config->get('config_mail_parameter');
 		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
 		$mail->smtp_username = $this->config->get('config_mail_smtp_username');
@@ -82,7 +85,7 @@ class ControllerMailRegister extends Controller {
 		$fromName = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 		$message = $this->load->view('mail/register', $data);
 
-		$this->sendMailSMTP($to, $subject, $from, $fromName, $message);
+		$this->sendMailSMTP($to, $subject, 'test@7sc.eu', $fromName, $message);
 	}
 	
 	public function alert(&$route, &$args, &$output) {
@@ -118,6 +121,9 @@ class ControllerMailRegister extends Controller {
 			
 			$data['email'] = $args[0]['email'];
 			$data['telephone'] = $args[0]['telephone'];
+  
+			$data['mail_header'] = HEADER;
+		    $data['mail_footer'] = FOOTER;
 
 			$mail = new Mail($this->config->get('config_mail_engine'));
 			$mail->parameter = $this->config->get('config_mail_parameter');
@@ -132,7 +138,13 @@ class ControllerMailRegister extends Controller {
 			$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
 			$mail->setSubject(html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8'));
 			$mail->setText($this->load->view('mail/register_alert', $data));
-			$mail->send();
+			//$mail->send();
+
+			$subject = html_entity_decode($this->language->get('text_new_customer'), ENT_QUOTES, 'UTF-8');
+			$fromName = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+			$message = $this->load->view('mail/register_alert', $data);
+
+			$this->sendMailSMTP($args[0]['email'], $subject, 'test@7sc.eu', $fromName, $message);
 
 			// Send to additional alert emails if new account email is enabled
 			$emails = explode(',', $this->config->get('config_mail_alert_email'));

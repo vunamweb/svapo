@@ -33,3 +33,4 @@ $_['text_total']			= 'Gesamt';
 $_['text_download']			= 'Sobald die Zahlung bestätigt ist, kann auf den Link geklickt werden um den Downloadartikel zu laden:';
 $_['text_comment']			= 'Kommentar zur Bestellung lautet:';
 $_['text_footer']			= 'Bitte auf dieses Email antworten sollten noch Fragen offen sein.';
+$_['text_inform_order']		= 'Wir haben Ihre Bestellung erhalten und werden Ihnen schnellstmöglich Bescheid geben';

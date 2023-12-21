@@ -33,3 +33,56 @@ define('DB_PREFIX', 'oc_');
 define('SMTP_HOST', 'w0118b8d.kasserver.com');
 define('SMTP_USER', 'test@7sc.eu');
 define('SMTP_PASSWORD', 'FKEUcsvv2HtgtWvJ');
+
+// MAIL
+define('HEADER', '<table class="table" style="width: 680px;">
+<thead>
+    <tr>
+      <td></td>	  
+      <td align="right"><img src="image/catalog/drugs.png" style="width:150px;"></td>
+  </tr>
+  <tr>
+      <td>
+          <span>Pharamcy Frankfurt</span>
+              <br/>
+              <br/>
+      </td>
+      <td align="right"><p>Pharamcy Frankfurt<br />
+          Inh.: Andreas Schneider<br />
+          Am Steinberg 24<br />
+          60437 Frankfurt/Niedererlenbach<br />
+          Tel.: 06101 – 41522<br />
+          Fax: 06101 – 497484<br />
+          info@Pharamcy</p></td>
+  </tr>
+</thead>
+</table>');
+
+define('FOOTER', '
+<table style="border-collapse: collapse; width: 100%;"  class="table top">
+			<tr>
+				<td colspan="3">
+					<hr>							  
+				</td>
+			</tr>
+		<tr>
+		  <td valign="top">Pharmacy<br>
+			  Inh.: Andreas Schneider<br>
+			  Am Steinberg 24<br>
+			  60437 Frankfurt/Pharmacy
+		  </td>
+		  <td valign="top">
+			  Deutsche Kreditbank<br>
+			  Kto.: 1020 4280 64 / BLZ: 120 300 00<br>
+			  IBAN: DE40 1203 0000 1020 4280 64<br>
+			  BIC: BYLADEM1001<br>
+			  USt-IdNr.: DE216963084
+		  </td>
+		  <td valign="top">
+			  Tel.: 06101 – 41522<br>
+			  Fax: 06101 – 497484<br>
+			  info@Pharmacy
+		  </td>
+		</tr>
+	</table>');
+

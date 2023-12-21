@@ -258,8 +258,12 @@ class ControllerMailOrder extends Controller {
 		if (!$from) {
 			$from = $this->config->get('config_email');
 		}
+
+		$data['mail_header'] = HEADER;
+		$data['mail_footer'] = FOOTER;
+		$data['text_inform_order'] = $language->get('text_inform_order');
 		
-		$mail = new Mail($this->config->get('config_mail_engine'));
+		/*$mail = new Mail($this->config->get('config_mail_engine'));
 		$mail->parameter = $this->config->get('config_mail_parameter');
 		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
 		$mail->smtp_username = $this->config->get('config_mail_smtp_username');
@@ -272,7 +276,13 @@ class ControllerMailOrder extends Controller {
 		$mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
 		$mail->setSubject(html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8'));
 		$mail->setHtml($this->load->view('mail/order_add', $data));
-		$mail->send();
+		$mail->send();*/
+
+		$subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+		$fromName = html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8');
+		$message = $this->load->view('mail/order_add_customer', $data);
+
+		$this->sendMailSMTP($order_info['email'], $subject, 'test@7sc.eu', $fromName, $message);
 	}
 	
 	public function edit($order_info, $order_status_id, $comment) {
