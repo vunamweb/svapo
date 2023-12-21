@@ -8,8 +8,11 @@
     {% else %}
     {% set class = 'col-sm-12' %}
     {% endif %}
+    {{ content_morpheus_top }}
     <div id="content" class="{{ class }}">
     <a class="btn btn-primary" href="./vorbestellen/" target="">Rezept einlösen</a>
+    <br><br>
+     {{ content_morpheus_bottom }}
     {{ content_top }}{{ content_bottom }}
     </div>
     {{ column_right }}</div>

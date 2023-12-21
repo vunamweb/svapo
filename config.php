@@ -84,5 +84,8 @@ define('FOOTER', '
 			  info@Pharmacy
 		  </td>
 		</tr>
-	</table>');
+    </table>');
+ // MORPHEUS
+define('MORPHEUS_HOMEPAGE', ['warum/', 'wie/']);
+// END   
 

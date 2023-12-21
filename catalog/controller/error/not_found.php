@@ -1,9 +1,26 @@
 <?php
 class ControllerErrorNotFound extends Controller {
 	public function index() {
+		// GET CONTENT OF MORPHEUS
+		$language = 'de/';
+
+		$urlMorpheus = $this->request->get['_route_'];
+		$urlMorpheus = HTTP_SERVER . 'cms/' . $language . $urlMorpheus;
+
+		$response = file_get_contents($urlMorpheus);
+		$response = str_replace(array('</body>', '</html>'), '', $response);
+
+		$response = json_decode($response);
+
+		$contentMorpheus = $response->message;
+		$title = $response->title;
+		$des = $response->des;
+		// END
+
 		$this->load->language('error/not_found');
 
-		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->setTitle($title);
+		$this->document->setDescription($des);
 
 		$data['breadcrumbs'] = array();
 
@@ -41,9 +58,10 @@ class ControllerErrorNotFound extends Controller {
 		$data['content_bottom'] = $this->load->controller('common/content_bottom');
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
+		$data['content_morpheus'] = $contentMorpheus;
 
-		$this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
+		//$this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
 
-		$this->response->setOutput($this->load->view('error/not_found', $data));
+		$this->response->setOutput($this->load->view('common/morpheus', $data));
 	}
 }
