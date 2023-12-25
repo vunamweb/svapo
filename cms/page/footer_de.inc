@@ -1,59 +1,47 @@
 
 <?php  $output .= '<ul class="sitemap">
 
-		<li class="parent n__3"><a href="https://www.morpheus-cms.de/shop/wie/">wie</a>
+		<li class="parent n__2"><a href="https://www.morpheus-cms.de/pharmacy/cms/ueber-uns/">Über uns</a>
 		 	<ul class="sub-menu1"></ul>
 		</li>
 
-		<li class="parent n__2"><a href="https://www.morpheus-cms.de/shop/wer/">wer</a>
-		 	<ul class="sub-menu2"></ul>
+		<li class="parent n__23"><a href="https://www.morpheus-cms.de/pharmacy/cms/hofladen/">Hofladen</a>
+		 	<ul class="sub-menu2"></li>
+</li>
+</li>
+				<li><a href="https://www.morpheus-cms.de/pharmacy/cms/hofladen/oeffnungszeiten-hofladen/" title="Öffnungszeiten Hofladen">Öffnungszeiten Hofladen</a></li>
+</li>
+</li>
+				<li><a href="https://www.morpheus-cms.de/pharmacy/cms/hofladen/obstsortenbestand/" title="Obstsortenbestand">Obstsortenbestand</a></li>
+</li>
+</li>
+				<li><a href="https://www.morpheus-cms.de/pharmacy/cms/hofladen/lexikon/" title="Apfelsortenlexikon">Apfelsortenlexikon</a></ul>
 		</li>
 
-		<li class="parent n__4"><a href="https://www.morpheus-cms.de/shop/was/">was</a>
+		<li class="parent n__31"><a href="https://www.morpheus-cms.de/pharmacy/cms/wissenwertes/">Wissenwertes</a>
 		 	<ul class="sub-menu3"></li>
 </li>
 </li>
-				<li><a href="https://www.morpheus-cms.de/shop/was/therapie/" title="Therapie">Therapie</a>
-				<ul>
+				<li><a href="https://www.morpheus-cms.de/pharmacy/cms/wissenwertes/was-ist-apfelwein/" title="Was ist Apfelwein">Was ist Apfelwein</a></li>
 </li>
 </li>
-						<li><a href="https://www.morpheus-cms.de/shop/was/therapie/psychotherapie/" title="Psychotherapie">Psychotherapie</a></li>
-</li>
-</li>
-						<li><a href="https://www.morpheus-cms.de/shop/was/therapie/traumatherapie/" title="Traumatherapie">Traumatherapie</a></li>
-</li>
-</li>
-						<li><a href="https://www.morpheus-cms.de/shop/was/therapie/systemische-familientherapie/" title="Systemische Familientherapie">Systemische Familientherapie</a></li>
-
-				</ul>
-			</li>
-</li>
-</li>
-				<li><a href="https://www.morpheus-cms.de/shop/was/diagnostik/" title="Diagnostik">Diagnostik</a>
-				<ul>
-</li>
-</li>
-						<li><a href="https://www.morpheus-cms.de/shop/was/diagnostik/leistungsdiagnostik/" title="Leistungsdiagnostik">Leistungsdiagnostik</a></li>
-</li>
-</li>
-						<li><a href="https://www.morpheus-cms.de/shop/was/diagnostik/diagnostik-von-entwicklungsstoerungen/" title="Diagnostik von Entwicklungs&shy;störungen">Diagnostik von Entwicklungs&shy;störungen</a></li>
-
-				</ul>
-			</li>
-</li>
-</li>
-				<li><a href="https://www.morpheus-cms.de/shop/was/coaching/" title="Coaching">Coaching</a>
-				<ul>
-</li>
-</li>
-						<li><a href="https://www.morpheus-cms.de/shop/was/coaching/eltern-baby-kurse/" title="Eltern-Baby-Kurse">Eltern-Baby-Kurse</a></li>
-</ul>
-		</li>
-</ul>
+				<li><a href="https://www.morpheus-cms.de/pharmacy/cms/wissenwertes/wie-trinkt-man-apfelwein/" title="Wie trinkt man Apfelwein?">Wie trinkt man Apfelwein?</a></ul>
 		</li>
 
-		<li class="parent n__5"><a href="https://www.morpheus-cms.de/shop/warum/">warum</a>
-		 	<ul class="sub-menu4"></li>
+		<li class="parent n__20"><a href="https://www.morpheus-cms.de/pharmacy/cms/jobs/">Jobs</a>
+		 	<ul class="sub-menu4"></ul>
+		</li>
+
+		<li class="parent n__21"><a href="https://www.morpheus-cms.de/pharmacy/cms/partner/">Partner</a>
+		 	<ul class="sub-menu5"></ul>
+		</li>
+
+		<li class="parent n__4"><a href="https://www.morpheus-cms.de/pharmacy/cms/presse/">Presse</a>
+		 	<ul class="sub-menu6"></ul>
+		</li>
+
+		<li class="parent n__6"><a href="https://www.morpheus-cms.de/pharmacy/cms/kontakt/">Kontakt</a>
+		 	<ul class="sub-menu7"></li>
 </ul>
 ';
 ?>

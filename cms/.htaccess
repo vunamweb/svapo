@@ -76,30 +76,30 @@ RewriteRule !\.[a-z]{2,4}$ %{REQUEST_URI}/ [R=301,L]
 
 ####****************** IMAGES
 RewriteCond %{QUERY_STRING} ^w=([0-9]+)&h=([0-9]+)&zc=([0-9]+)$ [NC]
-RewriteRule ^image/(.*)/(.*) obsthof/cms/mthumb.php?w=%1&h=%2&zc=%3&src=images/userfiles/image/$2 [L]
+RewriteRule ^image/(.*)/(.*) pharmacy/cms/mthumb.php?w=%1&h=%2&zc=%3&src=images/userfiles/image/$2 [L]
 
 RewriteCond %{QUERY_STRING} ^w=([0-9]+)&h=([0-9]+)$ [NC]
-RewriteRule ^image/(.*)/(.*) obsthof/cms/mthumb.php?w=%1&h=%2&src=images/userfiles/image/$2 [L]
+RewriteRule ^image/(.*)/(.*) pharmacy/cms/mthumb.php?w=%1&h=%2&src=images/userfiles/image/$2 [L]
 
 RewriteCond %{QUERY_STRING} ^w=([0-9]+)$ [NC]
-RewriteRule ^image/(.*)/(.*) obsthof/cms/mthumb.php?w=%1&src=images/userfiles/image/$2 [L]
+RewriteRule ^image/(.*)/(.*) pharmacy/cms/mthumb.php?w=%1&src=images/userfiles/image/$2 [L]
 
-RewriteRule ^image/(.*)/(.*) obsthof/cms/mthumb.php?w=400&src=images/userfiles/image/$2 [L]
+RewriteRule ^image/(.*)/(.*) pharmacy/cms/mthumb.php?w=400&src=images/userfiles/image/$2 [L]
 ####****************** ___________________IMAGES
 
-# RewriteRule ^(.*)\.html$ obsthof/cms/index.php?old=$1 [R]
+# RewriteRule ^(.*)\.html$ pharmacy/cms/index.php?old=$1 [R]
 
 #####**** NEW SHORTLINK ************************************************************************
-RewriteRule ^sl/(.*)/$ obsthof/cms/index.php?lang=sl&shortlink=1&hn=$1 [L]
+RewriteRule ^sl/(.*)/$ pharmacy/cms/index.php?lang=sl&shortlink=1&hn=$1 [L]
 
-RewriteRule ^(.*)/(.*)/(.*)/(.*)/(.*)\+(.*)/$ obsthof/cms/index.php?lang=$1&hn=$2&sn2=$3&sn3=$4&cont=$4&nid=$6 [L,QSA]
-RewriteRule ^(.*)/(.*)/(.*)/(.*)\+(.*)/$ obsthof/cms/index.php?lang=$1&hn=$2&sn2=$3&cont=$3&nid=$5 [L,QSA]
-RewriteRule ^(.*)/(.*)/(.*)\+(.*)/$ obsthof/cms/index.php?lang=$1&hn=$2&cont=$2&nid=$4 [L,QSA]
+RewriteRule ^(.*)/(.*)/(.*)/(.*)/(.*)\+(.*)/$ pharmacy/cms/index.php?lang=$1&hn=$2&sn2=$3&sn3=$4&cont=$4&nid=$6 [L,QSA]
+RewriteRule ^(.*)/(.*)/(.*)/(.*)\+(.*)/$ pharmacy/cms/index.php?lang=$1&hn=$2&sn2=$3&cont=$3&nid=$5 [L,QSA]
+RewriteRule ^(.*)/(.*)/(.*)\+(.*)/$ pharmacy/cms/index.php?lang=$1&hn=$2&cont=$2&nid=$4 [L,QSA]
 
-RewriteRule ^(.*)/(.*)/(.*)/(.*)/(.*)/$ obsthof/cms/index.php?lang=$1&hn=$2&sn2=$3&sn3=$4&sn4=$5&cont=$5 [L,QSA]
-RewriteRule ^(.*)/(.*)/(.*)/(.*)/$ obsthof/cms/index.php?lang=$1&hn=$2&sn2=$3&sn3=$4&cont=$4 [L,QSA]
-RewriteRule ^(.*)/(.*)/(.*)/$ obsthof/cms/index.php?lang=$1&hn=$2&sn2=$3&cont=$3 [L,QSA]
-RewriteRule ^(.*)/(.*)/$ obsthof/cms/index.php?lang=$1&hn=$2&cont=$2 [L,QSA]
-RewriteRule ^(.*)/$ obsthof/cms/index.php?lang=$1 [L,QSA]
+RewriteRule ^(.*)/(.*)/(.*)/(.*)/(.*)/$ pharmacy/cms/index.php?lang=$1&hn=$2&sn2=$3&sn3=$4&sn4=$5&cont=$5 [L,QSA]
+RewriteRule ^(.*)/(.*)/(.*)/(.*)/$ pharmacy/cms/index.php?lang=$1&hn=$2&sn2=$3&sn3=$4&cont=$4 [L,QSA]
+RewriteRule ^(.*)/(.*)/(.*)/$ pharmacy/cms/index.php?lang=$1&hn=$2&sn2=$3&cont=$3 [L,QSA]
+RewriteRule ^(.*)/(.*)/$ pharmacy/cms/index.php?lang=$1&hn=$2&cont=$2 [L,QSA]
+RewriteRule ^(.*)/$ pharmacy/cms/index.php?lang=$1 [L,QSA]
 
 ErrorDocument 404 /404.php

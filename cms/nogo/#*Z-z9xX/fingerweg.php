@@ -1,8 +1,8 @@
 <?php
 
 $morpheus["dbname"] 		= "pharmacy";
-$morpheus["user"]			= "root";
-$morpheus["password"]		= "";
+$morpheus["user"]			= "morp";
+$morpheus["password"]		= "?R2sMZqnq%";
 $morpheus["dfile"]			= "morpheus_db.sql";
 $morpheus["server"]			= "localhost";
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

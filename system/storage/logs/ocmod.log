@@ -1,0 +1,111 @@
+2023-12-25 4:58:35 - MOD: Modification Default
+
+FILE: system/engine/action.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 69
+
+FILE: system/engine/loader.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 77
+LINE: 151
+LINE: 168
+
+FILE: system/library/config.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 59
+
+FILE: system/library/language.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 67
+LINE: 73
+
+FILE: system/library/template/template.php
+REGEX: ~(require|include)(_once)?\(([^)]+)~
+LINE: 18
+
+FILE: system/library/template/twig.php
+CODE: if (is_file($file)) {
+LINE: 13
+----------------------------------------------------------------
+MOD: Email Verification
+
+FILE: admin/language/en-gb/extension/dashboard/activity.php
+CODE: <?php
+LINE: 1
+
+FILE: catalog/controller/mail/register.php
+CODE: $this->load->language('mail/register');
+LINE: 51
+CODE: $data['text_approval'] = $this->language->get('text_approval');
+LINE: 55
+CODE: $data['login'] = $this->url->link('account/login', '', true);
+LINE: 75
+CODE: $template->data['account_login'] = $this->url->link('account/login');
+NOT FOUND - OPERATION SKIPPED!
+CODE: $template->data['customer_text'] = $this->language->get('text_approval');
+NOT FOUND - OPERATION SKIPPED!
+
+FILE: catalog/controller/account/success.php
+CODE: $data['text_message'] = sprintf($this->language->get('text_approval')
+LINE: 27
+CODE: $data['text_message'] = sprintf($this->language->get('text_approval')
+LINE: 44
+
+FILE: catalog/controller/account/register.php
+CODE: $this->customer->login($this->request->post['email'
+LINE: 29
+
+FILE: catalog/controller/checkout/register.php
+CODE: $customer_id = $this->model_account_customer->addCustomer($this->request->post);
+LINE: 213
+
+FILE: catalog/controller/account/edit.php
+CODE: $this->model_account_customer->editCustomer($this->customer->getId(), $this->request->post);
+LINE: 23
+
+FILE: catalog/controller/account/login.php
+CODE: $this->error['warning'] = $this->language->get('error_approved');
+LINE: 169
+
+FILE: catalog/controller/affiliate/login.php
+CODE: $this->error['warning'] = $this->language->get('error_approved');
+LINE: 105
+
+FILE: catalog/controller/checkout/login.php
+CODE: $json['error']['warning'] = $this->language->get('error_approved');
+LINE: 45
+
+FILE: admin/model/customer/customer.php
+CODE: public function deleteCustomer($customer_id) {
+LINE: 57
+
+FILE: admin/model/customer/customer_approval.php
+CODE: $sql .= " AND ca.`type` = '"
+LINE: 23
+CODE: $implode[] = "ca.`type` = '"
+LINE: 78
+
+FILE: admin/controller/customer/customer_approval.php
+CODE: $filter_type = '';
+LINE: 35
+LINE: 132
+CODE: $url .= '&filter_type=' . $this->request->get['filter_type'];
+LINE: 64
+LINE: 204
+CODE: $data['filter_type'] = $filter_type;
+LINE: 91
+CODE: $filter_data = array(
+LINE: 156
+CODE: $data['customer_approvals'][] = array(
+LINE: 174
+
+FILE: admin/view/template/customer/customer_approval_list.twig
+CODE: <td class="text-left">{{ customer_approval.name }}</td>
+LINE: 16
+
+FILE: admin/view/template/customer/customer_approval.twig
+CODE: <label class="control-label" for="input-date-added">{{ entry_date_added }}</label>
+LINE: 73
+CODE: if (filter_email) {
+LINE: 157
+----------------------------------------------------------------

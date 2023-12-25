@@ -276,7 +276,7 @@ class ModelSaleOrder extends Model {
 		} elseif (isset($data['filter_order_status_id']) && $data['filter_order_status_id'] !== '') {
 			$sql .= " WHERE order_status_id = '" . (int)$data['filter_order_status_id'] . "'";
 		} else {
-			//$sql .= " WHERE order_status_id > '0'";
+			$sql .= " WHERE order_status_id > '0'";
 		}
 
 		if (!empty($data['filter_order_id'])) {
@@ -299,6 +299,7 @@ class ModelSaleOrder extends Model {
 			$sql .= " AND total = '" . (float)$data['filter_total'] . "'";
 		}
 
+		//echo $sql; die();
 		$query = $this->db->query($sql);
 
 		return $query->row['total'];

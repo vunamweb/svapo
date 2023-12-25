@@ -18,3 +18,14 @@
 2023-12-22 7:02:18 - PHP Warning:  Undefined array key "menu_morpheus" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/common/menu.php on line 46
 2023-12-22 7:02:41 - PHP Warning:  Undefined array key "menu_morpheus" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/common/menu.php on line 46
 2023-12-22 7:02:42 - PHP Warning:  Undefined array key "menu_morpheus" in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/catalog/controller/common/menu.php on line 46
+2023-12-22 7:51:10 - PHP Notice:  Undefined index: en-gb in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/startup/startup.php on line 129
+2023-12-22 7:51:10 - PHP Notice:  Trying to access array offset on value of type null in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/startup/startup.php on line 129
+2023-12-22 7:51:10 - PHP Notice:  Undefined index: menu_morpheus in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/common/menu.php on line 46
+2023-12-22 7:51:27 - PHP Notice:  Undefined index: en-gb in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/startup/startup.php on line 129
+2023-12-22 7:51:27 - PHP Notice:  Trying to access array offset on value of type null in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/startup/startup.php on line 129
+2023-12-22 7:51:27 - PHP Notice:  Undefined index: menu_morpheus in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/common/menu.php on line 46
+2023-12-22 7:51:27 - PHP Warning:  Use of undefined constant MORPHEUS_HOMEPAGE - assumed 'MORPHEUS_HOMEPAGE' (this will throw an Error in a future version of PHP) in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/common/home.php on line 22
+2023-12-22 7:51:27 - PHP Warning:  Invalid argument supplied for foreach() in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/common/home.php on line 30
+2023-12-22 7:51:41 - PHP Notice:  Undefined index: en-gb in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/startup/startup.php on line 129
+2023-12-22 7:51:41 - PHP Notice:  Trying to access array offset on value of type null in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/startup/startup.php on line 129
+2023-12-22 7:51:41 - PHP Notice:  Undefined index: menu_morpheus in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/common/menu.php on line 46
