@@ -1,8 +1,10 @@
 <div class="panel panel-default">
+  <ul class="breadcrumb">
+  </ul>
   <div class="panel-heading">
     <h4 class="panel-title"><a href="#collapse-coupon" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion">{{ heading_title }} <i class="fa fa-caret-down"></i></a></h4>
   </div>
-  <div id="collapse-coupon" class="panel-collapse collapse">
+  <div id="collapse-coupon" class="panel-collapse collapse_z">
     <div class="panel-body">
       <label class="col-sm-2 control-label" for="input-coupon">{{ entry_coupon }}</label>
       <div class="input-group">
@@ -30,7 +32,9 @@ $('#button-coupon').on('click', function() {
 				$('.breadcrumb').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
 				$('html, body').animate({ scrollTop: 0 }, 'slow');
-			}
+			} else {
+               $('.breadcrumb').after('<div class="alert alert-success alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            }
 
 			if (json['redirect']) {
 				location = json['redirect'];

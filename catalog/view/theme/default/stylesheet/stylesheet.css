@@ -605,6 +605,11 @@ html[dir=rtl] .breadcrumb > li::after {
 	/*top: 50%;*/
     font-size: 3em;
 }
+
+#checkout-cart .breadcrumb {
+	background: none;
+	border: none;
+}
 /* END */
 @media (min-width: 767px) {
 .product-list .product-thumb .image {

@@ -197,9 +197,14 @@ class ControllerProductCategory extends Controller {
 					$rating = false;
 				}
 
+				$login = $this->customer->isLogged();
+
+				if($this->session->data['coupon'])
+				  $login = true;
+
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
-					'login' => $this->customer->isLogged(),
+					'login' => $login,
 					'thumb'       => $image,
 					'name'        => $result['name'],
 					'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',

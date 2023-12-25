@@ -15,8 +15,11 @@ $_['text_coupon']	= 'Gutschein (%s)';
 $_['text_success']	= 'Gutschein erfolgreich angewendet';
 
 // Entry
-$_['entry_coupon']	= 'Code hier eingeben';
+$_['entry_coupon']	= 'Password hier eingeben';
 
 // Error
-$_['error_coupon']	= 'Code ist entweder ungültig, bereits abgelaufen, schon eingelöst oder Mindestbestellwert nicht errreicht';
-$_['error_empty']	= 'Bitte Code eingeben';
+$_['error_coupon']	= 'Passwort ist nicht korrekt';
+$_['error_empty']	= 'Bitte Passwort eingeben';
+
+// success
+$_['success_coupon']	= 'Sie können jetzt den Produktpreis sehen';
