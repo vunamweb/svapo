@@ -46,8 +46,9 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">{{ text_checkout_payment_address }}</h4>
 						</div>
+						<i class="fa fa-spinner loading_km" aria-hidden="true"></i>
 						<div class="panel-collapse collapse" id="collapse-payment-address">
-							<div class="panel-body"></div>
+						<div class="panel-body"></div>
 						</div>
 					</div>
 				{% endif %}
@@ -131,7 +132,7 @@ url: 'index.php?route=checkout/payment_address',
 dataType: 'html',
 success: function (html) {
 $('#collapse-payment-address .panel-body').html(html);
-
+$('.loading_km').hide();
 $('#collapse-payment-address').parent().find('.panel-heading .panel-title').html('<a href="#collapse-payment-address" data-toggle="collapse" data-parent="#accordion" class="accordion-toggle">    {{ text_checkout_payment_address }}<i class="fa fa-caret-down"></i></a>');
 
 $('a[href=\'#collapse-payment-address\']').trigger('click');
@@ -429,8 +430,11 @@ $('#collapse-payment-method').parent().find('.panel-heading .panel-title').html(
 	alert('haahah');
 })*/
 
-$('#button-payment-method').click();
-
+if($('#no_address').val() == 0) {
+	$('#button-payment-method').click();
+} else {
+}
+  
 $('#collapse-checkout-confirm').parent().find('.panel-heading .panel-title').html('{{ text_checkout_confirm }}');
 
 //$('#button-payment-method').click();

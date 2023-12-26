@@ -100,3 +100,14 @@ $_['error_no_shipping']					= 'Für die gewählte Adresse sind keine Versandarte
 $_['error_payment']						= 'Es muss eine Zahlungsart ausgewählt werden';
 $_['error_no_payment']					= 'Es sind keine Zahlungsarten verfügbar, für Hilfe bitte uns <a href="%s">kontaktieren</a>';
 $_['error_custom_field']				= '%s ist erforderlich';
+
+//DISTANCE
+$_['km_address_no'] = 'Adresse ist ungültig';
+$_['km_address_yes'] = 'gültige Adresse';
+$_['km_zipcode_no'] = 'Zipcode ist ungültig';
+$_['km_zipcode_yes'] = 'gültige Zipcode';
+$_['notice_shipping_invalid'] = 'Ungültige Adresse oder Postleitzahl, daher ist der Versand nicht kostenlos';
+$_['notice_shipping_no'] = 'Die Entfernung von der Adresse zur Postleitzahl beträgt %d km, daher ist der Versand nicht kostenlos';
+$_['notice_shipping_yes'] = 'Die Entfernung von der Adresse zur Postleitzahl beträgt %d km, daher ist der Versand kostenlos';
+
+

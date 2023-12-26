@@ -5,6 +5,11 @@
       <input type="radio" name="payment_address" value="existing" checked="checked" />
       {{ text_address_existing }}</label>
   </div>
+  <div class="notice_shipping">
+  <b>{{ km_address }}</b><br>
+  <b>{{ km_zipcode }}</b><br>
+  <b>{{ notice_shipping }}</b><br>
+  </div>
   <div class="upload_file">
     <div class="upload_1">
     <label>Take a photo of the recipe </label>
@@ -29,6 +34,7 @@
   <div class="radio hide">
     <label>
       <input type="radio" name="payment_address" value="new" />
+      <input type="hidden" id="no_address" value="0"
       {{ text_address_new }}</label>
   </div>
   {% endif %}
@@ -37,6 +43,7 @@
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-payment-firstname">{{ entry_firstname }}</label>
       <div class="col-sm-10">
+        <input type="hidden" id="no_address" value="1"/>
         <input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-payment-firstname" class="form-control" />
       </div>
     </div>

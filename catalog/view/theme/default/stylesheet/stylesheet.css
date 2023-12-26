@@ -610,6 +610,16 @@ html[dir=rtl] .breadcrumb > li::after {
 	background: none;
 	border: none;
 }
+
+.loading_km {
+	font-size: 3.5em;
+	position: absolute;
+	left: 50%
+}
+
+#input-zone {
+	display: none;
+}
 /* END */
 @media (min-width: 767px) {
 .product-list .product-thumb .image {

@@ -1,55 +1,142 @@
 <?php
+
 class ControllerCheckoutPaymentAddress extends Controller {
-	public function index() {
-		$this->load->language('checkout/checkout');
+    public function index() {
+        $this->load->language( 'checkout/checkout' );
 
-		if (isset($this->session->data['payment_address']['address_id'])) {
-			$data['address_id'] = $this->session->data['payment_address']['address_id'];
-		} else {
-			$data['address_id'] = $this->customer->getAddressId();
-		}
+        if ( isset( $this->session->data[ 'payment_address' ][ 'address_id' ] ) ) {
+            $data[ 'address_id' ] = $this->session->data[ 'payment_address' ][ 'address_id' ];
+        } else {
+            $data[ 'address_id' ] = $this->customer->getAddressId();
+        }
 
-		$this->load->model('account/address');
+        $this->load->model( 'account/address' );
 
-		$data['addresses'] = $this->model_account_address->getAddresses();
+        $data[ 'addresses' ] = $this->model_account_address->getAddresses();
 
-		if (isset($this->session->data['payment_address']['country_id'])) {
-			$data['country_id'] = $this->session->data['payment_address']['country_id'];
-		} else {
-			$data['country_id'] = $this->config->get('config_country_id');
-		}
+        if ( isset( $this->session->data[ 'payment_address' ][ 'country_id' ] ) ) {
+            $data[ 'country_id' ] = $this->session->data[ 'payment_address' ][ 'country_id' ];
+        } else {
+            $data[ 'country_id' ] = $this->config->get( 'config_country_id' );
+        }
 
-		if (isset($this->session->data['payment_address']['zone_id'])) {
-			$data['zone_id'] = $this->session->data['payment_address']['zone_id'];
-		} else {
-			$data['zone_id'] = '';
-		}
+        if ( isset( $this->session->data[ 'payment_address' ][ 'zone_id' ] ) ) {
+            $data[ 'zone_id' ] = $this->session->data[ 'payment_address' ][ 'zone_id' ];
+        } else {
+            $data[ 'zone_id' ] = '';
+        }
 
-		$this->load->model('localisation/country');
+        $this->load->model( 'localisation/country' );
 
-		$data['countries'] = $this->model_localisation_country->getCountries();
+        $data[ 'countries' ] = $this->model_localisation_country->getCountries();
 
-		// Custom Fields
-		$data['custom_fields'] = array();
+        // Custom Fields
+        $data[ 'custom_fields' ] = array();
+
+        $this->load->model( 'account/custom_field' );
+
+        $custom_fields = $this->model_account_custom_field->getCustomFields( $this->config->get( 'config_customer_group_id' ) );
+
+        foreach ( $custom_fields as $custom_field ) {
+            if ( $custom_field[ 'location' ] == 'address' ) {
+                $data[ 'custom_fields' ][] = $custom_field;
+            }
+        }
+
+        if ( isset( $this->session->data[ 'payment_address' ][ 'custom_field' ] ) ) {
+            $data[ 'payment_address_custom_field' ] = $this->session->data[ 'payment_address' ][ 'custom_field' ];
+        } else {
+            $data[ 'payment_address_custom_field' ] = array();
+        }
+
+        //print_r( $data[ 'addresses' ][ 3 ] );
+        //die();
+        $adress = $data[ 'addresses' ][ 3 ];
+
+		$address1 = $adress[ 'address_1' ] . ',' . $adress[ 'city' ] . ',' . $adress[ 'country' ];
+		//echo $address1; die();
+		$address2 = $adress[ 'postcode' ];
 		
-		$this->load->model('account/custom_field');
+		//print_r($this->getCoordinatesFromAddress( $address1 )); die();
 
-		$custom_fields = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
+        if ( $this->getCoordinatesFromAddress( $address1 ) == null ) {
+            $data[ 'km_address' ] = $this->language->get( 'km_address_no' );
+            $data[ 'notice_shipping' ] =  $this->language->get( 'notice_shipping_invalid' );
+        } else
+        $data[ 'km_address' ] = $this->language->get( 'km_address_yes' );
 
-		foreach ($custom_fields as $custom_field) {
-			if ($custom_field['location'] == 'address') {
-				$data['custom_fields'][] = $custom_field;
-			}
-		}
+        if ( $this->getCoordinatesFromAddress( $address2 ) == null ) {
+            $data[ 'km_zipcode' ] = $this->language->get( 'km_zipcode_no' );
+            $data[ 'notice_shipping' ] =  $this->language->get( 'notice_shipping_invalid' );
+        } else
+        $data[ 'km_zipcode' ] = $this->language->get( 'km_zipcode_yes' );
 
-		if (isset($this->session->data['payment_address']['custom_field'])) {
-			$data['payment_address_custom_field'] = $this->session->data['payment_address']['custom_field'];
+        //print_r( $this->getCoordinatesFromAddress( $address2 ) );
+        //die();
+
+        $data[ 'distance' ] = $this->calculateDistance( $address1, $address2 );
+
+        if ( $data[ 'distance' ] != null && $data[ 'distance' ] <= FREE_SHIPPING_KM )
+        $data[ 'notice_shipping' ] = str_replace( '%d', $data[ 'distance' ], $this->language->get( 'notice_shipping_yes' ) );
+        else if($data[ 'distance' ] != null && $data[ 'distance' ] > FREE_SHIPPING_KM)
+        $data[ 'notice_shipping' ] = str_replace( '%d', $data[ 'distance' ], $this->language->get( 'notice_shipping_no' ) );
+
+        $this->response->setOutput( $this->load->view( 'checkout/payment_address', $data ) );
+    }
+
+    public function getCoordinatesFromAddress( $address ) {
+        //echo $address;
+        //die();
+        $apiKey = API_KEY;
+        // Replace with your Google Maps API key
+
+        $address = urlencode( $address );
+
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?address={$address}&key={$apiKey}";
+
+        $response = file_get_contents( $url );
+        $data = json_decode( $response, true );
+
+        //print_r( $data );
+        //die();
+
+        if ( $data[ 'status' ] == 'ZERO_RESULTS' )
+        return null;
+
+        if ( $data[ 'status' ] === 'OK' && isset( $data[ 'results' ][ 0 ][ 'geometry' ][ 'location' ] ) ) {
+            return $data[ 'results' ][ 0 ][ 'geometry' ][ 'location' ];
+        } else {
+            return null;
+        }
+    }
+
+    public function calculateDistance( $address1, $address2 )
+    {
+        $coords1 = $this->getCoordinatesFromAddress( $address1 );
+        $coords2 = $this->getCoordinatesFromAddress( $address2 );
+
+        if ( $coords1 && $coords2 ) {
+            $earthRadius = 6371;
+            // Earth's radius in kilometers
+
+			$lat1 = deg2rad($coords1['lat']);
+			$lon1 = deg2rad($coords1['lng']);
+			$lat2 = deg2rad($coords2['lat']);
+			$lon2 = deg2rad($coords2['lng']);
+
+			$deltaLat = $lat2 - $lat1;
+			$deltaLon = $lon2 - $lon1;
+
+			$a = sin($deltaLat / 2) * sin($deltaLat / 2) + cos($lat1) * cos($lat2) * sin($deltaLon / 2) * sin($deltaLon / 2);
+			$c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+			$distance = $earthRadius * $c;
+
+			return round($distance); // Distance in kilometers
 		} else {
-			$data['payment_address_custom_field'] = array();
+			return null;
 		}
-
-		$this->response->setOutput($this->load->view('checkout/payment_address', $data));
-	}
+    }
 
 	public function uploadFile() {
 		$targetDirectory = "uploads/"; // Directory where uploaded files will be saved
@@ -183,7 +270,7 @@ class ControllerCheckoutPaymentAddress extends Controller {
 			}
 		}
 
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
-	}
-}
+		$this->response->addHeader('Content-Type: application/json' );
+            $this->response->setOutput( json_encode( $json ) );
+        }
+    }
