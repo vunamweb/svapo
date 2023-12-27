@@ -10,3 +10,6 @@
 // Text
 $_['text_title']		= 'Versandkostenpauschale';
 $_['text_description']	= 'Versandkostenpauschale';
+$_['notice_shipping_invalid'] = 'Ungültige Adresse oder Postleitzahl, daher ist der Versand nicht kostenlos';
+$_['notice_shipping_no'] = 'Die Entfernung von der Adresse zur Postleitzahl beträgt %d km, daher ist der Versand nicht kostenlos';
+$_['notice_shipping_yes'] = 'Die Entfernung von der Adresse zur Postleitzahl beträgt %d km, daher ist der Versand kostenlos';

@@ -56,8 +56,9 @@ class ControllerCheckoutPaymentAddress extends Controller {
 		$address1 = $adress[ 'address_1' ] . ',' . $adress[ 'city' ] . ',' . $adress[ 'country' ];
 		//echo $address1; die();
 		$address2 = $adress[ 'postcode' ];
+		//echo $address2; die();
 		
-		//print_r($this->getCoordinatesFromAddress( $address1 )); die();
+		//print_r($this->getCoordinatesFromAddress( $address2 )); die();
 
         if ( $this->getCoordinatesFromAddress( $address1 ) == null ) {
             $data[ 'km_address' ] = $this->language->get( 'km_address_no' );
@@ -79,7 +80,10 @@ class ControllerCheckoutPaymentAddress extends Controller {
         if ( $data[ 'distance' ] != null && $data[ 'distance' ] <= FREE_SHIPPING_KM )
         $data[ 'notice_shipping' ] = str_replace( '%d', $data[ 'distance' ], $this->language->get( 'notice_shipping_yes' ) );
         else if($data[ 'distance' ] != null && $data[ 'distance' ] > FREE_SHIPPING_KM)
-        $data[ 'notice_shipping' ] = str_replace( '%d', $data[ 'distance' ], $this->language->get( 'notice_shipping_no' ) );
+		$data[ 'notice_shipping' ] = str_replace( '%d', $data[ 'distance' ], $this->language->get( 'notice_shipping_no' ) );
+		else if($data[ 'distance' ] == 0) 
+		$data[ 'notice_shipping' ] = str_replace( '%d', $data[ 'distance' ], $this->language->get( 'notice_shipping_yes' ) );
+       
 
         $this->response->setOutput( $this->load->view( 'checkout/payment_address', $data ) );
     }
