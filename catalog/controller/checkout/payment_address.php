@@ -49,28 +49,19 @@ class ControllerCheckoutPaymentAddress extends Controller {
             $data[ 'payment_address_custom_field' ] = array();
         }
 
-        //print_r( $data[ 'addresses' ][ 3 ] );
+		//print_r($data[ 'addresses' ]); die();
+		//print_r( $data[ 'addresses' ][ 3 ] ); die();
         //die();
-        $adress = $data[ 'addresses' ][ 3 ];
+		for($i = 1; $i <= 20; $i++)
+		  if($data[ 'addresses' ][ $i ])
+		     $adress = $data[ 'addresses' ][ $i ];
 
 		$address1 = $adress[ 'address_1' ] . ',' . $adress[ 'city' ] . ',' . $adress[ 'country' ];
 		//echo $address1; die();
 		$address2 = $adress[ 'postcode' ];
 		//echo $address2; die();
 		
-		//print_r($this->getCoordinatesFromAddress( $address2 )); die();
-
-        if ( $this->getCoordinatesFromAddress( $address1 ) == null ) {
-            $data[ 'km_address' ] = $this->language->get( 'km_address_no' );
-            $data[ 'notice_shipping' ] =  $this->language->get( 'notice_shipping_invalid' );
-        } else
-        $data[ 'km_address' ] = $this->language->get( 'km_address_yes' );
-
-        if ( $this->getCoordinatesFromAddress( $address2 ) == null ) {
-            $data[ 'km_zipcode' ] = $this->language->get( 'km_zipcode_no' );
-            $data[ 'notice_shipping' ] =  $this->language->get( 'notice_shipping_invalid' );
-        } else
-        $data[ 'km_zipcode' ] = $this->language->get( 'km_zipcode_yes' );
+		//print_r($this->getCoordinatesFromAddress( $address1 )); die();
 
         //print_r( $this->getCoordinatesFromAddress( $address2 ) );
         //die();
@@ -81,8 +72,20 @@ class ControllerCheckoutPaymentAddress extends Controller {
         $data[ 'notice_shipping' ] = str_replace( '%d', $data[ 'distance' ], $this->language->get( 'notice_shipping_yes' ) );
         else if($data[ 'distance' ] != null && $data[ 'distance' ] > FREE_SHIPPING_KM)
 		$data[ 'notice_shipping' ] = str_replace( '%d', $data[ 'distance' ], $this->language->get( 'notice_shipping_no' ) );
-		else if($data[ 'distance' ] == 0) 
-		$data[ 'notice_shipping' ] = str_replace( '%d', $data[ 'distance' ], $this->language->get( 'notice_shipping_yes' ) );
+		else if($data[ 'distance' ] == 0)  
+		$data[ 'notice_shipping' ] = str_replace( '%d', 0, $this->language->get( 'notice_shipping_yes' ) );
+
+		if ( $this->getCoordinatesFromAddress( $address1 ) == null ) {
+            $data[ 'km_address' ] = $this->language->get( 'km_address_no' );
+            $data[ 'notice_shipping' ] =  $this->language->get( 'notice_shipping_invalid' );
+        } else
+        $data[ 'km_address' ] = $this->language->get( 'km_address_yes' );
+
+        if ( $this->getCoordinatesFromAddress( $address2 ) == null ) {
+            $data[ 'km_zipcode' ] = $this->language->get( 'km_zipcode_no' );
+            $data[ 'notice_shipping' ] =  $this->language->get( 'notice_shipping_invalid' );
+        } else
+        $data[ 'km_zipcode' ] = $this->language->get( 'km_zipcode_yes' );
        
 
         $this->response->setOutput( $this->load->view( 'checkout/payment_address', $data ) );
