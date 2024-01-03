@@ -17,9 +17,12 @@ class ControllerAccountRegister extends Controller {
 		$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
 		$this->load->model('account/customer');
+		$this->load->model('account/address');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$customer_id = $this->model_account_customer->addCustomer($this->request->post);
+
+			$this->model_account_address->addAddress($customer_id, $this->request->post);
 
 			// Clear any previous login attempts for unregistered accounts.
 			$this->model_account_customer->deleteLoginAttempts($this->request->post['email']);
@@ -98,6 +101,18 @@ class ControllerAccountRegister extends Controller {
 			$data['error_confirm'] = $this->error['confirm'];
 		} else {
 			$data['error_confirm'] = '';
+		}
+
+		if (isset($this->error['address_1'])) {
+			$data['error_address_1'] = $this->error['address_1'];
+		} else {
+			$data['error_address_1'] = '';
+		}
+
+		if (isset($this->error['zipcode'])) {
+			$data['error_zipcode'] = $this->error['zipcode'];
+		} else {
+			$data['error_zipcode'] = '';
 		}
 
 		$data['action'] = $this->url->link('account/register', '', true);
@@ -269,6 +284,14 @@ class ControllerAccountRegister extends Controller {
 
 		if ($this->request->post['confirm'] != $this->request->post['password']) {
 			$this->error['confirm'] = $this->language->get('error_confirm');
+		}
+
+		if ((utf8_strlen(trim($this->request->post['address_1'])) < 1)) {
+			$this->error['address_1'] = 'Bitte Adresse eingeben';
+		}
+
+		if ((utf8_strlen(trim($this->request->post['postcode'])) < 1)) {
+			$this->error['zipcode'] = 'Bitte Zip code eingeben';
 		}
 
 		// Captcha

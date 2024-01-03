@@ -6,7 +6,10 @@
                     <div class="row g-0 mb-4">
                         <div class="col-lg-9 col-8 d-flex align-items-center">
                             <div class="mb-0 w-100">
-                                <div class="mb-0 text1 text-lg-center mb-lg-5 mb-3 font_Inter lh-1">KONTO ERSTELLEN</div>
+                                <div class="mb-0 text1 mb-3 font_Inter lh-1">KONTO ERSTELLEN</div>
+                                <label class="form-check-label text-secondary" for="dongy">
+                                Sollten bereits ein Konto besitzen, loggen Sie sich bitte <a href="#"><u>Hier</u></a>ein.
+                            </label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-4"><img class="image_thumb" src="images/image2.svg" alt=""></div>
@@ -60,14 +63,21 @@
                         <h4 class="mb-0">LIEFERADRESSE</h4>
                         <div class="row g-3">
                             <div class="col-12">
-                                <input type="text" class="form-control form_cta" placeholder="STRASSE, HAUSNUMMER" autocomplete="off">
+                                <input type="text" class="form-control form_cta" name="address_1" placeholder="STRASSE, HAUSNUMMER" autocomplete="off">
+                            {% if error_address_1 %}
+                                 <div class="text-danger">{{ error_address_1 }}</div>
+                                {% endif %}
                             </div>
                             <div class="col-12">
-                                <input type="text" class="form-control form_cta" placeholder="PLZ, ORT" autocomplete="off">
+                                <input type="text" class="form-control form_cta" name="postcode" placeholder="PLZ, ORT" autocomplete="off">
+                            {% if error_zipcode %}
+                                 <div class="text-danger">{{ error_zipcode }}</div>
+                                {% endif %}
                             </div>
                         </div>
+                        <hr class="my-lg-4 my-3 border-0">
                         <div class="form-check">
-                            <input type="checkbox" name="agree" value="1">
+                            <input type="checkbox" class="form-check-input" name="agree" value="1">
                             <label class="form-check-label text-secondary" for="dongy">
                                 Bitte bestätigen Sie das Sie die <a href="#"><u>Datenschutzbestimmungen</u></a>gelesen haben.
                             </label>
