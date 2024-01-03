@@ -437,10 +437,10 @@ html[dir=rtl] .breadcrumb > li::after {
 .btn-primary {
 	color: #ffffff;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-	background-color: #229ac8;
-	background-image: linear-gradient(to bottom, #23a1d1, #1f90bb);
+	background-color: #FFD800;
+	/*background-image: linear-gradient(to bottom, #23a1d1, #1f90bb);*/
 	background-repeat: repeat-x;
-	border-color: #1f90bb #1f90bb #145e7a;
+	/*border-color: #1f90bb #1f90bb #145e7a;*/
 }
 .btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
 	background-color: #1f90bb;
