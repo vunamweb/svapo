@@ -134,6 +134,17 @@ a:hover, a:focus {
     padding-right: 10px;
 }
 
+/* VU */
+.col_attribute {
+    padding-top: 7px;
+}
+
+.input_attribute {
+    margin-right: 10px !important;
+    margin-left: 10px !important;
+}
+/* END */
+
 /* Desktop */
 @media (min-width: 768px) {
     #header .navbar-header {

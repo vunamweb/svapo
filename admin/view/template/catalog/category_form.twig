@@ -146,6 +146,19 @@
                 </div>
               </div>
               <div class="form-group">
+                <label class="col-sm-2 control-label">Attribute</label>
+                <div class="col-sm-10 col_attribute">
+                  {% for attribute in attribute_groups %}
+                  {% if attribute.is_select %}
+                    <input class="input_attribute" type="checkbox" name="selected[]" value="{{ attribute.attribute_group_id }}" checked="checked" />
+                    {% else %}
+                    <input class="input_attribute" type="checkbox" name="selected[]" value="{{ attribute.attribute_group_id }}" />
+                    {% endif %}
+                  {{ attribute.name }}
+                {% endfor %}
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-column"><span data-toggle="tooltip" title="{{ help_column }}">{{ entry_column }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="column" value="{{ column }}" placeholder="{{ entry_column }}" id="input-column" class="form-control" />

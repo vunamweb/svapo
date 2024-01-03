@@ -280,6 +280,8 @@ class ControllerCatalogCategory extends Controller {
 	}
 
 	protected function getForm() {
+		$this->load->model('catalog/attribute_group');
+
 		$data['text_form'] = !isset($this->request->get['category_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
 		if (isset($this->error['warning'])) {
@@ -349,6 +351,14 @@ class ControllerCatalogCategory extends Controller {
 		if (isset($this->request->get['category_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$category_info = $this->model_catalog_category->getCategory($this->request->get['category_id']);
 		}
+		
+		$category_id = ($this->request->get['category_id']) ? $this->request->get['category_id'] : 0;
+
+		$attribute_groups = $this->model_catalog_attribute_group->getAttributeGroupsOfCategory($category_id);
+
+		$data['attribute_groups'] = $attribute_groups;
+
+			//print_r($attribute_groups); die();
 
 		$data['user_token'] = $this->session->data['user_token'];
 

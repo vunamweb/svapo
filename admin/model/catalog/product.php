@@ -479,7 +479,30 @@ class ModelCatalogProduct extends Model {
 	public function getProductAttributes($product_id) {
 		$product_attribute_data = array();
 
-		$product_attribute_query = $this->db->query("SELECT attribute_id FROM " . DB_PREFIX . "product_attribute WHERE product_id = '" . (int)$product_id . "' GROUP BY attribute_id");
+		$product_attribute_query = $this->db->query("SELECT attribute_id FROM " . DB_PREFIX . "attribute WHERE attribute_group_id = 12 GROUP BY attribute_id");
+
+		foreach ($product_attribute_query->rows as $product_attribute) {
+			$product_attribute_description_data = array();
+
+			$product_attribute_description_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_attribute WHERE product_id = '" . (int)$product_id . "' AND attribute_id = '" . (int)$product_attribute['attribute_id'] . "'");
+
+			foreach ($product_attribute_description_query->rows as $product_attribute_description) {
+				$product_attribute_description_data[$product_attribute_description['language_id']] = array('text' => $product_attribute_description['text']);
+			}
+
+			$product_attribute_data[] = array(
+				'attribute_id'                  => $product_attribute['attribute_id'],
+				'product_attribute_description' => $product_attribute_description_data
+			);
+		}
+
+		return $product_attribute_data;
+	}
+
+	public function getProductAttributes1($product_id) {
+		$product_attribute_data = array();
+
+		$product_attribute_query = $this->db->query("SELECT attribute_id FROM " . DB_PREFIX . "attribute WHERE attribute_group_id = 14 GROUP BY attribute_id");
 
 		foreach ($product_attribute_query->rows as $product_attribute) {
 			$product_attribute_description_data = array();

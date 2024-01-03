@@ -918,6 +918,8 @@ class ControllerCatalogProduct extends Controller {
 			$product_attributes = $this->request->post['product_attribute'];
 		} elseif (isset($this->request->get['product_id'])) {
 			$product_attributes = $this->model_catalog_product->getProductAttributes($this->request->get['product_id']);
+			$product_attributes_1 = $this->model_catalog_product->getProductAttributes1($this->request->get['product_id']);
+			//print_r($product_attributes_1); die();
 		} else {
 			$product_attributes = array();
 		}
@@ -935,6 +937,22 @@ class ControllerCatalogProduct extends Controller {
 				);
 			}
 		}
+
+		$data['product_attributes_1'] = array();
+
+		foreach ($product_attributes_1 as $product_attribute_1) {
+			$attribute_info = $this->model_catalog_attribute->getAttribute($product_attribute_1['attribute_id']);
+
+			if ($attribute_info) {
+				$data['product_attributes_1'][] = array(
+					'attribute_id'                  => $product_attribute_1['attribute_id'],
+					'name'                          => $attribute_info['name'],
+					'product_attribute_description' => $product_attribute_1['product_attribute_description']
+				);
+			}
+		}
+
+		//print_r($data['product_attributes_1']);
 
 		// Options
 		$this->load->model('catalog/option');
