@@ -75,8 +75,14 @@ class ControllerCommonHeader extends Controller {
 		$data['currency'] = $this->load->controller('common/currency');
 		$data['search'] = $this->load->controller('common/search');
 		$data['cart'] = $this->load->controller('common/cart');
-$data['tmdheader'] = $this->load->controller('extension/tmdheader');
+		$data['tmdheader'] = $this->load->controller('extension/tmdheader');
+		$data['tmdheader_1'] = $this->load->controller('extension/tmdheader1');
 		$data['menu'] = $this->load->controller('common/menu');
+
+		// MORPHEUS
+		$data['menu_morpheus'] .= file_get_contents('cms/nogo/nav_de.inc');
+		$data['menu_morpheus'] = str_replace(array("<?php", "?>", "nav = '", "$", 'cms/', "';"), '', $data['menu_morpheus']);
+		// END
 
 		return $this->load->view('common/header', $data);
 	}

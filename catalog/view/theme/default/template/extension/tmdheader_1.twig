@@ -1,10 +1,8 @@
 {% if true %}
-<ul class="navbar-nav mx-auto">
-	  {% for header in headermenu %} 
-			<li class="nav-item">
-			<a class="nav-link p-0" href="{{ header.link }}">
+{% for header in headermenu %} 
+			<a class="nav-link" href="{{ header.link }}">
 			<img class="icon_nav me-2" src="image/{{ header.image }}" alt="">
-			{{ header.title }}
+			<span>{{ header.title }}</span>
 			</a>
 			{% if header.sub_title %}
 				<div class="dropdown-menu">	
@@ -58,5 +56,5 @@
         <li><a href="{{ category.href }}">{{ category.name }}</a></li>
         {% endif %}
         {% endfor %}
-      </ul>
+      
 {% endif %} 
