@@ -1,60 +1,45 @@
 <footer>
-  <div class="container">
-    <div class="row">
-      {% if informations %}
-      <div class="col-sm-3">
-        <h5>{{ text_information }}</h5>
-        <ul class="list-unstyled">
-         {% for information in informations %}
-          <li><a href="{{ information.href }}">{{ information.title }}</a></li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
-      <div class="col-sm-3">
-        <h5>{{ text_service }}</h5>
-        <ul class="list-unstyled">
-          <li><a href="{{ contact }}">{{ text_contact }}</a></li>
-          <li><a href="{{ return }}">{{ text_return }}</a></li>
-          <li><a href="{{ sitemap }}">{{ text_sitemap }}</a></li>
-        </ul>
-      </div>
-      <div class="col-sm-3">
-        <h5>{{ text_extra }}</h5>
-        <ul class="list-unstyled">
-          <li><a href="{{ manufacturer }}">{{ text_manufacturer }}</a></li>
-          <li><a href="{{ voucher }}">{{ text_voucher }}</a></li>
-          <li><a href="{{ affiliate }}">{{ text_affiliate }}</a></li>
-          <li><a href="{{ special }}">{{ text_special }}</a></li>
-        </ul>
-      </div>
-      <div class="col-sm-3">
-        <h5>{{ text_account }}</h5>
-        <ul class="list-unstyled">
-          <li><a href="{{ account }}">{{ text_account }}</a></li>
-          <li><a href="{{ order }}">{{ text_order }}</a></li>
-          <li><a href="{{ wishlist }}">{{ text_wishlist }}</a></li>
-          <li><a href="{{ newsletter }}">{{ text_newsletter }}</a></li>
-        </ul>
-      </div>
+    <div class="container">
+        <div class="row gx-0 gy-3">
+            <div class="col-lg-5">
+                <div class="row gx-3">
+                    <div class="mb-4 pb-3 col-lg-12 col-auto">
+                        <img class="logo_footer" src="images/logo_footer.svg" alt="">
+                    </div>
+                    <div class="mb-0 col-lg-6 col">
+                        <div class="txt text1 font_Inter">
+                          {{ footer_1 }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="row g-lg-0 g-4">
+                    <div class="col-lg-7 col-6">
+                        <div class="txt text2">
+                            {{ footer_2 }}
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-6">
+                        <div class="txt text3">
+                            <div class="vstack gap-lg-4 gap-3">
+                                {{ footer_3 }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <hr>
-    <p>{{ powered }}</p>
-  </div>
+    <div class="bg-white text-center py-lg-5 py-2">
+        <img class="logo_bottom" src="images/logo.svg" alt="">
+    </div>
 </footer>
-{% for style in styles %}
-<link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}" />
-{% endfor %}
-{% for script in scripts %}
-<script src="{{ script }}" type="text/javascript"></script>
-{% endfor %}
-<script src="catalog/view/javascript/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="catalog/view/javascript/swiper/swiper-bundle.min.js"></script>
-<script src="catalog/view/javascript/fancybox/jquery.fancybox.min.js"></script>
-<script src="catalog/view/javascript/svg-injector.min.js"></script>
-<script src="catalog/view/javascript/script.js"></script>
-<!--
-OpenCart is open source software and you are free to remove the powered by OpenCart if you want, but its generally accepted practise to make a small donation.
-Please donate via PayPal to donate@opencart.com
-//-->
-</body></html>
+</div>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="swiper/swiper-bundle.min.js"></script>
+<script src="fancybox/jquery.fancybox.min.js"></script>
+<script src="js/svg-injector.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

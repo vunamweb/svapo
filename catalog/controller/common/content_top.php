@@ -69,6 +69,8 @@ class ControllerCommonContentTop extends Controller {
 			}
 		}
 
-		return $this->load->view('common/content_top', $data);
+		//print_r($data['modules']); die();
+
+		return $data['modules']; //$this->load->view('common/content_top', $data);
 	}
 }

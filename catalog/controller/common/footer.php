@@ -1,6 +1,8 @@
 <?php
 class ControllerCommonFooter extends Controller {
 	public function index() {
+		$this->load->model('design/layout');
+
 		$this->load->language('common/footer');
 
 		$this->load->model('catalog/information');
@@ -58,6 +60,22 @@ class ControllerCommonFooter extends Controller {
 
 		$data['scripts'] = $this->document->getScripts('footer');
 		$data['styles'] = $this->document->getStyles('footer');
+
+		$this->load->model('setting/module');
+
+		$module_info = $this->model_setting_module->getModule(43);
+		
+		$data['footer_1'] = html_entity_decode($module_info['module_description'][2]['description']);
+
+		$module_info = $this->model_setting_module->getModule(44);
+
+		$data['footer_2'] = html_entity_decode($module_info['module_description'][2]['description']);
+
+		$module_info = $this->model_setting_module->getModule(45);
+
+		$data['footer_3'] = html_entity_decode($module_info['module_description'][2]['description']);
+
+        //print_r($module_info['module_description'][2]['description']); die();
 		
 		return $this->load->view('common/footer', $data);
 	}
