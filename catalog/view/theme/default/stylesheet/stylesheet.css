@@ -1,10 +1,10 @@
 body {
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'Open Sans', sans-serif;
 	font-weight: 400;
 	color: #666;
 	font-size: 12px;
 	line-height: 20px;
-	width: 100%;
+	width: 100%;*/
 }
 h1, h2, h3, h4, h5, h6 {
 	color: #444;
@@ -318,11 +318,11 @@ div.required .control-label:before {
 }
 /* footer */
 footer {
-	margin-top: 30px;
+	/*margin-top: 30px;
 	padding-top: 30px;
 	background-color: #303030;
 	border-top: 1px solid #ddd;
-	color: #e2e2e2;
+	color: #e2e2e2;*/
 }
 footer hr {
 	border-top: none;

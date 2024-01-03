@@ -69,6 +69,6 @@ class ControllerCommonContentBottom extends Controller {
 			}
 		}
 
-		return $data['modules']; //$this->load->view('common/content_bottom', $data);
+		return (count($data['modules']) > 0) ? $data['modules'] : $this->load->view('common/content_bottom', $data); //$this->load->view('common/content_bottom', $data);
 	}
 }

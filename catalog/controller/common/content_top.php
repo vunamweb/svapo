@@ -71,6 +71,7 @@ class ControllerCommonContentTop extends Controller {
 
 		//print_r($data['modules']); die();
 
-		return $data['modules']; //$this->load->view('common/content_top', $data);
+		//count($data['modules']; die();
+		return (count($data['modules']) > 0) ? $data['modules'] : $this->load->view('common/content_top', $data); //$this->load->view('common/content_top', $data);
 	}
 }

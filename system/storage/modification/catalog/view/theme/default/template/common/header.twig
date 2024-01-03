@@ -75,6 +75,11 @@
 							<li class="nav-item">
 								<a class="nav-link" href="./register">KONTO ERSTELLEN</a>
 							</li>
+							{% if logged %}
+			<li class="nav-item">
+								<a class="nav-link" href="./logout">Abmelden</a>
+							</li>
+		{% endif %}
 							{{ menu_morpheus }}
 							<li class="nav-item">
 								<a class="nav-link" href="#">WHATSAPP CHAT<img class="icon_whatsapp ms-3" src="image/whatsapp.svg" alt=""></a>

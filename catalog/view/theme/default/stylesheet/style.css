@@ -351,7 +351,19 @@ textarea.form_cta{
 }
 
 #account-login {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
+}
+
+.header_height {
+    margin-bottom: 30px;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
 }
 /* END */
 @media (max-width: 991.98px) {
