@@ -620,6 +620,11 @@ html[dir=rtl] .breadcrumb > li::after {
 #input-zone {
 	display: none;
 }
+
+#content {
+	padding-top: 70px;
+	padding-bottom: 30px;
+}
 /* END */
 @media (min-width: 767px) {
 .product-list .product-thumb .image {

@@ -270,6 +270,75 @@ textarea.form_cta{
     font-size:calc(1.375rem / var(--ratio));
     line-height: 1.27273;
 }
+/* VU */
+.hide {
+	display: none;
+}
+
+.panel {
+	border: 0px solid transparent !important;
+}
+
+.panel-default>.panel-heading {
+	display: none !important;
+}
+
+.upload_file {
+	margin-bottom: 20px;
+}
+
+.upload_1 {
+	display: inline-block;
+}
+
+.upload_2 {
+	display: inline-block;
+	float: right
+}
+
+#collapse-checkout-confirm {
+  height: 200px !important;
+}
+
+#collapse-checkout-confirm {
+	display: none;
+}
+
+#collapse-payment-method {
+	display: none;
+}
+
+.loading_confirm {
+	position: absolute;
+	left: 50%;
+	/*top: 50%;*/
+    font-size: 3em;
+}
+
+#checkout-cart .breadcrumb {
+	background: none;
+	border: none;
+}
+
+.loading_km {
+	font-size: 3.5em;
+	position: absolute;
+	left: 50%
+}
+
+#input-zone {
+	display: none;
+}
+
+#content {
+	padding-top: 70px;
+	padding-bottom: 30px;
+}
+
+.buttons {
+  margin-top: 10px;
+}
+/* END */
 @media (max-width: 991.98px) {
     header .navbar{
         padding-top:.25rem;
