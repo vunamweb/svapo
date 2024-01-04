@@ -50,11 +50,13 @@ class ControllerCheckoutPaymentAddress extends Controller {
         }
 
 		//print_r($data[ 'addresses' ]); die();
-		//print_r( $data[ 'addresses' ][ 3 ] ); die();
+		//print_r($this->customer->getTelephone()); die();
         //die();
 		for($i = 1; $i <= 20; $i++)
 		  if($data[ 'addresses' ][ $i ])
-		     $adress = $data[ 'addresses' ][ $i ];
+			 $adress = $data[ 'addresses' ][ $i ];
+		  
+			 //print_r($adress); die();
 
 		$address1 = $adress[ 'address_1' ] . ',' . $adress[ 'city' ] . ',' . $adress[ 'country' ];
 		//echo $address1; die();
@@ -85,10 +87,12 @@ class ControllerCheckoutPaymentAddress extends Controller {
             $data[ 'km_zipcode' ] = $this->language->get( 'km_zipcode_no' );
             $data[ 'notice_shipping' ] =  $this->language->get( 'notice_shipping_invalid' );
         } else
-        $data[ 'km_zipcode' ] = $this->language->get( 'km_zipcode_yes' );
-       
-
-        $this->response->setOutput( $this->load->view( 'checkout/payment_address', $data ) );
+		$data[ 'km_zipcode' ] = $this->language->get( 'km_zipcode_yes' );
+		
+		$data['phone'] = $this->customer->getTelephone();
+		$data['email'] = $this->customer->getEmail();
+		  
+       $this->response->setOutput( $this->load->view( 'checkout/payment_address', $data ) );
     }
 
     public function getCoordinatesFromAddress( $address ) {
