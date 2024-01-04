@@ -516,9 +516,9 @@ html[dir=rtl] .breadcrumb > li::after {
 }
 /* list group */
 .list-group a {
-	border: 1px solid #DDDDDD;
+	border: 0px solid #DDDDDD;
 	color: #888888;
-	padding: 8px 12px;
+	padding: 0;
 }
 .list-group a.active, .list-group a.active:hover, .list-group a:hover {
 	color: #444444;
