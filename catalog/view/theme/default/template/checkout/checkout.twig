@@ -334,7 +334,12 @@ alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 });
 
 // Payment Address
-$(document).delegate('#button-payment-address', 'click', function () {
+$(document).delegate('#button-payment-address', 'click', function (e) {
+if(!$('#agree').is(':checked')) {
+	alert('Bitte klicken Sie oben auf das Kontrollkästchen');
+	return;
+}
+
 const form = document.getElementById('uploadForm');
 const formData = new FormData(form);
 

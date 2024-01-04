@@ -4,12 +4,13 @@
   <b>{{ km_zipcode }}</b><br>
   <b>{{ notice_shipping }}</b><br>
   </div>
+  <hr class="my-lg-4 my-3 border-0">
   <div class="upload_file">
     <div class="upload_1">
-    <label>Take a photo of the recipe </label>
-    <input type="file" name="file_1">
+    <a href="javascript:void(0)" class="btn_cta btn btn-lg btn-outline-secondary text-uppercase rounded-0" id="upload_recipe">JETZT REZEPT HOCHLADEN</a>
+    <input class="hide" type="file" name="file_1" id="file_1">
     </div>
-    <div class="upload_2">
+    <div class="upload_2 hide">
     <label>Upload recipe </label>
     <input type="file" name="file_2">
     </div>
@@ -45,7 +46,7 @@
                         </div>
                         <hr class="my-lg-4 my-3 border-0">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input rounded-0 border-secondary" id="dongy">
+                            <input type="checkbox" class="form-check-input rounded-0 border-secondary" id="agree" required>
                             <label class="form-check-label text-secondary" for="dongy">Über die mit * gekennzeichneten Pflichtfelder hinaus sind weitere Angaben freiwillig. Ich stimme zu,
                                 dass meine Angaben aus dem Vorbestellformular zur Bearbeitung meiner Vorbestellung erhoben,
                                 verarbeitet und gespeichert werden. Die Daten werden nach abgeschlossener Bearbeitung Ihrer
@@ -136,6 +137,10 @@
   </div>
 </form>
 <script type="text/javascript"><!--
+$('#upload_recipe').click(function(){
+	  $('#file_1').click();
+  })
+
 $('input[name=\'payment_address\']').on('change', function() {
 	if (this.value == 'new') {
 		$('#payment-existing').hide();
