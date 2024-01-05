@@ -164,6 +164,11 @@ class ControllerProductCategory extends Controller {
 
 			$results = $this->model_catalog_product->getProducts($filter_data);
 
+			if($this->request->get['atb_id'])
+			  $results = $this->model_catalog_product->getProductByAttribute($results, $this->request->get['atb_id']);
+
+			//print_r(count($results)); die();
+
 			foreach ($results as $result) {
 				if ($result['image']) {
 					$image = $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'));

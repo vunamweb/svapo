@@ -29,6 +29,7 @@ class ModelCatalogProduct extends Model {
 				'image'            => $query->row['image'],
 				'manufacturer_id'  => $query->row['manufacturer_id'],
 				'manufacturer'     => $query->row['manufacturer'],
+				'attributes'     => $query->row['attributes'],
 				'price'            => ($query->row['discount'] ? $query->row['discount'] : $query->row['price']),
 				'special'          => $query->row['special'],
 				'reward'           => $query->row['reward'],
@@ -54,6 +55,25 @@ class ModelCatalogProduct extends Model {
 		} else {
 			return false;
 		}
+	}
+
+	public function getProductByAttribute($results, $attribute_id) {
+$response = array();
+
+foreach($results as $result) {
+	$attributes = $result['attributes'];
+
+	try {
+		$attributes = json_decode($attributes);
+} catch(Exception $e) {
+$attributes = array();
+	}
+	
+	if(in_array($attribute_id, $attributes))
+	$response[] = $result;
+}
+
+return $response;
 	}
 
 	public function getProducts($data = array()) {

@@ -43,7 +43,7 @@ class ControllerExtensionModuleCategory extends Controller {
 
 					$name .= '<h4 class="title text1 text-black font_Inter mb-lg-4 mb-2">' . $child[ 'name' ] . '</h4>';
 
-					$name .= $this->model_catalog_category->getCategoryAttribute( $child[ 'category_id' ] );
+					$name .= $this->model_catalog_category->getCategoryAttribute($category[ 'category_id' ], $child[ 'category_id' ] );
 					
 					$name .= '</div>';
 

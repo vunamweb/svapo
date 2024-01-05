@@ -18,6 +18,7 @@ class ControllerCatalogProduct extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('catalog/product');
+		$this->load->model('catalog/attribute');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 			$this->model_catalog_product->addProduct($this->request->post);
@@ -70,6 +71,7 @@ class ControllerCatalogProduct extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('catalog/product');
+		$this->load->model('catalog/attribute');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 			$this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
@@ -1185,6 +1187,9 @@ class ControllerCatalogProduct extends Controller {
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
+
+		$data['list_attributes'] = $this->model_catalog_attribute->getAttributesProduct($this->request->get['product_id']);
+		//print_r($data['list_attributes']); die();
 
 		$this->response->setOutput($this->load->view('catalog/product_form', $data));
 	}

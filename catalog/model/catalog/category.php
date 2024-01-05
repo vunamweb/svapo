@@ -62,10 +62,10 @@ class ModelCatalogCategory extends Model {
         }
     }
 
-    public function getCategoryAttribute( $category_id ) {
+    public function getCategoryAttribute( $parend_id, $child_id ) {
         $response = '<div class="body hstack flex-lg-column align-items-start gap-lg-2 gap-4">';
 
-        $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX . "category WHERE category_id = '" . ( int )$category_id . "'" );
+        $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX . "category WHERE category_id = '" . ( int )$child_id . "'" );
 
         $result = $query->row;
 
@@ -81,7 +81,9 @@ class ModelCatalogCategory extends Model {
             $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX . 'attribute at, ' . DB_PREFIX . "attribute_description atd WHERE at.attribute_group_id = '" . ( int )$item . "' AND at.attribute_id = atd.attribute_id" );
 
             foreach ( $query->rows as $row ) {
-                $response .= '<a href="#" class="text-secondary text2">'.$row[ 'name' ].'</a>';
+                $href = $this->url->link( 'product/category', 'atb_id='.$row["attribute_id"].'&path=' . $parend_id . '_' . $child_id );
+                    
+                $response .= '<a href="'.$href.'" class="text-secondary text2">'.$row[ 'name' ].'</a>';
             }
 
             $response .= '</div>';
