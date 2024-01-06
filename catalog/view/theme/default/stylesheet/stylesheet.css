@@ -521,10 +521,14 @@ html[dir=rtl] .breadcrumb > li::after {
 	padding: 0;
 }
 .list-group a.active, .list-group a.active:hover, .list-group a:hover {
-	color: #444444;
-	background: #eeeeee;
-	border: 1px solid #DDDDDD;
+	color: #FFD800;
+	background: none;
+	border: none;
 	text-shadow: 0 1px 0 #FFF;
+}
+
+a.active .text1 {
+	color: #FFD800 !important;
 }
 /* carousel */
 .carousel-caption {

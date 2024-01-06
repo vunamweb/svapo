@@ -30,6 +30,8 @@ class ControllerExtensionModuleCategory extends Controller {
 
         $categories = $this->model_catalog_category->getCategories( 0 );
 
+        //print_r($categories); die();
+
         foreach ( $categories as $category ) {
             $children_data = array();
 
@@ -39,7 +41,7 @@ class ControllerExtensionModuleCategory extends Controller {
                 foreach ( $children as $child ) {
                     $filter_data = array( 'filter_category_id' => $child[ 'category_id' ], 'filter_sub_category' => true );
 
-					$name = '<div class="item">';
+					$name = '<div class="item item1">';
 
 					$name .= '<h4 class="title text1 text-black font_Inter mb-lg-4 mb-2">' . $child[ 'name' ] . '</h4>';
 
@@ -66,7 +68,7 @@ class ControllerExtensionModuleCategory extends Controller {
 
             $data[ 'categories' ][] = array(
                 'category_id' => $category[ 'category_id' ],
-                'name'        => $category[ 'name' ],
+                'name'        =>  $category[ 'name' ],
                 'children'    => $children_data,
                 'href'        => $this->url->link( 'product/category', 'path=' . $category[ 'category_id' ] )
             );

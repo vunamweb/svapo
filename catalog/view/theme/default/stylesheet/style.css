@@ -257,6 +257,7 @@ textarea.form_cta{
     font-size:calc(1.875rem / var(--ratio));
     line-height:1.83333;
     text-transform: uppercase;
+    clear: left;
 }
 .detail .text3,.detail .text5{
     font-size:calc(0.9375rem / var(--ratio));
@@ -368,6 +369,24 @@ textarea.form_cta{
 
 .hide {
     display: none;
+}
+
+.item.item1 {
+    margin-bottom: 30px;
+}
+
+.name_attribute {
+    display: inline-block;
+    float: left;
+}
+.attribute_product ul li {
+    float: left;
+    padding-right: 10px;
+}
+.attribute_product ul {
+    list-style: none;
+    display: inline-block;
+    float: left;
 }
 /* END */
 @media (max-width: 991.98px) {

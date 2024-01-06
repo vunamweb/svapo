@@ -160,6 +160,11 @@ class ControllerProductProduct extends Controller {
 
 		$product_info = $this->model_catalog_product->getProduct($product_id);
 
+		$data['attributes_list'] = $this->model_catalog_product->getListNameAttributeProduct($product_info['attributes']);
+		$data['category'] = $this->language->get('category');
+		$data['name_atribute'] = $this->language->get('attribute');
+		//print_r($data['attributes']); die();
+
 		//check product page open from cateory page
 		if (isset($this->request->get['path'])) {
 			$parts = explode('_', (string)$this->request->get['path']);
@@ -474,6 +479,12 @@ class ControllerProductProduct extends Controller {
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
+
+			$count = count($data['breadcrumbs']);
+			$data['name_category'] = $data['breadcrumbs'][$count - 2]['text'];
+			//echo $data['name_category']; die();
+
+			//print_r($data['breadcrumbs']); die();
 
 			$this->response->setOutput($this->load->view('product/product', $data));
 		} else {

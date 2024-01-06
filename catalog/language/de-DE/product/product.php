@@ -56,3 +56,7 @@ $_['tab_review']        = 'Bewertungen (%s)';
 $_['error_name']        = 'Name muss zwischen 3 und 25 Zeichen lang sein';
 $_['error_text']        = 'Text muss zwischen 25 und 1000 Zeichen lang sein';
 $_['error_rating']      = 'Bitte eine Bewertung auswählen';
+
+// Category
+$_['category']          = 'Kategorie';  
+$_['attribute']          = 'Attribut';  
