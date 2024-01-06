@@ -443,9 +443,9 @@ input[type="radio"]:active, .radio input[type="radio"]:active, .radio-inline inp
 }
 
 input[type="radio"]:checked, .radio input[type="radio"]:checked, .radio-inline input[type="radio"]:checked, input[type="checkbox"]:checked, .checkbox input[type="checkbox"]:checked, .checkbox-inline input[type="checkbox"]:checked {
-    background: #fff;
+    background: yellow;
 }
-
+.attributes {border:solid 1px #efefef;margin-right:20px; margin-bottom:4px;display:inline-block;padding:0 10px 0 0; min-width: 200px;}
 input[type="radio"], .radio input[type="radio"], .radio-inline input[type="radio"] {
     width: 15px;
     width: 18px \0;

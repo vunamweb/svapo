@@ -105,7 +105,7 @@
                   <input type="text" name="sku" value="{{ sku }}" placeholder="{{ entry_sku }}" id="input-sku" class="form-control"/>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group hide">
                 <label class="col-sm-2 control-label" for="input-upc"><span data-toggle="tooltip" title="{{ help_upc }}">{{ entry_upc }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="upc" value="{{ upc }}" placeholder="{{ entry_upc }}" id="input-upc" class="form-control"/>
@@ -117,19 +117,19 @@
                   <input type="text" name="ean" value="{{ ean }}" placeholder="{{ entry_ean }}" id="input-ean" class="form-control"/>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group hide">
                 <label class="col-sm-2 control-label" for="input-jan"><span data-toggle="tooltip" title="{{ help_jan }}">{{ entry_jan }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="jan" value="{{ jan }}" placeholder="{{ entry_jan }}" id="input-jan" class="form-control"/>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group hide">
                 <label class="col-sm-2 control-label" for="input-isbn"><span data-toggle="tooltip" title="{{ help_isbn }}">{{ entry_isbn }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="isbn" value="{{ isbn }}" placeholder="{{ entry_isbn }}" id="input-isbn" class="form-control"/>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group hide">
                 <label class="col-sm-2 control-label" for="input-mpn"><span data-toggle="tooltip" title="{{ help_mpn }}">{{ entry_mpn }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="mpn" value="{{ mpn }}" placeholder="{{ entry_mpn }}" id="input-mpn" class="form-control"/>
@@ -265,7 +265,7 @@
                     </span></div>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group hide">
                 <label class="col-sm-2 control-label" for="input-length">{{ entry_dimension }}</label>
                 <div class="col-sm-10">
                   <div class="row">
@@ -281,7 +281,7 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group hide">
                 <label class="col-sm-2 control-label" for="input-length-class">{{ entry_length_class }}</label>
                 <div class="col-sm-10">
                   <select name="length_class_id" id="input-length-class" class="form-control">
@@ -307,7 +307,7 @@
                   </select>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group hide">
                 <label class="col-sm-2 control-label" for="input-weight">{{ entry_weight }}</label>
                 <div class="col-sm-10">
                   <input type="text" name="weight" value="{{ weight }}" placeholder="{{ entry_weight }}" id="input-weight" class="form-control"/>
@@ -395,12 +395,13 @@
                 <label class="col-sm-2 control-label" for="input-category"><span data-toggle="tooltip" title="{{ help_category }}">Attributes</span></label>
                 <div class="col-sm-10">
                   {% for attribute in list_attributes %}
-                  {% if attribute.is_select %}
-                    <input class="input_attribute" type="checkbox" name="selected[]" value="{{ attribute.attribute_id }}" checked="checked" />
+                  	<span class="attributes">
+				  {% if attribute.is_select %}
+                    <input class="input_attribute" type="checkbox" name="selected[]" value="{{ attribute.attribute_id }}" id="id{{ attribute.attribute_id }}" checked="checked" />
                     {% else %}
-                    <input class="input_attribute" type="checkbox" name="selected[]" value="{{ attribute.attribute_id }}" />
+                    <input class="input_attribute" type="checkbox" name="selected[]" value="{{ attribute.attribute_id }}" id="id{{ attribute.attribute_id }}" />
                     {% endif %}
-                  {{ attribute.name }}
+                  <label for="id{{ attribute.attribute_id }}">{{ attribute.name }}</label></span>
                 {% endfor %} 
                 </div>
               </div>  

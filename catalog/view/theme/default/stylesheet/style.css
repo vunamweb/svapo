@@ -1,6 +1,6 @@
-.font_Inter{
+/* .font_Inter{
     font-family:'Inter';
-}
+} */
 .color-primary{
     color: var(--color-primary);
 }
@@ -217,7 +217,7 @@ textarea.form_cta{
 .item_sp .text1{
     font-size:calc(2.1875rem / var(--ratio));
     line-height:1.14286;
-    font-family: Inter;
+    /* font-family: Inter; */
     padding:0 calc(0.1875rem / var(--ratio));
     height:calc(5rem / var(--ratio));
     margin-bottom:calc(0.9375rem / var(--ratio));
@@ -241,7 +241,7 @@ textarea.form_cta{
 .box_vang .text1{
     font-size:calc(2.5rem / var(--ratio));
     line-height:1.375;
-    font-weight:300;
+    font-weight:300; text-transform: uppercase;
 }
 .box_vang .text1 strong{
     font-weight:400;
