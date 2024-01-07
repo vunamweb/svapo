@@ -401,6 +401,11 @@
                     {% else %}
                     <input class="input_attribute" type="checkbox" name="selected[]" value="{{ attribute.attribute_id }}" id="id{{ attribute.attribute_id }}" />
                     {% endif %}
+                   {% if attribute.image %}
+                 <img class="icon_attribute" src="../uploads/icon/{{ attribute.image }}">
+                  {% else %}
+                  No Icon
+                  {% endif %}
                   <label for="id{{ attribute.attribute_id }}">{{ attribute.name }}</label></span>
                 {% endfor %} 
                 </div>

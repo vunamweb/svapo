@@ -83,7 +83,7 @@ class ModelCatalogCategory extends Model {
             foreach ( $query->rows as $row ) {
                 $href = $this->url->link( 'product/category', 'atb_id='.$row["attribute_id"].'&path=' . $parend_id . '_' . $child_id );
                     
-                $response .= '<a href="'.$href.'" class="text-secondary text2">'.$row[ 'name' ].'</a>';
+                $response .= '<a href="'.$href.'" class="text-secondary text2"><img class="icon_attribute" src="uploads/icon/'.$row["image"].'"/>'.$row[ 'name' ].'</a>';
             }
 
             $response .= '</div>';

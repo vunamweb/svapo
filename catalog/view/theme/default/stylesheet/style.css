@@ -382,11 +382,24 @@ textarea.form_cta{
 .attribute_product ul li {
     float: left;
     padding-right: 10px;
+    padding-top: 10px;
 }
 .attribute_product ul {
     list-style: none;
     display: inline-block;
     float: left;
+    margin-top: -20px;
+}
+
+.attribute_product {
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.icon_attribute {
+    max-width: 30px;
+    padding-right: 10px;
 }
 /* END */
 @media (max-width: 991.98px) {

@@ -20,6 +20,8 @@ class ControllerCatalogAttribute extends Controller {
 		$this->load->model('catalog/attribute');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+			$this->uploadFile();
+
 			$this->model_catalog_attribute->addAttribute($this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -44,6 +46,20 @@ class ControllerCatalogAttribute extends Controller {
 		$this->getForm();
 	}
 
+	public function uploadFile() {
+		$targetDirectory = "../uploads/icon/"; // Directory where uploaded files will be saved
+		$targetFile = $targetDirectory . basename($_FILES["icon"]["name"]); // Get the file name
+		
+		// Try to upload the file
+			if (move_uploaded_file($_FILES["icon"]["tmp_name"], $targetFile)) {
+				echo "The file ". basename( $_FILES["icon"]["name"]). " has been uploaded.";
+				//$this->session->data['upload_file'] = $_FILES["file_1"]["name"];
+				//$_SESSION['upload_file'] = 'naddd'; //$_FILES["file_1"]["tmp_name"];
+			} else {
+				echo "Sorry, there was an error uploading your file.";
+			}
+    }
+
 	public function edit() {
 		$this->load->language('catalog/attribute');
 
@@ -52,6 +68,9 @@ class ControllerCatalogAttribute extends Controller {
 		$this->load->model('catalog/attribute');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+
+			$this->uploadFile();
+
 			$this->model_catalog_attribute->editAttribute($this->request->get['attribute_id'], $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -175,6 +194,7 @@ class ControllerCatalogAttribute extends Controller {
 			$data['attributes'][] = array(
 				'attribute_id'    => $result['attribute_id'],
 				'name'            => $result['name'],
+				'image'            => $result['image'],
 				'attribute_group' => $result['attribute_group'],
 				'sort_order'      => $result['sort_order'],
 				'edit'            => $this->url->link('catalog/attribute/edit', 'user_token=' . $this->session->data['user_token'] . '&attribute_id=' . $result['attribute_id'] . $url, true)

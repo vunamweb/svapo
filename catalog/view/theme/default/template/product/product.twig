@@ -20,7 +20,7 @@
 						<p class="name_attribute">{{ name_atribute }}:</p>
 						<ul>
 						{% for attribute in attributes_list %}
-						<li>{{ attribute }}</li>
+						<li><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute"/>{{ attribute.name }}</li>
 						{% endfor %}
 						</ul>
 						</div>
