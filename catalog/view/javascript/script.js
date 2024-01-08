@@ -117,6 +117,35 @@ function callPopup(url) {
     });
 }
 $(function () {
+    $('.filter_attribute').click(function(){
+        var listAttribute = '';
+
+        $('.filter_attribute').each(function(){
+            if($(this).is(':checked'))
+            listAttribute = listAttribute + $(this).attr('data') + ',';
+        })
+
+        var currentURL = window.location.href;
+        //alert(currentURL);
+
+        $('.row.row_sp').hide();
+        $('.loading').show();
+
+        $.ajax({
+            url: currentURL + '?filter_atb=true' + '&atb_id=' +listAttribute,  // URL to fetch data from
+            method: 'GET', // HTTP method
+            success: function(data) {
+               $('.row.row_sp').html(data);
+               $('.row.row_sp').show();
+               $('.loading').hide();
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                console.error(status + ": " + error); // Log error to console
+            }
+        });
+    })
+
     $("#loader").show().delay(1000).fadeOut("fast");
     if($(".nav3").length){
         $('.nav3').appendTo('header');

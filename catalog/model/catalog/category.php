@@ -53,7 +53,7 @@ class ModelCatalogCategory extends Model {
     }
 
     public function getCategoryLayoutId( $category_id ) {
-        $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX . "category_to_layout WHERE category_id = '" . ( int )$category_id . "' AND store_id = '" . ( int )$this->config->get( 'config_store_id' ) . "'" );
+        $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX. "category_to_layout WHERE category_id = '" . ( int )$category_id . "' AND store_id = '" . ( int )$this->config->get( 'config_store_id' ) . "'" );
 
         if ( $query->num_rows ) {
             return ( int )$query->row[ 'layout_id' ];
@@ -62,34 +62,55 @@ class ModelCatalogCategory extends Model {
         }
     }
 
-    public function getCategoryAttribute( $parend_id, $child_id ) {
-        $response = '<div class="body hstack flex-lg-column align-items-start gap-lg-2 gap-4">';
+    public function getAttributeGroups( $data = array() ) {
+        $sql = 'SELECT * FROM ' . DB_PREFIX . 'attribute_group ag LEFT JOIN ' . DB_PREFIX . "attribute_group_description agd ON (ag.attribute_group_id = agd.attribute_group_id) WHERE ag.attribute_group_id <> 12 and ag.attribute_group_id <> 14 and agd.language_id = '" . ( int )$this->config->get( 'config_language_id' ) . "'";
 
-        $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX . "category WHERE category_id = '" . ( int )$child_id . "'" );
+        $sort_data = array(
+            'agd.name',
+            'ag.sort_order'
+        );
 
-        $result = $query->row;
-
-        $attributes = $result[ 'attributes' ];
-
-        try {
-            $attributes = json_decode( $attributes );
-        } catch( Exception $e ) {
-            $attributes = array();
+        if ( isset( $data[ 'sort' ] ) && in_array( $data[ 'sort' ], $sort_data ) ) {
+            $sql .= ' ORDER BY ' . $data[ 'sort' ];
+        } else {
+            $sql .= ' ORDER BY agd.name';
         }
 
-        foreach ( $attributes as $item ) {
-            $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX . 'attribute at, ' . DB_PREFIX . "attribute_description atd WHERE at.attribute_group_id = '" . ( int )$item . "' AND at.attribute_id = atd.attribute_id" );
+        if ( isset( $data[ 'order' ] ) && ( $data[ 'order' ] == 'DESC' ) ) {
+            $sql .= ' DESC';
+        } else {
+            $sql .= ' ASC';
+        }
 
-            foreach ( $query->rows as $row ) {
-                $href = $this->url->link( 'product/category', 'atb_id='.$row["attribute_id"].'&path=' . $parend_id . '_' . $child_id );
-                    
-                $response .= '<a href="'.$href.'" class="text-secondary text2"><img class="icon_attribute" src="uploads/icon/'.$row["image"].'"/>'.$row[ 'name' ].'</a>';
+        if ( isset( $data[ 'start' ] ) || isset( $data[ 'limit' ] ) ) {
+            if ( $data[ 'start' ] < 0 ) {
+                $data[ 'start' ] = 0;
             }
 
-            $response .= '</div>';
+            if ( $data[ 'limit' ] < 1 ) {
+                $data[ 'limit' ] = 20;
+            }
+
+            $sql .= ' LIMIT ' . ( int )$data[ 'start' ] . ',' . ( int )$data[ 'limit' ];
         }
 
-        return $response;
+        $query = $this->db->query( $sql );
+
+        return $query->rows;
+    }
+
+    public function getCategoryAttribute($attribute_group_id) {
+        $response = '<div class="body hstack flex-lg-column align-items-start gap-lg-2 gap-4">';
+
+        $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX . "attribute a, ".DB_PREFIX."attribute_description ad WHERE a.attribute_id = ad.attribute_id and a.attribute_group_id = '" . ( int )$attribute_group_id . "'" );
+
+        foreach ( $query->rows as $row ) {
+            $response .= '<a href="javascript:void(0)" class="text-secondary text2"><input type="checkbox" class="filter_attribute" data="'.$row['attribute_id'].'"/>'.$row[ 'name' ].'</a>';
+        }
+
+        $response .= '</div>';
+        
+return $response;
     }
 
     public function getTotalCategoriesByCategoryId( $parent_id = 0 ) {

@@ -155,10 +155,12 @@ textarea.form_cta{
 .feature{
     text-align:center;
 }
+.text1 h1,
 .section_mid .text1{
     font-size:calc(6.25rem / var(--ratio));
     text-align: center;
 }
+.feature .text2 h2,
 .feature .text2{
     font-size:calc(3.4375rem / var(--ratio));
     line-height:1;
@@ -174,7 +176,10 @@ textarea.form_cta{
 }
 .section_bot{
     height:calc(58.375rem / var(--ratio));
-    margin-bottom:calc(8.56rem / var(--ratio));
+    margin:calc(8.56rem / var(--ratio)) 0;
+}
+.section_pharma {
+	margin:calc(8.56rem / var(--ratio)) 0;
 }
 .feature .image_thumb{
     max-width:calc(44.8125rem / var(--ratio));
@@ -400,6 +405,16 @@ textarea.form_cta{
 .icon_attribute {
     max-width: 30px;
     padding-right: 10px;
+}
+
+.filter_attribute {
+    margin-right: 10px;
+}
+
+.loading {
+    margin-left: 50%;
+    display: none;
+    font-size: 3em;
 }
 /* END */
 @media (max-width: 991.98px) {

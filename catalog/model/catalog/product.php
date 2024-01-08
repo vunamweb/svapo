@@ -81,8 +81,14 @@ class ModelCatalogProduct extends Model {
 
     public function getProductByAttribute( $results, $attribute_id ) {
         $response = array();
+        
+        $attribute_id = explode(',', $attribute_id);
+
+        //print_r($results[50]); die();
 
         foreach ( $results as $result ) {
+            $check = true;
+
             $attributes = $result[ 'attributes' ];
 
             try {
@@ -91,9 +97,19 @@ class ModelCatalogProduct extends Model {
                 $attributes = array();
             }
 
-            if ( in_array( $attribute_id, $attributes ) )
+            //if($result['product_id'] == 50)
+            //print_r($result[50]['attributes']); die();
+
+            foreach($attribute_id as $id)
+              if($id != '' && !in_array($id, $attributes))
+                $check = false;  
+
+            //if(true)
+            if ($check)
             $response[] = $result;
         }
+
+        //print_r($attribute_id); die();
 
         return $response;
     }

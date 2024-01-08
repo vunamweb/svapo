@@ -374,7 +374,11 @@ class ControllerProductCategory extends Controller {
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
 
+			if(!$this->request->get['filter_atb'])
 			$this->response->setOutput($this->load->view('product/category', $data));
+			else {
+				$this->response->setOutput($this->load->view('product/category_filter', $data));
+			}
 		} else {
 			$url = '';
 

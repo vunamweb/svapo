@@ -28,24 +28,16 @@ class ControllerExtensionModuleCategory extends Controller {
 
         $data[ 'categories' ] = array();
 
-        $categories = $this->model_catalog_category->getCategories( 0 );
+        $categories = $this->model_catalog_category->getAttributeGroups();
 
         //print_r($categories); die();
 
         foreach ( $categories as $category ) {
-            $children_data = array();
+            $name = '<div class="item item1">';
 
-            if ( $category[ 'category_id' ] == $data[ 'category_id' ] ) {
-                $children = $this->model_catalog_category->getCategories( $category[ 'category_id' ] );
+					$name .= '<h4 class="title text1 text-black font_Inter mb-lg-4 mb-2">' . $category[ 'name' ] . '</h4>';
 
-                foreach ( $children as $child ) {
-                    $filter_data = array( 'filter_category_id' => $child[ 'category_id' ], 'filter_sub_category' => true );
-
-					$name = '<div class="item item1">';
-
-					$name .= '<h4 class="title text1 text-black font_Inter mb-lg-4 mb-2">' . $child[ 'name' ] . '</h4>';
-
-					$name .= $this->model_catalog_category->getCategoryAttribute($category[ 'category_id' ], $child[ 'category_id' ] );
+					$name .= $this->model_catalog_category->getCategoryAttribute($category[ 'attribute_group_id' ]);
 					
 					$name .= '</div>';
 
@@ -53,13 +45,13 @@ class ControllerExtensionModuleCategory extends Controller {
 
                     //echo $this->model_catalog_category->getCategoryAttribute( $child[ 'category_id' ] );
 
-                    $children_data[] = array(
+                    /*$children_data[] = array(
                         'category_id' => $child[ 'category_id' ],
                         'name' => $name,
                         'href' => $this->url->link( 'product/category', 'path=' . $category[ 'category_id' ] . '_' . $child[ 'category_id' ] )
-                    );
-                }
-            }
+                    );*/
+                
+            
 
             $filter_data = array(
                 'filter_category_id'  => $category[ 'category_id' ],
@@ -68,7 +60,7 @@ class ControllerExtensionModuleCategory extends Controller {
 
             $data[ 'categories' ][] = array(
                 'category_id' => $category[ 'category_id' ],
-                'name'        =>  $category[ 'name' ],
+                'name'        => $name, //$category[ 'name' ],
                 'children'    => $children_data,
                 'href'        => $this->url->link( 'product/category', 'path=' . $category[ 'category_id' ] )
             );

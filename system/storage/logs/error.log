@@ -29,3 +29,4 @@
 2023-12-22 7:51:41 - PHP Notice:  Undefined index: en-gb in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/startup/startup.php on line 129
 2023-12-22 7:51:41 - PHP Notice:  Trying to access array offset on value of type null in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/startup/startup.php on line 129
 2023-12-22 7:51:41 - PHP Notice:  Undefined index: menu_morpheus in /var/www/vhosts/morpheus-cms.de/httpdocs/pharmacy/catalog/controller/common/menu.php on line 46
+2024-01-08 3:55:53 - PHP Warning:  unlink(/Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/storage/cache/cache.admin.language.1704627267): No such file or directory in /Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/library/cache/file.php on line 17
