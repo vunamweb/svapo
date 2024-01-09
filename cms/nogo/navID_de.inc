@@ -1,1 +1,1 @@
-<?php $navID = array(2=>"ueber-uns/", 4=>"presse/", 6=>"kontakt/", 7=>"impressum/", 8=>"datenschutz/", 20=>"jobs/", 21=>"partner/", 23=>"hofladen/", 31=>"wissenwertes/", 39=>"footer-spalte-1/", 24=>"hofladen/lexikon/", 25=>"hofladen/obstsortenbestand/", 27=>"hofladen/oeffnungszeiten-hofladen/", 32=>"wissenwertes/was-ist-apfelwein/", 33=>"wissenwertes/wie-trinkt-man-apfelwein/"); ?>
+<?php $navID = array(2=>"hometest/"); ?>
