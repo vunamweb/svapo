@@ -87,7 +87,7 @@ define('FOOTER', '
 	</table>');
 	
  // MORPHEUS
-define('MORPHEUS_HOMEPAGE', ['warum/', 'wie/']);
+define('MORPHEUS_HOMEPAGE', ['hometest/']);
 
 // API KEY
 define('API_KEY', 'AIzaSyAV4OcIzXCzfe8hQXYLXi_vnZ4jvLP7Ztc');

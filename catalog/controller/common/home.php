@@ -20,7 +20,7 @@ class ControllerCommonHome extends Controller {
 		
 		//print_r($data['content_top']); die();
 
-		$data['content_bottom'] = $this->load->controller('common/content_bottom');
+		/*$data['content_bottom'] = $this->load->controller('common/content_bottom');
 		$data['content_bottom_1'] = $data['content_bottom'][0];
 		$data['content_bottom_2'] = $data['content_bottom'][1];
 		$data['content_bottom_3'] = $data['content_bottom'][2];
@@ -29,21 +29,16 @@ class ControllerCommonHome extends Controller {
 		$data['content_bottom_6'] = $data['content_bottom'][5];
 		$data['content_bottom_7'] = $data['content_bottom'][6];
 		$data['content_bottom_8'] = $data['content_bottom'][7];
-		$data['content_bottom_9'] = $data['content_bottom'][8];
+		$data['content_bottom_9'] = $data['content_bottom'][8];*/
 		
         $data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
 
 		// GET MORPHEUS'S CONTENT
 		$arrayContent = MORPHEUS_HOMEPAGE;
-		$content = '';
-        $language = 'de/';
+		$language = 'de/';
 
-        $content = '<div class="paralax fadeOut"><h2>Warum</h2><h1>Für ein gesundes Heranwachsen Ihres Kindes</h1></div><br><br><br>';
-
-		$count = 0;
-
-		foreach($arrayContent as $item) {
+        foreach($arrayContent as $item) {
 			$urlMorpheus = $item;
 			$urlMorpheus = HTTP_SERVER . 'cms/' . $language . $urlMorpheus;
 			//echo $urlMorpheus; die();
@@ -54,15 +49,8 @@ class ControllerCommonHome extends Controller {
 
 			//print_r($objectMorpheus); die();
 			$contentMorpheus = $objectMorpheus->message;
-			
-			if($count == 0)
-			  $data['content_morpheus_top'] = '<div class="fadeOut">' . $contentMorpheus . '<br><br></div>';
-			else 
-			  $data['content_morpheus_bottom'] = '<div class="fadeOut">' . $contentMorpheus . '<br><br></div>';
-			
-			$count++;  
 
-            //$content .= '<div class="fadeOut">' . $contentMorpheus . '<br><br></div>';
+			$data['content_morpheus'] = $contentMorpheus;
 		}
 
 		//$data['content_morpheus'] = $content;
