@@ -33,13 +33,13 @@ class ControllerExtensionModuleCategory extends Controller {
         //print_r($categories); die();
 
         foreach ( $categories as $category ) {
-            $name = '<div class="item item1">';
+            $name = '<div class="item item-cat">';
 
-					$name .= '<h4 class="title text1 text-black font_Inter mb-lg-4 mb-2">' . $category[ 'name' ] . '</h4>';
+				$name .= '<h4 class="title text1 text-black categoryHL font_Inter ' . $category[ 'name' ] . '">' . $category[ 'name' ] . '</h4>';
 
-					$name .= $this->model_catalog_category->getCategoryAttribute($category[ 'attribute_group_id' ]);
+				$name .= $this->model_catalog_category->getCategoryAttribute($category[ 'attribute_group_id' ]);
 					
-					$name .= '</div>';
+			$name .= '</div>';
 
 					//$name = 'ndd';
 

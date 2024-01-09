@@ -66,14 +66,14 @@ class ModelCatalogCategory extends Model {
         $sql = 'SELECT * FROM ' . DB_PREFIX . 'attribute_group ag LEFT JOIN ' . DB_PREFIX . "attribute_group_description agd ON (ag.attribute_group_id = agd.attribute_group_id) WHERE ag.attribute_group_id <> 12 and ag.attribute_group_id <> 14 and agd.language_id = '" . ( int )$this->config->get( 'config_language_id' ) . "'";
 
         $sort_data = array(
-            'agd.name',
-            'ag.sort_order'
+            'ag.sort_order',
+            'agd.name'
         );
 
         if ( isset( $data[ 'sort' ] ) && in_array( $data[ 'sort' ], $sort_data ) ) {
             $sql .= ' ORDER BY ' . $data[ 'sort' ];
         } else {
-            $sql .= ' ORDER BY agd.name';
+            $sql .= ' ORDER BY ag.sort_order, agd.name';
         }
 
         if ( isset( $data[ 'order' ] ) && ( $data[ 'order' ] == 'DESC' ) ) {
@@ -100,12 +100,13 @@ class ModelCatalogCategory extends Model {
     }
 
     public function getCategoryAttribute($attribute_group_id) {
-        $response = '<div class="body hstack flex-lg-column align-items-start gap-lg-2 gap-4">';
+        // $response = '<div class="body hstack flex-lg-column align-items-start ">';
+		$response = '<div class="body">';
 
         $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX . "attribute a, ".DB_PREFIX."attribute_description ad WHERE a.attribute_id = ad.attribute_id and a.attribute_group_id = '" . ( int )$attribute_group_id . "'" );
 
         foreach ( $query->rows as $row ) {
-            $response .= '<a href="javascript:void(0)" class="text-secondary text2"><input id="check_'.$row['attribute_id'].'" type="checkbox" class="filter_attribute" data="'.$row['attribute_id'].'"/><label class="label_atb" for="check_'.$row['attribute_id'].'">'.$row[ 'name' ].'</label></a>';
+            $response .= '<a href="javascript:void(0)" class="text-secondary text2 no-wrap"><input id="check_'.$row['attribute_id'].'" type="checkbox" class="filter_attribute" data="'.$row['attribute_id'].'"/><label class="label_atb" for="check_'.$row['attribute_id'].'">'.$row[ 'name' ].'</label></a>';
         }
 
         $response .= '</div>';
