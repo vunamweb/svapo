@@ -70,20 +70,31 @@
 				<div class="container-fluid">
 					<div class="collapse navbar-collapse" id="navbarsMain">
 						<ul class="navbar-nav">
-							<li class="nav-item">
-								<a class="nav-link" href="./vorbestellen">REZEPT HOCHLADEN</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="./register">KONTO ERSTELLEN</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="./shop">Shop</a>
-							</li>
 							{% if logged %}
-			<li class="nav-item">
-								<a class="nav-link" href="./logout">Abmelden</a>
+								<li class="nav-item">
+									<a class="nav-link" href="./vorbestellen">REZEPT HOCHLADEN</a>
+								</li>								
+								<li class="nav-item">
+									<a class="nav-link" href="./index.php?route=account/account">MEIN KONTO</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="./logout">ABMELDEN</a>
+								</li>
+							{% else %}
+								<li class="nav-item">
+									<a class="nav-link" href="./login">REZEPT HOCHLADEN</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="./login">LOGIN</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="./register">KONTO ERSTELLEN</a>
+								</li>
+							{% endif %}
+							
+							<li class="nav-item">
+								<a class="nav-link" href="./shop">SHOP</a>
 							</li>
-		{% endif %}
 							{{ menu_morpheus }}
 							<li class="nav-item">
 								<a class="nav-link" href="#">WHATSAPP CHAT<img class="icon_whatsapp ms-3" src="image/whatsapp.svg" alt=""></a>

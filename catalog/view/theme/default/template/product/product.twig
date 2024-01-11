@@ -11,71 +11,93 @@
                         <div class="text3 mb-2"><a href="#">ZURÜCK</a></div>
                         <div class="mb-lg-5 pb-3"><a class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a></div>
                         <div class="mb-lg-4 mb-2"><a class="btn btn_cta btn-warning ">JETZT Rezept hochladen</a></div>
-                        <div class="mb-lg-5 mb-4"><a class="btn btn_cta btn-warning disabled">IN DEN WARENKORB</a></div>
+                        <!--<div class="mb-lg-5 mb-4"><a class="btn btn_cta btn-warning disabled">IN DEN WARENKORB</a></div>-->
+						
+						<hr>	
+						
+						<div class="attribute_product">
+							<!--<p class="name_attribute">{{ name_atribute }}:</p>-->
+							<ul>
+								{% for attribute in attributes_list %}
+									{% if attribute.image is not empty %}
+										<li class="icon"><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute"/>{{ attribute.name }}</li>
+									{% else %}
+										<li>{{ attribute.name }}</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
                     </div>
+					
                     <div class="col-lg-6 col-right ps-lg-5">
                         <div class="text1 mb-lg-4 mb-3">{{ heading_title }}</div>
-						<p class="name_category">{{ category }} :   {{ name_category }}</p>
-						<div class="attribute_product">
-						<p class="name_attribute">{{ name_atribute }}:</p>
-						<ul>
-						{% for attribute in attributes_list %}
-						<li><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute"/>{{ attribute.name }}</li>
-						{% endfor %}
-						</ul>
-						</div>
+						<!-- <p class="name_category">{{ category }} :   {{ name_category }}</p> -->
                         {% if price %}
-          {% if login %}
-          <ul class="list-unstyled">
-            {% if not special %}
-            <li>
-              <h2>{{ price }}</h2>
-            </li>
-            {% else %}
-            <li><span style="text-decoration: line-through;">{{ price }}</span></li>
-            <li>
-              <h2>{{ special }}</h2>
-            </li>
-            {% endif %}
-            {% if tax %}
-            <li>{{ text_tax }} {{ tax }}</li>
-            {% endif %}
-            {% if points %}
-            <li>{{ text_points }} {{ points }}</li>
-            {% endif %}
-            {% if discounts %}
-            <li>
-              <hr>
-            </li>
-            {% for discount in discounts %}
-            <li>{{ discount.quantity }}{{ text_discount }}{{ discount.price }}</li>
-            {% endfor %}
-            {% endif %}
-          </ul>
-          {% endif %}
-          {% endif %}
-                        <div class="text2 mb-lg-4 mb-3">Preis erst nach Freigabe sichtbar</div>
-                        <div class="text3 mb-lg-2 mb-1 font_Inter">BESCHREIBUNG</div>
+          					{% if login %}
+          					<ul class="list-unstyled">
+            					{% if not special %}
+            					<li>
+              						<h2>{{ price }}</h2>
+            					</li>
+            					{% else %}
+            					<li>
+									<span style="text-decoration: line-through;">{{ price }}</span></li>
+            					<li>
+              						<h2>{{ special }}</h2>
+            					</li>
+            					{% endif %}
+            				<!--
+								{% if tax %}
+            					<li>{{ text_tax }} {{ tax }}</li>
+            					{% endif %}
+							-->
+            					{% if points %}
+            						<li>{{ text_points }} {{ points }}</li>
+            					{% endif %}
+            					{% if discounts %}
+            					<li>
+              						<hr>
+            					</li>
+            						{% for discount in discounts %}
+            						<li>{{ discount.quantity }}{{ text_discount }}{{ discount.price }}</li>
+            						{% endfor %}
+            					{% endif %}
+          					</ul>
+							{% else %}
+                        		<div class="text2 mb-lg-4 mb-3">Preis erst nach Freigabe sichtbar</div>
+          					{% endif %}
+      					{% endif %}
+						  
+                        <!--<div class="text3 mb-lg-2 mb-1 font_Inter">BESCHREIBUNG</div>-->												
+						
                         <div class="text4 mb-lg-5 mb-4 font_Inter text-black">
                         <table class="table table-bordered">
-                {% for attribute_group in attribute_groups %}
-                <thead>
-                  <tr>
-                    <td colspan="2"><strong>{{ attribute_group.name }}</strong></td>
-                  </tr>
-                </thead>
-                <tbody>
-                {% for attribute in attribute_group.attribute %}
-                <tr>
-                  <td>{{ attribute.name }}</td>
-                  <td>{{ attribute.text }}</td>
-                </tr>
-                {% endfor %}
-                  </tbody>
-                {% endfor %}
-              </table>
+                			{% for attribute_group in attribute_groups %}
+                				<!-- 
+								<thead>
+                  					<tr>
+                    					<td colspan="2"><strong>{{ attribute_group.name }}</strong></td>
+                  					</tr>
+                				</thead>
+								-->
+                				<tbody>
+                				{% for attribute in attribute_group.attribute %}
+                					<tr>
+                  						<td>{{ attribute.name }}</td>
+                  						<td>{{ attribute.text }}</td>
+                					</tr>
+                				{% endfor %}
+									<tr>
+										  <td>Kultivar</td>
+										  <td>{{ manufacturer }}</td>
+									</tr>
+                  			</tbody>
+                			{% endfor %}
+              			</table>
+						  
                         </div>
-                        <div class="text5 text-uppercase">
+                        
+						<div class="text5 text-uppercase">
                             DETAILIERTE INFORMATIONEN
                         </div>
                         <hr class="my-lg-3 my-2">
