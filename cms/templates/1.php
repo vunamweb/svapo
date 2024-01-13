@@ -25,11 +25,11 @@ if($lastUsedTemplateID && $lastUsedTemplateID != $fileID && !$templateIsClosed) 
 
 
 if($tref == 1 || !$tref) $template = '
-<section'.($anker ? ' id="'.$anker.'"' : '').' class="obsthof '.$klasse.' '.($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').($class ? $class.' bg-color' : '').'"'.($farbe ? ' style="background:#'.$farbe.'"' : $video_special).'>
+<section'.($anker ? ' id="'.$anker.'"' : '').' class="section_pharma '.$klasse.' '.($tabstand ? ' pt-0 ' : '').($tabstand_bottom? ' pb-0 ' : '').($class ? $class.' bg-color' : '').'"'.($farbe ? ' style="background:#'.$farbe.'"' : $video_special).'>
 
 '.$date_box.'
 
-  <div class="'.$edit_mode_class.'container '.($class_inner ? $class_inner.' col-inner ' : '').($tabstand ? ' pt0 ' : '').''.($tabstand_bottom? ' pb0 ' : '').'"'.($bgIMG ? ' style="background:url('.$bgIMG.') no-repeat fixed; background-size: cover; padding-top:2em; padding-bottom:2em;"' : '').'>
+  <div class="'.$edit_mode_class.'container '.($class_inner ? $class_inner.' col-inner ' : '').($tabstand ? ' pt-0 ' : '').''.($tabstand_bottom? ' pb-0 ' : '').'"'.($bgIMG ? ' style="background:url('.$bgIMG.') no-repeat fixed; background-size: cover; padding-top:2em; padding-bottom:2em;"' : '').'>
         <div class="row">
             <div class="col-12'.($linkbox ? ' linkbox' : '').'"'.($linkbox ? ' id="lb'.$content_id.'" ref="'.$linkbox.'"'.($extLink ? ' data-extern="1"' : '') : '').($farbe_inner ? ' style="background:#'.$farbe_inner.'"' : '').'>
 <div id="'.$uniqueID.'" class="directeditmode">
@@ -43,7 +43,7 @@ if($tref == 1 || !$tref) $template = '
 </section>
 ';
 elseif($tref == 2) $template = '
-<section'.($anker ? ' id="'.$anker.'"' : '').' class="obsthof '.$klasse.' '.($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').($class ? $class.' bg-color' : '').'"'.($farbe ? ' style="background:#'.$farbe.'"' : $video_special).'>
+<section'.($anker ? ' id="'.$anker.'"' : '').' class="section_pharma '.$klasse.' '.($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').($class ? $class.' bg-color' : '').'"'.($farbe ? ' style="background:#'.$farbe.'"' : $video_special).'>
 	<div class="'.$edit_mode_class.'container '.($tabstand ? ' pt0 ' : '').''.($tabstand_bottom? ' pb0 ' : '').'"'.($bgIMG ? ' style="background:url('.$bgIMG.') no-repeat fixed; background-size: cover; padding-top:2em; padding-bottom:2em;"' : '').'>
         <div class="row">
             <div class="col-12 text-center'.($linkbox ? ' linkbox' : '').'"'.($linkbox ? ' id="lb'.$content_id.'" ref="'.$linkbox.'"'.($extLink ? ' data-extern="1"' : '') : '').($farbe_inner ? ' style="background:#'.$farbe_inner.'"' : '').'>
@@ -55,7 +55,7 @@ elseif($tref == 2) $template = '
 </section>
 ';
 elseif($tref == 3) $template = '
-<section'.($anker ? ' id="'.$anker.'"' : '').' class="obsthof balken text-center '.$klasse.' '.($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').($class ? $class.' bg-color' : '').'"'.($farbe ? ' style="background:#'.$farbe.'"' : $video_special).'>
+<section'.($anker ? ' id="'.$anker.'"' : '').' class="section_pharma balken text-center '.$klasse.' '.($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').($class ? $class.' bg-color' : '').'"'.($farbe ? ' style="background:#'.$farbe.'"' : $video_special).'>
 	<div class="'.$edit_mode_class.'container-fluid fs '.($tabstand ? ' pt0 ' : '').''.($tabstand_bottom? ' pb0 ' : '').'"'.($bgIMG ? ' style="background:url('.$bgIMG.') no-repeat; background-size: cover; padding-top:2em; padding-bottom:2em;"' : '').'>
         <div class="row">
             <div class="col-12'.($linkbox ? ' linkbox' : '').'"'.($linkbox ? ' id="lb'.$content_id.'" ref="'.$linkbox.'"'.($extLink ? ' data-extern="1"' : '') : '').($farbe_inner ? ' style="background:#'.$farbe_inner.'"' : '').'>

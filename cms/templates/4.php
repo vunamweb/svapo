@@ -2,47 +2,25 @@
 /* pixel-dusche.de */
 
 global $hl,$uniqueID, $button, $imgSize, $imgClass, $template4count, $templateTotal;
-global $fileID, $lastUsedTemplateID, $anker, $content_right, $bgIMG, $personenDIV;
+global $fileID, $lastUsedTemplateID, $anker, $content_right, $grIMG, $personenDIV, $ext_link;
 
 $fileID = basename(__FILE__, '.php');
 $lastUsedTemplateID = $fileID;
 
 $edit_mode_class = 'container_edit ';
 
-if(!$personenDIV) $personenDIV = 1;
-else $personenDIV++;
-
-if(!$template4count || $template4count < 1) {
-	$sql = "SELECT cid FROM morp_cms_content WHERE tid=$fileID AND navid=$cid AND ton=1 ORDER by tpos";
-	$res = safe_query($sql);
-	$templateTotal = mysqli_num_rows($res);
-	$template4count = 1;
-}
-else $template4count++;
-
 $template = '
-	    '.($personenDIV < 2 ? '<section style="background:url('.$bgIMG.');background-repeat:no-repeat;">' : '').'
-            <div class="'.$edit_mode_class.'container"'.($anker ? ' id="'.$anker.'"' : '').'>
-                <div class="row bg-text shdow personen">
-                    <div><hr></div>
-					<div class="col-12 col-lg-6">
-						#cont#
-                    </div>
-					<div class="col-12 col-lg-6">
-						'.$content_right.'
-                    </div>
-                </div>
-            '.edit_bar($content_id,"edit_class").'
-            </div>';
- 
-if(($template4count == $templateTotal || $tende) && !$templateIsClosed) {
-	 $template .= '			 
-		</section>
- ';
-	 $template4count = 0;
-	 $templateTotal = 0;
-	 $templateIsClosed = 1;
-}
+<section class="section_bot">
+	<div class="container h-100">
+		<div class="row g-0 h-100 align-items-center">
+			<div class="text1 z-1 position-relative text-white fw-bold text-center text-uppercase">
+			<a href="'.$ext_link.'">#cont#</a>
+			</div>
+		</div>
+		<a href="'.$ext_link.'"><img class="image position-absolute w-100 h-100 top-0 start-0" src="'.$grIMG.'" alt=""></a>
+	</div>
+</section>
+';
   
 $hl = '';
 $button = '';
