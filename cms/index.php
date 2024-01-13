@@ -35,7 +35,7 @@ $track = isset($_COOKIE["marketing"]) ? 1 : 0;
 // phpinfo();
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 global $dir, $navarray, $nav_h, $nav_s, $navarrayFULL, $SID, $lightbox, $lang, $lan, $hn, $sn2, $nid, $ns, $waehrung, $thwg, $product_show, $wg_txt, $navID, $img_pfad, $uri, $print, $imageFolder;
-global $news_headl, $news_back, $tcolor, $mindflashID, $kompetenz, $komp_col, $lokal_pfad, $sub1_id, $qSET, $IAMIN, $urlencode, $multilang, $relative_path, $relative_url, $profile, $ipad;
+global $news_headl, $news_back, $tcolor, $mindflashID, $kompetenz, $komp_col, $lokal_pfad, $sub1_id, $qSET, $IAMIN, $urlencode, $multilang, $relative_path, $relative_url, $profile, $ipad, $shopurl;
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 // .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
@@ -119,13 +119,16 @@ if ($browser == "ie") {
 }
 /////////////////////////////////////////////////////////////////////////////////
 
-if(file_exists("lokal.dat")) $dir = $morpheus["local"];
-else $dir = $morpheus["url"];
-
+$dir = $morpheus["url"];
 $img_pfad = $dir."images/userfiles/image/";
 $imageFolder = $morpheus["imageFolder"];
-// $imageFolder = "images/userfiles/image/";
+$shopurl = $morpheus["shopurl"];
 $lokal_pfad = '';
+$is_logged = false;
+
+if(isset($_COOKIE['user_login'])) {
+	if($_COOKIE['user_login'] ==1) $is_logged=1;
+}
 /*
 $count_tiefe = explode('/', $uri);
 $count_tiefe = count($count_tiefe)-$morpheus["ebene"];  // -2 weil anfang und endslash im array sind
@@ -485,24 +488,11 @@ if ($aktivierung && $reset) {
 	die();
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-// .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-// .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
 // .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
 // .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
 //     2   HAUPTNAVIGATION
 // .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
 // .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-// .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-// .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-
-
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 // hauptnavigation
@@ -595,257 +585,14 @@ while ($row = mysqli_fetch_object($res)) {
 // _____ hauptnavi
 
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-// subnavigation
-# es werden alle ebenen der subnav ausgelesen
-
-$parent_arr = array(1=>$hn_id);
-$set_lnk 	= eliminiere($hn)."/";
-
-$sn2 = ''; $sn3 = ''; $sn4 = ''; $sn5 = '';
-
-foreach ($_GET as $key=>$val) {
-	if (preg_match("/^sn/", $key)) {
-		$set_lnk .= eliminiere($val)."/";
-		$parent_arr[substr($key,2)] = $id_arr[$set_lnk];
-		$$key = $id_arr[$set_lnk];
-	}
-}
-
-if ($vorschau && $cid != $hn_id) {
-	$parent_arr[] = $sn2; $parent_arr[] = $sn3; $parent_arr[] = $sn4; $parent_arr[] = $sn5;
-}
-
-// print_r($parent_arr);
-# $out .= print_r($parent_arr, 1);
-
-$split_arr = array();
-$ct = 0;
-$sub_arr = array();
-
-
-$intern = '';
-
-if ($intern && $logged != "brand-pixel") { 	# wenn zugangsgeschuetzte seiten im system sind
-
-}
-
-else	{
-	$sub0 = ''; $sub1 = ''; $sub2 = ''; $sub3 = ''; $sub4 = ''; $sub5 = '';
-
-	foreach ($parent_arr as $key=>$val) {		# alle subnavigationsebenen werden durchlaufen, sofern diese geklickt wurden
-		if ($val) {
-			$ebene 		= ($key + 1);
-			$sn_aktiv 	= "sn".$ebene;			# die aktive/geklickte subnavigations ID wird global als sn plus ebene definert
-
-
-			$sql = "SELECT * FROM `morp_cms_nav`
-				WHERE
-					ebene=".$ebene." AND
-					parent=".$val." AND
-					sichtbar = 1
-				ORDER BY `sort`";
-
-			$res = safe_query($sql);
-
-			$set_link = '';						# hier wird der pfad fuer die subnavigation zusammen gestellt
-			for($n = 1; $n < $ebene; $n++) $set_link .= $nav_arr[$n].'/';
-
-			while ($row = mysqli_fetch_object($res)) {
-				$id		= $row->navid;
-				$name	= $row->name;
-				$des	= $row->design;
-				$visib	= $row->sichtbar;
-				$lnk	= $row->lnk;
-				$lock	= 0; // $row->lock;
-
-				//echo $val;
-				if($lock && !$IAMIN) {}
-				elseif ($name) {
-					$nnm 	= strtolower(eliminiere($name));	# sonderzeichen, leerzeichen, u.v.w. werden entfernt
-
-					$sub	= "sub".$ebene;
-
-					// manuell gesetzte links
-					$extern 	= 0;
-					$index		= "";
-					$liclass 	= '';
-
-					if ($lnk && preg_match("/^http/", $lnk))	{ $index = $lnk; $extern = 1; }
-					elseif ($lnk) 								$index = $navID[$lnk];
-					// _manuell
-
-					if ($$sn_aktiv == $id) 	{
-						$class 			= ' active';			# aktive navigationselemente werden gekennzeichnet
-						$liclass 			= ' active';				# aktive navigationselemente werden gekennzeichnet
-						$split 			= '<!-- '.($id).' -->';
-						$design			= $des;
-						$split_arr[] 	= $ebene;
-						$nav_arr[]		= $nnm;
-						# $cid			= $id;
-						$breadcrumb 	.= '<li class="breadcrumb-item"><a href="'.$dir.($multilang ? $lan.'/' : '').$navID[$id].'">'.$name.'</a></li>';
-						if($lan=="en") $langpar = $row->langpar;
-						else {
-							$langpar = get_db_field($id, 'navid', 'morp_cms_nav', 'langpar');
-						}
-					}
-					elseif($ebene > 2)	{
-						$class = '';
-						$split 			= '<!-- '.($id).' -->';
-					}
-					else	{
-						$class = '';
-						$split = '';
-					}
-
-					if ($visib && $index) 				$$sub	.= "<li><a href=\"". ($extern ? $index : $dir.$index) ."\"". ($extern ? ' target="_blank"' : '') ."".$class.">XXXXXX ".$name."</a>".$split."</li>\n";
-
-					elseif ($visib && $ebene == 3) 	{
-														$$sub	.= '<li><a href="'.$dir.($multilang ? $lan.'/' : '').$navID[$id].'"'.$class.'>'.$name.'</a></li>';
-														$sub_arr[]=$id;
-													}
-
-					elseif ($visib) 					$$sub	.= '<li class="nav-item"><a href="'.$dir.($multilang ? $lan.'/' : '').$navID[$id].'" class="nav-link'.$class.'">'.$name.'</a>'.$split.'</li>';
-
-				}
-			}
-		}
-	}
-
-
-	if ($ebene > 1) {
-		for ($i=2; $i <= $ebene; $i++) {
-			$tmp = "sub".$i;
-			$dat = $$tmp;
-
-			if ($i == 2) $nav_s = $dat;
-			elseif ($dat) {
-				$nav_s = str_replace('<!-- '.($i).' -->', '<ul>'.$dat."</ul>", $nav_s);
-			}
-		}
-	}
-	if ($ebene > 2) {
-		for ($i=3; $i <= $ebene; $i++) {
-			$tmp = "sub".$i;
-			$dat = $$tmp;
-
-			if ($i == 3) $nav_s2 = $dat;
-			elseif ($dat) $nav_s2 = str_replace("<!-- ".$i." -->", "<ul>".$dat."</ul>", $nav_s);
-		}
-	}
-
-}
-if ($nav_s) $nav_s = $nav_s;
-$nav_sUL = '<ul>'.$nav_s.'</ul>';
-
-// $nav_h = str_replace("<!-- split".$hn_id." -->", $nav_sUL, $nav_h);
-
-// print_r($sub_arr);
-/* *************************** NEW *****************************/
-/* *************************** NEW *****************************/
-/* *************************** NEW *****************************/
-// $dropDownMenu = '';
-
-/*********. UNTERNAVIGATION 3. Ebene mit aufnehmen */
-/*
-print_r($parent_arr);
-if(count($sub_arr)>0) {
-	foreach($sub_arr as $getid) {
-		$dropDownMenu = get_nav($getid, $parent_arr[4], '', 0, $parent_arr, 4);
-		if($dropDownMenu) $sub3 = preg_replace('/<!-- '.($getid).' -->/', "\n".'		<ul class="hovermenu">'."\n".$dropDownMenu.'</ul>', $sub3);
-	}
-}
-*/
-/******/
-
 // echo $sub3;
-
-/* *************************** SUB 3 in nav // fuer AGIS *****************************/
-/* *************************** SUB 3 in nav // fuer AGIS *****************************/
-/* *************************** SUB 3 in nav // fuer AGIS *****************************/
-
-if($sub3) $sub3 = '
-<nav class="navbar navbar-sub">
-	<div class="container-fluid">
-		<div class="container container-xl">
-			<div class="collapse navbar-collapse" id="navbarSub">
-				<ul class="nav navbar-nav">
-'.$sub3.'
-				</ul>
-			</div>
-		</div>
-	</div>
-</nav>
-';
-
 
 // echo $sub2;
 //////////////////////////////////////////////////////////////////////////////////////////////
 // NAVIGATION __ FERTIG ___  ___  ___  ___  ___  ___  ___  ___  ___  ___  ___  ___  ___  ___
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-/* ***************************             *****************************/
-/* *************************** WEITER ZUR NÄCHSTEN SEITE :) ************/
-/* ***************************             *****************************/
-
-
-include("nogo/orderedList_de.inc");
-$orderedListFind = array_flip($orderedList);
-
-$pos = $orderedListFind[$cid];
-$ctOL = count($orderedList);
-
-// print_r($orderedList);
-
-if($pos > 1)	$PREVID = $pos - 1;
-else 			$PREVID = $ctOL;
-
-if($pos <= $ctOL) 	$NEXTID = $pos + 1;
-else 				$NEXTID = 1;
-
- $PREV = $orderedList[$PREVID];
- $NEXT = $orderedList[$NEXTID];
-
-// echo $PREV.$NEXT.'<br>P:'.$PREVID.'- N: '.$NEXTID;
-
-
-if($NEXTID) {
-	$targetNm = utf8_encode($navarrayFULL[$NEXT]);
-	$ziel = getUrl($NEXT, $lan, 1);
-	$nextPage = '<a accesskey="2" href="'.$ziel.'">'.$targetNm.' &nbsp; <i class="fa fa-step-forward"></i></a>';
-}
-if($PREVID) {
-	$targetNm = utf8_encode($navarrayFULL[$PREV]);
-	$ziel = getUrl($PREV, $lan, 1);
-	$prevPage = '<a accesskey="1" href="'.$ziel.'"><i class="fa fa-step-backward"></i> &nbsp; '.$targetNm.'</a>';
-}
-
-
-
 // .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-// .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-// .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-
-
-
-// .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-// .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-// .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
-// KUNDEN REGISTRIERUNG PRÜFEN UND WEITERLEITEN
-$optin = isset($_GET["optin"]) ? $_GET["optin"] : 0;
-
-if($optin) {
-	$sql = "SELECT mid FROM morp_intranet_user WHERE SID='$optin'";
-	$res = safe_query($sql);
-	if(mysqli_num_rows($res)>0) {
-		$cid = 14;
-		$hn_id = 14;
-		$sql = "UPDATE morp_intranet_user SET optin=1 WHERE SID='$optin'";
-		$res = safe_query($sql);
-	}
-}
-	
-	
 // .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
 // .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
 // .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .
@@ -1057,7 +804,3 @@ else {
 }			
 //include("design/footer_inc.php");
 // include("design/footer-tracking.php");
-?>
-
-</body>
-</html>
