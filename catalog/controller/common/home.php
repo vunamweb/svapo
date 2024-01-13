@@ -42,8 +42,17 @@ class ControllerCommonHome extends Controller {
 			$urlMorpheus = $item;
 			$urlMorpheus = HTTP_SERVER . 'cms/' . $language . $urlMorpheus;
 			//echo $urlMorpheus; die();
+
+			$cookies = ($this->customer->isLogged()) ? "user_login=1" : "user_login=0";
+
+			$context = stream_context_create([
+				"http" => [
+					"header" => "Cookie: $cookies\r\n"
+				]
+			]);
 			
-			$objectMorpheus = file_get_contents($urlMorpheus);
+			$objectMorpheus = file_get_contents($urlMorpheus, true, $context);
+			//echo $objectMorpheus; die();
 			$objectMorpheus = str_replace(array('</body>', '</html>'), '', $objectMorpheus);
 			$objectMorpheus = json_decode($objectMorpheus);
 

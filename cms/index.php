@@ -4,6 +4,7 @@ session_start();
 define('CMS',0);
 error_reporting(E_ALL);
 
+//print_r($_COOKIE);
 /*ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);*/

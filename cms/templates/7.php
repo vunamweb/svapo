@@ -37,12 +37,12 @@ if($tref == 1 || !$tref) {
 					<a href="'.$shopurl.'vorbestellen" class="btn_cta btn btn-lg py-4 btn-light text-uppercase rounded-0">Rezept hochladen</a>
 					<a href="'.$shopurl.'shop" class="btn_cta btn btn-lg py-4 btn-light text-uppercase rounded-0">Unser Angebot</a>					
 				</div>
-				cookie: '.($_COOKIE['user_login']).'<br>
+				<br>
 			</div>
 		</div>
 	</div>
 </section>
-'.print_r($_COOKIE,1);
+';
 }
 else if($tref == 2) {
 	$template = '
@@ -58,6 +58,8 @@ else if($tref == 2) {
 	</div>
 </section>';
 }
+
+//$template = print_r($_COOKIE) . '/nam';
 
 
 $ankerLink = '';
