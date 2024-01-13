@@ -17,6 +17,12 @@ class ControllerAccountLogout extends Controller {
 			unset($this->session->data['voucher']);
 			unset($this->session->data['vouchers']);
 
+			$cookieName = 'user_login';
+            $cookieValue = '0';
+            $cookieExpire = time() + 3600; // Set the expiration time (in seconds), e.g., 1 hour
+    
+            setcookie($cookieName, $cookieValue, time() + 3600, '/');
+
 			$this->response->redirect($this->url->link('account/logout', '', true));
 		}
 

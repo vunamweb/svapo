@@ -59,4 +59,6 @@ $_['error_rating']      = 'Bitte eine Bewertung auswählen';
 
 // Category
 $_['category']          = 'Kategorie';  
-$_['attribute']          = 'Attribut';  
+$_['attribute']          = 'Attribut';
+$_['price']          = 'Preis';
+

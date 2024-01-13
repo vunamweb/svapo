@@ -163,6 +163,7 @@ class ControllerProductProduct extends Controller {
 		$data['attributes_list'] = $this->model_catalog_product->getListNameAttributeProduct($product_info['attributes']);
 		$data['category'] = $this->language->get('category');
 		$data['name_atribute'] = $this->language->get('attribute');
+		$data['price_product'] = $this->language->get('price');
 		//print_r($data['attributes']); die();
 
 		//check product page open from cateory page
