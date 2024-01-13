@@ -6,6 +6,23 @@ function _sticky() {
     }
 }
 
+$(document).ready(function() {
+	$('.categoryHL').on('click', function() {
+		var isopen = $(this).hasClass('open');
+		$('.body').removeClass('showw');
+		$('.categoryHL').removeClass('open');
+		// $(this).next('.body').toggleClass('show');
+		// $(this).toggleClass('open');
+		if(isopen) {
+			$(this).next('.body').removeClass('showw');
+			$(this).removeClass('open');			
+		} else {
+			$(this).next('.body').addClass('showw');
+			$(this).addClass('open');			
+		}
+	});
+});
+
 function init_slider() {
     if ($(".banner_slider").length) {
         var swiper = new Swiper(".banner_slider", {

@@ -101,7 +101,7 @@ class ModelCatalogCategory extends Model {
 
     public function getCategoryAttribute($attribute_group_id) {
         // $response = '<div class="body hstack flex-lg-column align-items-start ">';
-		$response = '<div class="body">';
+		$response = '<div class="body ag'.$attribute_group_id.'">';
 
         $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX . "attribute a, ".DB_PREFIX."attribute_description ad WHERE a.attribute_id = ad.attribute_id and a.attribute_group_id = '" . ( int )$attribute_group_id . "'" );
 

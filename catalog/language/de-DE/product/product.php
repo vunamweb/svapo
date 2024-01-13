@@ -14,8 +14,8 @@ $_['text_manufacturer']	= 'Hersteller';
 $_['text_model']		= 'Artikelnr.';
 $_['text_reward']		= 'Bonuspunkte';
 $_['text_points']		= 'Preis in Bonuspunkten';
-$_['text_stock']		= 'Verfügbarkeit';
-$_['text_instock']		= 'Lagernd';
+$_['text_stock']		= 'Vorrat';
+$_['text_instock']		= 'Sofort verfügbar';
 $_['text_tax']			= 'Netto';
 $_['text_discount']		= ' oder weitere ';
 $_['text_option']       = 'Verfügbare Optionen';
@@ -60,5 +60,6 @@ $_['error_rating']      = 'Bitte eine Bewertung auswählen';
 // Category
 $_['category']          = 'Kategorie';  
 $_['attribute']          = 'Attribut';
-$_['price']          = 'Preis';
+$_['price']          	= 'Preis';
+$_['price_no_log']     	= 'Preis erst nach Login sichtbar';
 

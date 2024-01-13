@@ -1,7 +1,7 @@
 <div class="list-group">
   {% for category in categories %}
   {% if category.category_id == category_id %} 
-  <h4 class="title text1 text-black font_Inter mb-lg-4 mb-2 active">{{ category.name }}</h4>
+  <div class="title text1 text-black font_Inter mb-lg-4 mb-2 active">{{ category.name }}</div>
   {% if category.children %}
   {% for child in category.children %}
   {% if child.category_id == child_id %}
@@ -11,7 +11,7 @@
   {% endif %}
   {% endfor %}
   {% endif %}
-  {% else %} <h4 class="title text1 text-black font_Inter mb-lg-4 mb-2">{{ category.name }}</h4>
+  {% else %} <div class="title text1 text-black font_Inter mb-lg-4 mb-2">{{ category.name }}</div>
   {% endif %}
   {% endfor %}
 </div>

@@ -30,3 +30,4 @@ $_['text_rating_desc']	= 'Bewertung (Hoch)';
 $_['text_model_asc']	= 'Artikelnr. (A &gt; Z)';
 $_['text_model_desc']	= 'Artikelnr. (Z &gt; A)';
 $_['text_limit']		= 'Anzeige';
+$_['price_no_log']     	= 'Preis erst nach Login sichtbar';

@@ -6,15 +6,23 @@
                     <div class="text1 mb-lg-5 mb-3 pb-4 text-uppercase">UNSER
                         ANGEBOT</div>
                     <div class="mb-lg-5 mb-3 pb-lg-5 pb-3 col-lg-7 mx-auto px-lg-4">
-                        <div class="input-group input-group-lg mb-0">
-                            <button class="btn bg-transparent btn-outline-secondary rounded-0 border-end-0" type="button"><img class="icon_search" src="images/search.svg" alt=""></button>
-                            <input type="text" class="btn_cta form-control bg-transparent border-secondary rounded-0 border-start-0 text-center" placeholder="" autocomplete="off">
-                        </div>
+                        <form action="./index.php" method="get">
+							<div class="input-group input-group-lg mb-0">
+								<input type="hidden" name="route" value="product/search">
+								<input type="hidden" name="description" value="true">
+								<button class="btn bg-transparent btn-outline-secondary rounded-0 border-end-0" type="submit"><img class="icon_search" src="images/search.svg" alt="Canabis Suche"></button>
+								<input type="text" name="search" class="btn_cta form-control bg-transparent border-secondary rounded-0 border-start-0 text-center" placeholder="WAS SUCHEN SIE" autocomplete="off">
+							</div>
+						</form>
                     </div>
                     <div class="mb-0">
                         <div class="mx-auto hstack gap-lg-3 gap-1 justify-content-lg-center justify-content-start">
-                            <a href="#" class="btn_cta btn btn-lg py-4 btn-light text-uppercase rounded-0">KONTO ERSTELLEN</a>
-                            <a href="#" class="btn_cta btn btn-lg py-4 btn-light text-uppercase rounded-0">Rezept hochladen</a>
+							{% if logged %}
+
+							{% else %}
+								<a href="./index.php?route=account/account" class="btn_cta btn btn-lg py-4 btn-light text-uppercase rounded-0">KONTO ERSTELLEN</a>			
+							{% endif %}
+                            <a href="./vorbestellen" class="btn_cta btn btn-lg py-4 btn-light text-uppercase rounded-0">Rezept hochladen</a>
                         </div>
                     </div>
                 </div>
@@ -35,7 +43,7 @@
                     <i class="fa fa-spinner loading" aria-hidden="true"></i>
                         <div class="row row_sp">
 {% for product in products %}
-<div class="col-lg-4 col-6">
+							<div class="col-lg-6 col-xl-4 col-6">
                                 <div class="item_sp">
                                     <a class="d-block" href="{{ product.href }}">
                                     <img class="image_sp w-100" src="{{ product.thumb }}" alt="">
@@ -43,6 +51,14 @@
                                     <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
                                         </div>
                                     <div class="text2 text_ellipsis">{{ product.description }}</div>
+										<div class="text2 text_ellipsis mt-4">
+									{% if logged %}
+										{{ product.price }} / Gramm
+									{% else %}
+										<a href="./index.php?route=account/account" class="price_no_log">{{ price_no_log }}</a>
+									{% endif %}
+										</div>
+									{{ stock }}
                                     </a>
                                 </div>
                             </div>

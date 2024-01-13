@@ -29,11 +29,15 @@ class ControllerExtensionModuleCategory extends Controller {
         $data[ 'categories' ] = array();
 
         $categories = $this->model_catalog_category->getAttributeGroups();
-
-        //print_r($categories); die();
+		
+		$logged = $this->customer->isLogged();
+		$data['logged'] = $logged;
+        // print_r($data); 
+		// die();
+		//print_r($categories); die();
 
         foreach ( $categories as $category ) {
-            $name = '<div class="item item-cat">';
+            $name = '<div class="item item-cat ' . $category[ 'name' ] . ' dd'.$category[ 'attribute_group_id' ].'">';
 
 				$name .= '<h4 class="title text1 text-black categoryHL font_Inter ' . $category[ 'name' ] . '">' . $category[ 'name' ] . '</h4>';
 
