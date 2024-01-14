@@ -298,7 +298,7 @@ class ControllerMailOrder extends Controller {
 		$mail->Password = SMTP_PASSWORD;
 		$mail->CharSet = 'UTF-8';
 		$mail->AddAddress($to);
-		$mail->addBcc("vukynamkhtn@gmail.com");
+		//$mail->addBcc("vukynamkhtn@gmail.com");
 		$mail->Subject = $subject;
 		$mail->FromName = $fromName;
 		$mail->From = $from;

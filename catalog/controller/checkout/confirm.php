@@ -347,8 +347,8 @@ class ControllerCheckoutConfirm extends Controller {
 			$message = $this->load->view('mail/order_add_customer', $data);
 			$message_1 = $this->load->view('mail/order_add_admin', $data);
 			
-            $this->sendMailSMTP($order_data['email'], $subject, 'test@7sc.eu', $fromName, $message);
-			$this->sendMailSMTP($this->config->get('config_email'), $subject, 'test@7sc.eu', $fromName, $message_1);
+            $this->sendMailSMTP($order_data['email'], $subject, 'test@7sc.eu', $fromName, $message, $this->session->data['upload_file']);
+			$this->sendMailSMTP($this->config->get('config_email'), $subject, 'test@7sc.eu', $fromName, $message_1, $this->session->data['upload_file']);
 			//$this->load->controller('mail/order/add');
 			//$this->session->data['order_id'] . 'ddd'; die();
 
@@ -444,8 +444,10 @@ class ControllerCheckoutConfirm extends Controller {
 		$this->response->setOutput($this->load->view('checkout/confirm', $data));
 	}
 
-	function sendMailSMTP($to, $subject, $from, $fromName, $message)
+	function sendMailSMTP($to, $subject, $from, $fromName, $message, $image = null)
     {
+		$file = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "uploads/".$image."";
+		
 		$mail = new PHPMailer();
 		$mail->IsSMTP(); // telling the class to use SMTP
 		$mail->SMTPDebug = 0; // enables SMTP debug information (for testing)
@@ -457,12 +459,15 @@ class ControllerCheckoutConfirm extends Controller {
 		$mail->Password = SMTP_PASSWORD;
 		$mail->CharSet = 'UTF-8';
 		$mail->AddAddress($to);
-		$mail->addBcc("vukynamkhtn@gmail.com");
+		//$mail->addBcc("vukynamkhtn@gmail.com");
 		$mail->Subject = $subject;
 		$mail->FromName = $fromName;
 		$mail->From = $from;
 		$mail->IsHTML(true);
 		$mail->Body = $message;
+
+		if($image)
+		  $mail->addAttachment($file);
 
 		if (!$mail->Send()) {
 			//echo "Mailer Error: " . $mail->ErrorInfo;
