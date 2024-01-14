@@ -299,7 +299,8 @@ textarea.form_cta{
 }
 
 .upload_file {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
+    margin-top: -60px;
 }
 
 .upload_1 {
@@ -425,6 +426,14 @@ textarea.form_cta{
     margin-left: 50%;
     display: none;
     font-size: 3em;
+}
+
+.notice_shipping {
+    display: none;
+}
+
+#upload_recipe {
+    /*display: none;*/
 }
 /* END */
 @media (max-width: 1050px) {
@@ -597,7 +606,28 @@ textarea.form_cta{
 	}
 }
 @media (max-width: 600px) {
-	.mobileOn { display: block; }
+    .upload_file {
+        margin-top: 0;
+    }
+    #upload_recipe {
+        display: block;
+        font-size: 1em;
+        padding: 10px;
+        height: auto;
+    }
+    #uploadForm {
+        margin-top: -70px;
+    }
+    input.form_cta, select.form_cta, textarea.form_cta {
+        width: 90%;
+    }
+    .select_arrow {
+        right: 7%;
+    }
+    h4.mb-0 {
+        font-size: 1.2em;
+    }
+    .mobileOn { display: block; }
 	.header_height { height: 56px !important; }
 	header .logo {
 		height: calc(3.59375rem / 2); margin-top: 10px;
@@ -638,8 +668,10 @@ textarea.form_cta{
 	{
 	}
 	.hero_banner .btn.btn_cta {
-		width: 75%; text-align: center
-		height: auto;
+        width: 75%; 
+        text-align: center;
+        height: auto;
+        display: inline-block;
 		margin-bottom: 1em;
 	}
 	.hero_banner .form-control, .hero_banner .btn {
