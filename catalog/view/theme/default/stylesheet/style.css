@@ -435,6 +435,10 @@ textarea.form_cta{
 #upload_recipe {
     /*display: none;*/
 }
+
+#product-search #content {
+    padding-top: 0 !important;
+}
 /* END */
 @media (max-width: 1050px) {
 	.nav-scroller, #navbarNav { display: none !important; }
@@ -626,6 +630,15 @@ textarea.form_cta{
     }
     h4.mb-0 {
         font-size: 1.2em;
+    }
+    label {
+        font-size: 1.2em !important;
+    }
+    h1 {
+        font-size: 1.5em !important;
+    }
+    h2 {
+        font-size: 1.2em !important;
     }
     .mobileOn { display: block; }
 	.header_height { height: 56px !important; }

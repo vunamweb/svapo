@@ -18,9 +18,9 @@
       <label class="control-label" for="input-search">{{ entry_search }}</label>
       <div class="row">
         <div class="col-sm-4">
-          <input type="text" name="search" value="{{ search }}" placeholder="{{ text_keyword }}" id="input-search" class="form-control" />
+          <input type="text" name="search" value="{{ search }}" placeholder="{{ text_keyword }}" id="input-search" class="form-control form_cta" />
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-3 hide">
           <select name="category_id" class="form-control">
             <option value="0">{{ text_category }}</option>
             {% for category_1 in categories %}
@@ -46,7 +46,7 @@
             {% endfor %}
           </select>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-3 hide">
           <label class="checkbox-inline">
             {% if sub_category %}
             <input type="checkbox" name="sub_category" value="1" checked="checked" />
