@@ -8,7 +8,7 @@
                 <div class="detail">
                 <div class="row g-0 justify-content-between">
                     <div class="col-lg-auto col-left">
-                        <div class="text3 mb-2"><a href="./shop/">ZURÜCK</a></div>						
+                        <div class="text3 mb-2"><a href="javascript:history.back()">ZURÜCK</a></div>						
 						
 						<div class="mobileOn">
 							<div class="text1 mb-lg-4 mb-3 mt-4">{{ heading_title }}</div>
@@ -25,10 +25,12 @@
 						
 						<hr>
 						
+						{% for group in attributes_list %}
 						<div class="attribute_product">
-							<!--<p class="name_attribute">{{ name_atribute }}:</p>-->
+							<div class="name_group_attribute">{{ group.name }}</div><br>
+							{% set listAttribute = group.list %}
 							<ul>
-								{% for attribute in attributes_list %}
+								{% for attribute in listAttribute %}
 									{% if attribute.image is not empty %}
 										<li class="icon"><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute"/>{{ attribute.name }}</li>
 									{% else %}
@@ -37,6 +39,7 @@
 								{% endfor %}
 							</ul>
 						</div>
+						{% endfor %}
                     </div>
 					
                     <div class="col-lg-6 col-right ps-lg-5">

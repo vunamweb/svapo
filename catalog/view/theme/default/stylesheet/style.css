@@ -402,12 +402,12 @@ textarea.form_cta{
 .attribute_product ul {
     list-style: none;
     display: inline-block;
-    float: left;
+    /*float: left;*/
     margin-top: -20px;
 }
 
 .attribute_product {
-    display: flex;
+    /*display: flex;*/
     margin-top: 30px;
     margin-bottom: 30px;
 }
@@ -438,6 +438,10 @@ textarea.form_cta{
 
 #product-search #content {
     padding-top: 0 !important;
+}
+
+.name_group_attribute {
+    display: block;
 }
 /* END */
 @media (max-width: 1050px) {

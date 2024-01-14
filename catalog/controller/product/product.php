@@ -274,13 +274,15 @@ class ControllerProductProduct extends Controller {
 
 			$data['login'] = $login;
 
-			if ($product_info['quantity'] <= 0) {
+			/*if ($product_info['quantity'] <= 0) {
 				$data['stock'] = $product_info['stock_status'];
 			} elseif ($this->config->get('config_stock_display')) {
 				$data['stock'] = $product_info['quantity'];
 			} else {
 				$data['stock'] = '<span class="instock"></span>'.$this->language->get('text_instock');
-			}
+			}*/
+
+			$data['stock'] = '<span class="instock"></span>'.$product_info['stock_status'];
 
 			$this->load->model('tool/image');
 
