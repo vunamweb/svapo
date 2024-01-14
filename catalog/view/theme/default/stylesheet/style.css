@@ -443,6 +443,13 @@ textarea.form_cta{
 .name_group_attribute {
     display: block;
 }
+
+.menu_morpheus {
+    list-style: none;
+}
+.menu_morpheus li {
+    padding-bottom: 10px;
+}
 /* END */
 @media (max-width: 1050px) {
 	.nav-scroller, #navbarNav { display: none !important; }

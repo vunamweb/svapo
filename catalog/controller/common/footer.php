@@ -75,6 +75,9 @@ class ControllerCommonFooter extends Controller {
 
 		$data['footer_3'] = html_entity_decode($module_info['module_description'][2]['description']);
 
+		$data['menu_morpheus'] .= file_get_contents('cms/nogo/nav_de.inc');
+		$data['menu_morpheus'] = str_replace(array("<?php", "?>", "nav = '", "$", 'cms/', "';"), '', $data['menu_morpheus']);
+
         //print_r($module_info['module_description'][2]['description']); die();
 		
 		return $this->load->view('common/footer', $data);
