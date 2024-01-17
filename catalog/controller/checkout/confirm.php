@@ -330,6 +330,8 @@ class ControllerCheckoutConfirm extends Controller {
 
 			//echo '1zz'; die();
 
+			$order_data['comment'] = $this->request->get['comment'];
+
 			$this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
 
 			$data['mail_header'] = HEADER;
@@ -341,6 +343,7 @@ class ControllerCheckoutConfirm extends Controller {
 			$data['email'] = $customer_info['email'];
 			$data['telephone'] = $customer_info['telephone'];
 			$data['order_id'] = $this->session->data['order_id'];
+			$data['comment'] = $this->request->get['comment']; 
 			
 			$subject = 'Order' . ' ' . $this->session->data['order_id'];
 		    $fromName = 'Pharmacy';
@@ -446,7 +449,8 @@ class ControllerCheckoutConfirm extends Controller {
 
 	function sendMailSMTP($to, $subject, $from, $fromName, $message, $image = null)
     {
-		$file = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "uploads/".$image."";
+		$file1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "uploads/".$image."";
+		$file2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "uploads/Freiumschlag-svapo.pdf";
 		
 		$mail = new PHPMailer();
 		$mail->IsSMTP(); // telling the class to use SMTP
@@ -467,7 +471,9 @@ class ControllerCheckoutConfirm extends Controller {
 		$mail->Body = $message;
 
 		if($image)
-		  $mail->addAttachment($file);
+		  $mail->addAttachment($file1);
+
+		$mail->addAttachment($file2);  
 
 		if (!$mail->Send()) {
 			//echo "Mailer Error: " . $mail->ErrorInfo;

@@ -14,13 +14,16 @@
   </div>
   <div class="upload_file">
     <div class="upload_1">
-    <a href="javascript:void(0)" class="btn_cta btn btn-lg btn-outline-secondary text-uppercase rounded-0" id="upload_recipe">JETZT REZEPT HOCHLADEN</a>
-    <input class="hide" type="file" name="file_1" id="file_1">
-    </div>
-    <div class="upload_2 hide">
-    <label>Upload recipe </label>
-    <input type="file" name="file_2">
-    </div>
+    	<a href="javascript:void(0)" class="btn_cta btn btn-lg btn-outline-secondary text-uppercase rounded-0" id="upload_recipe">JETZT REZEPT HOCHLADEN</a>
+    	<input class="hide" type="file" name="file_1" id="file_1">
+    </div>	
+	<div class="upload_2">
+		<label class="btn label-camera" for="file_2" id="button_additional_image">
+			<i class="fa fa-camera-retro"></i> Rezept fotografieren
+		</label>
+		<input type="file" class="form-control-file actual-btn" name="file_2" id="file_2" accept="image/*" capture="camera">
+	</div>
+	
   </div>
 {% for address in addresses %}
 <h4 class="mb-0">LIEFERUNG</h4>
@@ -29,7 +32,6 @@
                                 <div class="position-relative">
                                     <select class="form-select form_cta">
                                          <option value="{{ address.address_id }}" selected="selected">{{ address.address_1 }}</option>
-     <option>...</option>
                                     </select>
                                     <img class="select_arrow" src="images/select_arrow.svg" alt="">
                                 </div>
@@ -48,13 +50,13 @@
                                 <input type="email" value="{{ email }}" class="form-control form_cta" placeholder="E-MAIL" autocomplete="off">
                             </div>
                             <div class="col-12">
-                                <textarea class="form-control form_cta" rows="6" autocomplete="off"></textarea>
+                                <textarea class="form-control form_cta" name="comment" id="comment" rows="6" autocomplete="off"></textarea>
                             </div>
                         </div>
                         <hr class="my-lg-4 my-3 border-0">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input rounded-0 border-secondary" id="agree" required>
-                            <label class="form-check-label text-secondary" for="dongy">Über die mit * gekennzeichneten Pflichtfelder hinaus sind weitere Angaben freiwillig. Ich stimme zu,
+                            <label class="form-check-label text-secondary" for="agree">Über die mit * gekennzeichneten Pflichtfelder hinaus sind weitere Angaben freiwillig. Ich stimme zu,
                                 dass meine Angaben aus dem Vorbestellformular zur Bearbeitung meiner Vorbestellung erhoben,
                                 verarbeitet und gespeichert werden. Die Daten werden nach abgeschlossener Bearbeitung Ihrer
                                 Bestellung gelöscht. Sie können Ihre Einwilligung jederzeit für die Zukunft per E-Mail an uns widerrufen.

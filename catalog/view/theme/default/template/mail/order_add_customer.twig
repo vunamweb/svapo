@@ -5,26 +5,112 @@
 <title>{{ title }}</title>
 <base href="{{ store_url }}admin" />
 <style>
-	table, tr, td { border: none !important; }
-	.table thead td {
-		font-weight: 400;
-	}
-	span { font-size: .8em; }
 	.inv { font-size: 1.5em; font-weight:600; text-transform: uppercase; color:#000; }
 	.table-bordered td { border-bottom: solid 1px #999 !important; }
 	.table.top thead > tr > td, .table tbody > tr > td {
-		vertical-align: top; margin-top:3em !important; font-size:.8em;
+		vertical-align: top; margin-top:10px !important; font-size:11px;
 	}
 	body, html { margin-bottom: 0; padding-bottom: 0; }
+	body { background-color: #ffffff; } 
 	hr { margin: 0; }
+	p, h1, h2, h3, td, a { font-family:	Arial, Verdana; font-size:	12px; line-height: 	16px; color: #666666; margin: 0 0 1px 0; padding: 0; } 
+	p.small { font-size:	10px; line-height: 	14px; color: #888888; } 
+	td { padding:6px 6px 6px 0;	margin:0; border:none !important; } 
+	h1, h2  { font-weight: 	bold; margin: 0 0 10px 0; } 
+	h1  { font-size: 16px; font-weight: normal; line-height: 20px; margin: 0 0 12px 0; } 
+	table { width: 100%; border:none !important; } 
+	table td table td table td table { width:auto !important; } 
+	table td table td table td table td { width:auto !important; padding:6px 6px 0 0; } 
+	colgroup { display: none; }
 </style>
 </head>
 
-<body style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #000000;">
-{{ mail_header }}
+<body style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;">
 
-{{ text_inform_order }}
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td align="center">
+			<table border="0" cellpadding="10" cellspacing="0" style="max-width: 600px;">
+				<tr>
+					<td align="center" style="background: #fff;">
+						<img src="https://www.morpheus-cms.de/pharmacy/images/svapo-medizinal-cannabis.png" width="90" style="width:90px;height:auto;margin:10px auto 10px;" />
+					</td>
+				</tr>
+			</table>
+			<table border="0" cellpadding="10" cellspacing="0" style="max-width: 600px; background: #efefef; padding: 20px;">
+				<tr><td>{{ text_inform_order }}</td></tr>
+				
+				<tr><td>
+					
+					<table>
+						<tr>
+							<td>			
+					Bestellnummer
+							</td>
+							<td>
+					{{ order_id }}<br>
+							</td>
+						</tr>
+						<tr>
+							<td>			
+					Vorname
+							</td>
+							<td>			
+					{{ firstname }}
+							</td>
+						</tr>
+						<tr>
+							<td>			
+					Nachname
+							</td>
+							<td>
+					{{ lastname }}
+							</td>
+						</tr>
+						<tr>
+							<td>			
+					Telefon 
+							</td>
+							<td>
+					{{ telephone }}
+							</td>
+						</tr>
+						<tr>
+							<td>			
+					E-Mail
+							</td>
+							<td>
+					{{ email }}
+							</td>
+						</tr>
+						<tr>
+							<td>			
+					Kommentar
+							</td>
+							<td>
+					{{ comment }}
+							</td>
+						</tr>
+					</table>
+		
+				</td></tr>
+			</table>
+		</td>
+	</tr>
+</table>
 
-{{ mail_footer }}
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td align="center">
+			<table align="center" border="0" cellpadding="10" cellspacing="0" style="max-width: 600px;">
+				<tr><td align="center" style="background: #fff;">
+					{{ mail_footer }}
+				</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
 </body>
-
+</html>

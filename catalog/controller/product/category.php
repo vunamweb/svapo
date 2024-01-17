@@ -207,6 +207,8 @@ class ControllerProductCategory extends Controller {
 				if($this->session->data['coupon'])
 				  $login = true;
 
+				$data['logged'] = $login;  
+
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
 					'logged' => $login,
