@@ -2,7 +2,9 @@
 
 class ModelCatalogAttributeGroup extends Model {
     public function addAttributeGroup( $data ) {
-        $this->db->query( 'INSERT INTO ' . DB_PREFIX . "attribute_group SET sort_order = '" . ( int )$data[ 'sort_order' ] . "'" );
+        $data[ 'active' ] = ($data[ 'active' ] == 'on') ? 1 : 0;
+
+        $this->db->query( 'INSERT INTO ' . DB_PREFIX . "attribute_group SET active = '" . ( int )$data[ 'active' ] . "', sort_order = '" . ( int )$data[ 'sort_order' ] . "'" );
 
         $attribute_group_id = $this->db->getLastId();
 
@@ -14,7 +16,9 @@ class ModelCatalogAttributeGroup extends Model {
     }
 
     public function editAttributeGroup( $attribute_group_id, $data ) {
-        $this->db->query( 'UPDATE ' . DB_PREFIX . "attribute_group SET sort_order = '" . ( int )$data[ 'sort_order' ] . "' WHERE attribute_group_id = '" . ( int )$attribute_group_id . "'" );
+        $data[ 'active' ] = ($data[ 'active' ] == 'on') ? 1 : 0;
+
+        $this->db->query( 'UPDATE ' . DB_PREFIX . "attribute_group SET active = '" . ( int )$data[ 'active' ] . "',  sort_order = '" . ( int )$data[ 'sort_order' ] . "' WHERE attribute_group_id = '" . ( int )$attribute_group_id . "'" );
 
         $this->db->query( 'DELETE FROM ' . DB_PREFIX . "attribute_group_description WHERE attribute_group_id = '" . ( int )$attribute_group_id . "'" );
 

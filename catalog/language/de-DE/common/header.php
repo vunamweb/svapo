@@ -22,3 +22,13 @@ $_['text_logout']		= 'Abmelden';
 $_['text_checkout']		= 'Kasse';
 $_['text_search']		= 'Suche';
 $_['text_all']			= 'Alle';
+
+// MENU
+$_['add_order']         = 'REZEPT HOCHLADEN';
+$_['menu_account']      = 'MEIN KONTO';
+$_['menu_logout']       = 'ABMELDEN';
+$_['menu_login']        = 'LOGIN';
+$_['menu_register']     = 'KONTO ERSTELLEN';
+$_['shop']              = 'SHOP';
+$_['whatsapp_chat']     = 'WHATSAPP CHAT';
+$_['password']          = 'Passwort';

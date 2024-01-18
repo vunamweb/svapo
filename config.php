@@ -34,6 +34,12 @@ define('SMTP_HOST', 'w0118b8d.kasserver.com');
 define('SMTP_USER', 'test@7sc.eu');
 define('SMTP_PASSWORD', 'FKEUcsvv2HtgtWvJ');
 
+// WHATSAPP
+// https://wa.me/whatsappphonenumber?text=urlencodedtext
+$whatsAppText = urldecode('Bitte sende mir das Passwort zu');
+define('WHATSAPP_TEXT', 'FKEUcsvv2HtgtWvJ');
+define('WHATSAPP_NUMBER', '+4917666855208');
+
 // MAIL
 define('HEADER', '<table class="table" style="width: 680px;">
 <thead>

@@ -202,6 +202,8 @@ class ControllerProductCategory extends Controller {
 					$rating = false;
 				}
 
+				$data['whatapp_link'] = 'https://wa.me/'.WHATSAPP_NUMBER.'?text='.WHATSAPP_TEXT.'';
+
 				$login = $this->customer->isLogged();
 
 				if($this->session->data['coupon'])

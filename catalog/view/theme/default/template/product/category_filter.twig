@@ -7,6 +7,13 @@
                                     <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
                                         </div>
                                     <div class="text2 text_ellipsis">{{ product.description }}</div>
+                                    <div class="text2 text_ellipsis mt-4">
+									{% if product.logged %}
+										{{ product.price }} / Gramm
+									{% else %}
+										<a href="./index.php?route=account/account" class="price_no_log">{{ price_no_log }}</a>
+									{% endif %}
+									</div>
                                     </a>
                                 </div>
                             </div>

@@ -294,9 +294,14 @@ class ControllerCatalogAttributeGroup extends Controller {
 
 		$data['cancel'] = $this->url->link('catalog/attribute_group', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
+		$data['active_atb_group'] = 1;
+
 		if (isset($this->request->get['attribute_group_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$attribute_group_info = $this->model_catalog_attribute_group->getAttributeGroup($this->request->get['attribute_group_id']);
+		    $data['active_atb_group'] = $attribute_group_info['active']; 
 		}
+
+		$data['checked'] = ($data['active_atb_group'] == 1) ? 'checked' : '';
 
 		$this->load->model('localisation/language');
 

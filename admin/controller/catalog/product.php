@@ -1188,7 +1188,35 @@ class ControllerCatalogProduct extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$data['list_attributes'] = $this->model_catalog_attribute->getAttributesProduct($this->request->get['product_id']);
+		$data['list_attributes'] = array();
+
+		$categoriesOfAtribute = $this->model_catalog_attribute->getAttributeGroups();
+
+		foreach ( $categoriesOfAtribute as $category ) {
+			$name = '<div>';
+			$name .= '<h4>'.$category["name"].'</h4>';
+
+			$getAttributesProduct = $this->model_catalog_attribute->getAttributesProduct($this->request->get['product_id'], $category[ 'attribute_group_id' ]);
+
+			foreach($getAttributesProduct as $item) {
+				$id = $item['attribute_id'];
+				$nameAtb = $item['name'];
+
+				$is_checked = ($item['is_select']) ? 'checked' : '';
+				$img = ($item['image'] != '') ? '<img class="icon_attribute" src="../uploads/icon/'.$item['image'].'">' : 'No icon';
+
+
+				$name .= '<span class="attributes">
+												<input class="input_attribute" type="checkbox" name="selected[]" '.$is_checked.' value="'.$id.'" id="id'.$id.'">
+																	'.$img.'
+												<label for="id'.$id.'">'.$nameAtb.'</label></span>';
+			}
+
+
+            $data['list_attributes'][] = $name . '<hr>';
+		}
+
+		//$data['list_attributes'] = $this->model_catalog_attribute->getAttributesProduct($this->request->get['product_id']);
 		//print_r($data['list_attributes']); die();
 
 		$this->response->setOutput($this->load->view('catalog/product_form', $data));

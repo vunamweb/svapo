@@ -63,7 +63,7 @@ class ModelCatalogCategory extends Model {
     }
 
     public function getAttributeGroups( $data = array() ) {
-        $sql = 'SELECT * FROM ' . DB_PREFIX . 'attribute_group ag LEFT JOIN ' . DB_PREFIX . "attribute_group_description agd ON (ag.attribute_group_id = agd.attribute_group_id) WHERE ag.attribute_group_id <> 12 and ag.attribute_group_id <> 14 and agd.language_id = '" . ( int )$this->config->get( 'config_language_id' ) . "'";
+        $sql = 'SELECT * FROM ' . DB_PREFIX . 'attribute_group ag LEFT JOIN ' . DB_PREFIX . "attribute_group_description agd ON (ag.attribute_group_id = agd.attribute_group_id) WHERE ag.active = 1 and agd.language_id = '" . ( int )$this->config->get( 'config_language_id' ) . "'";
 
         $sort_data = array(
             'ag.sort_order',

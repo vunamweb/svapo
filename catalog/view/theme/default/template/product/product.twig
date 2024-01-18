@@ -2,9 +2,14 @@
 <main>
         <section class="product pt-lg-3 pt-0 mt-3">
             <div class="container container_product">
-                <div class="box_vang bg-warning text-center py-lg-4 py-1 px-4 d-flex align-items-center justify-content-center">
-                    <img class="icon_whatsapp me-1" src="images/whatsapp.svg" alt=""><a href="#"><span class="text1"><strong>Preis-Check?</strong> JETZT PASSWORT PER WHATSAPP ANFORDERN! ᐳ</span></a>
+                {% if login == false %}
+				<div class="box_vang bg-warning text-center py-lg-4 py-1 px-4 d-flex align-items-center justify-content-center">
+                    <img class="icon_whatsapp me-1" src="images/whatsapp.svg" alt="">
+					<a href="{{ whatapp_link }}" target="_blank">
+					  <span class="text1"><strong>Preis-Check?</strong> JETZT PASSWORT PER WHATSAPP ANFORDERN! ᐳ</span>
+					</a>
                 </div>
+				{% endif %}
                 <div class="detail">
                 <div class="row g-0 justify-content-between">
                     <div class="col-lg-auto col-left">
@@ -38,7 +43,7 @@
 						
 						{% for group in attributes_list %}
 						<div class="attribute_product">
-							<div class="name_group_attribute">{{ group.name }}</div><br>
+							<div class="name_group_attribute">{{ group.name }} {{ group.attribute_group_id }}</div>
 							{% set listAttribute = group.list %}
 							<ul>
 								{% for attribute in listAttribute %}
@@ -50,6 +55,7 @@
 								{% endfor %}
 							</ul>
 						</div>
+						<hr>
 						{% endfor %}
                     </div>
 					
@@ -87,8 +93,8 @@
                 					</tr>
                 				{% endfor %}
 									<tr>
-										  <td>Kultivar</td>
-										  <td>{{ manufacturer }}</td>
+										  <td>Hersteller</td>
+										  <td>{{ manufacturer }} // Logo einblenden</td>
 									</tr>
 									<tr>
 										  <td>{{ text_stock }}</td>

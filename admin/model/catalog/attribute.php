@@ -12,6 +12,43 @@ class ModelCatalogAttribute extends Model {
 		return $attribute_id;
 	}
 
+	public function getAttributeGroups( $data = array() ) {
+        $sql = 'SELECT * FROM ' . DB_PREFIX . 'attribute_group ag LEFT JOIN ' . DB_PREFIX . "attribute_group_description agd ON (ag.attribute_group_id = agd.attribute_group_id) WHERE ag.active = 1 and agd.language_id = '" . ( int )$this->config->get( 'config_language_id' ) . "'";
+
+        $sort_data = array(
+            'ag.sort_order',
+            'agd.name'
+        );
+
+        if ( isset( $data[ 'sort' ] ) && in_array( $data[ 'sort' ], $sort_data ) ) {
+            $sql .= ' ORDER BY ' . $data[ 'sort' ];
+        } else {
+            $sql .= ' ORDER BY ag.sort_order, agd.name';
+        }
+
+        if ( isset( $data[ 'order' ] ) && ( $data[ 'order' ] == 'DESC' ) ) {
+            $sql .= ' DESC';
+        } else {
+            $sql .= ' ASC';
+        }
+
+        if ( isset( $data[ 'start' ] ) || isset( $data[ 'limit' ] ) ) {
+            if ( $data[ 'start' ] < 0 ) {
+                $data[ 'start' ] = 0;
+            }
+
+            if ( $data[ 'limit' ] < 1 ) {
+                $data[ 'limit' ] = 20;
+            }
+
+            $sql .= ' LIMIT ' . ( int )$data[ 'start' ] . ',' . ( int )$data[ 'limit' ];
+        }
+
+        $query = $this->db->query( $sql );
+
+        return $query->rows;
+    }
+
 	public function editAttribute($attribute_id, $data) {
 		$this->db->query("UPDATE " . DB_PREFIX . "attribute SET attribute_group_id = '" . (int)$data['attribute_group_id'] . "', sort_order = '" . (int)$data['sort_order'] . "' WHERE attribute_id = '" . (int)$attribute_id . "'");
 
@@ -79,7 +116,7 @@ class ModelCatalogAttribute extends Model {
 		return $query->rows;
 	}
 
-	public function getAttributesProduct($product_id) {
+	public function getAttributesProduct($product_id, $atg_group_id) {
 		$response = array();
         $attributes = array();
 
@@ -94,7 +131,7 @@ class ModelCatalogAttribute extends Model {
             $attributes = array();
 		}
 		
-		$sql = "SELECT *, (SELECT agd.name FROM " . DB_PREFIX . "attribute_group_description agd WHERE agd.attribute_group_id = a.attribute_group_id AND agd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS attribute_group FROM " . DB_PREFIX . "attribute a LEFT JOIN " . DB_PREFIX . "attribute_description ad ON (a.attribute_id = ad.attribute_id) WHERE ad.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+		$sql = "SELECT *, (SELECT agd.name FROM " . DB_PREFIX . "attribute_group_description agd, " . DB_PREFIX . "attribute_group ag WHERE agd.attribute_group_id = ag.attribute_group_id and ag.active = 1 and agd.attribute_group_id = a.attribute_group_id AND agd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS attribute_group FROM " . DB_PREFIX . "attribute a LEFT JOIN " . DB_PREFIX . "attribute_description ad ON (a.attribute_id = ad.attribute_id) WHERE attribute_group_id = ".$atg_group_id." and  ad.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($data['filter_name'])) {
 			$sql .= " AND ad.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
@@ -134,6 +171,7 @@ class ModelCatalogAttribute extends Model {
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
 
+		//echo $sql; die();
 		$query = $this->db->query($sql);
 
 		foreach ( $query->rows as $result ) {

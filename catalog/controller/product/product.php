@@ -166,6 +166,8 @@ class ControllerProductProduct extends Controller {
 		$data['price_product'] = $this->language->get('price');
 		//print_r($data['attributes']); die();
 
+		$data['whatapp_link'] = 'https://wa.me/'.WHATSAPP_NUMBER.'?text='.WHATSAPP_TEXT.'';
+
 		//check product page open from cateory page
 		if (isset($this->request->get['path'])) {
 			$parts = explode('_', (string)$this->request->get['path']);
