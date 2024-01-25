@@ -36,14 +36,37 @@ class ControllerExtensionModuleCategory extends Controller {
 		// die();
 		//print_r($categories); die();
 
-        foreach ( $categories as $category ) {
-            $name = '<div class="item item-cat ' . $category[ 'name' ] . ' dd'.$category[ 'attribute_group_id' ].'">';
+// 
+// 		<div class="col">
+// 			<div class="mega-link">
+// 				Mega Menu 1
+// 				<div class="mega-menu ">
+// 					<div class="row">
+// 						<div class="col">
+// 							<div class="row">
+// 								<a href="#" class="nav-link col-xl-2 col-lg-3 col-6">Unterpunkt 1</a>
+// 								<a href="#" class="nav-link col-xl-2 col-lg-3 col-6">Unterpunkt 2</a>
+// 								<a href="#" class="nav-link col-xl-2 col-lg-3 col-6">Unterpunkt 3</a>
+// 							</div>
+// 						</div>
+// 					</div>
+// 				</div>
+// 			</div>
+// 		</div>
 
-				$name .= '<h4 class="title text1 text-black categoryHL font_Inter ' . $category[ 'name' ] . '">' . $category[ 'name' ] . '</h4>';
+
+        foreach ( $categories as $category ) {
+            $name = '<div class="col-md col-6 item item-cat ' . $category[ 'name' ] . ' dd'.$category[ 'attribute_group_id' ].'"><div class="mega-link">';
+
+				$name .= '<h4 class="title text1 text-black categoryHL font_Inter ' . $category[ 'name' ] . '">' . $category[ 'name' ] . '</h4>
+				<div class="mega-menu ">
+					<div class="row">
+						<div class="col">
+							<div class="row">';
 
 				$name .= $this->model_catalog_category->getCategoryAttribute($category[ 'attribute_group_id' ]);
 					
-			$name .= '</div>';
+			$name .= '</div></div></div></div></div></div>';
 
 					//$name = 'ndd';
 

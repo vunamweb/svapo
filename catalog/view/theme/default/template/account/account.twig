@@ -18,7 +18,10 @@
     {% endif %}
     <div id="content" class="{{ class }}">{{ content_top }}
       <h2>{{ text_my_account }}</h2>
-      <ul class="list-unstyled">
+	  <hr>
+      <ul class="list-unstyled account">
+		<li><a href="./vorbestellen" class="btn  btn-warning">Rezept hochladen</a></li>
+		<li><hr></li>
         <li><a href="{{ edit }}">{{ text_edit }}</a></li>
         <li><a href="{{ password }}">{{ text_password }}</a></li>
         <li><a href="{{ address }}">{{ text_address }}</a></li>

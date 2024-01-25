@@ -31,4 +31,4 @@ $_['menu_login']        = 'LOGIN';
 $_['menu_register']     = 'KONTO ERSTELLEN';
 $_['shop']              = 'SHOP';
 $_['whatsapp_chat']     = 'WHATSAPP CHAT';
-$_['password']          = 'Passwort';
+$_['password']          = 'Preise freischalten';

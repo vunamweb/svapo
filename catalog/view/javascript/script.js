@@ -6,19 +6,35 @@ function _sticky() {
     }
 }
 
+// $(document).ready(function() {
+// 	$('.categoryHL').on('click', function() {
+// 		var isopen = $(this).hasClass('open');
+// 		$('.body').removeClass('showw');
+// 		$('.categoryHL').removeClass('open');
+// 		// $(this).next('.body').toggleClass('show');
+// 		// $(this).toggleClass('open');
+// 		if(isopen) {
+// 			$(this).next('.body').removeClass('showw');
+// 			$(this).removeClass('open');			
+// 		} else {
+// 			$(this).next('.body').addClass('showw');
+// 			$(this).addClass('open');			
+// 		}
+// 	});
+// });
+
 $(document).ready(function() {
-	$('.categoryHL').on('click', function() {
-		var isopen = $(this).hasClass('open');
-		$('.body').removeClass('showw');
-		$('.categoryHL').removeClass('open');
-		// $(this).next('.body').toggleClass('show');
-		// $(this).toggleClass('open');
-		if(isopen) {
-			$(this).next('.body').removeClass('showw');
-			$(this).removeClass('open');			
-		} else {
-			$(this).next('.body').addClass('showw');
-			$(this).addClass('open');			
+	// Beim Klick auf .mega-link das Mega-Menü anzeigen/verstecken
+	$('.mega-link').click(function() {
+		// Schließe alle anderen Mega-Menüs
+		$('.mega-menu').not($(this).find('.mega-menu')).hide();		
+		// Zeige oder verstecke das aktuelle Mega-Menü
+		$(this).find('.mega-menu').toggle();
+	});	
+	// Schließe das Mega-Menü, wenn außerhalb davon geklickt wird
+	$(document).click(function(event) {
+		if (!$(event.target).closest('.mega-link').length) {
+			$('.mega-menu').hide();
 		}
 	});
 });

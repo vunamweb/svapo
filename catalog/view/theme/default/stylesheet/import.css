@@ -1,5 +1,5 @@
-@import url(../swiper/swiper-bundle.min.css);
-@import url(../fancybox/jquery.fancybox.min.css);
+/* @import url(../swiper/swiper-bundle.min.css); */
+/* @import url(../fancybox/jquery.fancybox.min.css); */
 
 @font-face {
 	font-family: "Open Sans";
@@ -36,6 +36,7 @@
     --bs-body-color-rgb: 0,0,0;
     --ratio: 1;
 	--yellow: #FFD800;
+	--yellow-light: rgba(255, 216, 0, .85);
     --bs-secondary-color:#707070;/*placeholder*/
     --bs-danger-rgb: 255, 46, 23;
     --bs-success-rgb: 16, 185, 129;
@@ -246,7 +247,7 @@ form button
 
 @media (max-width: 991px) {
     html {
-        font-size: 4.266666666666667vw !important; /*16px*/
+        font-size: 3.266666666666667vw !important; /*16px*/
     }
     body {
         font-size:0.875rem;

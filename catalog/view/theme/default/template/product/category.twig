@@ -11,7 +11,7 @@
 								<input type="hidden" name="route" value="product/search">
 								<input type="hidden" name="description" value="true">
 								<button class="btn bg-transparent btn-outline-secondary rounded-0 border-end-0" type="submit"><img class="icon_search" src="images/search.svg" alt="Canabis Suche"></button>
-								<input type="text" name="search" class="btn_cta form-control bg-transparent border-secondary rounded-0 border-start-0 text-center" placeholder="WAS SUCHEN SIE" autocomplete="off">
+								<input type="text" name="search" class="btn_search btn_cta form-control bg-transparent border-secondary rounded-0 border-start-0 text-center" placeholder="WAS SUCHEN SIE" autocomplete="off">
 							</div>
 						</form>
                     </div>
@@ -27,34 +27,35 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <section class="product">
-            <div class="container container_product" id="content">
-                {% if logged == false %}
-                <div class="box_vang bg-warning text-center py-lg-4 py-1 px-4 d-flex align-items-center justify-content-center">
-                    <img class="icon_whatsapp me-1" src="images/whatsapp.svg" alt=""><a href="{{ whatapp_link }}" target="_blank"><span class="text1"><strong>Preis-Check?</strong> JETZT PASSWORT PER WHATSAPP ANFORDERN! ᐳ</span></a>
-                </div>
-                {% endif %}
+        </section>		
+		
+		<div class="start"></div>
+		
+		{% if logged == false %}
+		<section>
+			<div class="container container_product mt-5">
+				<div class="box_vang bg-warning text-center py-lg-4 py-1 px-4 d-flex align-items-center justify-content-center">
+					<img class="icon_whatsapp me-1" src="images/whatsapp.svg" alt=""><a href="{{ whatapp_link }}" target="_blank"><span class="text1"><strong>Preis-Check?</strong> JETZT PASSWORT PER WHATSAPP ANFORDERN! ᐳ</span></a>
+				</div>
+			</div>
+		</section>
+		{% endif %}
+		
+
+        <section class="megamenu">
+			<div class="container">
+				   {{ column_left }}					
+			</div>
+		</section>
+		
+		<section class="product">
+            <div class="container container_product">				
                 <div class="row g-0">
-                    <div class="col_left col-lg-auto pb-4">
-                        <div class="vstack ">
-                           {{ column_left }}
-                        </div>
-                    </div>
-                    <div class="col_right col-lg-auto">
-                    <i class="fa fa-spinner loading" aria-hidden="true"></i>
-                    <div class="col-md-2 col-sm-6 hidden-xs">
-          <div class="btn-group btn-group-sm">
-            <button type="button" id="list-view" class="btn btn-default" data-toggle="tooltip" title="{{ button_list }}"><i class="fa fa-th-list"></i></button>
-            <button type="button" id="grid-view" class="btn btn-default" data-toggle="tooltip" title="{{ button_grid }}"><i class="fa fa-th"></i></button>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <div class="form-group"><a href="{{ compare }}" id="compare-total" class="btn btn-link">{{ text_compare }}</a></div>
-        </div>
+                    <div class="col_right-OFF col-lg-auto">
+	                    <i class="fa fa-spinner loading" aria-hidden="true"></i>
                         <div class="row row_sp">
 {% for product in products %}
-							<div class="col-lg-6 col-xl-4 col-6 product-grid">
+							<div class="col-lg-6 col-xl-4 col-6">
                                 <div class="item_sp">
                                     <a class="d-block" href="{{ product.href }}">
                                     <img class="image_sp w-100" src="{{ product.thumb }}" alt="">
@@ -82,13 +83,13 @@
     </main>
 {{ footer }}
 <script>
-var targetClass = 'section.product';
+	var targetClass = 'div.start';
 
-  // Get the top position of the element with the specified class
-  var targetPosition = $(targetClass).first().offset().top;
-
-  // Perform the scroll animation
-  $('html, body').animate({
-    scrollTop: targetPosition
-  }, 'slow');
+	// Get the top position of the element with the specified class
+	var targetPosition = $(targetClass).first().offset().top;
+	
+	// Perform the scroll animation
+	$('html, body').animate({
+		scrollTop: targetPosition 
+	}, 'slow');
 </script> 
