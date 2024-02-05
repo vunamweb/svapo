@@ -509,6 +509,17 @@ textarea.form_cta{
 	display: block;
 } */
 	
+.product-list .column-1,
+.product-list .column-2,
+.product-list .column-3,
+.product-list .column-4 {
+	display: inline-block; width: 22rem; text-align: left; vertical-align: middle;
+}
+.product-list { margin-top: 0 !important; }
+.product-list img { max-height: 80px }
+.product-list .item_sp h4 {
+	font-size: calc(1.5rem / var(--ratio));
+}
 
 /* END */
 @media (max-width: 1050px) {
