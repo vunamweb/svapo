@@ -69,6 +69,26 @@
                                     <div class="text1 text_ellipsis column-2">
                                     	<h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
                                     </div>
+
+									<div class="attribute_product_in_category">
+									<p class="value_atribute">Kultivar: {{ product.Kultivar }}</p>
+									<p class="value_atribute">THC: {{ product.THC }}</p>
+									{% for group in product.attributes_list %}
+						<div class="attribute_product">
+							<div class="name_group_attribute">{{ group.name }} {{ group.attribute_group_id }}</div>
+							{% set listAttribute = group.list %}
+							<ul>
+								{% for attribute in listAttribute %}
+									{% if attribute.image is not empty %}
+										<li class="icon"><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute"/>{{ attribute.name }}</li>
+									{% else %}
+										<li>{{ attribute.name }}</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+						{% endfor %}
+									</div>
 									
                                     <div class="text2 text_ellipsis column-3">{{ product.description }}</div>
 									

@@ -57,6 +57,74 @@ class ModelCatalogProduct extends Model {
         return $listAttribute;
     }
 
+    public function getListNameAttributeProductInCategory( $attributes ) {
+        $list = array();
+
+        $listAttribute = array();
+
+        $attributes = json_decode( $attributes );
+
+        foreach ( $attributes as $attribute ) {
+            $query = $this->db->query( 'SELECT ad.name, ad.image, agd.name as name1 FROM ' . DB_PREFIX . "attribute_description ad, ".DB_PREFIX."attribute a, ".DB_PREFIX."attribute_group_description agd WHERE a.attribute_id = ad.attribute_id and a.attribute_group_id = agd.attribute_group_id and (agd.attribute_group_id = 11 or agd.attribute_group_id = 9) and ad.attribute_id  = '" . ( int )$attribute . "'" );
+
+            $result = $query->row;
+
+            $array = array();
+
+            $array[ 'name' ] = $result[ 'name' ];
+            $array[ 'image' ] = $result[ 'image' ];
+            $array['name1'] = $result['name1'];
+
+            $list[] = $array;
+        }
+
+        foreach($list as $item) {
+            $nameGroup = $item['name1'];
+            $nameAttribute = $item['name'];
+            $image = $item['image'];
+
+            $position = $this->getPositionAttribute($nameGroup, $listAttribute);
+
+            if($position == -1) {
+                $countListAttribute = count($listAttribute);
+
+                $array = array();
+                $array['name'] = $nameAttribute;
+                $array['image'] = $image; 
+
+                $listAttribute[$countListAttribute]['name'] = $nameGroup;
+                $listAttribute[$countListAttribute]['list'][0] = $array; 
+            } else {
+                $array = array();
+                $array['name'] = $nameAttribute;
+                $array['image'] = $image; 
+
+                $listAttribute[$position]['name'] = $nameGroup;
+                $listAttribute[$countListAttribute]['list'][] = $array; 
+            }
+        }
+
+        //print_r($listAttribute); die();
+
+        return $listAttribute;
+    }
+
+    public function getValueKluivarOfproduct($product_id) {
+        $sql = 'select text from '.DB_PREFIX.'product_attribute where product_id = '.$product_id.' and (attribute_id = 33 )';
+
+        $query = $this->db->query($sql);
+
+        return ($query->row['text'] != '') ? $query->row['text'] : 'Keine Daten';
+    }
+
+    public function getValueTHCOfproduct($product_id) {
+        $sql = 'select text from '.DB_PREFIX.'product_attribute where product_id = '.$product_id.' and (attribute_id = 34 )';
+
+        $query = $this->db->query($sql);
+
+        return ($query->row['text'] != '') ? $query->row['text'] : 'Keine Daten';
+    }
+
     public function getPositionAttribute($nameAttribute, $listAtrtibute) {
         for($i = 0; $i < count($listAtrtibute); $i++)
          if($listAtrtibute[$i]['name'] == $nameAttribute)

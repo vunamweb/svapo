@@ -418,6 +418,9 @@ textarea.form_cta{
 	width: 49%;
 	margin: .5em 0;
 }
+.attribute_product_in_category .attribute_product ul li.icon {
+    width: 25%;
+}
 .attribute_product ul {
     list-style: none;
 	display: block;
@@ -428,6 +431,17 @@ textarea.form_cta{
     /*display: flex;*/
     margin-top: 30px;
     margin-bottom: 30px;
+}
+.attribute_product_in_category {
+    text-align: left;
+}
+.attribute_product_in_category .attribute_product {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.product-layout.product-list .attribute_product_in_category {
+    display: none;
 }
 
 .icon_attribute {

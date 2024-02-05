@@ -170,6 +170,7 @@ class ControllerProductCategory extends Controller {
 			//print_r(count($results)); die();
 
 			foreach ($results as $result) {
+				//print_r($result); die();
 				if ($result['image']) {
 					$image = $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'));
 				} else {
@@ -209,13 +210,19 @@ class ControllerProductCategory extends Controller {
 				if($this->session->data['coupon'])
 				  $login = true;
 
-				$data['logged'] = $login;  
+				$data['logged'] = $login;
+				
+			//print_r($this->model_catalog_product->getListNameAttributeProduct($result['attributes']));
+			//die();
 
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
 					'logged' => $login,
 					'thumb'       => $image,
 					'name'        => $result['name'],
+					'attributes_list' => $this->model_catalog_product->getListNameAttributeProductInCategory($result['attributes']),
+					'Kultivar' => $this->model_catalog_product->getValueKluivarOfproduct($result['product_id']),
+					'THC' => $this->model_catalog_product->getValueTHCOfproduct($result['product_id']),
 					'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
 					'price'       => $price,
 					'special'     => $special,
