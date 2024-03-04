@@ -441,7 +441,7 @@ textarea.form_cta{
 }
 
 .product-layout.product-list .attribute_product_in_category {
-    display: none;
+    /*display: none;*/
 }
 
 .icon_attribute {
