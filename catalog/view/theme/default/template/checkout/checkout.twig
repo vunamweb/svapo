@@ -340,6 +340,11 @@ if(!$('#agree').is(':checked')) {
 	return;
 }
 
+$('.loading_km').show();
+
+$('html, body').animate({scrollTop: 0}, 'slow');
+$('#collapse-payment-address').css('opacity', 0.1);
+
 const form = document.getElementById('uploadForm');
 const formData = new FormData(form);
 
@@ -350,6 +355,8 @@ data: formData,
 contentType: false,
 processData: false,
 success: function (response) {
+$('.loading_km').hide();
+$('#collapse-payment-address').css('opacity', 1);
 $.ajax({
 url: 'index.php?route=checkout/payment_address/save',
 type: 'post',
