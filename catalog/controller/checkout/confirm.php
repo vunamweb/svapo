@@ -334,6 +334,8 @@ class ControllerCheckoutConfirm extends Controller {
 
 			$this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
 
+			//print_r($this->session->data['payment_address']['address_1']); die();
+
 			$data['mail_header'] = HEADER;
 		    $data['mail_footer'] = FOOTER;
 			$data['text_inform_order'] = $this->language->get('text_inform_order');
@@ -343,7 +345,8 @@ class ControllerCheckoutConfirm extends Controller {
 			$data['email'] = $customer_info['email'];
 			$data['telephone'] = $customer_info['telephone'];
 			$data['order_id'] = $this->session->data['order_id'];
-			$data['comment'] = $this->request->get['comment']; 
+			$data['comment'] = $this->request->get['comment'];
+			$data['text_shipping_address'] = $this->session->data['payment_address']['address_1']; 
 			
 			$subject = 'Order' . ' ' . $this->session->data['order_id'];
 		    $fromName = 'Pharmacy';
