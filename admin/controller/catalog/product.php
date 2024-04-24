@@ -1213,7 +1213,7 @@ class ControllerCatalogProduct extends Controller {
 			}
 
 
-            $data['list_attributes'][] = $name . '<hr>';
+            $data['list_attributes'][] = $name . '<hr></div>';
 		}
 
 		//$data['list_attributes'] = $this->model_catalog_attribute->getAttributesProduct($this->request->get['product_id']);
