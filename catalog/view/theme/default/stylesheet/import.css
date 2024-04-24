@@ -37,6 +37,7 @@
     --ratio: 1;
 	--yellow: #FFD800;
 	--yellow-light: rgba(255, 216, 0, .85);
+	--green: #769d3f;
     --bs-secondary-color:#707070;/*placeholder*/
     --bs-danger-rgb: 255, 46, 23;
     --bs-success-rgb: 16, 185, 129;
@@ -57,7 +58,7 @@
     color:var(--yellow);
 }
 #loader {
-    background-image: url("../images/logo.svg");
+    background-image: url("../images/Logo-SVAPO.svg");
     background-size: 80% auto;
     background-repeat: no-repeat;
     background-position: center 50%;
@@ -212,7 +213,7 @@ form button
 .text_ellipsis {
     -webkit-line-clamp: 2;
     display: -webkit-box;
-    -webkit-box-orient: vertical;
+    /* -webkit-box-orient: vertical; */
     overflow: hidden;
     text-overflow: ellipsis;
 }

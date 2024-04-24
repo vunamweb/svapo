@@ -11,15 +11,15 @@ header .navbar {
     --bs-border-width: 0;
     --bs-navbar-toggler-border-radius: 0;
     --bs-navbar-color: #000;
-    padding-top:1.65rem;
-    padding-bottom:1.52rem;
+    padding-top:1rem;
+    padding-bottom:1rem;
 }
 header .navbar-brand{
     position:relative;
     z-index:2;
 }
 header .logo{
-    height:2.9375rem;
+    height:5rem;
     width:auto;
 }
 header .menu-dropdown .navbar-collapse .navbar-nav{
@@ -72,6 +72,7 @@ footer .text1{
 }
 footer .logo_bottom{
     width: 8.08819rem;
+	width: 15rem;
 }
 .capitals { text-transform: uppercase; margin-bottom: 1em; line-height: 1.5em; }
 .icon_search{

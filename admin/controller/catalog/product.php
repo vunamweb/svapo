@@ -1203,7 +1203,7 @@ class ControllerCatalogProduct extends Controller {
 				$nameAtb = $item['name'];
 
 				$is_checked = ($item['is_select']) ? 'checked' : '';
-				$img = ($item['image'] != '') ? '<img class="icon_attribute" src="../uploads/icon/'.$item['image'].'">' : 'No icon';
+				$img = ($item['image'] != '') ? '<img class="icon_attribute" src="../uploads/icon/'.$item['image'].'">' : '';
 
 
 				$name .= '<span class="attributes">

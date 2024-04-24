@@ -17,12 +17,8 @@
 						
 						<div class="mobileOn">
 							<div class="text1 mb-lg-4 mb-3 mt-4">{{ heading_title }}</div>
-						  	{% if login %}
-	  							{% if price %}
-								  	<div class="price_detail text2 mb-3">{{ price }} / Gramm</div>
-								{% endif %}
-							{% endif %}
-                        </div>
+							  	<div class="price_detail text2 mb-3">{{ price }} / Gramm</div>
+			                </div>
 						
 						<div class="mb-lg-5 pb-3">
 						<ul class="thumbnails">
@@ -62,16 +58,8 @@
                     <div class="col-lg-6 col-right ps-lg-5">
                         <div class="text1 mb-lg-4 mb-3">{{ heading_title }}</div>
 						<!-- <p class="name_category">{{ category }} :   {{ name_category }}</p> -->
-                        
-          				{% if login %}
-						  	{% if price %}
-          						<div class="price_detail text2 mb-3">{{ price }} / Gramm</div>
-          					{% endif %}
-						{% else %}
-							<div class="mb-3"><a href="./index.php?route=account/account" class="price_no_log">{{ price_no_log }}</a></div>
-      					{% endif %}
-						  
-						  
+
+   						<div class="price_detail text2 mb-3">{{ price }} / Gramm</div>						  
                         <!--<div class="text3 mb-lg-2 mb-1 font_Inter">BESCHREIBUNG</div>-->												
 						
                         <div class="text4 mb-lg-5 mb-4 font_Inter text-black">
@@ -87,14 +75,16 @@
                 				<tbody>
 
 								{% for attribute in attribute_group.attribute %}
-                					<tr>
+                					{% if attribute.text is not empty %}
+									<tr>
                   						<td>{{ attribute.name }}</td>
                   						<td>{{ attribute.text }}</td>
                 					</tr>
+									{% endif %}
                 				{% endfor %}
 									<tr>
 										  <td>Hersteller</td>
-										  <td>{{ manufacturer }} // Logo einblenden</td>
+										  <td>{{ manufacturer }} // Logo einblenden...</td>
 									</tr>
 									<tr>
 										  <td>{{ text_stock }}</td>
