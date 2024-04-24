@@ -306,6 +306,9 @@ textarea.form_cta{
 	{ background: var(--red); }
 .price_no_log { color: green; }
 /* VU */
+.img_manufacture {
+    width: 30px;
+}
 #input-coupon {
     margin-right: 20px;
 }

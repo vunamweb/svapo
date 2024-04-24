@@ -2,14 +2,11 @@
 class ControllerProductCategory extends Controller {
 	public function index() {
 		$this->load->language('product/category');
-
 		$this->load->model('catalog/category');
-
 		$this->load->model('catalog/product');
-
 		$this->load->model('tool/image');
-
 		$this->load->model('account/customer');
+		$this->load->controller('product/manufacturer');
 
 		if (isset($this->request->get['filter'])) {
 			$filter = $this->request->get['filter'];
@@ -168,9 +165,13 @@ class ControllerProductCategory extends Controller {
 			  $results = $this->model_catalog_product->getProductByAttribute($results, $this->request->get['atb_id']);
 
 			//print_r(count($results)); die();
+			$manufacturers = $this->model_catalog_manufacturer->getManufacturers();				
+			$manufacturerData = array();				
+
+			// print_r($results);
 
 			foreach ($results as $result) {
-				//print_r($result); die();
+				// print_r($result); die();
 				if ($result['image']) {
 					$image = $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'));
 				} else {
@@ -206,6 +207,23 @@ class ControllerProductCategory extends Controller {
 				$data['whatapp_link'] = 'https://wa.me/'.WHATSAPP_NUMBER.'?text='.WHATSAPP_TEXT.'';
 
 				$login = $this->customer->isLogged();
+				
+				// NEW BJORN
+				// print_r($manufacturers);
+				// echo $result['manufacturer_id'];
+				foreach ($manufacturers as $manufacturer) {
+					// echo $manufacturer['manufacturer_id'] ."==". $result['manufacturer_id']."<br>";
+					if ($manufacturer['manufacturer_id'] == $result['manufacturer_id']) {
+						// Fügen Sie die Herstellerdaten zum aktuellen Produkt hinzu
+						// echo $manufacturer['name'];
+						$manufacturer_name = $manufacturer['name'];
+						$manufacturer_image = $manufacturer['image'];
+						break;
+					}
+				}				
+				// Übergeben Sie das neue Array mit den extrahierten Daten an Ihre Twig-Vorlage
+				// $data['manufacturerData'] = $manufacturerData;
+
 
 				if($this->session->data['coupon'])
 				  $login = true;
@@ -214,6 +232,9 @@ class ControllerProductCategory extends Controller {
 				
 			//print_r($this->model_catalog_product->getListNameAttributeProduct($result['attributes']));
 			//die();
+				// echo $result['stock_status'];
+				if (stripos($result['stock_status'], 'sofort') !== false) $stock_status =  '<span class="instock"></span>';
+				else '<span class="notinstock"></span>';
 
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
@@ -229,6 +250,9 @@ class ControllerProductCategory extends Controller {
 					'tax'         => $tax,
 					'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
 					'rating'      => $result['rating'],
+					'manufacturer_name' => $manufacturer_name ,
+					'manufacturer_image' => $manufacturer_image,
+					'stock' => $stock_status.$result['stock_status'],
 					'href'        => $this->url->link('product/product', 'path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
 				);
 			}

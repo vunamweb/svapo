@@ -82,16 +82,19 @@
                 					</tr>
 									{% endif %}
                 				{% endfor %}
-									<tr>
+									
+                  			</tbody>
+                			{% endfor %}
+							{% if image_manufacturer is not empty %}
+							<tr>
 										  <td>Hersteller</td>
-										  <td>{{ manufacturer }} // Logo einblenden...</td>
+										  <td><img src="image/{{ image_manufacturer }}" class="img_manufacture"/></td>
 									</tr>
+									{% endif %}
 									<tr>
 										  <td>{{ text_stock }}</td>
 										  <td>{{ stock }}</td>
 									</tr>
-                  			</tbody>
-                			{% endfor %}
               			</table>
 						  
                         </div>

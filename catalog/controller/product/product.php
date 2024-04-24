@@ -262,7 +262,12 @@ class ControllerProductProduct extends Controller {
 			$data['tab_review'] = sprintf($this->language->get('tab_review'), $product_info['reviews']);
 
 			$data['product_id'] = (int)$this->request->get['product_id'];
+
 			$data['manufacturer'] = $product_info['manufacturer'];
+			$manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($product_info['manufacturer_id']);
+			$data['image_manufacturer'] = $manufacturer_info['image'];
+			//print_r($manufacturer_info); die();
+
 			$data['manufacturers'] = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $product_info['manufacturer_id']);
 			$data['model'] = $product_info['model'];
 			$data['reward'] = $product_info['reward'];
@@ -303,7 +308,6 @@ class ControllerProductProduct extends Controller {
 			$data['images'] = array();
 
 			$results = $this->model_catalog_product->getProductImages($this->request->get['product_id']);
-
 			foreach ($results as $result) {
 				$data['images'][] = array(
 					'popup' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height')),
