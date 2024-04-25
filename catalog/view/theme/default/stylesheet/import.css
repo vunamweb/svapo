@@ -3,8 +3,15 @@
 
 @font-face {
 	font-family: "Open Sans";
-	src: url('../../../../../fonts/opensans-extrabold.woff') format('woff');
-	font-weight: 700;
+	src: url('../../../../../fonts/opensans-semibold.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Open Sans";
+	src: url('../../../../../fonts/opensans-light.woff') format('woff');
+	font-weight: 300;
 	font-style: normal;
 	font-display: swap;
 }
@@ -18,26 +25,21 @@
 @font-face {
 	font-family: "Open Sans";
 	src: url('../../../../../fonts/opensans-bold.woff') format('woff');
-	font-weight: 700;
+	font-weight: 600;
 	font-style: normal;
 	font-display: swap;
 }
-/* @font-face {
-	font-family: "Inter";
-	src: url('../../../../../fonts/Inter-Regular.woff') format('woff');
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-} */
 :root {
     --color-primary:#000;
     --color-secondary:#707070;
+	--lightgray: #DEDEDE;
     --bs-body-color: #000;
     --bs-body-color-rgb: 0,0,0;
     --ratio: 1;
-	--yellow: #FFD800;
-	--yellow-light: rgba(255, 216, 0, .85);
-	--green: #769d3f;
+	--yellow: #689C39;
+	--yellow-light: rgba(104, 156, 57, .9);
+	--green-light: rgba(104, 156, 57, .75);
+	--green: #689C39;
     --bs-secondary-color:#707070;/*placeholder*/
     --bs-danger-rgb: 255, 46, 23;
     --bs-success-rgb: 16, 185, 129;
@@ -51,6 +53,7 @@
 .bg-warning{
     background-color:var(--yellow)!important;
 }
+/* .btn-shop { background-color: var(--green-light); } */
 .disabled,[disabled]{
     --bs-btn-disabled-opacity: 0.3552;
 }
@@ -249,6 +252,7 @@ form button
 @media (max-width: 991px) {
     html {
         font-size: 3.266666666666667vw !important; /*16px*/
+		font-size: 2vw !important; /*16px*/
     }
     body {
         font-size:0.875rem;

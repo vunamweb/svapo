@@ -27,6 +27,7 @@ header .menu-dropdown .navbar-collapse .navbar-nav{
     padding-bottom:6.125rem;
     padding-right:6.125rem;
     --bs-nav-link-padding-y:1rem;
+	padding-left: 1.5rem;
 }
 header #navbarNav .navbar-nav .nav-link {
     font-size:calc(1.25rem / var(--ratio));
@@ -54,10 +55,10 @@ header .icon_nav{
     object-position:center;
 }
 .icon_whatsapp{
-    width:calc(2.4375rem / var(--ratio));
+    width:calc(2.4375rem / var(--ratio)); margin-right: 1rem !important;
 }
 footer{
-    background: var(--yellow);
+    background: var(--lightgray);
 }
 footer .container{
     padding-top:calc(5.31rem / var(--ratio));
@@ -82,7 +83,6 @@ footer .logo_bottom{
 .btn_cta{
     height:calc(5rem / var(--ratio));
     font-size:calc(1.5625rem / var(--ratio)) !important;
-    color: var(--color-primary);
     padding:calc(1.56rem / var(--ratio)) calc(2.06rem / var(--ratio)) calc(1.31rem / var(--ratio));
     line-height: 1;
     white-space: nowrap;
@@ -136,6 +136,9 @@ select.form_cta{
 }
 textarea.form_cta{
     height:calc(15.6875rem / var(--ratio));
+}
+.hero_banner .input-group {
+	background: rgba(255, 255, 255, .4);
 }
 .hero_banner .item{
     height:calc(56.25rem / var(--ratio));
@@ -199,7 +202,7 @@ textarea.form_cta{
     background-color:#707070;
 }
 .form_register .text1{
-    color: var(--yellow);
+    color: var(--black);
     font-size:calc(3.4375rem / var(--ratio));
 }
 .form_register h4{
@@ -209,11 +212,13 @@ textarea.form_cta{
 .hero_banner .text1{
     padding-left:calc(7.625rem / var(--ratio));
     padding-right:calc(7.625rem / var(--ratio));
+	color: #fff;
+	text-shadow: 1px 1px 10px #000;
 }
 .product{
     padding-top:calc(4.375rem / var(--ratio));
     padding-bottom:calc(10.75rem / var(--ratio));
-	font-size: .9rem;
+	font-size: 1.1rem;
 }
 .row_sp{
      --bs-gutter-x:calc(2.81rem / var(--ratio));
@@ -267,9 +272,11 @@ textarea.form_cta{
     font-size:calc(2.5rem / var(--ratio));
     line-height:1.375;
     font-weight:300; text-transform: uppercase;
+	color: #fff;
+	font-weight: 300;
 }
-.box_vang .text1 strong{
-    font-weight:400;
+.box_vang .text1 b{
+    font-weight:500;
 }
 .detail .text1{
     font-size:calc(2.8125rem / var(--ratio));
@@ -298,7 +305,7 @@ textarea.form_cta{
 }
 .instock,
 .notinstock 
-	{ display: inline-block; width: 1.8rem; position: relative; }
+	{ display: inline-block; width: 1.8rem; position: relative; margin-right: 1rem; }
 .instock:before,
 .notinstock:before 
 	{ content:''; display: block; position: absolute; width: 18px; height: 18px; background: var(--green); border-radius: 50%; top: -15px; }
@@ -307,7 +314,7 @@ textarea.form_cta{
 .price_no_log { color: green; }
 /* VU */
 .img_manufacture {
-    width: 30px;
+    height: 40px;
 }
 #input-coupon {
     margin-right: 20px;
@@ -655,23 +662,29 @@ textarea.form_cta{
 	}
     .hero_banner .text1{
         padding-top: 4rem;
-        --ratio:4;
+        --ratio:4; font-size: 2rem;
     }
 	.hero_banner .hstack {
 		display: block; 
 	}
     .hero_banner .input-group{
-
+		max-width: 50%; margin: 0 auto
     }
     .hero_banner .hstack .btn_cta{
         /* padding: 0 0.125rem; */
     }
     .hero_banner .form-control, 
 	.hero_banner .btn{
-        height:2.125rem;
+        /* height:2.125rem; */ font-size: 1.2em !important;
     }
 	.hero_banner .btn.btn_cta {
 		height:1.25rem;	padding: 1rem 1rem;	margin-bottom: 10px;
+	}
+	.hero_banner .btn.btn_cta {
+		font-size: .8rem !important;
+		height: auto;
+		display: inline-block;
+		margin-bottom: 1em;
 	}
 	.btn_cta.py-4 {
 		padding-top: 1rem !important;
@@ -704,7 +717,7 @@ textarea.form_cta{
         --ratio:1.75;
     }
     .product{
-        --ratio:2;
+        --ratio:2; font-size: 1em;
     }
     .row_sp{
         --bs-gutter-x:.75rem;
@@ -731,10 +744,15 @@ textarea.form_cta{
 		font-size: calc(2rem / var(--ratio));
 	}
 	.item_sp .text2 {
-		font-size: .6rem;
+		/* font-size: .6rem; */
+		font-size: 1.1em;
 	}
 	.item_sp h4 {
-		font-size: calc(1.75rem / var(--ratio));
+		/* font-size: calc(1.75rem / var(--ratio)); */
+		font-size: 1.25em;
+	}
+	.product-grid .table-list-view td:first-child {
+		width: 5rem;
 	}
 	label {
 		font-size: 16px !important;
@@ -925,58 +943,83 @@ textarea.form_cta{
 
 @media (max-width: 600px) {
 	body {
-		font-size: 1.25rem;
+		font-size: 1.75rem;
 	}
 	header .navbar {
-		padding-top: 1rem;
-		padding-bottom: 1rem;
+		padding-top: 0;
+		padding-bottom: 0;
 	}
 	header .navbar-toggler-icon {
-		width: 2.5rem !important;
+		width: 24px !important;
 		margin-top: 4px;
 	}
 	.header_height {
 		height: 56px !important;
 	}
 	header #navbarsMain .navbar-nav .nav-link {
-		font-size: calc(2rem / var(--ratio));
+		font-size: 2rem;
 		text-transform: uppercase;
 	}
 	header .menu-dropdown .navbar-collapse .navbar-nav {
-		padding-top: 5rem;
+		padding-top: 8rem;
+		padding-left: 20px
 	}
-	.hero_banner .item {
-		height: 50vh !important;
+	header .logo {
+		height: 7rem; margin: 0; padding: 0;
 	}
-	.hero_banner .input-group { background: var(--yellow); }
-	.hero_banner .btn_cta,
-	.hero_banner .btn 
-	{
-		height: 48px !important;
+	.hero_banner .btn.btn_cta {
+		width: 100%; font-size: 1rem !important;
+		text-align: center;
+		height: auto;
+		display: inline-block;
+		margin-bottom: 6px;
+		border: solid 1px var(--yellow)
 	}
+	.hero_banner .item { height: 60vh !important; }
+	.hero_banner .input-group { width: 100%; max-width: inherit }
+	.hero_banner .btn { margin: 0; }
+	/* .hero_banner .btn_cta, */
+	.hero_banner .btn.bg-transparent.btn-outline-secondary { height: 58px !important; }
 	.attribute_product ul li.icon {
 		width: auto;
 		margin-right: 2rem;
 	}
 	.btn_search { font-size: 1em !important; height: auto !important; }
+	.icon_search {
+		width: 4rem;
+	}
 	input[type="text"].form-control, .label-camera, .btn_cta {
-		font-size: 1em !important;
+		font-size: 1.5em !important; height: 58px !important;
 	}
+	
+	.detail .text2, .btn_cta, .item_sp .text2 { font-size: 2em; }
+	.price_detail { font-size: 1.5em !important; }
+	
 	.hero_banner .btn.btn_cta {
-		font-size: 1em !important;
-		line-height: 1.25em;
+		font-size: 1.25em !important;
+		line-height: 2em;
 	}
+	.hero_banner .btn.btn_cta:nth-child(3) { display: block; margin: 0 auto; }
 	.feature .text3, .hero_banner .form-control, .detail .text6, .detail .text3, .detail .text5, .detail .text4 {
-		font-size: calc(2.25rem / var(--ratio));
+		font-size: 1.25em;
 	}
-	.detail .text1 {	font-size: 2.25rem; } 
+	.detail .text1 { font-size: 1.7em; text-decoration: none; } 
+	.ps-lg-5 .text1 { margin-top: 3rem; } 
 	.btn_cta {
-		font-size: 1.5rem !important;
-		padding: 1.5rem !important;
+		font-size: 1.5em !important;
+		padding: 2.1rem !important;
+	}
+	.attribute_product {
+		margin-top: 10px;
+		margin-bottom: 10px;
 	}
 	.hero_banner .text1 {
-		font-size: calc(8rem / var(--ratio));
+		font-size: 2.2em; padding: 20vh 0 0; text-shadow: 1px 1px 4px #000;
 	}
+	.hero_banner.cat .text1 {
+		padding: 30vh 0 0; 
+	}
+	.btn-abs img { max-width: 60%; }
 	h1 {
 		font-size: 2.15em !important;
 	}
@@ -989,11 +1032,35 @@ textarea.form_cta{
 	.item_sp h4 {
 		font-size: 1.35rem;
 	}
-	.detail .text5 { margin: 1em 0; }
-	footer .text1, footer .text2, footer .text3 {
-		font-size: 1.2rem;
+	.detail .text5 { margin: 2em 0 1em; }
+	.text-secondary h3 { font-weight: 500; }
+	.section_bot { height: 28vh !important; }
+	.section_bot img { height: auto !important; }
+	.box_vang {
+		--ratio: 1;
+		font-size: 1.5em;
+		line-height: 1em;
 	}
-	.logo-footer { margin-bottom: 5em !important; }
+	.icon_whatsapp { width: 4.5rem; }
+	.nav-link .icon_whatsapp { width: 3.5rem; margin-left: 10px; }
+	.product-list .item_sp .text2 {
+		font-size: 1em; color: var(--yellow)
+	}
+	.thumbnails {
+		margin: 0 auto;
+		max-width: 70%;
+	}
+	footer .text1, footer .text2, footer .text3 {
+		font-size: 1.05em; padding-left: 10px; margin-top: 2rem;
+	}
+	footer .logo-footer {
+		width: 0; padding: 0; margin: 0;
+		margin-bottom: 5em !important; display: none
+	}
+	footer .logo_bottom {
+		width: 11em;
+		margin-bottom: 3rem
+	}
 	#input-coupon {
 		margin-right: 5px;
 		height: 51px;
@@ -1027,10 +1094,15 @@ textarea.form_cta{
 	.hidden-xs { display: none !important; }
 }
 
+@media (max-width: 380px) {
+	.section_bot { height: 36vh !important; }
+	.hero_banner .item { height: 70vh !important; }
+}
 @media (max-width: 370px) {
 	.hero_banner .item {
 		height: 60vh !important;
 	}
+	
 }
 
 @media (min-width: 992px) {

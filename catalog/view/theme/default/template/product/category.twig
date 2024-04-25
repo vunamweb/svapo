@@ -1,7 +1,7 @@
 {{ header }}
 <main>
-        <section class="hero_banner">
-            <div class="item position-relative" style="--bg:url('../../../../../images/hero_banner2.png');--bg-mb:url('../../../../../images/hero_banner2_mb.png');">
+        <section class="hero_banner cat">
+            <div class="item position-relative" style="--bg:url('../../../../../images/hero_banner2.jpg');--bg-mb:url('../../../../../images/hero_banner2_mb.jpg');">
                 <div class="container text-center">
                     <div class="text1 mb-lg-5 mb-3 pb-4 text-uppercase">UNSER
                         ANGEBOT</div>
@@ -10,7 +10,7 @@
 							<div class="input-group input-group-lg mb-0">
 								<input type="hidden" name="route" value="product/search">
 								<input type="hidden" name="description" value="true">
-								<button class="btn bg-transparent btn-outline-secondary rounded-0 border-end-0" type="submit"><img class="icon_search" src="images/search.svg" alt="Canabis Suche"></button>
+								<button class="btn bg-transparent btn-outline-secondary rounded-0 border-end-0" type="submit"><img class="icon_search" src="images/search2.svg" alt="Canabis Suche"></button>
 								<input type="text" name="search" class="btn_search btn_cta form-control bg-transparent border-secondary rounded-0 border-start-0 text-center" placeholder="WAS SUCHEN SIE" autocomplete="off">
 							</div>
 						</form>
@@ -35,7 +35,7 @@
 		<section>
 			<div class="container container_product mt-5">
 				<div class="box_vang bg-warning text-center py-lg-4 py-1 px-4 d-flex align-items-center justify-content-center">
-					<img class="icon_whatsapp me-1" src="images/whatsapp.svg" alt=""><a href="{{ whatapp_link }}" target="_blank"><span class="text1"><strong>Preis-Check?</strong> JETZT PASSWORT PER WHATSAPP ANFORDERN! ᐳ</span></a>
+					<img class="icon_whatsapp me-1" src="images/whatsapp.svg" alt=""><a href="{{ whatapp_link }}" target="_blank"><span class="text1">{{ whatsapp }}</span></a>
 				</div>
 			</div>
 		</section>
@@ -69,7 +69,7 @@
 <div class="row row_sp d-flex flex-rows">
 	
 {% for product in products %}
-							<div class="col-md-6 col-lg-4 col-xl-3 col-12 product-grid">
+							<div class="col-md-4 col-lg-4 col-xl-3 col-12 product-grid">
                                 <div class="item_sp h-100">
                                     <div class="column-1 hide productThumb">
 										<a class="d-block" href="{{ product.href }}"><img class="image_sp" src="{{ product.thumb }}" alt="{{ product.name }}"></a>
@@ -80,7 +80,7 @@
                                     		<h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
                                     	</div>
 										<div class="text2 text_ellipsis mb-4 column-4">
-											{{ product.price }} / Gramm
+											<b>{{ product.price }}</b> / Gramm
 										</div>						
 										<div class="mb-4 column-4 isstock">
 											{{ product.stock }}													 
