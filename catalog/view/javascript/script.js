@@ -171,6 +171,12 @@ $(function () {
                $('.row.row_sp').html(data);
                $('.row.row_sp').show();
                $('.loading').hide();
+
+               if($('#list-view').hasClass('active'))
+                 $('#list-view').click();
+
+               if($('#grid-view').hasClass('active'))
+                 $('#grid-view').click();
             },
             error: function(xhr, status, error) {
                 // Handle error response
