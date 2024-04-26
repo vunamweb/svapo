@@ -15,7 +15,7 @@ class ModelExtensionShippingFlat extends Model {
 
         //print_r($this->getCoordinatesFromAddress( $address2 )); die();
 
-        $distance = $this->calculateDistance( $address1, $address2 );
+        /* $distance = $this->calculateDistance( $address1, $address2 );
 
         if ( $this->getCoordinatesFromAddress( $address1 ) == null || $this->getCoordinatesFromAddress( $address2 ) == null )
             $title =  $this->language->get( 'notice_shipping_invalid' );
@@ -25,7 +25,7 @@ class ModelExtensionShippingFlat extends Model {
             $title = str_replace('%d', $distance, $this->language->get( 'notice_shipping_yes' ));
         } else {
             $title = str_replace('%d', $distance, $this->language->get( 'notice_shipping_no' ));
-        }
+        } */
         
         $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . ( int )$this->config->get( 'shipping_flat_geo_zone_id' ) . "' AND country_id = '" . ( int )$address[ 'country_id' ] . "' AND (zone_id = '" . ( int )$address[ 'zone_id' ] . "' OR zone_id = '0')" );
 
@@ -46,7 +46,7 @@ class ModelExtensionShippingFlat extends Model {
 
             $quote_data[ 'flat' ] = array(
                 'code'         => 'flat.flat',
-                'title'        => $title, //$this->language->get( 'text_description' ),
+                'title'        => $this->language->get( 'text_description' ),
                 'cost'         => $cost,
                 'tax_class_id' => $this->config->get( 'shipping_flat_tax_class_id' ),
                 'text'         => $this->currency->format( $this->tax->calculate( $cost, $this->config->get( 'shipping_flat_tax_class_id' ), $this->config->get( 'config_tax' ) ), $this->session->data[ 'currency' ] )
