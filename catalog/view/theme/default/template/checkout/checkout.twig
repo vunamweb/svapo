@@ -335,6 +335,12 @@ alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 
 // Payment Address
 $(document).delegate('#button-payment-address', 'click', function (e) {
+	
+if($('#check_file').val() == '') {
+    alert('Bitte Datei hochladen auswählen');
+	return;
+}
+
 if(!$('#agree').is(':checked')) {
 	alert('Bitte klicken Sie oben auf das Kontrollkästchen');
 	return;

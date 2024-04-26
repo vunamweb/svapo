@@ -16,6 +16,7 @@
     <div class="upload_1">
     	<a href="javascript:void(0)" class="btn_cta btn btn-lg btn-outline-secondary text-uppercase rounded-0" id="upload_recipe">JETZT REZEPT HOCHLADEN</a>
     	<input class="hide" type="file" name="file_1" id="file_1">
+      <input type="hidden" id="check_file">
     </div>	
 	<div class="upload_2">
 		<label class="btn label-camera" for="file_2" id="button_additional_image">
@@ -147,6 +148,8 @@
 </form>
 <script type="text/javascript"><!--
 $('#file_1').change(function(){
+      $('#check_file').val('1');
+      
       alert('erfolgreich hochgeladen');
 });
 
