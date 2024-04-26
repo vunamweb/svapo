@@ -26,6 +26,9 @@
 	</div>
 	
   </div>
+  {% set key = 0 %}
+  {% for address in addresses %}
+  {% if key == 0 %}
 <h4 class="mb-0">LIEFERUNG</h4>
                         <div class="row g-3">
                             <div class="col-12">
@@ -52,7 +55,7 @@
                                 <input type="email" value="{{ email }}" class="form-control form_cta" placeholder="E-MAIL" autocomplete="off">
                             </div>
                             <div class="col-12">
-                                <textarea class="form-control form_cta" name="comment" id="comment" rows="6" autocomplete="off"></textarea>
+                                <textarea class="form-control form_cta" name="comment" id="comment" rows="6" autocomplete="off" placeholder="Ihre Nachricht an uns"></textarea>
                             </div>
                         </div>
                         <hr class="my-lg-4 my-3 border-0">
@@ -68,6 +71,9 @@
                         <hr class="my-lg-4 my-3 border-0">
                         <input type="button" value="ABSENDEN" id="button-payment-address" data-loading-text="Lade .." class="btn btn_cta btn-warning">
                         <hr class="mt-lg-4 mt-3 mb-lg-5 mb-4 border-0">
+                        {% endif %}
+                        {% set key = key + 1 %}
+                        {% endfor %}
 {% if addresses %}
   <div class="radio hide">
     <label>
@@ -149,7 +155,7 @@
 <script type="text/javascript"><!--
 $('#file_1').change(function(){
       $('#check_file').val('1');
-      
+
       alert('erfolgreich hochgeladen');
 });
 
