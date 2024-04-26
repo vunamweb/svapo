@@ -336,7 +336,7 @@ class ControllerCheckoutConfirm extends Controller {
 
 			//print_r($this->session->data['payment_address']['address_1']); die();
 
-			$data['mail_header'] = HEADER;
+			$data['mail_header'] = MAILHEADER;
 		    $data['mail_footer'] = FOOTER;
 			$data['text_inform_order'] = $this->language->get('text_inform_order');
 			$data['text_inform_order_admin'] = $this->language->get('text_inform_order_admin');
