@@ -25,13 +25,14 @@
 	</div>
 	
   </div>
-{% for address in addresses %}
 <h4 class="mb-0">LIEFERUNG</h4>
                         <div class="row g-3">
                             <div class="col-12">
                                 <div class="position-relative">
                                     <select class="form-select form_cta">
-                                         <option value="{{ address.address_id }}" selected="selected">{{ address.address_1 }}</option>
+                                         {% for address in addresses %}
+                                         <option value="{{ address.address_id }}">{{ address.address_1 }}</option>
+                                         {% endfor %}
                                     </select>
                                     <img class="select_arrow" src="images/select_arrow.svg" alt="">
                                 </div>
@@ -66,7 +67,6 @@
                         <hr class="my-lg-4 my-3 border-0">
                         <input type="button" value="ABSENDEN" id="button-payment-address" data-loading-text="Lade .." class="btn btn_cta btn-warning">
                         <hr class="mt-lg-4 mt-3 mb-lg-5 mb-4 border-0">
-  {% endfor %}
 {% if addresses %}
   <div class="radio hide">
     <label>
@@ -146,6 +146,10 @@
   </div>
 </form>
 <script type="text/javascript"><!--
+$('#file_1').change(function(){
+      alert('erfolgreich hochgeladen');
+});
+
 $('#upload_recipe').click(function(){
 	  $('#file_1').click();
   })
