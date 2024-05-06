@@ -346,7 +346,12 @@ class ControllerCheckoutConfirm extends Controller {
 			$data['telephone'] = $customer_info['telephone'];
 			$data['order_id'] = $this->session->data['order_id'];
 			$data['comment'] = $this->request->get['comment'];
-			$data['text_shipping_address'] = $this->session->data['payment_address']['address_1']; 
+
+			$address =  $this->session->data['payment_address']['address_1'];
+			$city = $this->session->data['payment_address']['city'];
+			$postcode = $this->session->data['payment_address']['postcode'];
+
+			$data['text_shipping_address'] = $address . ', ' . $city . ', ' . $postcode;
 			
 			$subject = 'Order' . ' ' . $this->session->data['order_id'];
 		    $fromName = 'Pharmacy';
@@ -453,7 +458,7 @@ class ControllerCheckoutConfirm extends Controller {
 	function sendMailSMTP($to, $subject, $from, $fromName, $message, $image = null)
     {
 		$file1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "uploads/".$image."";
-		$file2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "uploads/Freiumschlag-svapo.pdf";
+		$file2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Freiumschlag.pdf";
 		
 		$mail = new PHPMailer();
 		$mail->IsSMTP(); // telling the class to use SMTP
