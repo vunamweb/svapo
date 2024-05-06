@@ -1,4 +1,10 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+
+require "PHPMailer.php";
+require "SMTP.php";
+require "Exception.php";
+
 class ControllerMailOrder extends Controller {
 	public function index(&$route, &$args) {
 		if (isset($args[0])) {
@@ -351,7 +357,7 @@ class ControllerMailOrder extends Controller {
 			$from = $this->config->get('config_email');
 		}
 		
-		$mail = new Mail($this->config->get('config_mail_engine'));
+		/*$mail = new Mail($this->config->get('config_mail_engine'));
 		$mail->parameter = $this->config->get('config_mail_parameter');
 		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
 		$mail->smtp_username = $this->config->get('config_mail_smtp_username');
@@ -364,10 +370,15 @@ class ControllerMailOrder extends Controller {
 		$mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
 		$mail->setSubject(html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8'));
 		$mail->setText($this->load->view('mail/order_edit', $data));
-		$mail->send();
+		$mail->send();*/
+
+		$subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+        $message = $this->load->view('mail/order_edit', $data);
+
+		$this->sendMailSMTP($order_info['email'], $subject, 'test@7sc.eu', $from, $message);
 	}
 	
-	// Admin Alert Mail
+    // Admin Alert Mail
 	public function alert(&$route, &$args) {
 		if (isset($args[0])) {
 			$order_id = $args[0];
