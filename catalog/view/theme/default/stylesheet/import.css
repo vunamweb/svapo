@@ -141,7 +141,7 @@ img {
     object-position: center;
     user-select: none;
 }
-
+img.hersteller { max-height: 2rem; }
 figure figcaption {
     font-size: 0.75rem;
     margin-top: 0.375rem;
@@ -161,7 +161,7 @@ input {
 a {
     color: inherit;
 }
-
+.CTA { cursor: pointer; }
 p, dl, ol, ul {
     margin-bottom: 0;
 }
@@ -213,6 +213,8 @@ input {
 input.form-control,
 form button
  { border-color: #000 !important; }
+.suche .input-group .btn
+ { border-color: transparent !important; }
 .text_ellipsis {
     -webkit-line-clamp: 2;
     display: -webkit-box;
@@ -220,6 +222,7 @@ form button
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.breadcrumb { display: none; }
 .table{
     margin-bottom:0;
 }

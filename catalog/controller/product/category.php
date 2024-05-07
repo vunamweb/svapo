@@ -171,7 +171,8 @@ class ControllerProductCategory extends Controller {
 			// print_r($results);
 
 			foreach ($results as $result) {
-				// print_r($result); die();
+				// print_r($result); 
+				// die();
 				if ($result['image']) {
 					$image = $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'));
 				} else {
@@ -233,8 +234,14 @@ class ControllerProductCategory extends Controller {
 			//print_r($this->model_catalog_product->getListNameAttributeProduct($result['attributes']));
 			//die();
 				// echo $result['stock_status'];
-				if (stripos($result['stock_status'], 'sofort') !== false) $stock_status =  '<span class="instock"></span>';
-				else '<span class="notinstock"></span>';
+				// if (stripos($result['stock_status'], 'sofort') !== false) $stock_status =  '<span class="instock"></span>*'.$result['quantity'].'**'.$result['stock_status'].'*';
+				// else '<span class="notinstock"></span>';
+				
+				if ($result['quantity'] <= 0) {
+					$stock_status = '<span class="notinstock"></span>'.$result['stock_status'];
+				} else {
+					$stock_status = '<span class="instock"></span>'.$result['stock_status'];
+				}
 
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
@@ -252,7 +259,7 @@ class ControllerProductCategory extends Controller {
 					'rating'      => $result['rating'],
 					'manufacturer_name' => $manufacturer_name ,
 					'manufacturer_image' => $manufacturer_image,
-					'stock' => $stock_status.$result['stock_status'],
+					'stock' => $stock_status,
 					'href'        => $this->url->link('product/product', 'path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
 				);
 			}
@@ -313,7 +320,7 @@ class ControllerProductCategory extends Controller {
 				);
 			}
 
-			$data['sorts'][] = array(
+			/*$data['sorts'][] = array(
 				'text'  => $this->language->get('text_model_asc'),
 				'value' => 'p.model-ASC',
 				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.model&order=ASC' . $url)
@@ -323,7 +330,7 @@ class ControllerProductCategory extends Controller {
 				'text'  => $this->language->get('text_model_desc'),
 				'value' => 'p.model-DESC',
 				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.model&order=DESC' . $url)
-			);
+			);*/
 
 			$url = '';
 
