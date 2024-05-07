@@ -1,0 +1,32 @@
+{{ mail_header }}
+
+			<table border="0" cellpadding="10" cellspacing="0" style="max-width: 600px; background: #efefef; padding: 20px;">
+				<tr><td>{{ text_inform_order }}</td></tr>
+                <tr><td>{{ order_id }}</td></tr>
+                
+				
+				<tr><td>
+					
+					<table>
+						<tr><td>Bestellnummer</td><td>{{ order_id }}<br></td></tr>
+						<tr><td>Vorname</td><td>{{ firstname }}</td></tr>
+						<tr><td>Nachname</td><td>{{ lastname }}</td></tr>
+						<tr><td>Adresse</td><td>{{ text_shipping_address }}</td></tr>
+						<tr><td>Telefon </td><td>{{ telephone }}</td></tr>
+						<tr><td>E-Mail</td><td>{{ email }}</td></tr>
+						<tr><td>Kommentar</td><td>{{ comment }}</td></tr>
+					</table>
+		
+				</td></tr>
+			</table>
+			
+			{{ mail_footer }}
+			
+		</td>
+	</tr>
+</table>
+
+</td></tr></table>
+
+</body>
+</html>
