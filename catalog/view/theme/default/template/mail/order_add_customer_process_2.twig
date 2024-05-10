@@ -41,9 +41,17 @@
 			<td align="right"><img src="{{ store_url }}images/Logo-SVAPO.png" style="width:150px;"></td>
 		</tr>
 		<tr>
-			     {% if shipping_address %}
+			<td>
+				<span>&nbsp; <!-- könnte noch Adresse hin --></span>
+					<br/>
+					<br/>
+					<p style="font-size: 12px;">
+						{{ text_shipping_address }}<br />
+                        {% if shipping_address %}
         <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ shipping_address }}</td>
         {% endif %}
+					</p>
+			</td>
 			<td align="right">
 			{{ pdf_address }}
 			</td>
