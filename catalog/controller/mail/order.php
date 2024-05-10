@@ -292,6 +292,7 @@ class ControllerMailOrder extends Controller {
 
 		$subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
 		$fromName = html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8');
+
 		$message = $this->load->view('mail/order_add_customer_process_2', $data);
 
 		//create pdf
@@ -309,8 +310,12 @@ class ControllerMailOrder extends Controller {
 	$file_location = "./pdf/order.pdf";
 	file_put_contents($file_location, $pdf);*/
 	//end
+	    //$count = count($order_totals);
 
-		$this->sendMailSMTP($order_info['email'], $subject, 'test@7sc.eu', $fromName, $message, 'add');
+		//print_r($order_total['value']); die(); 
+
+		if($order_total['value'] > 0)
+		  $this->sendMailSMTP($order_info['email'], $subject, 'test@7sc.eu', $fromName, $message, 'add');
 	}
 
 	function sendMailSMTP($to, $subject, $from, $fromName, $message, $type = null)

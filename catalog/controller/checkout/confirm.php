@@ -353,7 +353,9 @@ class ControllerCheckoutConfirm extends Controller {
 
 			$data['text_shipping_address'] = $address . ', ' . $city . ', ' . $postcode;
 			
-			$subject = 'Order' . ' ' . $this->session->data['order_id'];
+			$subject = html_entity_decode(sprintf($this->language->get('text_subject'), $order_data['store_name'], $this->session->data['order_id']), ENT_QUOTES, 'UTF-8');
+		
+			//$subject = 'Order' . ' ' . $this->session->data['order_id'];
 		    $fromName = 'Pharmacy';
 			$message = $this->load->view('mail/order_add_customer', $data);
 			$message_1 = $this->load->view('mail/order_add_admin', $data);
@@ -481,7 +483,7 @@ class ControllerCheckoutConfirm extends Controller {
 		if($image)
 		  $mail->addAttachment($file1);
 
-		$mail->addAttachment($file2);  
+		//$mail->addAttachment($file2);  
 
 		if (!$mail->Send()) {
 			//echo "Mailer Error: " . $mail->ErrorInfo;
