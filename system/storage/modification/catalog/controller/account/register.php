@@ -114,6 +114,12 @@ class ControllerAccountRegister extends Controller {
 		} else {
 			$data['error_zipcode'] = '';
 		}
+		
+		if (isset($this->error['city'])) {
+			$data['error_city'] = $this->error['city'];
+		} else {
+			$data['error_city'] = '';
+		}
 
 		$data['action'] = $this->url->link('account/register', '', true);
 
@@ -291,7 +297,11 @@ class ControllerAccountRegister extends Controller {
 		}
 
 		if ((utf8_strlen(trim($this->request->post['postcode'])) < 1)) {
-			$this->error['zipcode'] = 'Bitte Zip code eingeben';
+			$this->error['zipcode'] = 'PLZ fehlt';
+		}
+
+		if ((utf8_strlen(trim($this->request->post['city'])) < 1)) {
+			$this->error['city'] = 'Stadt fehlt';
 		}
 
 		// Captcha

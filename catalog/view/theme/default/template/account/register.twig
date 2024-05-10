@@ -68,12 +68,18 @@
                                  <div class="text-danger">{{ error_address_1 }}</div>
                                 {% endif %}
                             </div>
-                            <div class="col-12">
-                                <input type="text" class="form-control form_cta" name="postcode" placeholder="PLZ, ORT" autocomplete="off">
+                            <div class="col-4">
+                                <input type="text" class="form-control form_cta" name="postcode" placeholder="PLZ" autocomplete="off">
                             {% if error_zipcode %}
                                  <div class="text-danger">{{ error_zipcode }}</div>
                                 {% endif %}
                             </div>
+							<div class="col-8">
+								<input type="text" class="form-control form_cta" name="city" placeholder="ORT" autocomplete="off">
+							{% if error_city %}
+								 <div class="text-danger">{{ error_city }}</div>
+								{% endif %}
+							</div>
                         </div>
                         <hr class="my-lg-4 my-3 border-0">
                         <div class="form-check">
