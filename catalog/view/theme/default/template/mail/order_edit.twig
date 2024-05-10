@@ -1,3 +1,5 @@
+{{ mail_header }}
+
 {{ text_order_id }} {{ order_id }}
 {{ text_date_added }} {{ date_added }}
 
@@ -5,17 +7,25 @@
 
 {{ order_status }}
 
+<br/>
+
 {% if link %}
 {{ text_link }}
 
 {{ link }}
 {% endif %}
+
+<br/>
 {% if comment %}
 
 {{ text_comment }}
 
 {{ comment }}
-{{ text_footer }}
+
+<br/>
+
 {% else %} 
-{{ text_footer }}
+{{ mail_footer }}
 {% endif %}
+
+{{ mail_footer }}

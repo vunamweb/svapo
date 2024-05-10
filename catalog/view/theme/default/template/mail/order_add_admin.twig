@@ -4,7 +4,20 @@
 				<tr><td>{{ text_inform_order_admin }}</td></tr>
 				
 				<tr><td>
+					<h2>Auftragbestätigung</h2>
+					<p>Liebe(r) {{ firstname }} {{ lastname }},<br/>
+					vielen Dank für Deinen Auftrag. Unser Team hat Deinen Auftrag gerade für Dich bearbeitet und Deine Bestellung ist versandfertig.
+					Im Anhang findest Du Deine Auftragsbestätigung.</p>
 					
+					<p>Jetzt ist Dein Mitwirken gefragt: Bitte überweise den Betrag mit dem Betreff <b>savpo-{{ order_id }}</b> auf folgende Bankverbindung: 
+					{{ ACCOUNT }}</p>
+					<br /><br />
+					<p>Sende uns jetzt Dein Originalrezept schnellstmöglich postalisch zu (nicht notwendig wenn Du uns ein E-Rezept geschickt hast).<br />
+					Hierzu kannst Du den beiliegenden Freiumschlag verwenden.</p>
+					<p>Sollten wir Dein Rezept oder Deinen Zahlungseingang nicht innerhalb der nächsten 7 Tage erhalten, werden wir Deinen Auftrag löschen.</p>
+					<p>Herzlichen Dank für Deine Bestellung und Dein Vertrauen!</p>
+					<p>Dein svapo.de Team</p>									
+				</p>
 					<table>
 						<tr><td>Bestellnummer</td><td>{{ order_id }}<br></td></tr>
 						<tr><td>Vorname</td><td>{{ firstname }}</td></tr>

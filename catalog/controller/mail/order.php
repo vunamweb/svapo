@@ -295,7 +295,7 @@ class ControllerMailOrder extends Controller {
 		$message = $this->load->view('mail/order_add_customer', $data);
 
 		//create pdf
-	$options = new Options();
+	/*$options = new Options();
 	$options->set('tempDir', '/tmp');
 	$options->set('chroot', __DIR__);    
 	$options->set('isRemoteEnabled', TRUE);
@@ -307,16 +307,19 @@ class ControllerMailOrder extends Controller {
 	$dompdf->render();
 	$pdf = $dompdf->output();
 	$file_location = "./pdf/order.pdf";
-	file_put_contents($file_location, $pdf);
+	file_put_contents($file_location, $pdf);*/
 	//end
 
-		$this->sendMailSMTP($order_info['email'], $subject, 'test@7sc.eu', $fromName, $message);
+		$this->sendMailSMTP($order_info['email'], $subject, 'test@7sc.eu', $fromName, $message, 'add');
 	}
 
-	function sendMailSMTP($to, $subject, $from, $fromName, $message)
+	function sendMailSMTP($to, $subject, $from, $fromName, $message, $type = null)
     {
+		if($type == 'edit')
 		$files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/order.pdf";
-		
+        else
+		$files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Freiumschlag.pdf";
+	 	
 		$mail = new PHPMailer();
 		$mail->IsSMTP(); // telling the class to use SMTP
 		$mail->SMTPDebug = 0; // enables SMTP debug information (for testing)
@@ -348,6 +351,7 @@ class ControllerMailOrder extends Controller {
 		$language = new Language($order_info['language_code']);
 		$language->load($order_info['language_code']);
 		$language->load('mail/order_edit');
+		//$language->load('mail/order_add');
 
 		$data['text_order_id'] = $language->get('text_order_id');
 		$data['text_date_added'] = $language->get('text_date_added');
@@ -382,6 +386,17 @@ class ControllerMailOrder extends Controller {
 		if (!$from) {
 			$from = $this->config->get('config_email');
 		}
+
+		$invoiceNumber = $this->model_checkout_order->countInvoiceNumber() + 1;
+
+		$data['mail_header'] = MAILHEADER;
+		$data['mail_footer'] = FOOTER;
+		$data['text_inform_order'] = $language->get('text_inform_order');
+
+		$data['order_id'] = ( $order_status_id == ORDER_ID) ? $order_info['invoice_prefix'] . $invoiceNumber : $order_info['order_id'];
+
+		$data['firstname'] = $order_info['firstname'];
+		$data['lastname'] = $order_info['lastname'];
 		
 		/*$mail = new Mail($this->config->get('config_mail_engine'));
 		$mail->parameter = $this->config->get('config_mail_parameter');
@@ -398,10 +413,30 @@ class ControllerMailOrder extends Controller {
 		$mail->setText($this->load->view('mail/order_edit', $data));
 		$mail->send();*/
 
-		$subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
-        $message = $this->load->view('mail/order_edit', $data);
+		//create pdf
+	$options = new Options();
+	$options->set('tempDir', '/tmp');
+	$options->set('chroot', __DIR__);    
+	$options->set('isRemoteEnabled', TRUE);
+	$dompdf = new Dompdf($options);
+	// $dompdf->setHtmlFooter($htmlFooter);
+	
+	if($order_status_id == ORDER_ID)
+	  $dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
+    else 
+      $dompdf->loadHtml($this->load->view('mail/order_pdf', $data));
 
-		$this->sendMailSMTP($order_info['email'], $subject, 'test@7sc.eu', $from, $message);
+	$dompdf->setPaper('A4', 'Horizontal');
+	$dompdf->render();
+	$pdf = $dompdf->output();
+	$file_location = "./pdf/order.pdf";
+	file_put_contents($file_location, $pdf);
+	//end
+
+     $subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+     $message = $this->load->view('mail/order_edit', $data);
+
+	 $this->sendMailSMTP($order_info['email'], $subject, 'test@7sc.eu', $from, $message, 'edit');
 	}
 	
     // Admin Alert Mail
