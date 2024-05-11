@@ -360,8 +360,8 @@ class ControllerCheckoutConfirm extends Controller {
 			$message = $this->load->view('mail/order_add_customer', $data);
 			$message_1 = $this->load->view('mail/order_add_admin', $data);
 			
-            $this->sendMailSMTP($order_data['email'], $subject, 'test@7sc.eu', $fromName, $message, $this->session->data['upload_file']);
-			$this->sendMailSMTP($this->config->get('config_email'), $subject, 'test@7sc.eu', $fromName, $message_1, $this->session->data['upload_file']);
+            $this->sendMailSMTP($order_data['email'], $subject, SMTP_USER, $fromName, $message, $this->session->data['upload_file']);
+			$this->sendMailSMTP($this->config->get('config_email'), $subject, SMTP_USER, $fromName, $message_1, $this->session->data['upload_file']);
 			//$this->load->controller('mail/order/add');
 			//$this->session->data['order_id'] . 'ddd'; die();
 
@@ -466,7 +466,7 @@ class ControllerCheckoutConfirm extends Controller {
 		$mail->IsSMTP(); // telling the class to use SMTP
 		$mail->SMTPDebug = 0; // enables SMTP debug information (for testing)
 		$mail->SMTPAuth = true; // enable SMTP authentication
-		$mail->SMTPSecure = "ssl"; // sets the prefix to the servier
+		$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // sets the prefix to the servier
 		$mail->Host = SMTP_HOST; // sets GMAIL as the SMTP server
 		$mail->Port = 465; // set the SMTP port for the GMAIL server
 		$mail->Username = SMTP_USER; // GMAIL username
