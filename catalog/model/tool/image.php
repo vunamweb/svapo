@@ -2,7 +2,7 @@
 class ModelToolImage extends Model {
 	public function resize($filename, $width, $height) {
         if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $filename)), 0, strlen(DIR_IMAGE)) != str_replace('\\', '/', DIR_IMAGE)) {
-            return;
+            //return;
         }
         if ($this->request->server['HTTPS']) {
 			return 'admin/timthumb.php?src=' . HTTPS_SERVER . 'image/' . $filename . '&w='.$width.'&h='.$height.'';
