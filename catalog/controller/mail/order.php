@@ -253,6 +253,8 @@ class ControllerMailOrder extends Controller {
 		
 		$order_totals = $this->model_checkout_order->getOrderTotals($order_info['order_id']);
 
+		$this->document->displayOrder($order_totals, 0, 0, 0, 0, 0);
+
 		foreach ($order_totals as $order_total) {
 			$data['totals'][] = array(
 				'title' => $order_total['title'],
@@ -559,6 +561,9 @@ class ControllerMailOrder extends Controller {
 		$data['totals'] = array();
 		
 		$order_totals = $this->model_checkout_order->getOrderTotals($order_info['order_id']);
+
+		$this->document->displayOrder($order_totals, 0, 0, 0, 0, 0);
+
 
 		foreach ($order_totals as $order_total) {
 			$data['totals'][] = array(

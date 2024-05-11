@@ -120,6 +120,27 @@ define('FREE_SHIPPING_KM', 20);
 // ID OF ORDER SET INVOICE
 define('ORDER_ID', 12);
 
+define('ADDRESS', 'Schloss-Apotheke, Paschalis Papadopoulos e. K.<br />
+  Bürgeler Str. 35, 63075 Offenbach<br />		  
+  Telefon: 0155 66 200 690<br />
+  E-Mail: info@svapo.de
+');
+define('ACCOUNT', 'Schloss-Apotheke, Paschalis Papadopoulos e. K.<br />
+  Deutsche Apotheker - und Ärztebank<br />
+  IBAN: DE15 3006 0601 0047 5875 06<br />
+  BIC: DAAEDEDDXXX
+');
+
+define('PDF_ADDRESS', '
+	'.ADDRESS.'
+	<br />
+	<br />
+	'.ACCOUNT.'
+	<br />
+	USt-IdNr.: DE328219952
+');
+
+
 
    
 
