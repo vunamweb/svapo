@@ -1,185 +1,136 @@
-<!DOCTYPE html>
-<html dir="{{ direction }}" lang="{{ lang }}">
-<head>
-<meta charset="UTF-8" />
-<title>{{ title }}</title>
-<base href="{{ store_url }}admin" />
-<style>
-	table, tr, td { border: none !important; }
-	.table thead td {
-		font-weight: 400;
-	}
-	span { font-size: .8em; }
-	.inv { font-size: 1.5em; font-weight:600; text-transform: uppercase; color:#000; }
-	.table-bordered td { border-bottom: solid 1px #999 !important; }
-	.table.top thead > tr > td, .table tbody > tr > td {
-		vertical-align: top; margin-top:3em !important; font-size:.8em;
-	}
-	body, html { margin-bottom: 0; padding-bottom: 0; }
-	hr { margin: 0; }
-	footer {
-		position: fixed;
-		bottom: 10px;
-		width: 100%;
-		padding: 10px 0;
-		text-align: center; /* Optional: Zentriert den Text im Footer */
-	}
-</style>
-</head>
+{{ mail_header }}
 
-<body style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;">
-<!--
-{{ store_url }} 
-<br>
-{{ store_name }}
--->
-<div class="container">
-  <table class="table" style="width: 680px;">
-	  <thead>
-		  <tr>
-			<td></td>	  
-			<td align="right"><img src="{{ store_url }}images/Logo-SVAPO.png" style="width:150px;"></td>
+	<!-- {{ payment_address }} -->	
+		
+		
+<table class="table" style="width: 100%;">
+		<tr>
+			<td>
+               {% if shipping_address %}
+        	   		{{ shipping_address }}
+        		{% endif %}
+
+				<!-- {{ pdf_address }} -->
+			</td>
 		</tr>
 		<tr>
 			<td>
-				<span>&nbsp; <!-- könnte noch Adresse hin --></span>
-					<br/>
-					<br/>
-					<p style="font-size: 12px;">
-						{{ text_shipping_address }}<br />
-                        {% if shipping_address %}
-        <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ shipping_address }}</td>
-        {% endif %}
-					</p>
-			</td>
-			<td align="right">
-			{{ pdf_address }}
+				<br />
+				<h2>Auftragsbetätigung</h2>
+				
+				<p>Liebe(r) {{ firstname }} {{ lastname }},<br/>
+				vielen Dank für Deinen Auftrag. Unser Team hat Deinen Auftrag gerade für Dich bearbeitet und Deine Bestellung ist versandfertig.
+				Im Anhang findest Du Deine Auftragsbestätigung.</p>
+				
+				<p>Jetzt ist Dein Mitwirken gefragt: Bitte überweise den Betrag von <b>{{ total }} &euro;</b> mit dem Betreff <b>svapo-{{ order_id }}</b> auf folgende Bankverbindung:</p>
+				<p><b>{{ ACCOUNT }}</b></p>
+				<br />
+				<p>Sende uns jetzt Dein Originalrezept schnellstmöglich postalisch zu (nicht notwendig wenn Du uns ein E-Rezept geschickt hast).<br />
+				Hierzu kannst Du den beiliegenden Freiumschlag verwenden.</p>
+				<p>Sollten wir Dein Rezept oder Deinen Zahlungseingang nicht innerhalb der nächsten 7 Tage erhalten, werden wir Deinen Auftrag löschen.</p>
+				<p>Herzlichen Dank für Deine Bestellung und Dein Vertrauen!</p>
+				<p>Dein svapo.de Team</p>	
 			</td>
 		</tr>
-	  </thead>
-	</table>
-</div>
+  </table>
 
-
-<div style="width: 680px;">
-	<h2>Order</h2>
-
-  <table style="border-collapse: collapse; width: 100%; border-top: 1px solid #DDDDDD; border-left: 1px solid #DDDDDD; margin-bottom: 20px;">
+  
+  <table style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
 	<thead>
 	  <tr>
-		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;" colspan="2">
+		<td style="background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;" colspan="2">
 			{{ text_order_detail }}
 		</td>
 	  </tr>
 	</thead>
 	<tbody>
 	  <tr>
-		<td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">
+		<td style=" border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">
 			<b>{{ text_order_id }}</b>:&nbsp; {{ order_id }}<br/>
 			<b>{{ text_date_added }}</b>:&nbsp; {{ date_added }}<br/>
 			<b>{{ text_payment_method }}</b>:&nbsp; {{ payment_method }}<br/>
 		</td>
-		<td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">
-			<b>{{ text_email }}</b>:&nbsp; {{ email }}<br/>
-			<b>{{ text_telephone }}</b>:&nbsp; {{ telephone }}<br/>
+		<td style=" border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">
+			<b>{{ text_email }}</b>:&nbsp; {{ email }}<br/>			
 		</td>
 	  </tr>
 	</tbody>
-  </table>
-  {% if comment %}
-  <table style="border-collapse: collapse; width: 100%; border-top: 1px solid #DDDDDD; border-left: 1px solid #DDDDDD; margin-bottom: 20px;">
-	<thead>
-	  <tr>
-		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;">{{ text_instruction }}</td>
-	  </tr>
-	</thead>
-	<tbody>
-	  <tr>
-		<td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ comment }}</td>
-	  </tr>
-	</tbody>
-  </table>
-  {% endif %}
+</table>
+				  
+				  
+				  {% if comment %}
+	<table style="border-collapse: collapse; width: 100%; border-top: 1px solid #DDDDDD; border-left: 1px solid #DDDDDD; margin-bottom: 20px;">
+					<thead>
+					  <tr>
+						<td style=" border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;">{{ text_instruction }}</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td style=" border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ comment }}</td>
+					  </tr>
+					</tbody>
+				  </table>
+				  {% endif %}
+				  
+	<table style="border-collapse: collapse; width: 100%; border-top: 1px solid #DDDDDD; border-left: 1px solid #DDDDDD; margin-bottom: 20px;">
+					<thead>
+					  <tr>
+						<td style=" border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;">{{ text_product }}</td>
+						<td style=" border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_quantity }}</td>
+						<td style=" border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_price }}</td>
+						<td style=" border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_total }}</td>
+					  </tr>
+					</thead>
+					<tbody>
+					
+					{% for product in products %}
+					<tr>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ product.name }}
+						{% for option in product.option %}<br/>
+						&nbsp;<small> - {{ option.name }}: {{ option.value }}</small>{% endfor %}</td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ product.quantity }}</td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ product.price }}</td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">
+					  {{ product.total }}
+						
+					  </td>
+					</tr>
+					{% endfor %}
+					{% for voucher in vouchers %}
+					<tr>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ voucher.description }}</td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">1</td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ voucher.amount }}</td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ voucher.amount }}</td>
+					</tr>
+					{% endfor %}
+					  </tbody>
+					
+					<tfoot>
+					
+					{% for total in totals %}
+					<tr>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;" colspan="3"><b>{{ total.title }}:</b></td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ total.text }}</td>
+					</tr>
+					{% endfor %}
+					  </tfoot>
+					
+				  </table>
   
   
-  <!--
-  <table style="border-collapse: collapse; width: 100%; border-top: 1px solid #DDDDDD; border-left: 1px solid #DDDDDD; margin-bottom: 20px;">
-	<thead>
-	  <tr>
-		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;">{{ text_payment_address }}</td>
-		{% if shipping_address %}
-		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;">{{ text_shipping_address }}</td>
-		{% endif %} </tr>
-	</thead>
-	<tbody>
-	  <tr>
-		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;" colspan="2">{{ text_order_detail }}</td>
-	  </tr>
-	  <tr>
-		<td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ payment_address }}</td>
-		{% if shipping_address %}
-		<td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ shipping_address }}</td>
-		{% endif %} </tr>
-	</tbody>
-  </table>
-  -->
   
   
   
-  <table style="border-collapse: collapse; width: 100%; border-top: 1px solid #DDDDDD; border-left: 1px solid #DDDDDD; margin-bottom: 20px;">
-	<thead>
-	  <tr>
-		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;">{{ text_product }}</td>
-		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_quantity }}</td>
-		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_price }}</td>
-		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_total }}</td>
-	  </tr>
-	</thead>
-	<tbody>
+  
+  
+  
+  			  <br/><br/>				  
+				  {{ mail_footer }}				  
 	
-	{% for product in products %}
-	<tr>
-	  <td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ product.name }}
-		{% for option in product.option %}<br/>
-		&nbsp;<small> - {{ option.name }}: {{ option.value }}</small>{% endfor %}</td>
-	  <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ product.quantity }}</td>
-	  <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ product.price }}</td>
-	  <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">
-	  {{ product.total }}
-	    
-	  </td>
-	</tr>
-	{% endfor %}
-	{% for voucher in vouchers %}
-	<tr>
-	  <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ voucher.description }}</td>
-	  <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">1</td>
-	  <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ voucher.amount }}</td>
-	  <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ voucher.amount }}</td>
-	</tr>
-	{% endfor %}
-	  </tbody>
-	
-	<tfoot>
-	
-	{% for total in totals %}
-	<tr>
-	  <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;" colspan="3"><b>{{ total.title }}:</b></td>
-	  <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ total.text }}</td>
-	</tr>
-	{% endfor %}
-	  </tfoot>
-	
-  </table>
-  
-  
-<!--  <p style="margin-top: 0px; margin-bottom: 20px;">### {{ text_footer }}</p>-->
-</div>
-  
-  
-<footer>  
-{{ mail_footer }}
-</footer>	
-
-</body>
-</html>
+		  
+  </td></tr></table>
+		  
+  </body>
+  </html>

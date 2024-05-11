@@ -1,38 +1,34 @@
-<!DOCTYPE html>
-<html dir="{{ direction }}" lang="{{ lang }}">
-<head>
-<meta charset="UTF-8" />
-<title>{{ title }}</title>
-<base href="{{ store_url }}admin" />
-<style>
-	table, tr, td { border: none !important; }
-	.table thead td {
-		font-weight: 400;
-	}
-	span { font-size: .8em; }
-	.inv { font-size: 1.5em; font-weight:600; text-transform: uppercase; color:#000; }
-	.table-bordered td { border-bottom: solid 1px #999 !important; }
-	.table.top thead > tr > td, .table tbody > tr > td {
-		vertical-align: top; margin-top:3em !important; font-size:.8em;
-	}
-	body, html { margin-bottom: 0; padding-bottom: 0; }
-	hr { margin: 0; }
-</style>
-</head>
+{{ constant('MAILHEADER') }}
 
-<body style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #000000;">
-{{ mail_header }}
+	<table>
+		<tr>
+			<td>
 
-    {{ text_signup }}
+				{{ text_signup }}
+				
+				{{ text_firstname }} {{ firstname }}
+				{{ text_lastname }} {{ lastname }}
+				{% if customer_group %}
+				{{ text_customer_group }} {{ customer_group }}
+				{% endif %}
+				{{ text_email }} {{ email }}
+				{{ text_telephone }} {{ telephone }}
 
-{{ text_firstname }} {{ firstname }}
-{{ text_lastname }} {{ lastname }}
-{% if customer_group %}
-{{ text_customer_group }} {{ customer_group }}
-{% endif %}
-{{ text_email }} {{ email }}
-{{ text_telephone }} {{ telephone }}
-
-{{ mail_footer }}
-
+			</td>
+		</tr>
+		<tr>
+			<td> 
+				<br/><br/>
+				<hr>
+				<br/><br/>
+				
+				{{ constant('FOOTER') }}
+				
+			</td>
+		</tr>
+	</table>
+		
+</td></tr></table>
+		
 </body>
+</html>

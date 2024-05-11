@@ -270,10 +270,13 @@ class ControllerMailOrder extends Controller {
 
 		$data['mail_header'] = MAILHEADER;
 		$data['mail_footer'] = FOOTER;
+		$data['pdf_address'] = PDF_ADDRESS;
+		$data['ACCOUNT'] = ACCOUNT;
 		$data['text_inform_order'] = $language->get('text_inform_order');
 		$data['order_id'] = $order_info['order_id'];
 		$data['firstname'] = $order_info['firstname'];
 		$data['lastname'] = $order_info['lastname'];
+		$data['total'] = number_format($order_total['value'], 2, ',', '.');
 		
 		/*$mail = new Mail($this->config->get('config_mail_engine'));
 		$mail->parameter = $this->config->get('config_mail_parameter');
@@ -307,7 +310,7 @@ class ControllerMailOrder extends Controller {
 	$dompdf->setPaper('A4', 'Horizontal');
 	$dompdf->render();
 	$pdf = $dompdf->output();
-	$file_location = "./pdf/order.pdf";
+	$file_location = "./pdf/Rechnung-svapo.pdf";
 	file_put_contents($file_location, $pdf);*/
 	//end
 	    //$count = count($order_totals);
@@ -315,13 +318,13 @@ class ControllerMailOrder extends Controller {
 		//print_r($order_total['value']); die(); 
 
 		if($order_total['value'] > 0)
-		  $this->sendMailSMTP($order_info['email'], $subject, 'test@7sc.eu', $fromName, $message, 'add');
+		  $this->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add');
 	}
 
 	function sendMailSMTP($to, $subject, $from, $fromName, $message, $type = null)
     {
 		if($type == 'edit')
-		$files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/order.pdf";
+		$files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Rechnung-svapo.pdf";
         else
 		$files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Freiumschlag.pdf";
 	 	
@@ -329,14 +332,14 @@ class ControllerMailOrder extends Controller {
 		$mail->IsSMTP(); // telling the class to use SMTP
 		$mail->SMTPDebug = 0; // enables SMTP debug information (for testing)
 		$mail->SMTPAuth = true; // enable SMTP authentication
-		$mail->SMTPSecure = "ssl"; // sets the prefix to the servier
+		$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // sets the prefix to the servier
 		$mail->Host = SMTP_HOST; // sets GMAIL as the SMTP server
 		$mail->Port = 465; // set the SMTP port for the GMAIL server
 		$mail->Username = SMTP_USER; // GMAIL username
 		$mail->Password = SMTP_PASSWORD;
 		$mail->CharSet = 'UTF-8';
 		$mail->AddAddress($to);
-		//$mail->addBcc("vukynamkhtn@gmail.com");
+		// $mail->addBcc("b@7sc.eu");
 		$mail->Subject = $subject;
 		$mail->FromName = $fromName;
 		$mail->From = $from;
@@ -575,7 +578,9 @@ class ControllerMailOrder extends Controller {
 		
 
 		$invoiceNumber = $this->model_checkout_order->countInvoiceNumber() + 1;
-
+		
+		$data['pdf_address'] = PDF_ADDRESS;
+		$data['ACCOUNT'] = ACCOUNT;
 		$data['mail_header'] = MAILHEADER;
 		$data['mail_footer'] = FOOTER;
 		$data['text_inform_order'] = $language->get('text_inform_order');
@@ -616,14 +621,14 @@ class ControllerMailOrder extends Controller {
 	$dompdf->setPaper('A4', 'Horizontal');
 	$dompdf->render();
 	$pdf = $dompdf->output();
-	$file_location = "./pdf/order.pdf";
+	$file_location = "./pdf/Rechnung-svapo.pdf";
 	file_put_contents($file_location, $pdf);
 	//end
 
      $subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
      $message = $this->load->view('mail/order_edit', $data);
 
-	 $this->sendMailSMTP($order_info['email'], $subject, 'test@7sc.eu', $from, $message, 'edit');
+	 $this->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $from, $message, 'edit');
 	}
 	
     // Admin Alert Mail
