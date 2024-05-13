@@ -19,7 +19,7 @@ class ControllerMailRegister extends Controller {
 		$mail->Password = SMTP_PASSWORD;
 		$mail->CharSet = 'UTF-8';
 		$mail->AddAddress($to);
-		$mail->addBcc("vukynamkhtn@gmail.com");
+		//$mail->addBcc("vukynamkhtn@gmail.com");
 		$mail->Subject = $subject;
 		$mail->FromName = $fromName;
 		$mail->From = $from;
@@ -76,7 +76,7 @@ class ControllerMailRegister extends Controller {
 		$data['login'] = $verification_link;		
 		$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
-		$data['mail_header'] = HEADER;
+		$data['mail_header'] = MAILHEADER;
 		$data['mail_footer'] = FOOTER;
 		
         $mail = new Mail($this->config->get('config_mail_engine'));
@@ -100,7 +100,7 @@ class ControllerMailRegister extends Controller {
 		$fromName = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 		$message = $this->load->view('mail/register', $data);
 
-		$this->sendMailSMTP($to, $subject, 'test@7sc.eu', $fromName, $message);
+		$this->sendMailSMTP($to, $subject, SMTP_USER, $fromName, $message);
 	}
 	
 	public function alert(&$route, &$args, &$output) {
