@@ -310,6 +310,8 @@ class ControllerAccountAddress extends Controller {
 
 		if (isset($this->request->get['address_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$address_info = $this->model_account_address->getAddress($this->request->get['address_id']);
+			$address_info['country_id'] = 81;
+			//print_r($address_info); die();
 		}
 
 		if (isset($this->request->post['firstname'])) {
