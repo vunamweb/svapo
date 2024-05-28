@@ -152,7 +152,7 @@ class ControllerCheckoutPaymentAddress extends Controller {
 	public function uploadFile() {
 		$file = ($_FILES["file_1"]["name"] != '') ? $_FILES["file_1"] : $_FILES["file_2"];
 
-		$targetDirectory = "uploads/"; // Directory where uploaded files will be saved
+		$targetDirectory = "rEzEpT/"; // Directory where uploaded files will be saved
 		$targetFile = $targetDirectory . basename($file["name"]); // Get the file name
 		
 		// Try to upload the file

@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Access to /Applications/XAMPP/xamppfiles/htdocs/pharmacy"
+AuthUserFile /Applications/XAMPP/xamppfiles/htpasswd
+Require user vu

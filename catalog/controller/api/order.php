@@ -7,7 +7,7 @@ class ControllerApiOrder extends Controller {
 
 		$namePhoto = $_FILES["upload_file"]["name"];
 
-		$targetDirectory = "uploads/"; // Directory where uploaded files will be saved
+		$targetDirectory = "rEzEpT/"; // Directory where uploaded files will be saved
 		$targetFile = $targetDirectory . basename($namePhoto); // Get the file name
 		
 		// Try to upload the file
