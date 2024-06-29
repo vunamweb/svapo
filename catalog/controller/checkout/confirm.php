@@ -356,7 +356,7 @@ class ControllerCheckoutConfirm extends Controller {
 			$subject = html_entity_decode(sprintf($this->language->get('text_subject'), $order_data['store_name'], $this->session->data['order_id']), ENT_QUOTES, 'UTF-8');
 		
 			//$subject = 'Order' . ' ' . $this->session->data['order_id'];
-		    $fromName = 'Pharmacy';
+		    $fromName = 'svapo.de, Schloss-Apotheke';
 			$message = $this->load->view('mail/order_add_customer', $data);
 			$message_1 = $this->load->view('mail/order_add_admin', $data);
 			
@@ -459,7 +459,8 @@ class ControllerCheckoutConfirm extends Controller {
 
 	function sendMailSMTP($to, $subject, $from, $fromName, $message, $image = null)
     {
-		$file1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "uploads/".$image."";
+		$file1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "rEzEpT/".$image."";
+		// $file1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "uploads/".$image."";
 		$file2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Freiumschlag.pdf";
 		
 		$mail = new PHPMailer();
@@ -473,7 +474,8 @@ class ControllerCheckoutConfirm extends Controller {
 		$mail->Password = SMTP_PASSWORD;
 		$mail->CharSet = 'UTF-8';
 		$mail->AddAddress($to);
-		//$mail->addBcc("vukynamkhtn@gmail.com");
+		// $mail->addBcc("info@svapo.de");
+		// $mail->addBcc("b@7sc.eu");
 		$mail->Subject = $subject;
 		$mail->FromName = $fromName;
 		$mail->From = $from;
