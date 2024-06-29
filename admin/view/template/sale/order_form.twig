@@ -952,6 +952,12 @@ $('#order a[data-toggle=\'tab\']').on('click', function(e) {
 	return false;
 });
 
+// precountry
+$(document).ready(function() {
+	$('#input-payment-country option').eq(1).prop('selected', true);
+    $('#input-payment-country option').eq(1).trigger('change');
+});
+
 // Currency
 $('select[name=\'currency\']').on('change', function() {
 	$.ajax({
@@ -1060,6 +1066,22 @@ $('input[name=\'customer\']').autocomplete({
 
 		$('select[name=\'payment_address\']').html(html);
 		$('select[name=\'shipping_address\']').html(html);
+
+		if(item['address'] != null) {
+			$('#input-payment-address option').eq(1).prop('selected', true);
+			$('#input-payment-address option').eq(1).trigger('change');
+
+			$('#input-shipping-address option').eq(1).prop('selected', true);
+			$('#input-shipping-address option').eq(1).trigger('change');
+        }
+
+		setTimeout(function() {
+			$('#input-payment-country option').eq(1).prop('selected', true);
+			$('#input-payment-country option').eq(1).trigger('change'); 
+
+			$('#input-shipping-country option').eq(1).prop('selected', true);
+			$('#input-shipping-country option').eq(1).trigger('change'); 
+        }, 2000);
 	}
 });
 
