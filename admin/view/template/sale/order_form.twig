@@ -2225,6 +2225,11 @@ $('#button-save').on('click', function() {
 
 			if (json['success']) {
 				$('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + '  <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+                var order_id = json['order_id'];
+				var url = '{{ catalog }}admin/index.php?route=sale/order/info&user_token={{ user_token }}&order_id='+order_id+'';
+
+				window.location.href = url;
             }
 
 			if (json['order_id']) {
