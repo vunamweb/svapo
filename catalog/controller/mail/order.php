@@ -255,6 +255,14 @@ class ControllerMailOrder extends Controller {
 
 		$this->document->displayOrder($order_totals, 0, 0, 0, 0, 0);
 
+		// Add net price
+		$count = count($order_totals);
+		$order_totals[$count + 1] = $order_totals[$count];
+		
+		$order_totals[$count + 1]['title'] = 'Gesamtnetto';
+		$order_totals[$count + 1]['value'] = round($order_totals[$count + 1]['value'] / 1.19);
+		// END
+
 		foreach ($order_totals as $order_total) {
 			$data['totals'][] = array(
 				'title' => $order_total['title'],
