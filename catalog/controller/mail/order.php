@@ -318,20 +318,37 @@ class ControllerMailOrder extends Controller {
 	    //$count = count($order_totals);
 
 		//print_r($order_total['value']); die(); 
-
+		//create pdf
+		$options = new Options();
+		$options->set('tempDir', '/tmp');
+		$options->set('chroot', __DIR__);    
+		$options->set('isRemoteEnabled', TRUE);
+		$dompdf = new Dompdf($options);
+		// $dompdf->setHtmlFooter($htmlFooter);
+		
+		$pdf_name = 'Auftragsbestaetigung-svapo-'.$order_info['order_id'].'.pdf';
+		$dompdf->loadHtml($this->load->view('mail/order_pdf', $data));
+		$file_location = "./admin/auftrag/".$pdf_name;
+		$dompdf->setPaper('A4', 'Horizontal');
+		$dompdf->render();
+		$pdf = $dompdf->output();
+		file_put_contents($file_location, $pdf);
+		
 		if($order_total['value'] > 0)
-		  $this->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add');
+		  $this->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
 	}
 
-	function sendMailSMTP($to, $subject, $from, $fromName, $message, $type=null, $file=false)
+	function sendMailSMTP($to, $subject, $from, $fromName, $message, $type=null, $file=false, $status=false)
     {
-		
-		if($file)
+		$files2 = '';
+		if($file && $status==1)
 			$files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "admin/invoice/".$file;
-		else if($type == 'edit')
-			$files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Rechnung-svapo.pdf";
-        else
+		else if($type == 'edit') { }
+			// $files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Rechnung-svapo.pdf";
+        else {
 			$files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Freiumschlag.pdf";
+			if($file) $files2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "admin/auftrag/".$file;			
+		}
 	 	
 		$mail = new PHPMailer();
 		$mail->IsSMTP(); // telling the class to use SMTP
@@ -346,7 +363,7 @@ class ControllerMailOrder extends Controller {
 		$mail->AddAddress($to);
 		
 		// if($file) $mail->addBcc("invoice@svapo.de");
-		if($file) $mail->addBcc("bk@freiheit-gruppe.de");
+		// if($file) $mail->addBcc("bk@freiheit-gruppe.de");
 		
 		$mail->Subject = $subject;
 		$mail->FromName = $fromName;
@@ -355,6 +372,7 @@ class ControllerMailOrder extends Controller {
 		$mail->Body = $message;
 
 		$mail->addAttachment($files1);
+		if($files2) $mail->addAttachment($files2);
 
 		if (!$mail->Send()) {
 			//echo "Mailer Error: " . $mail->ErrorInfo;
@@ -617,31 +635,41 @@ class ControllerMailOrder extends Controller {
 		$mail->send();*/
 
 		//create pdf
-	$options = new Options();
-	$options->set('tempDir', '/tmp');
-	$options->set('chroot', __DIR__);    
-	$options->set('isRemoteEnabled', TRUE);
-	$dompdf = new Dompdf($options);
-	// $dompdf->setHtmlFooter($htmlFooter);
+		$options = new Options();
+		$options->set('tempDir', '/tmp');
+		$options->set('chroot', __DIR__);    
+		$options->set('isRemoteEnabled', TRUE);
+		$dompdf = new Dompdf($options);
+		// $dompdf->setHtmlFooter($htmlFooter);
+		
+		$status = false;
+		if($order_status_id == ORDER_ID) {
+			$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
+			$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
+			$file_location = "./admin/invoice/".$pdf_name;
+			$status = 1;
+			$dompdf->setPaper('A4', 'Horizontal');
+			$dompdf->render();
+			$pdf = $dompdf->output();
+			// $file_location = "./pdf/Rechnung-svapo.pdf";
+			file_put_contents($file_location, $pdf);
+			//end
+			// $subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+			$subject = html_entity_decode(sprintf('%s - Rechnung', $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+			$message = $this->load->view('mail/order_invoice', $data);
+		}
+    	else {
+			// $pdf_name = 'Auftragsbestaetigung-svapo-'.$order_info['order_id'].'.pdf';
+			// $dompdf->loadHtml($this->load->view('mail/order_pdf', $data));
+			// $file_location = "./admin/auftrag/".$pdf_name;
+			// $status = 2;
+			$subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+			$message = $this->load->view('mail/order_edit', $data);
+		} 
 	
-	if($order_status_id == ORDER_ID)
-	  $dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
-    else 
-      $dompdf->loadHtml($this->load->view('mail/order_pdf', $data));
 
-	$dompdf->setPaper('A4', 'Horizontal');
-	$dompdf->render();
-	$pdf = $dompdf->output();
-	// $file_location = "./pdf/Rechnung-svapo.pdf";
-	$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
-	$file_location = "./admin/invoice/".$pdf_name;
-	file_put_contents($file_location, $pdf);
-	//end
-
-     $subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
-     $message = $this->load->view('mail/order_edit', $data);
-
-	 $this->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $from, $message, 'edit', $pdf_name);
+		
+		$this->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $from, $message, 'edit', $pdf_name, $status);
 	}
 	
     // Admin Alert Mail

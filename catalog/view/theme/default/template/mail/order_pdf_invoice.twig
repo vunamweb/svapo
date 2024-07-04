@@ -128,7 +128,7 @@
 		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_total }}</td>
 	  </tr>
 	</thead>
-	<tbody>
+	<tbody style="border-bottom:solid 1px #ddd;">
 	
 	{% for product in products %}
 	<tr>
@@ -154,12 +154,18 @@
 	  </tbody>
 	
 	<tfoot>
-	
+
+	{% set counter = 0 %}
+	{% set bg = '' %}
 	{% for total in totals %}
-	<tr>
-	  <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;" colspan="3"><b>{{ total.title }}:</b></td>
-	  <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ total.text }}</td>
-	</tr>
+		{% set counter = counter + 1 %}
+		{% if counter == 4 %}
+			{% set bg = 'background:#efefef;' %}	
+		{% endif %}
+		<tr>
+	  	<td style="{{ bg }}font-size: 12px;border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;" colspan="3"><b>{{ total.title }}:</b></td>
+	  	<td style="{{ bg }}font-size: 12px;border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ total.text }}</td>
+		</tr>
 	{% endfor %}
 	  </tfoot>
 	
