@@ -260,6 +260,7 @@ class ControllerMailOrder extends Controller {
 		$order_totals[$count - 1] = $order_totals[$count];
 		
 		$order_totals[$count - 1]['title'] = 'Gesamtnetto';
+		$order_totals[$count - 1]['value'] = round($order_totals[$count - 1]['value'] / 1.19);
 
 		$order_totals[0]['sort_order'] = 0;
 		$order_totals[1]['sort_order'] = 1;
