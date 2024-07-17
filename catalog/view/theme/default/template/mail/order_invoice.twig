@@ -1,0 +1,42 @@
+{{ mail_header }}
+
+			<table border="0" cellpadding="10" cellspacing="0" style="max-width: 600px; background: #efefef; padding: 20px;">
+				<tr><td valign="top">{{ text_inform_order_admin }}</td></tr>
+				
+				<tr><td valign="top">
+					<!--<h2>Auftragbestätigung</h2>-->
+					<p>Liebe(r) {{ firstname }} {{ lastname }},<br/>
+					vielen Dank für Deinen Auftrag. Im Anhang findest Du Deine Rechnung.</p>					
+					<p>Herzlichen Dank für Deine Bestellung und Dein Vertrauen!</p>
+					<p>Dein svapo.de Team</p>									
+				</p>
+					<table>
+						<tr><td valign="top">Rechnungsnummer</td><td valign="top">{{ order_id }}<br></td></tr>
+						<tr><td valign="top">Datum</td><td valign="top">{{ date_added }}</td></tr>
+						<tr><td valign="top">Status</td><td valign="top">{{ order_status }}</td></tr>
+						<tr><td valign="top"></td><td valign="top">&nbsp;</td></tr>
+						{% if comment %}
+						<tr><td valign="top">Kommentar</td><td valign="top">{{ comment }}</td></tr>
+						{% endif %}						
+					</table>		
+				</td></tr>
+			</table>
+			
+			{{ mail_footer }}
+			
+		</td>
+	</tr>
+</table>
+
+</td></tr></table>
+
+<!--
+{% if link %}
+{{ text_link }}
+
+{{ link }}
+{% endif %}
+-->
+
+</body>
+</html>

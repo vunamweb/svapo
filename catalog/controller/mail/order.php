@@ -254,27 +254,26 @@ class ControllerMailOrder extends Controller {
 		$order_totals = $this->model_checkout_order->getOrderTotals($order_info['order_id']);
 
 		$this->document->displayOrder($order_totals, 0, 0, 0, 0, 0);
-
+		
 		// Add net price
 		$count = count($order_totals);
 		$order_totals[$count - 1] = $order_totals[$count];
 		
 		$order_totals[$count - 1]['title'] = 'Gesamtnetto';
 		$order_totals[$count - 1]['value'] = round($order_totals[$count - 1]['value'] / 1.19);
-
+		
 		$order_totals[0]['sort_order'] = 0;
 		$order_totals[1]['sort_order'] = 1;
 		$order_totals[2]['sort_order'] = 2;
 		$order_totals[4]['sort_order'] = 4;
-		$order_totals[3]['sort_order'] = 3;
+		$order_totals[3]['sort_order'] = 3;		
 		
-
 		usort($order_totals, function($a, $b) {
 			return $a['sort_order'] - $b['sort_order']; // Ascending order
 		});
 		
-        // END
-
+		// END
+		
 		foreach ($order_totals as $order_total) {
 			$data['totals'][] = array(
 				'title' => $order_total['title'],
@@ -607,6 +606,26 @@ class ControllerMailOrder extends Controller {
 		$order_totals = $this->model_checkout_order->getOrderTotals($order_info['order_id']);
 
 		$this->document->displayOrder($order_totals, 0, 0, 0, 0, 0);
+
+		// Add net price
+		$count = count($order_totals);
+		$order_totals[$count - 1] = $order_totals[$count];
+		
+		$order_totals[$count - 1]['title'] = 'Gesamtnetto';
+		$order_totals[$count - 1]['value'] = round($order_totals[$count - 1]['value'] / 1.19);
+
+		$order_totals[0]['sort_order'] = 0;
+		$order_totals[1]['sort_order'] = 1;
+		$order_totals[2]['sort_order'] = 2;
+		$order_totals[4]['sort_order'] = 4;
+		$order_totals[3]['sort_order'] = 3;
+		
+
+		usort($order_totals, function($a, $b) {
+			return $a['sort_order'] - $b['sort_order']; // Ascending order
+		});
+		
+        // END
 
 
 		foreach ($order_totals as $order_total) {
