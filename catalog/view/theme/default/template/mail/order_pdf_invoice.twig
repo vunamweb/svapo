@@ -160,7 +160,9 @@
 	{% for total in totals %}
 		{% set counter = counter + 1 %}
 		{% if counter == 4 %}
-			{% set bg = 'background:#efefef;' %}	
+			{% set bg = 'background:#efefef;' %}
+			 {% elseif counter == 5  %}
+           {% set bg = '' %}
 		{% endif %}
 		<tr>
 	  	<td style="{{ bg }}font-size: 12px;border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;" colspan="3"><b>{{ total.title }}:</b></td>
