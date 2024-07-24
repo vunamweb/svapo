@@ -165,34 +165,28 @@ class ModelSaleOrder extends Model {
 			}
 		} elseif (isset($data['filter_order_status_id']) && $data['filter_order_status_id'] !== '') {
 			$sql .= " WHERE o.order_status_id = '" . (int)$data['filter_order_status_id'] . "'";
-			//$sql .= " AND o.order_status_id = '" . (int)$data['filter_order_status_id'] . "'";
 		} else {
-			//$sql .= " WHERE o.order_status_id > '0'";
+			$sql .= " WHERE o.order_status_id > '0'";
 		}
 
 		if (!empty($data['filter_order_id'])) {
-			//$sql .= " AND o.order_id = '" . (int)$data['filter_order_id'] . "'";
-			$sql .= " WHERE o.order_id = '" . (int)$data['filter_order_id'] . "'";
+			$sql .= " AND o.order_id = '" . (int)$data['filter_order_id'] . "'";
 		}
 
 		if (!empty($data['filter_customer'])) {
-			//$sql .= " AND CONCAT(o.firstname, ' ', o.lastname) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
-		    $sql .= " WHERE CONCAT(o.firstname, ' ', o.lastname) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
+			$sql .= " AND CONCAT(o.firstname, ' ', o.lastname) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
 		}
 
 		if (!empty($data['filter_date_added'])) {
-			//$sql .= " AND DATE(o.date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
-			$sql .= " WHERE DATE(o.date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+			$sql .= " AND DATE(o.date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
 		}
 
 		if (!empty($data['filter_date_modified'])) {
 			$sql .= " AND DATE(o.date_modified) = DATE('" . $this->db->escape($data['filter_date_modified']) . "')";
-			//$sql .= " WHERE DATE(o.date_modified) = DATE('" . $this->db->escape($data['filter_date_modified']) . "')";
 		}
 
 		if (!empty($data['filter_total'])) {
-			//$sql .= " AND o.total = '" . (float)$data['filter_total'] . "'";
-			$sql .= " WHERE o.total = '" . (float)$data['filter_total'] . "'";
+			$sql .= " AND o.total = '" . (float)$data['filter_total'] . "'";
 		}
 
 		$sort_data = array(
