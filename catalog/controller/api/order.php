@@ -1,5 +1,111 @@
 <?php
 class ControllerApiOrder extends Controller {
+	public function getRequireAttribute() {
+		return [
+			'customer' => [
+				'firstname',
+				'lastname',
+				'email',
+				'phone',
+				'homeAddress' => [
+					 'streetName',
+					 'postalCode',
+					 'city'
+				
+			],
+			'products' => [
+				'id'
+			]
+		  ]
+		];
+	}
+
+	// Function to get the Authorization header
+	public function getAuthorizationHeader() {
+		$headers = null;
+		if (isset($_SERVER['Authorization'])) {
+			$headers = trim($_SERVER['Authorization']);
+		} elseif (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+			// Handle Apache server environment variable
+			$headers = trim($_SERVER['HTTP_AUTHORIZATION']);
+		} elseif (function_exists('apache_request_headers')) {
+			$requestHeaders = apache_request_headers();
+			if (isset($requestHeaders['Authorization'])) {
+				$headers = trim($requestHeaders['Authorization']);
+			}
+		}
+		return $headers;
+	}
+
+	// Function to get the Bearer token from the header
+	public function getBearerToken() {
+		$headers = $this->getAuthorizationHeader();
+		if (!empty($headers)) {
+			if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
+				return $matches[1];
+			}
+		}
+		return null;
+	}
+
+	public function checkAttributes($attributes, $jsonArray, string $parentKey = ''): bool {
+		//print_r($jsonArray); die();
+
+		foreach ($attributes as $key => $value) {
+			//echo $key . '//' . $value; die();
+			if (is_array($value)) {
+				// Check for nested attributes
+				if (!isset($jsonArray[$key])) {
+					echo "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key) . "\n";
+					return false;
+				}
+				if (!$this->checkAttributes($value, $jsonArray[$key], $parentKey ? "$parentKey.$key" : $key)) {
+					return false;
+				}
+			} else {
+				if ( !is_array($jsonArray) || !array_key_exists($value, $jsonArray)) {
+					echo "Missing attribute: " . ($parentKey ? "$parentKey.$value" : $value) . "\n";
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	public function addOrder() {
+		// Check for the Bearer token
+		$token = $this->getBearerToken();
+		if ($token === null) {
+			// Bearer token is missing
+			header('HTTP/1.0 401 Unauthorized');
+			echo json_encode(['error_codes' => 401, 'error' => 'Missing Bearer token']);
+			exit;
+		}
+
+		// Check JSON
+		$rawData = file_get_contents("php://input");
+
+		// Decode the JSON data
+		$jsonData = json_decode($rawData, true);
+
+		// Check if the JSON data is valid and not empty
+		if (json_last_error() !== JSON_ERROR_NONE) {
+			// The JSON is not valid
+			http_response_code(400); // Bad Request
+			echo json_encode(['error_codes' => 400, 'error' => 'Invalid JSON']);
+			exit;
+		}
+
+		if (empty($jsonData)) {
+			// The JSON is empty or not present
+			http_response_code(400); // Bad Request
+			echo json_encode(['error_codes' => 400, 'error' => 'Missing JSON body']);
+			exit;
+		}
+
+	   $this->checkAttributes($this->getRequireAttribute(), $jsonData);
+    }
+
 	public function uploadFile() {
 		$this->load->model('checkout/order');
 
