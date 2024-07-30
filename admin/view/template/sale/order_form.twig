@@ -1072,8 +1072,8 @@ $('input[name=\'customer\']').autocomplete({
 			$('#input-payment-address option').eq(1).prop('selected', true);
 			$('#input-payment-address option').eq(1).trigger('change');
 
-			$('#input-shipping-address option').eq(1).prop('selected', true);
-			$('#input-shipping-address option').eq(1).trigger('change');
+			//$('#input-shipping-address option').eq(1).prop('selected', true);
+			//$('#input-shipping-address option').eq(1).trigger('change');
         }
 
 		setTimeout(function() {
@@ -1702,6 +1702,9 @@ $('#button-payment-address').on('click', function() {
 		},
 		complete: function() {
 			$('#button-payment-address').button('reset');
+
+			$('#input-shipping-address option').eq(1).prop('selected', true);
+			$('#input-shipping-address option').eq(1).trigger('change');
 		},
 		success: function(json) {
 			$('.alert-dismissible, .text-danger').remove();
