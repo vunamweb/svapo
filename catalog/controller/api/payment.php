@@ -109,6 +109,8 @@ class ControllerApiPayment extends Controller {
 				}
 
 				$this->session->data['payment_address'] = array(
+					'customer_id'    => $this->request->post['customer_id'],
+					'value_address_id' => $this->request->post['value_address_id'],
 					'firstname'      => $this->request->post['firstname'],
 					'lastname'       => $this->request->post['lastname'],
 					'company'        => $this->request->post['company'],
@@ -128,6 +130,11 @@ class ControllerApiPayment extends Controller {
 				);
 
 				$json['success'] = $this->language->get('text_address');
+
+				// Update information of customer
+				$this->load->model('account/address');
+                $this->model_account_address->editAddressInOrder($this->session->data['payment_address']);
+				// END
 				
 				unset($this->session->data['payment_method']);
 				unset($this->session->data['payment_methods']);

@@ -404,6 +404,7 @@
                     <option value="{{ address.address_id }}">{{ address.firstname }} {{ address.lastname }}, {{ address.address_1 }}, {{ address.city }}, {{ address.country }}</option>
                     {% endfor %}
                   </select>
+				  <input type="hidden" name="value_address_id" id="value_address_id"/>
                 </div>
               </div>
               <div class="form-group required">
@@ -1593,6 +1594,8 @@ function htmlDecode(value) {
 
 // Payment Address
 $('select[name=\'payment_address\']').on('change', function() {
+	$('#value_address_id').val(this.value);
+
 	$.ajax({
 		url: 'index.php?route=customer/customer/address&user_token={{ user_token }}&address_id=' + this.value,
 		dataType: 'json',
@@ -1691,7 +1694,7 @@ $('#button-payment-address').on('click', function() {
 	$.ajax({
 		url: '{{ catalog }}index.php?route=api/payment/address&api_token={{ api_token }}&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
 		type: 'post',
-		data: $('#tab-payment input[type=\'text\'], #tab-payment input[type=\'hidden\'], #tab-payment input[type=\'radio\']:checked, #tab-payment input[type=\'checkbox\']:checked, #tab-payment select, #tab-payment textarea'),
+		data: $('#tab-payment input[type=\'text\'], #tab-customer input[name=\'customer_id\'], #tab-payment input[name=\'value_address_id\'], #tab-payment input[type=\'hidden\'], #tab-payment input[type=\'radio\']:checked, #tab-payment input[type=\'checkbox\']:checked, #tab-payment select, #tab-payment textarea'),
 		dataType: 'json',
 		crossDomain: true,
 		beforeSend: function() {
