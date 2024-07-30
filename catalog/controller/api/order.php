@@ -12,11 +12,11 @@ class ControllerApiOrder extends Controller {
 					 'postalCode',
 					 'city'
 				
+			   ]
 			],
 			'products' => [
-				'id'
+				'id' => "array"
 			]
-		  ]
 		];
 	}
 
@@ -49,22 +49,28 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function checkAttributes($attributes, $jsonArray, string $parentKey = ''): bool {
+		//print_r($attributes['customer']); die();
 		//print_r($jsonArray); die();
+		//print_r($jsonArray['products']); die();
 
 		foreach ($attributes as $key => $value) {
-			//echo $key . '//' . $value; die();
+			// if is parent
 			if (is_array($value)) {
 				// Check for nested attributes
 				if (!isset($jsonArray[$key])) {
-					echo "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key) . "\n";
+					echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key)]);
 					return false;
 				}
 				if (!$this->checkAttributes($value, $jsonArray[$key], $parentKey ? "$parentKey.$key" : $key)) {
 					return false;
 				}
-			} else {
-				if ( !is_array($jsonArray) || !array_key_exists($value, $jsonArray)) {
-					echo "Missing attribute: " . ($parentKey ? "$parentKey.$value" : $value) . "\n";
+			} else { // if is child
+				// if is array
+				if($value == 'array') {
+					echo '111';
+				}
+				else if ( !is_array($jsonArray) || !array_key_exists($value, $jsonArray)) {
+					echo json_encode(['error_codes' => 402, 'error' => "Missing attribute: " . ($parentKey ? "$parentKey.$value" : $value)]);
 					return false;
 				}
 			}
