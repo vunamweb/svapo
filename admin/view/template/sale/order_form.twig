@@ -1071,9 +1071,6 @@ $('input[name=\'customer\']').autocomplete({
 		if(item['address'] != null) {
 			$('#input-payment-address option').eq(1).prop('selected', true);
 			$('#input-payment-address option').eq(1).trigger('change');
-
-			//$('#input-shipping-address option').eq(1).prop('selected', true);
-			//$('#input-shipping-address option').eq(1).trigger('change');
         }
 
 		setTimeout(function() {
@@ -1889,7 +1886,7 @@ $('#button-shipping-address').on('click', function() {
 		},
 		complete: function() {
 			$('#button-shipping-address').button('reset');
-		},
+        },
 		success: function(json) {
 			$('.alert-dismissible, .text-danger').remove();
 			$('.form-group').removeClass('has-error');
@@ -1961,7 +1958,13 @@ $('#button-shipping-address').on('click', function() {
 				    $('#button-refresh').trigger('click');
 
                     $('a[href=\'#tab-total\']').tab('show');
-                });
+
+					$('#input-shipping-method option').eq(1).prop('selected', true);
+			        $('#input-shipping-method option').eq(1).trigger('change');
+
+					$('#input-payment-method option').eq(1).prop('selected', true);
+			        $('#input-payment-method option').eq(1).trigger('change');
+				});
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
