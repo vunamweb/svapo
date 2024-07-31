@@ -15,7 +15,8 @@ class ControllerApiOrder extends Controller {
 			   ]
 			],
 			'products' => [
-				'id' => "array"
+				'id' => "array",
+				'quantity'
 			]
 		];
 	}
@@ -67,7 +68,9 @@ class ControllerApiOrder extends Controller {
 			} else { // if is child
 				// if is array
 				if($value == 'array') {
-					echo '111';
+					//echo '111';
+					//print_r($jsonArray);
+					$this->model_catalog_product->checkExistListProducts($jsonArray, $key, $parentKey);
 				}
 				else if ( !is_array($jsonArray) || !array_key_exists($value, $jsonArray)) {
 					echo json_encode(['error_codes' => 402, 'error' => "Missing attribute: " . ($parentKey ? "$parentKey.$value" : $value)]);
@@ -79,12 +82,21 @@ class ControllerApiOrder extends Controller {
 	}
 	
 	public function addOrder() {
+		$this->load->model('catalog/product');
+
 		// Check for the Bearer token
 		$token = $this->getBearerToken();
 		if ($token === null) {
 			// Bearer token is missing
 			header('HTTP/1.0 401 Unauthorized');
 			echo json_encode(['error_codes' => 401, 'error' => 'Missing Bearer token']);
+			exit;
+		}
+
+		if ($token != TOKEN) {
+			// Bearer token is missing
+			header('HTTP/1.0 401 Unauthorized');
+			echo json_encode(['error_codes' => 401, 'error' => 'Unauthorized']);
 			exit;
 		}
 

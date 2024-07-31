@@ -125,6 +125,27 @@ class ModelCatalogProduct extends Model {
         return ($query->row['text'] != '') ? $query->row['text'] : 'Keine Daten';
     }
 
+    public function checkExistListProducts($listProduct, $key, $parentKey) {
+        $result = array();
+
+        $sql = 'select product_id from '.DB_PREFIX.'product';
+
+        $query = $this->db->query($sql);
+
+        foreach ( $query->rows as $row ) {
+            $result[] = $row['product_id'];
+        }
+
+        foreach($listProduct as $product) 
+          if(!isset($product[$key])) {
+            echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key)]);
+	        return;				
+          } else if (!in_array($product[$key], $result)) {
+            echo json_encode(['error_codes' => 402, 'error' => ($parentKey ? "$parentKey.$key " . "$product[$key]" . " not exist" : $key)]);
+	        return;				
+          }
+    }
+
     public function getPositionAttribute($nameAttribute, $listAtrtibute) {
         for($i = 0; $i < count($listAtrtibute); $i++)
          if($listAtrtibute[$i]['name'] == $nameAttribute)
