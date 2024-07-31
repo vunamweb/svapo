@@ -1,5 +1,87 @@
 {{ header }}
 <main>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuN5r52VzqbeZEuaVnl7H49fVhlqGsspw&libraries=places"></script>
+  <script>
+    $(document).ready(function() {
+      var autocomplete;
+      
+      // Initialisiere Autocomplete beim Laden der Seite, um die Adresseingabe zu ermöglichen, ohne PLZ zuerst einzugeben
+      initializeAutocomplete();
+      
+      $('#places').on('click', function() {
+        $("#input-street").val("");
+        $("#input-postcode").val("");
+        $("#input-city").val("");
+      });
+  
+      function initializeAutocomplete() {
+        var options = {
+          types: ['address'],
+          componentRestrictions: { country: 'de' }
+        };
+  
+        autocomplete = new google.maps.places.Autocomplete(
+          document.getElementById('places'),
+          options
+        );
+  
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+          var place = autocomplete.getPlace();
+          var city = '';
+          var street = '';
+          var streetNumber = '';
+          var postcode = '';
+  
+          for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (addressType == 'postal_code') {
+              postcode = place.address_components[i].long_name;
+            } else if (addressType == 'locality' || addressType == 'sublocality_level_1') {
+              city = place.address_components[i].long_name;
+            } else if (addressType == 'route') {
+              street = place.address_components[i].long_name;
+            } else if (addressType == 'street_number') {
+              streetNumber = place.address_components[i].long_name;
+            }
+          }
+  
+          var inputPostcode = $('#input-postcode').val();          
+          
+          if (!inputPostcode) {
+            $('#input-postcode').val(postcode).trigger('input');
+          } else if (postcode && inputPostcode && postcode !== inputPostcode) {
+            alert('Die eingegebene Adresse entspricht nicht der Postleitzahl.');
+          }
+  
+          $('#input-city').val(city);
+          $('#input-street').val(street+' '+streetNumber);
+          // $('#input-house-number').val(streetNumber);
+        });
+      }
+  
+      $('#input-postcode').on('input', function() {        
+        var inputPostcode = $('#input-postcode').val();
+        console.log("zip: "+inputPostcode);
+        
+        if(inputPostcode) {
+            $.ajax({
+              url: '/pharmacy/catalog/places.php',
+              type: 'POST',
+              data: { value: inputPostcode },
+              //dataType: 'json',
+              success: function(msg) {
+                console.log(msg);
+                $("#placess").val(msg);
+              },
+              error: function(xhr, status, error) {
+                console.error("Fehler bei der AJAX-Anfrage:", error);
+                console.log(xhr.responseText);
+              }
+            });
+         }
+      });
+    });
+  </script>
         <section class="register pt-lg-5 pt-4">
             <div class="container">
                 <div class="col-lg-11 ms-lg-auto form_register">
@@ -8,7 +90,7 @@
                             <div class="mb-0 w-100">
                                 <div class="mb-0 text1 mb-3 font_Inter lh-1">KONTO ERSTELLEN</div>
                                 <label class="form-check-label text-secondary" for="dongy">
-                                Sollten bereits ein Konto besitzen, loggen Sie sich bitte <a href="#"><u>Hier</u></a>ein.
+                                Solltest Du bereits ein Konto besitzen, logge Dich bitte <a href="#"><u>hier</u></a> ein.
                             </label>
                             </div>
                         </div>
@@ -43,6 +125,43 @@
               {% endif %}
                             </div>
                         </div>
+                        
+                        <hr class="my-lg-4 my-3 border-0">
+                            <h4 class="mb-0">LIEFERADRESSE</h4>
+                            <p>Bitte gebe Deine Straße gefolgt von der Hausnummer ein und wähle dann die richtige Adresse aus der Liste aus.</p>
+                            
+                            <div class="row g-3">
+
+                                <div class="col-12">
+                                    <input type="text" id="places" class="form-control form_cta" placeholder="Adresssuche" autocomplete="off">
+                                    <input type="text" id="placess" name="placess" value="{{ placess }}" placeholder="Adresssuche" autocomplete="off">
+                                    {% if error_places %}
+                                     <div class="text-danger">{{ error_places }}</div>
+                                    {% endif %}
+                               
+                                </div>
+
+                                <div class="col-12">
+                                    <input type="text" id="input-street" class="form-control form_cta" name="address_1" value="{{ address_1 }}" placeholder="STRASSE, HAUSNUMMER" autocomplete="off" readonly>
+                                {% if error_address_1 %}
+                                     <div class="text-danger">{{ error_address_1 }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" id="input-postcode" class="form-control form_cta" name="postcode" name="address_1" value="{{ address_1 }}" placeholder="PLZ" autocomplete="off" readonly>
+                                {% if error_zipcode %}
+                                     <div class="text-danger">{{ error_zipcode }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-8">
+                                      <input type="text" id="input-city" class="form-control form_cta" name="city" placeholder="ORT" autocomplete="off" readonly>
+                                {% if error_city %}
+                                   <div class="text-danger">{{ error_city }}</div>
+                                  {% endif %}
+                                </div>
+                            </div>
+                                  
+                                  
                         <hr class="my-lg-4 my-3 border-0">
                         <h4 class="mb-0">PASSWORT</h4>
                         <div class="row g-3">
@@ -59,33 +178,12 @@
               {% endif %}
                             </div>
                         </div>
-                        <hr class="my-lg-4 my-3 border-0">
-                        <h4 class="mb-0">LIEFERADRESSE</h4>
-                        <div class="row g-3">
-                            <div class="col-12">
-                                <input type="text" class="form-control form_cta" name="address_1" placeholder="STRASSE, HAUSNUMMER" autocomplete="off">
-                            {% if error_address_1 %}
-                                 <div class="text-danger">{{ error_address_1 }}</div>
-                                {% endif %}
-                            </div>
-                            <div class="col-4">
-                                <input type="text" class="form-control form_cta" name="postcode" placeholder="PLZ" autocomplete="off">
-                            {% if error_zipcode %}
-                                 <div class="text-danger">{{ error_zipcode }}</div>
-                                {% endif %}
-                            </div>
-							<div class="col-8">
-								<input type="text" class="form-control form_cta" name="city" placeholder="ORT" autocomplete="off">
-							{% if error_city %}
-								 <div class="text-danger">{{ error_city }}</div>
-								{% endif %}
-							</div>
-                        </div>
+                       
                         <hr class="my-lg-4 my-3 border-0">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" name="agree" value="1">
                             <label class="form-check-label text-secondary" for="dongy">
-                                Bitte bestätigen Sie das Sie die <a href="{{ root }}datenschutz/" target="_blank"><u>Datenschutzbestimmungen</u></a>gelesen haben.
+                                Bitte bestätige das Du die <a href="{{ root }}datenschutz/" target="_blank"><u>Datenschutzbestimmungen</u></a> gelesen hast.
                             </label>
                         </div>
                         <div class="form-check">

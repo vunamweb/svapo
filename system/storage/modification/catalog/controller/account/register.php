@@ -120,6 +120,12 @@ class ControllerAccountRegister extends Controller {
 		} else {
 			$data['error_city'] = '';
 		}
+		
+		if (isset($this->request->post['placess'])) {
+			$data['placess'] = $this->request->post['placess'];
+		} else {
+			$data['placess'] = '';
+		}
 
 		$data['action'] = $this->url->link('account/register', '', true);
 
@@ -165,8 +171,9 @@ class ControllerAccountRegister extends Controller {
 			$data['telephone'] = $this->request->post['telephone'];
 		} else {
 			$data['telephone'] = '';
-		}
-
+		}	
+		
+		
 		// Custom Fields
 		$data['custom_fields'] = array();
 		
@@ -190,6 +197,24 @@ class ControllerAccountRegister extends Controller {
 			$data['password'] = $this->request->post['password'];
 		} else {
 			$data['password'] = '';
+		}
+		
+		if (isset($this->request->post['address_1'])) {
+			$data['address_1'] = $this->request->post['address_1'];
+		} else {
+			$data['address_1'] = '';
+		}
+
+		if (isset($this->request->post['postcode'])) {
+			$data['postcode'] = $this->request->post['postcode'];
+		} else {
+			$data['postcode'] = '';
+		}
+
+		if (isset($this->request->post['city'])) {
+			$data['city'] = $this->request->post['city'];
+		} else {
+			$data['city'] = '';
 		}
 
 		if (isset($this->request->post['confirm'])) {
