@@ -329,7 +329,7 @@ class ControllerApiOrder extends Controller {
 				);
 			}
 
-			$order_data['comment'] = $this->session->data['comment'];
+			$order_data['comment'] = $this->getDaTaComment($data);
 			$order_data['total'] = $total_data['total'];
 
 			$order_data['language_id'] = $this->config->get('config_language_id');
@@ -376,6 +376,34 @@ class ControllerApiOrder extends Controller {
 
 			$this->cart->add($product_id, $quantity, $option, $recurring_id);
         }
+	}
+
+	public function getDaTaComment($jsonArray) {
+		$comment = '';
+		$break = '<br>';
+
+		if(isset($jsonArray['pharmacy_id']))
+		  $comment .= 'Pharmacy_id: ' . $jsonArray['pharmacy_id'] . $break;
+
+		if(isset($jsonArray['doctor'])) {
+			$comment .= 'Data of Doctor below' . $break;
+
+			$comment .= isset($jsonArray['doctor']['name']) ? 'Name: ' . $jsonArray['doctor']['name'] . $break : null;
+			$comment .= isset($jsonArray['doctor']['firstname']) ? 'Firstname: ' . $jsonArray['doctor']['firstname'] . $break : null;
+			$comment .= isset($jsonArray['doctor']['phone']) ? 'Phone: ' . $jsonArray['doctor']['phone'] . $break : null;
+			$comment .= isset($jsonArray['doctor']['cityOfSignature']) ? 'CityOfSignature: ' . $jsonArray['doctor']['cityOfSignature'] . $break : null;
+			$comment .= isset($jsonArray['doctor']['dateOfSignature']) ? 'DateOfSignature: ' . $jsonArray['doctor']['dateOfSignature'] . $break : null;
+		} 
+		
+		if(isset($jsonArray['internalOrderId'])) {
+			$comment .= $break . 'InternalOrderId: ' . $jsonArray['internalOrderId'] . $break;
+		}
+
+		if(isset($jsonArray['isThirdPartyPrescription'])) {
+			$comment .= $break . 'isThirdPartyPrescription: ' . $jsonArray['isThirdPartyPrescription'] . $break;
+		}
+
+		return $comment;
 	}
 
 	public function uploadFile() {
