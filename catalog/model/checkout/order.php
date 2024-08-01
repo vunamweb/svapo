@@ -10,6 +10,10 @@ class ModelCheckoutOrder extends Model {
 		return $query->rows[0]['maxNo'];
 	}
 	
+	public function updateStatusOrder($order_status_id, $order_id) {
+		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = '" . (int)$order_status_id . "', date_modified = NOW() WHERE order_id = '" . (int)$order_id . "'");
+	}
+
 	public function addOrder($data) {
 		session_start();
 

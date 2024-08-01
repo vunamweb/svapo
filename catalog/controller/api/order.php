@@ -50,10 +50,6 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function checkAttributes($attributes, $jsonArray, string $parentKey = ''): bool {
-		//print_r($attributes['customer']); die();
-		//print_r($jsonArray); die();
-		//print_r($jsonArray['products']); die();
-
 		foreach ($attributes as $key => $value) {
 			// if is parent
 			if (is_array($value)) {
@@ -66,23 +62,45 @@ class ControllerApiOrder extends Controller {
 					return false;
 				}
 			} else { // if is child
+				/*if($value == 'quantity') {
+					print_r($jsonArray);
+				    die();
+				}*/
 				// if is array
 				if($value == 'array') {
 					//echo '111';
 					//print_r($jsonArray);
-					$this->model_catalog_product->checkExistListProducts($jsonArray, $key, $parentKey);
+					if(!$this->model_catalog_product->checkExistListProducts($jsonArray, $key, $parentKey))
+					 return false;
+
+					//return true; 
 				}
-				else if ( !is_array($jsonArray) || !array_key_exists($value, $jsonArray)) {
-					echo json_encode(['error_codes' => 402, 'error' => "Missing attribute: " . ($parentKey ? "$parentKey.$value" : $value)]);
+				else if ( (!is_array($jsonArray) || !array_key_exists($value, $jsonArray)) && !$this->checkPropertyInArrayJson($value, $jsonArray) ) {
+					echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$value" : $value)]);
 					return false;
 				}
 			}
 		}
+
+		return true;
+	}
+
+	public function checkPropertyInArrayJson($key, $arrayJson) {
+		foreach ($arrayJson as $obj) {
+			if(!is_array($obj))
+			return false;
+
+			if (!array_key_exists($key, $obj) || !is_int($obj[$key])) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 	
 	public function addOrder() {
 		$this->load->model('catalog/product');
+		$this->load->model('checkout/order');
 
 		// Check for the Bearer token
 		$token = $this->getBearerToken();
@@ -121,8 +139,244 @@ class ControllerApiOrder extends Controller {
 			exit;
 		}
 
-	   $this->checkAttributes($this->getRequireAttribute(), $jsonData);
+		if($this->checkAttributes($this->getRequireAttribute(), $jsonData)) {
+		 $order_id = $this->saveOrder($jsonData);
+
+		 if($order_id) {
+			$this->model_checkout_order->updateStatusOrder(3, $order_id);
+			echo json_encode(['codes' => 200, 'order_id' => $order_id]);
+        } else {
+			echo json_encode(['error_codes' => 201, 'error' => 'error while creating order']);
+		 }
+        }
     }
+	
+	public function saveOrder($data) {
+	   $products = $data['products'];
+	   
+	   // save products into cart  
+	   $this->saveProductIntoCart($products);
+
+	   // Validate minimum quantity requirements.
+		$products = $this->cart->getProducts();
+
+		foreach ($products as $product) {
+			$product_total = 0;
+
+			foreach ($products as $product_2) {
+				if ($product_2['product_id'] == $product['product_id']) {
+					$product_total += $product_2['quantity'];
+				}
+			}
+
+			if ($product['minimum'] > $product_total) {
+				$redirect = $this->url->link('checkout/cart');
+
+				break;
+			}
+		}
+
+		if ($this->cart->hasProducts()) {
+			$order_data = array();
+
+			$totals = array();
+			$taxes = $this->cart->getTaxes();
+			$total = 0;
+
+			// Because __call can not keep var references so we put them into an array.
+			$total_data = array(
+				'totals' => &$totals,
+				'taxes'  => &$taxes,
+				'total'  => &$total
+			);
+
+			$this->load->model('setting/extension');
+
+			$sort_order = array();
+
+			$results = $this->model_setting_extension->getExtensions('total');
+
+			foreach ($results as $key => $value) {
+				$sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
+			}
+
+			array_multisort($sort_order, SORT_ASC, $results);
+
+			foreach ($results as $result) {
+				if ($this->config->get('total_' . $result['code'] . '_status')) {
+					$this->load->model('extension/total/' . $result['code']);
+
+					// We have to put the totals in an array so that they pass by reference.
+					$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+				}
+			}
+
+			$sort_order = array();
+
+			foreach ($totals as $key => $value) {
+				$sort_order[$key] = $value['sort_order'];
+			}
+
+			array_multisort($sort_order, SORT_ASC, $totals);
+
+			$order_data['totals'] = $totals;
+
+			$this->load->language('checkout/checkout');
+
+			$order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
+			$order_data['store_id'] = $this->config->get('config_store_id');
+			$order_data['store_name'] = $this->config->get('config_name');
+
+			if ($order_data['store_id']) {
+				$order_data['store_url'] = $this->config->get('config_url');
+			} else {
+				if ($this->request->server['HTTPS']) {
+					$order_data['store_url'] = HTTPS_SERVER;
+				} else {
+					$order_data['store_url'] = HTTP_SERVER;
+				}
+			}
+			
+			$this->load->model('account/customer');
+
+			$order_data['customer_id'] = 0;
+			$order_data['customer_group_id'] = 1;
+			$order_data['firstname'] = $data['customer']['firstname'];
+			$order_data['lastname'] = $data['customer']['lastname'];
+			$order_data['email'] = $data['customer']['email'];
+			$order_data['telephone'] = $data['customer']['phone'];
+			$order_data['custom_field'] = array();
+			
+            $order_data['payment_firstname'] = $data['customer']['firstname'];
+			$order_data['payment_lastname'] = $data['customer']['lastname'];
+			$order_data['payment_company'] = '';
+			$order_data['payment_address_1'] = $data['homeAddress']['streetName'];
+			$order_data['payment_address_2'] = '';
+			$order_data['payment_city'] = $data['homeAddress']['city'];
+			$order_data['payment_postcode'] = $data['homeAddress']['postalCode'];
+			$order_data['payment_zone'] = 'Thüringen';
+			$order_data['payment_zone_id'] = 1269;
+			$order_data['payment_country'] = 'Germany';
+			$order_data['payment_country_id'] = 81;
+			$order_data['payment_address_format'] = '{company}{firstname} {lastname}{address_1}{address_2}{postcode} {city}{country}';
+			$order_data['payment_custom_field'] = array();
+
+			$order_data['payment_method'] = 'Banküberweisung';
+			$order_data['payment_code'] = 'bank_transfer';
+
+			$order_data['shipping_method'] = 'Versandkostenpauschale';
+			$order_data['shipping_code'] = 'flat.flat';
+
+			if (isset($data['deliveryAddress'])) {
+				$order_data['shipping_firstname'] = $data['customer']['firstname'];
+				$order_data['shipping_lastname'] =  $data['customer']['lastname'];
+				$order_data['shipping_company'] = '';
+				$order_data['shipping_address_1'] = $data['deliveryAddress']['streetName'];
+				$order_data['shipping_address_2'] = '';
+				$order_data['shipping_city'] = $data['deliveryAddress']['city'];
+				$order_data['shipping_postcode'] = $data['deliveryAddress']['postalCode'];
+				$order_data['shipping_zone'] = 'Thüringen';
+				$order_data['shipping_zone_id'] = 1269;
+				$order_data['shipping_country'] = 'Germany';
+				$order_data['shipping_country_id'] = 81;
+				$order_data['shipping_address_format'] = '{company}{firstname} {lastname}{address_1}{address_2}{postcode} {city}{country}';
+				$order_data['shipping_custom_field'] = array();
+            } else {
+				$order_data['shipping_firstname'] = $data['customer']['firstname'];
+				$order_data['shipping_lastname'] =  $data['customer']['lastname'];
+				$order_data['shipping_company'] = '';
+				$order_data['shipping_address_1'] = $order_data['payment_address_1'];
+				$order_data['shipping_address_2'] = '';
+				$order_data['shipping_city'] = $order_data['payment_city'];
+				$order_data['shipping_postcode'] = $order_data['payment_postcode'];
+				$order_data['shipping_zone'] = 'Thüringen';
+				$order_data['shipping_zone_id'] = 1269;
+				$order_data['shipping_country'] = 'Germany';
+				$order_data['shipping_country_id'] = 81;
+				$order_data['shipping_address_format'] = '{company}{firstname} {lastname}{address_1}{address_2}{postcode} {city}{country}';
+				$order_data['shipping_custom_field'] = array();
+			}
+
+			$order_data['products'] = array();
+
+			foreach ($this->cart->getProducts() as $product) {
+				$option_data = array();
+
+				foreach ($product['option'] as $option) {
+					$option_data[] = array(
+						'product_option_id'       => $option['product_option_id'],
+						'product_option_value_id' => $option['product_option_value_id'],
+						'option_id'               => $option['option_id'],
+						'option_value_id'         => $option['option_value_id'],
+						'name'                    => $option['name'],
+						'value'                   => $option['value'],
+						'type'                    => $option['type']
+					);
+				}
+
+				$order_data['products'][] = array(
+					'product_id' => $product['product_id'],
+					'name'       => $product['name'],
+					'model'      => $product['model'],
+					'option'     => $option_data,
+					'download'   => $product['download'],
+					'quantity'   => $product['quantity'],
+					'subtract'   => $product['subtract'],
+					'price'      => $product['price'],
+					'total'      => $product['total'],
+					'tax'        => $this->tax->getTax($product['price'], $product['tax_class_id']),
+					'reward'     => $product['reward']
+				);
+			}
+
+			$order_data['comment'] = $this->session->data['comment'];
+			$order_data['total'] = $total_data['total'];
+
+			$order_data['language_id'] = $this->config->get('config_language_id');
+			$order_data['currency_id'] = $this->currency->getId($this->session->data['currency']);
+			$order_data['currency_code'] = 'EUR';
+			$order_data['currency_value'] = 1.00000000;
+			$order_data['ip'] = $this->request->server['REMOTE_ADDR'];
+
+			if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+				$order_data['forwarded_ip'] = $this->request->server['HTTP_X_FORWARDED_FOR'];
+			} elseif (!empty($this->request->server['HTTP_CLIENT_IP'])) {
+				$order_data['forwarded_ip'] = $this->request->server['HTTP_CLIENT_IP'];
+			} else {
+				$order_data['forwarded_ip'] = '';
+			}
+
+			if (isset($this->request->server['HTTP_USER_AGENT'])) {
+				$order_data['user_agent'] = $this->request->server['HTTP_USER_AGENT'];
+			} else {
+				$order_data['user_agent'] = '';
+			}
+
+			if (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+				$order_data['accept_language'] = $this->request->server['HTTP_ACCEPT_LANGUAGE'];
+			} else {
+				$order_data['accept_language'] = '';
+			}
+
+			$this->load->model('checkout/order');
+
+			//print_r($order_data); die();
+
+			return $this->model_checkout_order->addOrder($order_data);
+        }
+    }
+
+	public function saveProductIntoCart($products) {
+		foreach($products as $product) {
+			$product_id = $product['id'];
+			$quantity = $product['quantity'];
+
+			$option = array();
+			$recurring_id = 0;
+
+			$this->cart->add($product_id, $quantity, $option, $recurring_id);
+        }
+	}
 
 	public function uploadFile() {
 		$this->load->model('checkout/order');
