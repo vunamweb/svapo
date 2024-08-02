@@ -1702,7 +1702,7 @@ $('#button-payment-address').on('click', function() {
 
 			$('#input-shipping-address option').eq(1).prop('selected', true);
 			$('#input-shipping-address option').eq(1).trigger('change');
-		},
+        },
 		success: function(json) {
 			$('.alert-dismissible, .text-danger').remove();
 			$('.form-group').removeClass('has-error');
@@ -1769,6 +1769,9 @@ $('#button-payment-address').on('click', function() {
     				} else {
     					$('a[href=\'#tab-shipping\']').tab('show');
     				}
+
+					$('#input-shipping-country option').eq(1).prop('selected', true);
+			        $('#input-shipping-country option').eq(1).trigger('change');
                 });
 			}
 		},
