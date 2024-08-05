@@ -30,11 +30,13 @@ class ControllerApiCustomer extends Controller {
 			// Customer
 			if ($this->request->post['customer_id']) {
 				$this->load->model('account/customer');
+				$this->load->model('account/address');
 
 				$customer_info = $this->model_account_customer->getCustomer($this->request->post['customer_id']);
 
 				// update customer
 				$this->model_account_customer->editCustomer($this->request->post['customer_id'], $this->request->post);
+				$this->model_account_address->updateNameOfCustomer($this->request->post['customer_id'], $this->request->post);
 				// END
 
 				if (!$customer_info || !$this->customer->login($customer_info['email'], '', true)) {

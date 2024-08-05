@@ -1583,6 +1583,9 @@ $('#cart').delegate('.btn-primary', 'click', function() {
 
 $('#button-cart').on('click', function() {
 	$('a[href=\'#tab-payment\']').tab('show');
+
+	$('#input-payment-address option').eq(1).prop('selected', true);
+	$('#input-payment-address option').eq(1).trigger('change');
 });
 
 function htmlDecode(value) {
