@@ -238,8 +238,18 @@ class ControllerProductCategory extends Controller {
 				// else '<span class="notinstock"></span>';
 				
 				if ($result['quantity'] <= 0) {
-					$stock_status = '<span class="notinstock"></span>'.$result['stock_status'];
-				} else {
+					// $stock_status = '<span class="notinstock"></span>'.$result['stock_status'];
+					$stock_status = '<span class="notinstock"></span>nicht lieferbar';
+				} 
+				else if ($result['quantity'] < 10) {
+					// $stock_status = '<span class="notinstock"></span>'.$result['stock_status'];
+					$stock_status = '<span class="instock10"></span>unter 10 Gramm';
+				} 
+				else if ($result['quantity'] <= 20) {
+					// $stock_status = '<span class="notinstock"></span>'.$result['stock_status'];
+					$stock_status = '<span class="instock20"></span>10-20 Gramm';
+				}
+				else {
 					$stock_status = '<span class="instock"></span>'.$result['stock_status'];
 				}
 
@@ -259,7 +269,8 @@ class ControllerProductCategory extends Controller {
 					'rating'      => $result['rating'],
 					'manufacturer_name' => $manufacturer_name ,
 					'manufacturer_image' => $manufacturer_image,
-					'stock' => $stock_status,
+					'stock' => $stock_status,					
+					'stockid'        => $result['stock_status_id'],
 					'href'        => $this->url->link('product/product', 'path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
 				);
 			}

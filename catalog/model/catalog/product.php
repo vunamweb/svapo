@@ -200,6 +200,7 @@ class ModelCatalogProduct extends Model {
                 'minimum'          => $query->row[ 'minimum' ],
                 'sort_order'       => $query->row[ 'sort_order' ],
                 'status'           => $query->row[ 'status' ],
+                'stock_status_id'  => $query->row[ 'stock_status_id' ],                
                 'date_added'       => $query->row[ 'date_added' ],
                 'date_modified'    => $query->row[ 'date_modified' ],
                 'viewed'           => $query->row[ 'viewed' ]
@@ -223,6 +224,9 @@ class ModelCatalogProduct extends Model {
 
             try {
                 $attributes = json_decode( $attributes );
+
+                if($attributes == '' || $attributes == null)
+                  $attributes = array();
             } catch( Exception $e ) {
                 $attributes = array();
             }
@@ -230,6 +234,7 @@ class ModelCatalogProduct extends Model {
             //if($result['product_id'] == 50)
             //print_r($result[50]['attributes']); die();
 
+            //print_r($attributes); die();
             foreach($attribute_id as $id)
               if($id != '' && !in_array($id, $attributes))
                 $check = false;  
