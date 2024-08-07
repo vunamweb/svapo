@@ -501,7 +501,7 @@ class ControllerCatalogProduct extends Controller {
         $this->response->setOutput( $this->load->view( 'catalog/product_list', $data ) );
     }
 
-    protected function getListExport() {
+    protected function getListExport($export="flowzz") {
         if ( isset( $this->request->get[ 'filter_name' ] ) ) {
             $filter_name = $this->request->get[ 'filter_name' ];
         } else {
@@ -641,6 +641,7 @@ class ControllerCatalogProduct extends Controller {
                 'image'      => $image,
                 'name'       => $result[ 'name' ],
                 'model'      => $result[ 'model' ],
+				'pzn'      => $result[ 'sku' ],
                 'price'      => $this->currency->format( $result[ 'price' ], $this->config->get( 'config_currency' ) ),
                 'special'    => $special,
                 'quantity'   => $result[ 'quantity' ],
@@ -778,6 +779,7 @@ class ControllerCatalogProduct extends Controller {
             $headers[0] = 'Name';
             $headers[1] = 'Atribute';
             $headers[2] = 'Price';
+			$headers[3] = 'Quantity';
 
             fputcsv( $output, $headers, $delimiter );
 
@@ -834,7 +836,8 @@ class ControllerCatalogProduct extends Controller {
                 $data[ 'products' ][] = array(
 					'name'       => $result[ 'name' ],
 					'Attribute'  => $productAttribute,
-                    'price'      => $result[ 'price' ]
+                    'price'      => $result[ 'price' ],
+					'quantity'   => $result[ 'quantity' ]
                 );
             }
 
