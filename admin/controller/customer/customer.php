@@ -1531,6 +1531,9 @@ class ControllerCustomerCustomer extends Controller {
 			$this->load->model('customer/customer');
 
 			$json = $this->model_customer_customer->getAddress($this->request->get['address_id']);
+
+			$json['country_id'] = 81;
+			//print_r($json); die();
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
