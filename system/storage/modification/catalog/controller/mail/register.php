@@ -19,7 +19,7 @@ class ControllerMailRegister extends Controller {
 		$mail->Password = SMTP_PASSWORD;
 		$mail->CharSet = 'UTF-8';
 		$mail->AddAddress($to);
-		//$mail->addBcc("vukynamkhtn@gmail.com");
+		// $mail->addBcc("b@7sc.eu");
 		$mail->Subject = $subject;
 		$mail->FromName = $fromName;
 		$mail->From = $from;
@@ -76,7 +76,7 @@ class ControllerMailRegister extends Controller {
 		$data['login'] = $verification_link;		
 		$data['store'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
-		$data['mail_header'] = MAILHEADER;
+		$data['mail_header'] = HEADER;
 		$data['mail_footer'] = FOOTER;
 		
         $mail = new Mail($this->config->get('config_mail_engine'));
@@ -100,7 +100,7 @@ class ControllerMailRegister extends Controller {
 		$fromName = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 		$message = $this->load->view('mail/register', $data);
 
-		$this->sendMailSMTP($to, $subject, SMTP_USER, $fromName, $message);
+		$this->sendMailSMTP($to, $subject, 'info@svapo.de', $fromName, $message);
 	}
 	
 	public function alert(&$route, &$args, &$output) {
@@ -159,7 +159,7 @@ class ControllerMailRegister extends Controller {
 			$fromName = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 			$message = $this->load->view('mail/register_alert', $data);
 
-			$this->sendMailSMTP($args[0]['email'], $subject, 'test@7sc.eu', $fromName, $message);
+			$this->sendMailSMTP($args[0]['email'], $subject, 'info@svapo.de', $fromName, $message);
 
 			// Send to additional alert emails if new account email is enabled
 			$emails = explode(',', $this->config->get('config_mail_alert_email'));

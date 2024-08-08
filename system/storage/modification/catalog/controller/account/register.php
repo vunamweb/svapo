@@ -1,4 +1,5 @@
 <?php
+session_start();
 class ControllerAccountRegister extends Controller {
 	private $error = array();
 
@@ -19,7 +20,9 @@ class ControllerAccountRegister extends Controller {
 		$this->load->model('account/customer');
 		$this->load->model('account/address');
 
+		//if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+			//echo 'ok'; die();
 			$customer_id = $this->model_account_customer->addCustomer($this->request->post);
 
 			$this->model_account_address->addAddress($customer_id, $this->request->post);
@@ -121,11 +124,6 @@ class ControllerAccountRegister extends Controller {
 			$data['error_city'] = '';
 		}
 		
-		if (isset($this->request->post['placess'])) {
-			$data['placess'] = $this->request->post['placess'];
-		} else {
-			$data['placess'] = '';
-		}
 
 		$data['action'] = $this->url->link('account/register', '', true);
 
@@ -204,19 +202,25 @@ class ControllerAccountRegister extends Controller {
 		} else {
 			$data['address_1'] = '';
 		}
-
+		
 		if (isset($this->request->post['postcode'])) {
 			$data['postcode'] = $this->request->post['postcode'];
 		} else {
 			$data['postcode'] = '';
 		}
-
+		
 		if (isset($this->request->post['city'])) {
 			$data['city'] = $this->request->post['city'];
 		} else {
 			$data['city'] = '';
 		}
-
+		
+		if (isset($this->request->post['website'])) {
+			$data['website'] = $this->request->post['website'];
+		} else {
+			$data['website'] = '';
+		}
+		
 		if (isset($this->request->post['confirm'])) {
 			$data['confirm'] = $this->request->post['confirm'];
 		} else {
@@ -267,6 +271,24 @@ class ControllerAccountRegister extends Controller {
 	}
 
 	private function validate() {
+		// Neue Validierung für postcode und website
+		if (isset($this->request->post['website'])) {
+			$checkit = $this->request->post['website'];
+			if($checkit != "") $this->error['zipcode'] = 'Adresse passt nicht';
+		}
+		
+		if (isset($this->request->post['postcode']) && isset($_SESSION["plc"])) {
+			$postcode = $this->request->post['postcode'];
+			$placess = $_SESSION["plc"];
+		
+			if (md5($postcode) !== $placess) {
+				$this->error['zipcode'] = 'Bitte die Adresssuche anwenden';
+			}
+		} else {
+			$this->error['zipcode'] = 'Bitte die Adresssuche anwenden.';
+		}
+		
+				
 		if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
 			$this->error['firstname'] = $this->language->get('error_firstname');
 		}
@@ -348,6 +370,9 @@ class ControllerAccountRegister extends Controller {
 				$this->error['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);
 			}
 		}
+		
+		// Debug-Log
+		// $this->error['zipcode'] = print_r($this->error, true);
 		
 		return !$this->error;
 	}
