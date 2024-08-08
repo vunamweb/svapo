@@ -174,14 +174,24 @@ class ModelCatalogAttribute extends Model {
 		//echo $sql; die();
 		$query = $this->db->query($sql);
 
-		foreach ( $query->rows as $result ) {
-            if ( in_array( $result[ 'attribute_id' ], $attributes ) )
-            $result[ 'is_select' ] = true;
-            else
-            $result[ 'is_select' ] = false;
-
-            $response[] = $result;
-        }
+		foreach ($query->rows as $result) {
+			// Überprüfe, ob $attributes ein Array ist
+			if (is_array($attributes)) {
+				// Überprüfe, ob $result['attribute_id'] im Array $attributes vorhanden ist
+				if (in_array($result['attribute_id'], $attributes)) {
+					$result['is_select'] = true;
+				} else {
+					$result['is_select'] = false;
+				}
+			} else {
+				// Wenn $attributes kein Array ist, setze einen Standardwert oder überspringe den Schleifendurchlauf
+				// Hier ein Beispiel mit einem Standardwert von false:
+				$result['is_select'] = false;
+			}
+		
+			// Füge das Ergebnis zur Antwort hinzu
+			$response[] = $result;
+		}
 
 		return $response;
 	}
