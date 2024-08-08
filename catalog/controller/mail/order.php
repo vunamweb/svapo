@@ -633,16 +633,38 @@ class ControllerMailOrder extends Controller {
 
 		// Add net price
 		$count = count($order_totals);
-		$order_totals[$count - 1] = $order_totals[$count];
+		// if not coupon
+		if($count == 4) {
+			//print_r($order_totals); die();
+			$order_totals[$count - 1] = $order_totals[$count];
 		
-		$order_totals[$count - 1]['title'] = 'Gesamtnetto';
-		$order_totals[$count - 1]['value'] = round($order_totals[$count - 1]['value'] / 1.19);
+			$order_totals[$count - 1]['title'] = 'Gesamtnetto';
+			$order_totals[$count - 1]['value'] = round($order_totals[$count - 1]['value'] / 1.19);
+			
+			$order_totals[0]['sort_order'] = 0;
+			$order_totals[1]['sort_order'] = 1;
+			$order_totals[2]['sort_order'] = 2;
+			$order_totals[4]['sort_order'] = 4;
+			$order_totals[3]['sort_order'] = 3;		
+		} else { // if coupon
+			//print_r($order_totals); die();
+			// Because shipping = 0, so need to reduce total
+			$order_totals[$count - 1]['value'] = $order_totals[$count - 1]['value'] - $order_totals[1]['value'];
 
-		$order_totals[0]['sort_order'] = 0;
-		$order_totals[1]['sort_order'] = 1;
-		$order_totals[2]['sort_order'] = 2;
-		$order_totals[4]['sort_order'] = 4;
-		$order_totals[3]['sort_order'] = 3;
+			// set shipping is 0
+			$order_totals[1]['value'] = 0;
+
+			$order_totals[$count - 2]['title'] = 'Gesamtnetto';
+			$order_totals[$count - 2]['value'] = round($order_totals[$count - 1]['value'] / 1.19);
+			
+			$order_totals[0]['sort_order'] = 0;
+			$order_totals[1]['sort_order'] = 1;
+			$order_totals[2]['sort_order'] = 2;
+			$order_totals[4]['sort_order'] = 4;
+			$order_totals[3]['sort_order'] = 3;
+			
+			//print_r($order_totals); die();
+		}
 		
 
 		usort($order_totals, function($a, $b) {

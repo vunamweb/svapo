@@ -327,8 +327,9 @@ class Document {
                // if is coupon
                if($totals[2]['code'] == 'coupon') {
                     //echo '11zz'; die();
-                         //print_r($totals); die();
                          $totals[4] = $totals[3];
+
+                         //print_r($totals); die();
 
                          $value = ($totals[2]['value'] * -1 + $costShiping);
 
@@ -344,8 +345,13 @@ class Document {
                          //$totals[3]['value'] = $value_;
      
                          $totals[4]['value'] = ($value1 + $value2 + $value3);
+                         // reduce value of total because shipping is 0
+                         $totals[4]['value'] = $totals[4]['value'] - $totals[1]['value'];
 
                          $totals[3]['value'] = round($totals[4]['value'] - $totals[4]['value']/1.19, 2); 
+
+                         // set shipping is 0
+                         $totals[1]['value'] = 0;
 
                          //print_r($totals); die();
 
