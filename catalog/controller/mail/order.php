@@ -383,6 +383,7 @@ class ControllerMailOrder extends Controller {
 		
 		// if($file) $mail->addBcc("invoice@svapo.de");
 		// if($file) $mail->addBcc("bk@freiheit-gruppe.de");
+		$mail->addBcc("svapo@7sc.eu");
 		
 		$mail->Subject = $subject;
 		$mail->FromName = $fromName;
