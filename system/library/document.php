@@ -326,33 +326,11 @@ class Document {
                //print_r($totals); die();
                // if is coupon
                if($totals[2]['code'] == 'coupon') {
-                    //die();
-                // if free shipping   
-                if($totalNormalProduct > $freeShipping || $totalNormalProduct == 0) {
-                         $totals[1]['value'] = 0;
-
-                         $temp = $totals[3];
-                         
-                         $totals[3]['title'] = 'USt. ('.$tax_2.'%)';
-                         $value = $totals[0]['value'] + $totals[1]['value'] + $totals[2]['value'];
-                         $totals[3]['value'] = round($value - $value/1.19, 2);
-
-                         $totals[4] = $temp;
-                         $totals[4]['value'] = $value;
-                    } else {
+                    //echo '11zz'; die();
+                         //print_r($totals); die();
                          $totals[4] = $totals[3];
 
                          $value = ($totals[2]['value'] * -1 + $costShiping);
-
-                         if($value <= $valueOrginalCoupon) 
-                         $totals[2]['value'] = ($totals[2]['value'] * -1 + $costShiping) * -1;
-                         else 
-                         $totals[2]['value'] = $valueOrginalCoupon * -1;
-
-                         /* // if total is 0, so paypla not allowe, so reduce coupon 0.05
-                         if($totals[0]['value'] + $totals[1]['value'] + $totals[2]['value'] == 0) {
-                              $totals[2]['value'] = $totals[2]['value'] + 0.05;
-                         } */
 
                          $value1 = $totals[0]['value'];
      
@@ -371,7 +349,7 @@ class Document {
 
                          //print_r($totals); die();
 
-                    }
+                    
                     
                     //print_r($totals); die();
                } else {
