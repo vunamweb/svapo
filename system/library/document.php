@@ -346,12 +346,12 @@ class Document {
      
                          $totals[4]['value'] = ($value1 + $value2 + $value3);
                          // reduce value of total because shipping is 0
-                         $totals[4]['value'] = $totals[4]['value'] - $totals[1]['value'];
+                         //$totals[4]['value'] = $totals[4]['value'] - $totals[1]['value'];
 
                          $totals[3]['value'] = round($totals[4]['value'] - $totals[4]['value']/1.19, 2); 
 
                          // set shipping is 0
-                         $totals[1]['value'] = 0;
+                         //$totals[1]['value'] = 0;
 
                          //print_r($totals); die();
 

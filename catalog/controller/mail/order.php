@@ -273,10 +273,10 @@ class ControllerMailOrder extends Controller {
 		} else { // if coupon
 			//print_r($order_totals); die();
 			// Because shipping = 0, so need to reduce total
-			$order_totals[$count - 1]['value'] = $order_totals[$count - 1]['value'] - $order_totals[1]['value'];
+			//$order_totals[$count - 1]['value'] = $order_totals[$count - 1]['value'] - $order_totals[1]['value'];
 
 			// set shipping is 0
-			$order_totals[1]['value'] = 0;
+			//$order_totals[1]['value'] = 0;
 
 			$order_totals[$count - 2]['title'] = 'Gesamtnetto';
 			$order_totals[$count - 2]['value'] = round($order_totals[$count - 1]['value'] / 1.19);
@@ -649,10 +649,10 @@ class ControllerMailOrder extends Controller {
 		} else { // if coupon
 			//print_r($order_totals); die();
 			// Because shipping = 0, so need to reduce total
-			$order_totals[$count - 1]['value'] = $order_totals[$count - 1]['value'] - $order_totals[1]['value'];
+			//$order_totals[$count - 1]['value'] = $order_totals[$count - 1]['value'] - $order_totals[1]['value'];
 
 			// set shipping is 0
-			$order_totals[1]['value'] = 0;
+			//$order_totals[1]['value'] = 0;
 
 			$order_totals[$count - 2]['title'] = 'Gesamtnetto';
 			$order_totals[$count - 2]['value'] = round($order_totals[$count - 1]['value'] / 1.19);
