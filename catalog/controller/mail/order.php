@@ -691,7 +691,7 @@ class ControllerMailOrder extends Controller {
 
 		
 
-		$invoiceNumber = $this->model_checkout_order->countInvoiceNumber() + 1;
+		$invoiceNumber = ( $order_info['invoice_no'] == 0) ? $this->model_checkout_order->countInvoiceNumber() + 1 : $order_info['invoice_no'];
 		
 		$data['pdf_address'] = PDF_ADDRESS;
 		$data['ACCOUNT'] = ACCOUNT;
