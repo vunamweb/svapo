@@ -1586,7 +1586,43 @@ $('#button-cart').on('click', function() {
 
 	$('#input-payment-address option').eq(1).prop('selected', true);
 	$('#input-payment-address option').eq(1).trigger('change');
-});
+
+	var hasChildren = $('#input-payment-address').children('option').length > 1;
+
+	// if enter customer by manual
+	if(!hasChildren) {
+       fillDataPayment();
+	}
+	// END  
+  });
+
+function fillDataPayment() {
+	var firstName = $('#input-firstname').val();
+	var lastName = $('#input-lastname').val();
+	
+    $('#input-payment-firstname').val(firstName);
+	$('#input-payment-lastname').val(lastName);
+}
+
+function fillDataDelivery() {
+	var firstName = $('#input-firstname').val();
+	var lastName = $('#input-lastname').val();
+	
+    var company = $('#input-payment-company').val();
+	var address_1 = $('#input-payment-address-1').val();
+	var address_2  = $('#input-payment-address-2').val();
+	var city = $('#input-payment-city').val();
+	var postcode = $('#input-payment-postcode').val();	
+
+	$('#input-shipping-firstname').val(firstName);
+	$('#input-shipping-lastname').val(lastName);
+
+	$('#input-shipping-company').val(company);
+	$('#input-shipping-address-1').val(address_1);
+	$('#input-shipping-address-2').val(address_2);
+	$('#input-shipping-city').val(city);
+	$('#input-shipping-postcode').val(postcode);	
+}
 
 function htmlDecode(value) {
   return $("<textarea/>").html(value).text();
@@ -1775,6 +1811,8 @@ $('#button-payment-address').on('click', function() {
 
 					$('#input-shipping-country option').eq(1).prop('selected', true);
 			        $('#input-shipping-country option').eq(1).trigger('change');
+
+					fillDataDelivery();
                 });
 			}
 		},
