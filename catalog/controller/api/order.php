@@ -1190,6 +1190,8 @@ class ControllerApiOrder extends Controller {
 	public function history() {
 		$this->load->language('api/order');
 
+		$this->load->model('checkout/order');
+
 		$json = array();
 
 		if (!isset($this->session->data['api_id'])) {
@@ -1228,7 +1230,172 @@ class ControllerApiOrder extends Controller {
 			}
 		}
 
+		if($this->request->post['order_status_id'] == ORDER_ID){
+			$response = $this->sendDhlShipmentRequest($order_id);
+			print_r($response); die();
+		}
+
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
+	}
+
+	public function getTotalWeight($products) {
+		$total_weight = 0;
+
+		foreach ($products as $product) {
+			$total_weight += $product['weight'] * $product['quantity'];
+		}
+
+		return $total_weight;
+	}
+
+	public function getTotalHeight($products) {
+		$total_height = 0;
+
+		foreach ($products as $product) {
+			$total_height += $product['height'] * $product['quantity'];
+		}
+
+		return $total_height;
+
+	}
+
+	public function getTotalLength($products) {
+		$total_length = 0;
+
+		foreach ($products as $product) {
+			$total_length += $product['length'] * $product['quantity'];
+		}
+
+		return $total_length;
+
+	}
+
+	public function getTotalWidth($products) {
+		$total_width = 0;
+
+		foreach ($products as $product) {
+			$total_width += $product['width'] * $product['quantity'];
+		}
+
+		return $total_width;
+
+	}
+
+	public function sendDhlShipmentRequest($order_id) {
+		$url = 'https://api-sandbox.dhl.com/parcel/de/shipping/v2/orders';
+
+		$username = 'sandy_sandbox';
+		$password = 'pass';
+		
+		$apiKey = 'EEKBudZ96102qzCKEkowt5ACl7y9dFtn'; // Setzen Sie hier Ihren API Key
+
+		$order_info = $this->model_checkout_order->getOrder($order_id);
+
+		$products = $this->model_checkout_order->getOrderProductsImprove($order_id);
+
+		$total_height = $this->getTotalHeight($products);
+		$total_length = $this->getTotalLength($products);
+		$total_width = $this->getTotalWidth($products);
+
+		$total_weight = $this->getTotalWeight($products) < 500 ? 500 : $this->getTotalWeight($products);
+
+		//print_r($order_info); die();
+        //print_r($products); die(); 
+
+		$email = $order_info['email'];
+		$phone = $order_info['telephone'];
+
+		$name1 = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
+		$address1 = 'Sträßchensweg 10'; //$order_info['payment_address_1'];
+		$address2_1 = $order_info['payment_address_2'];
+		$postCode1 = 53113; //$order_info['payment_postcode'];
+		$city1 = 'Bonn'; //$order_info['payment_city'];
+		$country1 = $order_info['payment_iso_code_3'];
+		
+        $name2 = $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'];
+		$address2 = 'Sträßchensweg 10'; //$order_info['shipping_address_1'];
+		$postCode2 =53113; //$order_info['shipping_postcode'];
+		$city2 = 'Bonn'; //$order_info['shipping_city'];
+		$country2 = $order_info['shipping_iso_code_3'];
+		
+		// Versanddetails
+		$shipmentDetails = '
+		{
+			"profile": "STANDARD_GRUPPENPROFIL",
+			"shipments": [
+			{
+				"product": "V01PAK",
+				"billingNumber": "33333333330102",
+				"refNo": "'.$order_info['invoice_prefix'].' - '.$order_id.'",
+				"shipper": {
+				"name1": "'.$name1.'",
+				"addressStreet": "'.$address1.'",
+				"additionalAddressInformation1": "'.$address2_1.' ",
+				"postalCode": "'.$postCode1.'",
+				"city": "'.$city1.'",
+				"country": "'.$country1.'",
+				"email": "'.$email.'",
+				"phone": "'.$phone.'"
+				},
+				"consignee": {
+				"name1": "'.$name2.'",
+				"addressStreet": "'.$address2.'",
+				"postalCode": "'.$postCode2.'",
+				"city": "'.$city2.'",
+				"country": "'.$country2.'",
+				"email": "'.$email.'",
+				"phone": "'.$phone.'"
+				},
+				"details": {
+				"dim": {
+					"uom": "mm",
+					"height": '.$total_height.',
+					"length": '.$total_length.',
+					"width": '.$total_width.'
+				},
+				"weight": {
+					"uom": "g",
+					"value": '.$total_weight.'
+				}
+				}
+			}
+			]
+		}
+		';
+
+		//print_r($shipmentDetails); die();
+
+		$ch = curl_init($url);
+		
+		$auth = base64_encode("$username:$password");
+		
+		$headers = [
+			'Content-Type: application/json',
+			'Accept: application/json',
+			'Authorization: Basic ' . $auth,
+			'dhl-api-key: ' . $apiKey
+		];
+		
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $shipmentDetails);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		
+		$response = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		
+		if (curl_errno($ch)) {
+			echo 'cURL Error: ' . curl_error($ch);
+		} else {
+			if ($httpCode == 200) {
+				return json_decode($response, true);
+			} else {
+				echo "HTTP Request failed. Status code: $httpCode. Response: $response";
+			}
+		}
+		
+		curl_close($ch);
+		return null;
 	}
 }
