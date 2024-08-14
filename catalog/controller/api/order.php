@@ -1230,9 +1230,18 @@ class ControllerApiOrder extends Controller {
 			}
 		}
 
-		if($this->request->post['order_status_id'] == ORDER_ID){
+		if($this->request->post['order_status_id'] == ORDER_ID && $this->model_checkout_order->getDHLOrder($order_id) == ''){
 			$response = $this->sendDhlShipmentRequest($order_id);
-			print_r($response); die();
+			//print_r($response); die();
+
+			if(isset($response['status']) && isset($response['status']['status']) && $response['status']['status'] == 200) {
+				$obj = new \stdClass;
+				$obj->label = $response['items'][0]['label'];
+
+				$this->model_checkout_order->updateDHLOrder(json_encode($obj), $order_id);
+
+				//print_r($obj); die();
+			}
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -1307,16 +1316,16 @@ class ControllerApiOrder extends Controller {
 		$phone = $order_info['telephone'];
 
 		$name1 = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
-		$address1 = 'Sträßchensweg 10'; //$order_info['payment_address_1'];
+		$address1 = $order_info['payment_address_1'];
 		$address2_1 = $order_info['payment_address_2'];
-		$postCode1 = 53113; //$order_info['payment_postcode'];
-		$city1 = 'Bonn'; //$order_info['payment_city'];
+		$postCode1 = $order_info['payment_postcode'];
+		$city1 = $order_info['payment_city'];
 		$country1 = $order_info['payment_iso_code_3'];
 		
         $name2 = $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'];
-		$address2 = 'Sträßchensweg 10'; //$order_info['shipping_address_1'];
-		$postCode2 =53113; //$order_info['shipping_postcode'];
-		$city2 = 'Bonn'; //$order_info['shipping_city'];
+		$address2 = $order_info['shipping_address_1'];
+		$postCode2 = $order_info['shipping_postcode'];
+		$city2 = $order_info['shipping_city'];
 		$country2 = $order_info['shipping_iso_code_3'];
 		
 		// Versanddetails

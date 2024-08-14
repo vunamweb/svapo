@@ -745,6 +745,7 @@ class ControllerSaleOrder extends Controller {
 		}
 
 		$order_info = $this->model_sale_order->getOrder($order_id);
+		//print_r($order_info); die();
 
 		if ($order_info) {
 			$this->load->language('sale/order');
@@ -819,6 +820,18 @@ class ControllerSaleOrder extends Controller {
 
 			$data['store_id'] = $order_info['store_id'];
 			$data['store_name'] = $order_info['store_name'];
+
+			// DHL
+			if($order_info['dhl'] != '') {
+				$dhl = json_decode($order_info['dhl']);
+				$data['label'] = 'https://api-dev.dhl.com/parcel/de/shipping/v1-feature-order-endpoint/labels?token=' . $dhl->label->b64;
+				$data['file_format'] = $dhl->label->fileFormat;
+				$data['print_format'] = $dhl->label->printFormat;
+				//print_r($dhl); die();
+			} else {
+				$data['label'] = '';
+			}
+			// END
 			
 			if ($order_info['store_id'] == 0) {
 				$data['store_url'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
@@ -1834,6 +1847,19 @@ class ControllerSaleOrder extends Controller {
 								}
 							}
 						}
+						
+						$this->load->model('catalog/manufacturer');
+						
+						if (isset($product_info['manufacturer_id']) && $product_info['manufacturer_id']) {
+							$manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($product_info['manufacturer_id']);
+							if ($manufacturer_info) {
+								$data['manufacturer_name'] = $manufacturer_info['name'];
+							} else {
+								$data['manufacturer_name'] = 'Unbekannter Hersteller';
+							}
+						} else {
+							$data['manufacturer_name'] = 'Kein Hersteller';
+						}
 
 						$product_data[] = array(
 							'name'     => $product_info['name'],
@@ -1845,27 +1871,41 @@ class ControllerSaleOrder extends Controller {
 							'upc'      => $product_info['upc'],
 							'ean'      => $product_info['ean'],
 							'jan'      => $product_info['jan'],
+							'manufacturer_id'      => $data['manufacturer_name'],
 							'isbn'     => $product_info['isbn'],
 							'mpn'      => $product_info['mpn'],
 							'weight'   => $this->weight->format(($product_info['weight'] + (float)$option_weight) * $product['quantity'], $product_info['weight_class_id'], $this->language->get('decimal_point'), $this->language->get('thousand_point'))
 						);
 					}
 				}
-
+				
+				// Erstelle ein neues DateTime-Objekt für das aktuelle Datum
+				$today = new DateTime();				
+				// Füge 5 Monate hinzu
+				$today->modify('+3 months');				
+				// Formatiere das Datum, um es anzuzeigen (optional)
+				$until = $today->format('d.m.Y');
+				
 				$data['orders'][] = array(
 					'order_id'	       => $order_id,
 					'invoice_no'       => $invoice_no,
 					'date_added'       => date($this->language->get('date_format_short'), strtotime($order_info['date_added'])),
 					'store_name'       => $order_info['store_name'],
 					'store_url'        => rtrim($order_info['store_url'], '/'),
-					'store_address'    => nl2br($store_address),
+					'store_address'    => ($store_address),
 					'store_email'      => $store_email,
 					'store_telephone'  => $store_telephone,
 					'email'            => $order_info['email'],
+					'firstname'        => $order_info['firstname'],
+					'lastname'        => $order_info['lastname'],
 					'telephone'        => $order_info['telephone'],
 					'shipping_address' => $shipping_address,
 					'shipping_method'  => $order_info['shipping_method'],
+					// 'charge'  			=> $order_info['upc'],
+					// 'until'  			=> $order_info['jan'],
 					'product'          => $product_data,
+					'datum'          => date("d.m.Y"),
+					'until'          => $until,
 					'comment'          => nl2br($order_info['comment'])
 				);
 			}

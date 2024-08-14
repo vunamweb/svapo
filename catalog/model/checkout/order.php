@@ -14,6 +14,16 @@ class ModelCheckoutOrder extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = '" . (int)$order_status_id . "', date_modified = NOW() WHERE order_id = '" . (int)$order_id . "'");
 	}
 
+	public function updateDHLOrder($dhl, $order_id) {
+		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET dhl = '" . $dhl . "' WHERE order_id = '" . (int)$order_id . "'");
+	}
+
+	public function getDHLOrder($order_id) {
+		$order_query = $this->db->query("SELECT dhl from `" . DB_PREFIX . "order` WHERE order_id = '" . (int)$order_id . "'");
+
+		return $order_query->row['dhl'];
+	}
+
 	public function addOrder($data) {
 		session_start();
 
