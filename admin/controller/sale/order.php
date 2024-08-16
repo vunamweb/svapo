@@ -831,7 +831,8 @@ class ControllerSaleOrder extends Controller {
                 $pdf_decoded = base64_decode($base64_string);
 
 				// Dateiname für das PDF
-				$pdf_file = HTTPS_SERVER . 'dhl/dokument.pdf';
+				$pdf_file = 'dhl/dokument.pdf';
+				//echo $pdf_file; die();
 
 				// PDF-Datei speichern
 				file_put_contents($pdf_file, $pdf_decoded);

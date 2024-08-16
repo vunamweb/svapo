@@ -1295,13 +1295,35 @@ class ControllerApiOrder extends Controller {
 
 	}
 
-	public function sendDhlShipmentRequest($order_id) {
-		$url = 'https://api-sandbox.dhl.com/parcel/de/shipping/v2/orders';
+	public function separateAddress($adresse) {
+		$obj = new \stdClass;
 
-		$username = 'sandy_sandbox';
-		$password = 'pass';
+		$text = nl2br(htmlspecialchars($adresse));
+
+		$text = explode("<br />", $text);
+
+		$obj->address = $text[0];
+
+		$city_postcode = $text[1];
+		$city_postcode = explode(" ", $city_postcode);
+
+		$obj->postcode = preg_replace('/\s+/', '', $city_postcode[0]);
+		$obj->city = $city_postcode[1] . ' ' . $city_postcode[2] . ' ' . $city_postcode[3];
+
+		return $obj;
+    }
+
+	public function sendDhlShipmentRequest($order_id) {
+		//$url = 'https://api-sandbox.dhl.com/parcel/de/shipping/v2/orders';
+		$url = 'https://api-eu.dhl.com/parcel/de/shipping/v2/orders';
+
+        //$username = 'sandy_sandbox';
+		$username = 'post@pixel-dusche.de';
+		//$password = 'pass';
+		$password = '!Frankfurt24';
 		
-		$apiKey = 'EEKBudZ96102qzCKEkowt5ACl7y9dFtn'; // Setzen Sie hier Ihren API Key
+		//$apiKey = 'EEKBudZ96102qzCKEkowt5ACl7y9dFtn'; // Setzen Sie hier Ihren API Key
+		$apiKey = 'EEKBudZ96102qzCKEkowt5ACl7y9dFtn';
 
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 
@@ -1319,12 +1341,20 @@ class ControllerApiOrder extends Controller {
 		$email = $order_info['email'];
 		$phone = $order_info['telephone'];
 
-		$name1 = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
-		$address1 = $order_info['payment_address_1'];
-		$address2_1 = $order_info['payment_address_2'];
-		$postCode1 = $order_info['payment_postcode'];
-		$city1 = $order_info['payment_city'];
-		$country1 = $order_info['payment_iso_code_3'];
+		$name1 = $this->config->get('config_name');
+
+		$address = $this->separateAddress($this->config->get('config_address'));
+		//print_r($address); die();
+		$address1 = $address->address;
+		//echo $address1; die();
+        $address2_1 = '';
+		$postCode1 = $address->postcode;
+		//echo $postCode1; die();
+        $city1 = $address->city;
+		//echo $city1 . '////'; die();
+		$country1 = 'DEU';
+		//echo $country1 . '/////';
+		//die();
 		
         $name2 = $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'];
 		$address2 = $order_info['shipping_address_1'];
@@ -1362,14 +1392,14 @@ class ControllerApiOrder extends Controller {
 				},
 				"details": {
 				"dim": {
-					"uom": "mm",
-					"height": '.$total_height.',
-					"length": '.$total_length.',
-					"width": '.$total_width.'
+					"uom": "cm",
+					"height": 15,
+					"length": 20,
+					"width": 16
 				},
 				"weight": {
 					"uom": "g",
-					"value": '.$total_weight.'
+					"value": 900
 				}
 				}
 			}
