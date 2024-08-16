@@ -1237,6 +1237,10 @@ class ControllerApiOrder extends Controller {
 			if(isset($response['status']) && isset($response['status']['status']) && $response['status']['status'] == 200) {
 				$obj = new \stdClass;
 				$obj->label = $response['items'][0]['label'];
+				$obj->shipmentRefNo = $response['items'][0]['shipmentRefNo'];
+				$obj->shipmentNo = $response['items'][0]['shipmentNo'];
+				$obj->routingCode = $response['items'][0]['routingCode'];
+				
 
 				$this->model_checkout_order->updateDHLOrder(json_encode($obj), $order_id);
 

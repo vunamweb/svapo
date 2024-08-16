@@ -824,9 +824,24 @@ class ControllerSaleOrder extends Controller {
 			// DHL
 			if($order_info['dhl'] != '') {
 				$dhl = json_decode($order_info['dhl']);
-				$data['label'] = 'https://api-dev.dhl.com/parcel/de/shipping/v1-feature-order-endpoint/labels?token=' . $dhl->label->b64;
-				$data['file_format'] = $dhl->label->fileFormat;
-				$data['print_format'] = $dhl->label->printFormat;
+
+				$base64_string = $dhl->label->b64;
+
+				// Base64-dekodieren
+                $pdf_decoded = base64_decode($base64_string);
+
+				// Dateiname für das PDF
+				$pdf_file = HTTPS_SERVER . 'dhl/dokument.pdf';
+
+				// PDF-Datei speichern
+				file_put_contents($pdf_file, $pdf_decoded);
+
+				$data['label'] = $pdf_file;
+				
+                $data['shipmentRefNo'] = $dhl->shipmentRefNo;
+				$data['shipmentNo'] = $dhl->shipmentNo;
+				$data['routingCode'] = $dhl->routingCode;
+				
 				//print_r($dhl); die();
 			} else {
 				$data['label'] = '';

@@ -191,10 +191,10 @@
         <div>
         <a target="_blank" href="../rEzEpT/{{ upload_file }}">Link upload file</a>
         {% if label %}
-        <p>Lable DHL</p>
-        <p>URL: {{ label }}</p>
-        <p>FileFormat: {{ file_format }}</p>
-        <p>PrintFormat: {{ print_format }}</p>
+        <br><br><a target="_blank" href="{{ label }}">Lable DHL</a>
+        <p>ShipmentRefNo: {{ shipmentRefNo }}</p>
+        <p>ShipmentNo: {{ shipmentNo }}</p>
+        <p>RoutingCode: {{ routingCode }}</p>
         {% endif %}
         </div>
         {% if comment %}
