@@ -1318,9 +1318,9 @@ class ControllerApiOrder extends Controller {
 		$url = 'https://api-eu.dhl.com/parcel/de/shipping/v2/orders';
 
         //$username = 'sandy_sandbox';
-		$username = 'post@pixel-dusche.de';
+		$username = 'svapo.de';
 		//$password = 'pass';
-		$password = '!Frankfurt24';
+		$password = 'Svaposvapo2020!';
 		
 		//$apiKey = 'EEKBudZ96102qzCKEkowt5ACl7y9dFtn'; // Setzen Sie hier Ihren API Key
 		$apiKey = 'EEKBudZ96102qzCKEkowt5ACl7y9dFtn';
@@ -1369,7 +1369,7 @@ class ControllerApiOrder extends Controller {
 			"shipments": [
 			{
 				"product": "V01PAK",
-				"billingNumber": "33333333330102",
+				"billingNumber": "63773090770101",
 				"refNo": "'.$order_info['invoice_prefix'].' - '.$order_id.'",
 				"shipper": {
 				"name1": "'.$name1.'",
