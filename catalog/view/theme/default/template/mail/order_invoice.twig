@@ -13,7 +13,11 @@
 					<table>
 						<tr><td valign="top">Rechnungsnummer</td><td valign="top">{{ order_id }}<br></td></tr>
 						<tr><td valign="top">Datum</td><td valign="top">{{ date_added }}</td></tr>
-						<tr><td valign="top">Status</td><td valign="top">{{ order_status }}</td></tr>
+						<!-- <tr><td valign="top">Status</td><td valign="top">{{ order_status }}</td></tr> -->
+						<tr><td valign="top">Status</td><td valign="top">Für den Versand vorbereitet.</td></tr>
+						{% if dhl %}
+						<tr><td valign="top">Trackingnumber DHL</td><td valign="top">{{ trackingnumber }}</td></tr>
+						{% endif %}
 						<tr><td valign="top"></td><td valign="top">&nbsp;</td></tr>
 						{% if comment %}
 						<tr><td valign="top">Kommentar</td><td valign="top">{{ comment }}</td></tr>

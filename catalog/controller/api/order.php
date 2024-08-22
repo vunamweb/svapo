@@ -1222,29 +1222,29 @@ class ControllerApiOrder extends Controller {
 			$order_info = $this->model_checkout_order->getOrder($order_id);
 
 			if ($order_info) {
+				if($this->request->post['order_status_id'] == ORDER_ID && $this->model_checkout_order->getDHLOrder($order_id) == ''){
+					$response = $this->sendDhlShipmentRequest($order_id);
+					//print_r($response); die();
+		
+					if(isset($response['status']) && isset($response['status']['status']) && $response['status']['status'] == 200) {
+						$obj = new \stdClass;
+						$obj->label = $response['items'][0]['label'];
+						$obj->shipmentRefNo = $response['items'][0]['shipmentRefNo'];
+						$obj->shipmentNo = $response['items'][0]['shipmentNo'];
+						$obj->routingCode = $response['items'][0]['routingCode'];
+						
+		
+						$this->model_checkout_order->updateDHLOrder(json_encode($obj), $order_id);
+		
+						//print_r($obj); die();
+					}
+				}
+				
 				$this->model_checkout_order->addOrderHistory($order_id, $this->request->post['order_status_id'], $this->request->post['comment'], $this->request->post['notify'], $this->request->post['override']);
 
 				$json['success'] = $this->language->get('text_success');
 			} else {
 				$json['error'] = $this->language->get('error_not_found');
-			}
-		}
-
-		if($this->request->post['order_status_id'] == ORDER_ID && $this->model_checkout_order->getDHLOrder($order_id) == ''){
-			$response = $this->sendDhlShipmentRequest($order_id);
-			//print_r($response); die();
-
-			if(isset($response['status']) && isset($response['status']['status']) && $response['status']['status'] == 200) {
-				$obj = new \stdClass;
-				$obj->label = $response['items'][0]['label'];
-				$obj->shipmentRefNo = $response['items'][0]['shipmentRefNo'];
-				$obj->shipmentNo = $response['items'][0]['shipmentNo'];
-				$obj->routingCode = $response['items'][0]['routingCode'];
-				
-
-				$this->model_checkout_order->updateDHLOrder(json_encode($obj), $order_id);
-
-				//print_r($obj); die();
 			}
 		}
 
@@ -1314,15 +1314,11 @@ class ControllerApiOrder extends Controller {
     }
 
 	public function sendDhlShipmentRequest($order_id) {
-		//$url = 'https://api-sandbox.dhl.com/parcel/de/shipping/v2/orders';
 		$url = 'https://api-eu.dhl.com/parcel/de/shipping/v2/orders';
 
-        //$username = 'sandy_sandbox';
-		$username = 'svapo.de';
-		//$password = 'pass';
-		$password = 'Svaposvapo2020!';
+        $username = $this->config->get('config_geocode');
+		$password = $this->config->get('config_fax');
 		
-		//$apiKey = 'EEKBudZ96102qzCKEkowt5ACl7y9dFtn'; // Setzen Sie hier Ihren API Key
 		$apiKey = 'EEKBudZ96102qzCKEkowt5ACl7y9dFtn';
 
 		$order_info = $this->model_checkout_order->getOrder($order_id);

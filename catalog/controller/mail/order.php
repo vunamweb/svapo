@@ -336,8 +336,8 @@ class ControllerMailOrder extends Controller {
 		$mail->setHtml($this->load->view('mail/order_add', $data));
 		$mail->send();*/
 
-		$subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
-		$fromName = html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8');
+		$subject = html_entity_decode(sprintf($language->get('text_subject'), 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+		$fromName = html_entity_decode('svapo.de, '.$order_info['store_name'], ENT_QUOTES, 'UTF-8');
 
 		$message = $this->load->view('mail/order_add_customer_process_2', $data);
 
@@ -388,7 +388,8 @@ class ControllerMailOrder extends Controller {
 		else if($type == 'edit') { }
 			// $files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Rechnung-svapo.pdf";
         else {
-			$files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Freiumschlag.pdf";
+			// $files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Freiumschlag.pdf";
+			$files1 = null;
 			if($file) $files2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "admin/auftrag/".$file;			
 		}
 	 	
@@ -409,12 +410,13 @@ class ControllerMailOrder extends Controller {
 		$mail->addBcc("svapo@7sc.eu");
 		
 		$mail->Subject = $subject;
+		// $mail->FromName = $fromName;
 		$mail->FromName = $fromName;
 		$mail->From = $from;
 		$mail->IsHTML(true);
 		$mail->Body = $message;
 
-		$mail->addAttachment($files1);
+		if($files1) $mail->addAttachment($files1);
 		if($files2) $mail->addAttachment($files2);
 
 		if (!$mail->Send()) {
@@ -682,6 +684,7 @@ class ControllerMailOrder extends Controller {
 		}
 	
 		$this->load->model('setting/setting');
+		$this->load->model('checkout/order');
 		
 		$from = $this->model_setting_setting->getSettingValue('config_email', $order_info['store_id']);
 		
@@ -703,7 +706,12 @@ class ControllerMailOrder extends Controller {
 
 		$data['firstname'] = $order_info['firstname'];
 		$data['lastname'] = $order_info['lastname'];
-		
+
+		$data['dhl'] = $this->model_checkout_order->getDHLOrder($order_info['order_id']);
+		$dhl = json_decode($data['dhl']);
+
+		$data['trackingnumber'] = '<a target="_blank" href="https://www.dhl.de/de/privatkunden/dhl-sendungsverfolgung.html?piececode='.$dhl->shipmentNo.'">' . $dhl->shipmentNo . '</a>';
+
 		/*$mail = new Mail($this->config->get('config_mail_engine'));
 		$mail->parameter = $this->config->get('config_mail_parameter');
 		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
@@ -740,7 +748,7 @@ class ControllerMailOrder extends Controller {
 			file_put_contents($file_location, $pdf);
 			//end
 			// $subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
-			$subject = html_entity_decode(sprintf('%s - Rechnung', $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+			$subject = html_entity_decode(sprintf('%s - Rechnung', 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
 			$message = $this->load->view('mail/order_invoice', $data);
 		}
     	else {
@@ -748,7 +756,7 @@ class ControllerMailOrder extends Controller {
 			// $dompdf->loadHtml($this->load->view('mail/order_pdf', $data));
 			// $file_location = "./admin/auftrag/".$pdf_name;
 			// $status = 2;
-			$subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+			$subject = html_entity_decode(sprintf($language->get('text_subject'), 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
 			$message = $this->load->view('mail/order_edit', $data);
 		} 
 	
