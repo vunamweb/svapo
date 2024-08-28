@@ -151,9 +151,25 @@ class ControllerApiOrder extends Controller {
         }
     }
 	
-	public function saveOrder($data) {
-	   $products = $data['products'];
+	public function converListOfSkuToID($products) {
+	   $result = array();
 	   
+	   foreach ($products as $product) {
+		   $product_id = $this->model_catalog_product->getIdFromSku($product['id']);
+
+		   $product['id'] = $product_id;
+
+		   $result[] = $product;
+		}
+		
+		return $result;
+	}
+
+	public function saveOrder($data) {
+	   $data['products'] = $this->converListOfSkuToID($data['products']);
+
+	   $products = $data['products'];
+
 	   // save products into cart  
 	   $this->saveProductIntoCart($products);
 

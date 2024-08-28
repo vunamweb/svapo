@@ -128,12 +128,12 @@ class ModelCatalogProduct extends Model {
     public function checkExistListProducts($listProduct, $key, $parentKey) {
         $result = array();
 
-        $sql = 'select product_id from '.DB_PREFIX.'product';
+        $sql = 'select sku from '.DB_PREFIX.'product';
 
         $query = $this->db->query($sql);
 
         foreach ( $query->rows as $row ) {
-            $result[] = $row['product_id'];
+            $result[] = $row['sku'];
         }
 
         foreach($listProduct as $product) 
@@ -146,6 +146,16 @@ class ModelCatalogProduct extends Model {
           }
 
           return true;
+    }
+
+    public function getIdFromSku($sku) {
+        $sql = 'select product_id from '.DB_PREFIX.'product where sku = "'.$sku.'"';
+
+        $query = $this->db->query($sql);
+
+        //echo $query->row['product_id'] . '/';
+
+        return $query->row['product_id'];
     }
 
     public function getPositionAttribute($nameAttribute, $listAtrtibute) {
