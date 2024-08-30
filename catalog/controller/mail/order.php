@@ -412,7 +412,7 @@ class ControllerMailOrder extends Controller {
 		
 		// if($file) $mail->addBcc("invoice@svapo.de");
 		// if($file) $mail->addBcc("bk@freiheit-gruppe.de");
-		$mail->addBcc("svapo@7sc.eu");
+		//$mail->addBcc("svapo@7sc.eu");
 		
 		$mail->Subject = $subject;
 		// $mail->FromName = $fromName;
@@ -438,6 +438,7 @@ class ControllerMailOrder extends Controller {
 		//$language->load('mail/order_add');
 
 		$order_products = $this->model_checkout_order->getOrderProducts($order_info['order_id']);
+		//print_r($order_products); die();
 		
 		foreach ($order_products as $order_product) {
 			// Check if there are any linked downloads
@@ -615,6 +616,7 @@ class ControllerMailOrder extends Controller {
 				'option'   => $option_data,
 				'quantity' => $order_product['quantity'],
 				'price_int' => $order_product['price'],
+				'manufacture' => $order_product['manufacture'],
 				'price'    => $this->currency->format($order_product['price'] + ($this->config->get('config_tax') ? $order_product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
 				'total'    => $this->currency->format($order_product['total'] + ($this->config->get('config_tax') ? ($order_product['tax'] * $order_product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value'])
 			);
@@ -744,6 +746,7 @@ class ControllerMailOrder extends Controller {
 		$status = false;
 		if($order_status_id == ORDER_ID) {
 			$this->exportPdfToSign($order_info, $data['products']);
+			die();
 
 			$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
 			$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
@@ -783,8 +786,51 @@ class ControllerMailOrder extends Controller {
 		return $date[2]. '.' . $date[1]. '.' . $date[0];
 	}
 
+	public function setTextCenter($pdf, $text, $y) {
+		// Get the width of the page
+		$pageWidth = $pdf->GetPageWidth();
+
+		// Calculate the width of the text
+		$textWidth = $pdf->GetStringWidth($text);
+
+		// Calculate the X position to center the text
+		$xPosition = ($pageWidth - $textWidth) / 2 - 50;
+
+		// Set the X position
+		//$pdf->SetX($xPosition);
+
+		// Add the text to the PDF
+		//$pdf->Cell($textWidth, $y + 85, $text);
+		$pdf->SetXY($xPosition, $y); // X and Y position
+		// Add the text
+		$pdf->Write(0, $text);
+	}
+
+	public function setTextRight($pdf, $text, $y) {
+		// Get the width of the page
+		$pageWidth = $pdf->GetPageWidth();
+
+		// Calculate the width of the text
+		$textWidth = $pdf->GetStringWidth($text);
+
+		//echo $textWidth . '//' . $pageWidth; die();
+
+		// Calculate the X position to center the text
+		$xPosition = round($pageWidth - $textWidth) - 13;
+		//echo $xPosition; die();
+
+		// Set the X position
+		//$pdf->SetX($xPosition);
+
+		// Add the text to the PDF
+		//$pdf->Cell($textWidth, $y + 85, $text);
+		$pdf->SetXY($xPosition, $y); // X and Y position
+		// Add the text
+		$pdf->Write(0, $text);
+	}
+
 	public function exportPdfToSign($order_info, $products) {
-		//print_r($order_info); die();
+		//print_r($products); die();
 		$upload_file = $order_info['upload_file'];
 		//print_r($order_info); die();
 		// Path to the existing PDF
@@ -792,7 +838,7 @@ class ControllerMailOrder extends Controller {
 		$pdfFilePath = 'rEzEpT/test_convert.pdf';
 		
         $dateAdd = $this->getDateOrder($order_info);
-		$phone = $order_info['telephone'];
+		$phone = '5314146'; //$order_info['telephone'];
 
 		// init x, y
 		$initX = 130;
@@ -806,7 +852,7 @@ class ControllerMailOrder extends Controller {
 		$spaceYTotal = 15;
 
 		// area product
-		$spaceYareaProduct = 30;
+		$spaceYareaProduct = 32;
 		$spaceY1areaProduct = 10;
 		$spaceXEachProduct = 45;
 		$spaceX1EachProduct = 15;
@@ -817,21 +863,32 @@ class ControllerMailOrder extends Controller {
 		// Add the first page from the existing PDF
 		$pageCount = $pdf->setSourceFile($pdfFilePath);
 		$tplId = $pdf->importPage(1);
+
+		// Get the size of the imported page
+		$size = $pdf->getTemplateSize($tplId);
+		//print_r($size); die();
+		
+		// Get the page height (assuming the unit is in mm, you might need to adjust depending on your settings)
+		$pageHeight = $size['height'];
+		
+		// Calculate the current Y position
+        $currentY = $pdf->GetY();
+
 		$pdf->AddPage();
 		$pdf->useTemplate($tplId);
 
 		// Set font, size, and color
-		$pdf->SetFont('Helvetica', '', 9);
+		$pdf->SetFont('Arial', '', 11);
 		$pdf->SetTextColor(0, 0, 0);
 
 		// date
-		$pdf->SetXY($initX, $initY); // X and Y position
+		$pdf->SetXY($initX + 5, $initY + 2); // X and Y position
 		// Add the text
 		$pdf->Write(0, $dateAdd);
 
 		// nummer
-		$pdf->SetXY($initX + $spaceXNummer, $initY); // X and Y position
-		// Add the text
+		$pdf->SetXY($initX + $spaceXNummer + 5, $initY + 2); // X and Y position
+		// Add the phone
 		$pdf->Write(0, $phone);
 
 		// Product
@@ -839,72 +896,78 @@ class ControllerMailOrder extends Controller {
 		$totalProduct = 0;
 
 		foreach($products as $product) {
-			$name = $product['name'];
+			$name = '06460694'; //$product['name'];
 			$quantity = $product['quantity'];
 			$price = $product['price_int'];
 			$total = $price * $quantity;
 			
 			$totalProduct += $total;
-			// product 1
-			$pdf->SetXY($initX , $initY + $spaceYareaProduct + $spaceY1areaProduct * $position); // X and Y position
-			// Add the text
+
+			// Add the name
+			$pdf->SetXY($initX + 5 , $initY + $spaceYareaProduct + $spaceY1areaProduct * $position); // X and Y position
 			$pdf->Write(0, $name);
 
+			// Add the quantity
 			$pdf->SetXY($initX + $spaceXEachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct * $position); // X and Y position
-			// Add the text
-			$pdf->Write(0, $quantity);
+			$pdf->Write(0, 1);
 
-			$pdf->SetXY($initX + $spaceXEachProduct + $spaceX1EachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct * $position); // X and Y position
-			// Add the text
-			$pdf->Write(0, $total);
+			// Add the total
+			//$pdf->SetXY($initX + $spaceXEachProduct + $spaceX1EachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct * $position); // X and Y position
+			//$pdf->Write(0, str_replace('.', ',', $total));
+			$this->setTextRight($pdf, str_replace('.', ',', $total), $initY + $spaceYareaProduct + $spaceY1areaProduct * $position);
 
 			$position++;
 		}
 
-		// total
-		$pdf->SetXY($initX + $spaceXTotal, $initY + $spaceYTotal); // X and Y position
-		// Add the text
-		$pdf->Write(0, $totalProduct);
+		// total of product
+		//$pdf->SetXY($initX + $spaceXTotal, $initY + $spaceYTotal); // X and Y position
+		//$pdf->Write(0, str_replace('.', ',', $totalProduct));
+		$this->setTextRight($pdf, str_replace('.', ',', $totalProduct), $initY + $spaceYTotal);
 
-		/* // product 1
-		$pdf->SetXY($initX , $initY + $spaceYareaProduct); // X and Y position
-		// Add the text
-		$pdf->Write(0, 'product1');
+		// temp
+		$yLogo = $pageHeight/2;
+		$xLogo = 30;
+		$pdf->Image('pdf/logo.png', $xLogo, $yLogo, 30, 9 );
 
-		$pdf->SetXY($initX + $spaceXEachProduct , $initY + $spaceYareaProduct); // X and Y position
-		// Add the text
-		$pdf->Write(0, '2');
+		// add infor below temp
+		$yLogo = $yLogo + 12;
+		$this->setTextCenter($pdf, "Schloss Apotheke", $yLogo);
+		$this->setTextCenter($pdf, "Apotheker Paschalis Papadopoulos", $yLogo + 5);
+		$this->setTextCenter($pdf, iconv('utf-8', 'cp1252', "Bürgeler Str. 35 • 63075 Offenbach"), $yLogo + 10);
+		$this->setTextCenter($pdf, "Tel: 0155 66 200 690", $yLogo + 15);
+		$this->setTextCenter($pdf, "info@svapo.de", $yLogo + 20);
 
-		$pdf->SetXY($initX + $spaceXEachProduct + $spaceX1EachProduct , $initY + $spaceYareaProduct); // X and Y position
-		// Add the text
-		$pdf->Write(0, '200');
+		// add list of product below infor
+		$position = 0;
+		
+        foreach($products as $product) {
+			$name = $product['quantity'] . 'g ' . $product['name'];
+			$manufacture = $product['manufacture'];
 
-		// product 2
-		$pdf->SetXY($initX , $initY + $spaceYareaProduct + $spaceY1areaProduct); // X and Y position
-		// Add the text
-		$pdf->Write(0, 'product1');
+			$quantity = $product['quantity'];
+			$price = $product['price_int'];
 
-		$pdf->SetXY($initX + $spaceXEachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct); // X and Y position
-		// Add the text
-		$pdf->Write(0, '2');
+			$total = $price * $quantity . '€';
+			$total = str_replace('.', ',', $total);
+			
+			// Add the name
+			$space = 30;
+			$spaceY1areaProduct = $spaceY1areaProduct - 2;
+			
+			$pdf->SetXY($xLogo, $yLogo + $space + $spaceY1areaProduct * $position); // X and Y position
+			$pdf->Write(0, $name);
 
-		$pdf->SetXY($initX + $spaceXEachProduct + $spaceX1EachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct); // X and Y position
-		// Add the text
-		$pdf->Write(0, '200');
+			// Add the manufacture
+			$pdf->SetXY($xLogo + $spaceXEachProduct, $yLogo + $space + $spaceY1areaProduct * $position); // X and Y position
+			$pdf->Write(0, $manufacture);
 
-		// product 3
-		$pdf->SetXY($initX , $initY + $spaceYareaProduct + $spaceY1areaProduct * 2); // X and Y position
-		// Add the text
-		$pdf->Write(0, 'product1');
+			// Add the total
+			$pdf->SetXY($xLogo + $spaceXEachProduct + $spaceX1EachProduct + 10, $yLogo + $space + $spaceY1areaProduct * $position); // X and Y position
+			$pdf->Write(0, iconv('utf-8', 'cp1252', $total));
 
-		$pdf->SetXY($initX + $spaceXEachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct * 2); // X and Y position
-		// Add the text
-		$pdf->Write(0, '2');
-
-		$pdf->SetXY($initX + $spaceXEachProduct + $spaceX1EachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct * 2); // X and Y position
-		// Add the text
-		$pdf->Write(0, '200'); */
-
+			$position++;
+		}
+		
 		// Output the new PDF
 		$newPdfFilePath = 'pdf/sign-pdf.pdf';
 		$pdf->Output($newPdfFilePath, 'F');
