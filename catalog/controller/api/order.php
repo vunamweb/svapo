@@ -423,11 +423,14 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function uploadFile() {
+		//echo 'ddd'; die();
 		$this->load->model('checkout/order');
 
 		$order_id = $this->request->get['order_id'];
 
 		$namePhoto = $_FILES["upload_file"]["name"];
+
+		//echo $namePhoto . 'ddd'; die();
 
 		$targetDirectory = "rEzEpT/"; // Directory where uploaded files will be saved
 		$targetFile = $targetDirectory . basename($namePhoto); // Get the file name

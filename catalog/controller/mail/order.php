@@ -1,8 +1,11 @@
 <?php
 include "./dompdf/autoload.inc.php";
+require_once('./fpdi/autoload.php');
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use PHPMailer\PHPMailer\PHPMailer;
+
+use setasign\Fpdi\Fpdi;
 
 require "PHPMailer.php";
 require "SMTP.php";
@@ -383,8 +386,10 @@ class ControllerMailOrder extends Controller {
 	function sendMailSMTP($to, $subject, $from, $fromName, $message, $type=null, $file=false, $status=false)
     {
 		$files2 = '';
-		if($file && $status==1)
+		if($file && $status==1) {
 			$files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "admin/invoice/".$file;
+			$files2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/sign-pdf.pdf";
+		}
 		else if($type == 'edit') { }
 			// $files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Rechnung-svapo.pdf";
         else {
@@ -609,6 +614,7 @@ class ControllerMailOrder extends Controller {
 				'model'    => $order_product['model'],
 				'option'   => $option_data,
 				'quantity' => $order_product['quantity'],
+				'price_int' => $order_product['price'],
 				'price'    => $this->currency->format($order_product['price'] + ($this->config->get('config_tax') ? $order_product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
 				'total'    => $this->currency->format($order_product['total'] + ($this->config->get('config_tax') ? ($order_product['tax'] * $order_product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value'])
 			);
@@ -737,6 +743,8 @@ class ControllerMailOrder extends Controller {
 		
 		$status = false;
 		if($order_status_id == ORDER_ID) {
+			$this->exportPdfToSign($order_info, $data['products']);
+
 			$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
 			$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
 			$file_location = "./admin/invoice/".$pdf_name;
@@ -763,6 +771,145 @@ class ControllerMailOrder extends Controller {
 
 		
 		$this->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $from, $message, 'edit', $pdf_name, $status);
+	}
+
+	public function getDateOrder($order_info) {
+		$date = $order_info['date_added'];
+
+		$date = explode(' ', $date);
+		$date = explode('-', $date[0]);
+
+		//print_r($date); die();
+		return $date[2]. '.' . $date[1]. '.' . $date[0];
+	}
+
+	public function exportPdfToSign($order_info, $products) {
+		//print_r($order_info); die();
+		$upload_file = $order_info['upload_file'];
+		//print_r($order_info); die();
+		// Path to the existing PDF
+		//$pdfFilePath = 'rEzEpT/' . $upload_file;
+		$pdfFilePath = 'rEzEpT/test_convert.pdf';
+		
+        $dateAdd = $this->getDateOrder($order_info);
+		$phone = $order_info['telephone'];
+
+		// init x, y
+		$initX = 130;
+		$initY = 15;
+
+		// nummer
+		$spaceXNummer = 40;
+
+		// total
+		$spaceXTotal = 30;
+		$spaceYTotal = 15;
+
+		// area product
+		$spaceYareaProduct = 30;
+		$spaceY1areaProduct = 10;
+		$spaceXEachProduct = 45;
+		$spaceX1EachProduct = 15;
+
+		// Create a new instance of FPDI
+		$pdf = new FPDI();
+
+		// Add the first page from the existing PDF
+		$pageCount = $pdf->setSourceFile($pdfFilePath);
+		$tplId = $pdf->importPage(1);
+		$pdf->AddPage();
+		$pdf->useTemplate($tplId);
+
+		// Set font, size, and color
+		$pdf->SetFont('Helvetica', '', 9);
+		$pdf->SetTextColor(0, 0, 0);
+
+		// date
+		$pdf->SetXY($initX, $initY); // X and Y position
+		// Add the text
+		$pdf->Write(0, $dateAdd);
+
+		// nummer
+		$pdf->SetXY($initX + $spaceXNummer, $initY); // X and Y position
+		// Add the text
+		$pdf->Write(0, $phone);
+
+		// Product
+		$position = 0;
+		$totalProduct = 0;
+
+		foreach($products as $product) {
+			$name = $product['name'];
+			$quantity = $product['quantity'];
+			$price = $product['price_int'];
+			$total = $price * $quantity;
+			
+			$totalProduct += $total;
+			// product 1
+			$pdf->SetXY($initX , $initY + $spaceYareaProduct + $spaceY1areaProduct * $position); // X and Y position
+			// Add the text
+			$pdf->Write(0, $name);
+
+			$pdf->SetXY($initX + $spaceXEachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct * $position); // X and Y position
+			// Add the text
+			$pdf->Write(0, $quantity);
+
+			$pdf->SetXY($initX + $spaceXEachProduct + $spaceX1EachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct * $position); // X and Y position
+			// Add the text
+			$pdf->Write(0, $total);
+
+			$position++;
+		}
+
+		// total
+		$pdf->SetXY($initX + $spaceXTotal, $initY + $spaceYTotal); // X and Y position
+		// Add the text
+		$pdf->Write(0, $totalProduct);
+
+		/* // product 1
+		$pdf->SetXY($initX , $initY + $spaceYareaProduct); // X and Y position
+		// Add the text
+		$pdf->Write(0, 'product1');
+
+		$pdf->SetXY($initX + $spaceXEachProduct , $initY + $spaceYareaProduct); // X and Y position
+		// Add the text
+		$pdf->Write(0, '2');
+
+		$pdf->SetXY($initX + $spaceXEachProduct + $spaceX1EachProduct , $initY + $spaceYareaProduct); // X and Y position
+		// Add the text
+		$pdf->Write(0, '200');
+
+		// product 2
+		$pdf->SetXY($initX , $initY + $spaceYareaProduct + $spaceY1areaProduct); // X and Y position
+		// Add the text
+		$pdf->Write(0, 'product1');
+
+		$pdf->SetXY($initX + $spaceXEachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct); // X and Y position
+		// Add the text
+		$pdf->Write(0, '2');
+
+		$pdf->SetXY($initX + $spaceXEachProduct + $spaceX1EachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct); // X and Y position
+		// Add the text
+		$pdf->Write(0, '200');
+
+		// product 3
+		$pdf->SetXY($initX , $initY + $spaceYareaProduct + $spaceY1areaProduct * 2); // X and Y position
+		// Add the text
+		$pdf->Write(0, 'product1');
+
+		$pdf->SetXY($initX + $spaceXEachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct * 2); // X and Y position
+		// Add the text
+		$pdf->Write(0, '2');
+
+		$pdf->SetXY($initX + $spaceXEachProduct + $spaceX1EachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct * 2); // X and Y position
+		// Add the text
+		$pdf->Write(0, '200'); */
+
+		// Output the new PDF
+		$newPdfFilePath = 'pdf/sign-pdf.pdf';
+		$pdf->Output($newPdfFilePath, 'F');
+
+		//echo "PDF modified successfully!";
 	}
 	
     // Admin Alert Mail
