@@ -143,7 +143,11 @@ class ControllerApiOrder extends Controller {
 		 $order_id = $this->saveOrder($jsonData);
 
 		 if($order_id) {
-			$this->model_checkout_order->updateStatusOrder(3, $order_id);
+			$this->model_checkout_order->updateStatusOrder(18, $order_id);
+
+			$urlDocument = base64_decode($jsonData['prescriptionURL']);
+			$this->saveDocumentToServer($urlDocument, $order_id);
+
 			echo json_encode(['codes' => 200, 'order_id' => $order_id]);
         } else {
 			echo json_encode(['error_codes' => 201, 'error' => 'error while creating order']);
@@ -165,7 +169,35 @@ class ControllerApiOrder extends Controller {
 		return $result;
 	}
 
+	public function saveDocumentToServer($url, $order_id) {
+		
+		// Directory where you want to save the file
+		$saveToDir = 'rEzEpT/'; // Make sure the folder has write permissions
+
+		// Filename (optional, you can also extract it from the URL)
+		$filename = 'document_ansay' . '_' . date("Y-m-d H:i:s") . '.pdf';
+
+		// Complete path to save the file
+		$savePath = $saveToDir . $filename;
+
+		// Download file content from the URL
+		$fileContent = file_get_contents($url);
+
+		if ($fileContent !== false) {
+			// Save the file to the server
+			if (file_put_contents($savePath, $fileContent)) {
+				$this->model_checkout_order->editPhotoOrder($order_id, $filename);
+				//echo "File downloaded and saved successfully to $savePath";
+			} else {
+				//echo "Failed to save the file.";
+			}
+		} else {
+			//echo "Failed to download the file.";
+		}
+    }
+
 	public function saveOrder($data) {
+	   //print_r($data); die();	
 	   $data['products'] = $this->converListOfSkuToID($data['products']);
 
 	   $products = $data['products'];
@@ -266,10 +298,10 @@ class ControllerApiOrder extends Controller {
             $order_data['payment_firstname'] = $data['customer']['firstname'];
 			$order_data['payment_lastname'] = $data['customer']['lastname'];
 			$order_data['payment_company'] = '';
-			$order_data['payment_address_1'] = $data['homeAddress']['streetName'];
+			$order_data['payment_address_1'] = '<br>' . $data['customer']['homeAddress']['streetName'];
 			$order_data['payment_address_2'] = '';
-			$order_data['payment_city'] = $data['homeAddress']['city'];
-			$order_data['payment_postcode'] = $data['homeAddress']['postalCode'];
+			$order_data['payment_city'] =  $data['customer']['homeAddress']['city'] . ' ';
+			$order_data['payment_postcode'] = '<br>' . $data['customer']['homeAddress']['postalCode'];
 			$order_data['payment_zone'] = 'Thüringen';
 			$order_data['payment_zone_id'] = 1269;
 			$order_data['payment_country'] = 'Germany';
@@ -283,14 +315,14 @@ class ControllerApiOrder extends Controller {
 			$order_data['shipping_method'] = 'Versandkostenpauschale';
 			$order_data['shipping_code'] = 'flat.flat';
 
-			if (isset($data['deliveryAddress'])) {
+			if (isset($data['customer']['deliveryAddress'])) {
 				$order_data['shipping_firstname'] = $data['customer']['firstname'];
 				$order_data['shipping_lastname'] =  $data['customer']['lastname'];
 				$order_data['shipping_company'] = '';
-				$order_data['shipping_address_1'] = $data['deliveryAddress']['streetName'];
+				$order_data['shipping_address_1'] = '<br>' . $data['customer']['deliveryAddress']['streetName'];
 				$order_data['shipping_address_2'] = '';
-				$order_data['shipping_city'] = $data['deliveryAddress']['city'];
-				$order_data['shipping_postcode'] = $data['deliveryAddress']['postalCode'];
+				$order_data['shipping_city'] = $data['customer']['deliveryAddress']['city'] . ' ';
+				$order_data['shipping_postcode'] = '<br>' . $data['customer']['deliveryAddress']['postalCode'];
 				$order_data['shipping_zone'] = 'Thüringen';
 				$order_data['shipping_zone_id'] = 1269;
 				$order_data['shipping_country'] = 'Germany';
