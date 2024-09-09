@@ -141,8 +141,9 @@ class ModelCatalogProduct extends Model {
             echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key)]);
 	        return false;				
           } else if (!in_array($product[$key], $result)) {
-            echo json_encode(['error_codes' => 402, 'error' => ($parentKey ? "$parentKey.$key " . "$product[$key]" . " not exist" : $key)]);
-	        return false;				
+            //echo json_encode(['error_codes' => 402, 'error' => ($parentKey ? "$parentKey.$key " . "$product[$key]" . " not exist" : $key)]);
+            echo json_encode(['error_codes' => 402, 'error' => ($parentKey ? "sku " . "$product[$key]" . " not exist" : $key)]);
+            return false;				
           }
 
           return true;
