@@ -117,8 +117,11 @@ class ControllerApiOrder extends Controller {
 			echo json_encode(['error_codes' => 401, 'error' => 'Unauthorized']);
 			exit;
 		}
-
+		
+		// $_POST wird nur gefüllt, wenn die Daten in einem application/x-www-form-urlencoded oder multipart/form-data Format gesendet werden, das üblicherweise beim Senden von HTML-Formularen verwendet wird.
+		// php://input wird verwendet, wenn die Daten z. B. als JSON, XML oder ein anderes benutzerdefiniertes Format gesendet werden, das nicht in den Standard-$_POST-Array eingefügt wird.
 		// Check JSON
+		// file_get_contents("php://input") ist sehr nützlich, wenn du den vollständigen Rohinhalt einer Anfrage brauchst, besonders wenn du mit APIs oder JSON-Daten arbeitest, die als Teil des HTTP-Requests gesendet werden.
 		$rawData = file_get_contents("php://input");
 
 		// Decode the JSON data
@@ -150,7 +153,7 @@ class ControllerApiOrder extends Controller {
 
 			echo json_encode(['codes' => 200, 'order_id' => $order_id]);
         } else {
-			echo json_encode(['error_codes' => 201, 'error' => 'error while creating order']);
+			echo json_encode(['error_codes' => 401, 'error' => 'error while creating order']);
 		 }
         }
     }
@@ -163,6 +166,20 @@ class ControllerApiOrder extends Controller {
 
 		   $product['id'] = $product_id;
 
+		   $result[] = $product;
+		}
+		
+		return $result;
+	}
+	
+	public function converListOfMpnToID($products) {
+	   $result = array();
+	   
+	   foreach ($products as $product) {
+		   $product_id = $this->model_catalog_product->getIdFromMpn($product['id']);
+	
+		   $product['id'] = $product_id;
+	
 		   $result[] = $product;
 		}
 		
@@ -198,7 +215,7 @@ class ControllerApiOrder extends Controller {
 
 	public function saveOrder($data) {
 	   //print_r($data); die();	
-	   $data['products'] = $this->converListOfSkuToID($data['products']);
+	   $data['products'] = $this->converListOfMpnToID($data['products']);
 
 	   $products = $data['products'];
 

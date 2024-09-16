@@ -128,12 +128,12 @@ class ModelCatalogProduct extends Model {
     public function checkExistListProducts($listProduct, $key, $parentKey) {
         $result = array();
 
-        $sql = 'select sku from '.DB_PREFIX.'product';
+        $sql = 'select mpn from '.DB_PREFIX.'product';
 
         $query = $this->db->query($sql);
 
         foreach ( $query->rows as $row ) {
-            $result[] = $row['sku'];
+            $result[] = $row['mpn'];
         }
 
         foreach($listProduct as $product) 
@@ -142,7 +142,7 @@ class ModelCatalogProduct extends Model {
 	        return false;				
           } else if (!in_array($product[$key], $result)) {
             //echo json_encode(['error_codes' => 402, 'error' => ($parentKey ? "$parentKey.$key " . "$product[$key]" . " not exist" : $key)]);
-            echo json_encode(['error_codes' => 402, 'error' => ($parentKey ? "sku " . "$product[$key]" . " not exist" : $key)]);
+            echo json_encode(['error_codes' => 402, 'error' => ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key)]);
             return false;				
           }
 
@@ -156,6 +156,16 @@ class ModelCatalogProduct extends Model {
 
         //echo $query->row['product_id'] . '/';
 
+        return $query->row['product_id'];
+    }
+    
+    public function getIdFromMpn($mpn) {
+        $sql = 'select product_id from '.DB_PREFIX.'product where mpn = "'.$mpn.'"';
+    
+        $query = $this->db->query($sql);
+    
+        //echo $query->row['product_id'] . '/';
+    
         return $query->row['product_id'];
     }
 
