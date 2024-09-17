@@ -187,7 +187,9 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function saveDocumentToServer($url, $order_id) {
-		
+		$mesage_error = 'Order created successfully, However upload document was failed because decode base 64 prescription URL' . 
+			'is not correct, maybe this url contains special character, Please correct it';
+
 		// Directory where you want to save the file
 		$saveToDir = 'rEzEpT/'; // Make sure the folder has write permissions
 
@@ -197,21 +199,36 @@ class ControllerApiOrder extends Controller {
 		// Complete path to save the file
 		$savePath = $saveToDir . $filename;
 
-		// Download file content from the URL
-		$fileContent = file_get_contents($url);
+		try {
+			// Download file content from the URL
+			$bad = array_merge(
+				array_map('chr', range(0,31)),
+				array("<", ">", ":", '"', "/", "\\", "|", "?", "*"));
 
-		if ($fileContent !== false) {
-			// Save the file to the server
-			if (file_put_contents($savePath, $fileContent)) {
-				$this->model_checkout_order->editPhotoOrder($order_id, $filename);
-				//echo "File downloaded and saved successfully to $savePath";
+			$url = str_replace($bad, "", $url);
+			$fileContent = file_get_contents($url);
+
+			if ($fileContent !== false) {
+				// Save the file to the server
+				if (file_put_contents($savePath, $fileContent)) {
+					$this->model_checkout_order->editPhotoOrder($order_id, $filename);
+					//echo "File downloaded and saved successfully to $savePath";
+				} else {
+					//echo "Failed to save the file.";
+				}
 			} else {
-				//echo "Failed to save the file.";
+				//echo "Failed to download the file.";
 			}
-		} else {
-			//echo "Failed to download the file.";
-		}
-    }
+		} catch (\Exception $e) {
+			echo json_encode(['codes' => 200, 'order_id' => $order_id, 'message' => 'prescriptionURL:' . $e->getMessage() ]);
+
+			die();
+		} catch (\Throwable $e) {
+			echo json_encode(['codes' => 200, 'order_id' => $order_id, 'message' => 'prescriptionURL: ' .  $e->getMessage() ]);
+
+			die();
+		} 
+	}
 
 	public function saveOrder($data) {
 	   //print_r($data); die();	

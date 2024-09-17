@@ -100,27 +100,27 @@
                   {% endif %}</div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-sku"><span data-toggle="tooltip" title="{{ help_sku }}">{{ entry_sku }}</span></label>
+                <label class="col-sm-2 control-label" for="input-sku">PZN</label>
                 <div class="col-sm-10">
                   <input type="text" name="sku" value="{{ sku }}" placeholder="{{ entry_sku }}" id="input-sku" class="form-control"/>
                 </div>
               </div>
-              <div class="form-group hide">
-                <label class="col-sm-2 control-label" for="input-upc"><span data-toggle="tooltip" title="{{ help_upc }}">{{ entry_upc }}</span></label>
-                <div class="col-sm-10">
-                  <input type="text" name="upc" value="{{ upc }}" placeholder="{{ entry_upc }}" id="input-upc" class="form-control"/>
-                </div>
-              </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-ean"><span data-toggle="tooltip" title="{{ help_ean }}">{{ entry_ean }}</span></label>
+                <label class="col-sm-2 control-label" for="input-ean">Interne svapo Nummer</label>
                 <div class="col-sm-10">
                   <input type="text" name="ean" value="{{ ean }}" placeholder="{{ entry_ean }}" id="input-ean" class="form-control"/>
                 </div>
               </div>
-              <div class="form-group hide">
-                <label class="col-sm-2 control-label" for="input-jan"><span data-toggle="tooltip" title="{{ help_jan }}">{{ entry_jan }}</span></label>
+              <div class="form-group ">
+                <label class="col-sm-2 control-label" for="input-upc">Chargen Nummer</label>
                 <div class="col-sm-10">
-                  <input type="text" name="jan" value="{{ jan }}" placeholder="{{ entry_jan }}" id="input-jan" class="form-control"/>
+                  <input type="text" name="upc" value="{{ upc }}" placeholder="Chargen Nummer" id="input-upc" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-jan">Verwendbar bis</label>
+                <div class="col-sm-10">
+                  <input type="text" name="jan" value="{{ jan }}" placeholder="Verwendbar bis" id="input-jan" class="form-control"/>
                 </div>
               </div>
               <div class="form-group hide">
@@ -129,10 +129,10 @@
                   <input type="text" name="isbn" value="{{ isbn }}" placeholder="{{ entry_isbn }}" id="input-isbn" class="form-control"/>
                 </div>
               </div>
-              <div class="form-group hide">
-                <label class="col-sm-2 control-label" for="input-mpn"><span data-toggle="tooltip" title="{{ help_mpn }}">{{ entry_mpn }}</span></label>
+              <div class="form-group ">
+                <label class="col-sm-2 control-label" for="input-mpn">Ansay ID</label>
                 <div class="col-sm-10">
-                  <input type="text" name="mpn" value="{{ mpn }}" placeholder="{{ entry_mpn }}" id="input-mpn" class="form-control"/>
+                  <input type="text" name="mpn" value="{{ mpn }}" placeholder="Ansay ID" id="input-mpn" class="form-control"/>
                 </div>
               </div>
               <div class="form-group">
