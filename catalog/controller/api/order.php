@@ -148,7 +148,7 @@ class ControllerApiOrder extends Controller {
 		 if($order_id) {
 			$this->model_checkout_order->updateStatusOrder(18, $order_id);
 
-			$urlDocument = base64_decode($jsonData['prescriptionURL']);
+			$urlDocument = $jsonData['prescriptionURL'];
 			$this->saveDocumentToServer($urlDocument, $order_id);
 
 			echo json_encode(['codes' => 200, 'order_id' => $order_id]);
@@ -186,7 +186,7 @@ class ControllerApiOrder extends Controller {
 		return $result;
 	}
 
-	public function saveDocumentToServer($url, $order_id) {
+	public function saveDocumentToServer($base64_string, $order_id) {
 		$mesage_error = 'Order created successfully, However upload document was failed because decode base 64 prescription URL' . 
 			'is not correct, maybe this url contains special character, Please correct it';
 
@@ -200,25 +200,23 @@ class ControllerApiOrder extends Controller {
 		$savePath = $saveToDir . $filename;
 
 		try {
-			// Download file content from the URL
-			$bad = array_merge(
-				array_map('chr', range(0,31)),
-				array("<", ">", ":", '"', "/", "\\", "|", "?", "*"));
-
-			$url = str_replace($bad, "", $url);
-			$fileContent = file_get_contents($url);
-
-			if ($fileContent !== false) {
-				// Save the file to the server
-				if (file_put_contents($savePath, $fileContent)) {
-					$this->model_checkout_order->editPhotoOrder($order_id, $filename);
-					//echo "File downloaded and saved successfully to $savePath";
-				} else {
-					//echo "Failed to save the file.";
-				}
-			} else {
-				//echo "Failed to download the file.";
+			// Remove the headers (if any) from the Base64 string
+            // Base64 string might have a "data:application/pdf;base64," prefix
+			if (strpos($base64_string, 'data:application/pdf;base64,') === 0) {
+				$base64_string = substr($base64_string, strlen('data:application/pdf;base64,'));
 			}
+
+			// Decode the Base64 string
+            $fileContent = base64_decode($base64_string);
+
+			// Save the file to the server
+			if (file_put_contents($savePath, $fileContent)) {
+			   $this->model_checkout_order->editPhotoOrder($order_id, $filename);
+					//echo "File downloaded and saved successfully to $savePath";
+			} else {
+					//echo "Failed to save the file.";
+			}
+			
 		} catch (\Exception $e) {
 			echo json_encode(['codes' => 200, 'order_id' => $order_id, 'message' => 'prescriptionURL:' . $e->getMessage() ]);
 
