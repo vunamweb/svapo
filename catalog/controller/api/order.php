@@ -448,10 +448,15 @@ class ControllerApiOrder extends Controller {
 
 			//print_r($order_data); die();
 
-			return $this->model_checkout_order->addOrder($order_data);
-        }
-    }
+			$order_id = $this->model_checkout_order->addOrder($order_data);
+			$this->session->data['order_id'] = $order_id;
 
+			$this->cart->clear();
+
+			return $order_id;
+        }
+	}
+  
 	public function saveProductIntoCart($products) {
 		foreach($products as $product) {
 			$product_id = $product['id'];
