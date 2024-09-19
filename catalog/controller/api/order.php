@@ -30,11 +30,16 @@ class ControllerApiOrder extends Controller {
 			// Handle Apache server environment variable
 			$headers = trim($_SERVER['HTTP_AUTHORIZATION']);
 		} elseif (function_exists('apache_request_headers')) {
-			$requestHeaders = apache_request_headers();
-			if (isset($requestHeaders['Authorization'])) {
-				$headers = trim($requestHeaders['Authorization']);
-			}
+			if(isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION']))
+			  $headers = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+			else {
+				$requestHeaders = apache_request_headers();
+				if (isset($requestHeaders['Authorization'])) {
+					$headers = trim($requestHeaders['Authorization']);
+				}
+			}  
 		}
+
 		return $headers;
 	}
 
@@ -104,6 +109,7 @@ class ControllerApiOrder extends Controller {
 
 		// Check for the Bearer token
 		$token = $this->getBearerToken();
+		//echo $token; die();
 		if ($token === null) {
 			// Bearer token is missing
 			header('HTTP/1.0 401 Unauthorized');
