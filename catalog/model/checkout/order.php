@@ -261,8 +261,7 @@ class ModelCheckoutOrder extends Model {
 				'user_agent'              => $order_query->row['user_agent'],
 				'accept_language'         => $order_query->row['accept_language'],
 				'date_added'              => $order_query->row['date_added'],
-				'date_modified'           => $order_query->row['date_modified'],
-				'upload_file'             => $order_query->row['upload_file']
+				'date_modified'           => $order_query->row['date_modified']
 			);
 		} else {
 			return false;
@@ -271,24 +270,8 @@ class ModelCheckoutOrder extends Model {
 	
 	public function getOrderProducts($order_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
-
-		$result = array();
-
-		foreach($query->rows as $row) {
-			$product_id = $row['product_id'];
-
-			$query1 = $this->db->query("SELECT * FROM " . DB_PREFIX . "product p, " . DB_PREFIX . "manufacturer m  WHERE p.product_id = '" . (int)$product_id . "' and p.manufacturer_id = m.manufacturer_id");
-
-			if($query1->num_rows)
-			 $row['manufacture'] = $query1->row['name'];
-			else 
-			 $row['manufacture'] = 'No Manufacture';
-
-			 $result[] = $row;
-			 
-		}
 		
-		return $result;
+		return $query->rows;
 	}
 
 	public function getOrderProductsImprove($order_id) {
