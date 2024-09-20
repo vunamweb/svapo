@@ -268,6 +268,47 @@ class ModelCheckoutOrder extends Model {
 		}
 	}
 	
+	public function checkExistAttribute($Pharmacy_id, $InternalOrderId) {
+		$result = array();
+
+        $sql = 'select comment, order_id from '.DB_PREFIX.'order';
+
+        $query = $this->db->query($sql);
+
+        foreach ( $query->rows as $row ) {
+			//print_r($row); die();
+			$comment = $row['comment'];
+			
+			try {
+				$comment = explode('<br>', $comment);
+
+                $db_pharmacy_id = explode(' ', $comment[0]);
+				$db_pharmacy_id = $db_pharmacy_id[1];
+				//echo $db_pharmacy_id . '///';
+
+				if($db_pharmacy_id == $Pharmacy_id && $Pharmacy_id != '') {
+					echo json_encode(['error_codes' => 402, 'error' => "pharmacy_id " . $Pharmacy_id . ' exist' ]);
+                    return false;
+				}
+					
+				$db_internal_id = explode(' ', $comment[8]);
+				$db_internal_id = $db_internal_id[1];
+
+				if($db_internal_id == $InternalOrderId && $InternalOrderId != '') {
+					echo json_encode(['error_codes' => 402, 'error' => "internalOrderId " . $InternalOrderId . ' exist' ]);
+                    return false;
+				}
+					
+				//echo $db_internal_id; die();
+				
+			} catch (\Exception $e) {
+			} catch (\Throwable $e) {
+			} 
+		}
+		
+        return true;
+	}
+	
 	public function getOrderProducts($order_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
 		

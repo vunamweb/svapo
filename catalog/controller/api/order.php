@@ -60,6 +60,9 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function checkAttributes($attributes, $jsonArray, string $parentKey = ''): bool {
+		if(!$this->model_checkout_order->checkExistAttribute($jsonArray['pharmacy_id'], $jsonArray['internalOrderId']))
+	      return false; 
+		//print_r($jsonArray); die();
 		foreach ($attributes as $key => $value) {
 			// if is parent
 			if (is_array($value)) {
@@ -78,7 +81,7 @@ class ControllerApiOrder extends Controller {
 				}*/
 				// if is array
 				if($value == 'array') {
-					//echo '111';
+					//echo '111'; die();
 					//print_r($jsonArray);
 					if(!$this->model_catalog_product->checkExistListProducts($jsonArray, $key, $parentKey))
 					 return false;
@@ -407,71 +410,79 @@ class ControllerApiOrder extends Controller {
 	}
 	
 	public function addOrder() {
-		$this->load->model('catalog/product');
-		$this->load->model('checkout/order');
-
-		// Check for the Bearer token
-		$token = $this->getBearerToken();
-		//echo $token; die();
-		if ($token === null) {
-			// Bearer token is missing
-			header('HTTP/1.0 401 Unauthorized');
-			echo json_encode(['error_codes' => 401, 'error' => 'Missing Bearer token']);
-			exit;
-		}
-
-		if ($token != TOKEN) {
-			// Bearer token is missing
-			header('HTTP/1.0 401 Unauthorized');
-			echo json_encode(['error_codes' => 401, 'error' => 'Unauthorized']);
-			exit;
-		}
-		
-		// $_POST wird nur gefüllt, wenn die Daten in einem application/x-www-form-urlencoded oder multipart/form-data Format gesendet werden, das üblicherweise beim Senden von HTML-Formularen verwendet wird.
-		// php://input wird verwendet, wenn die Daten z. B. als JSON, XML oder ein anderes benutzerdefiniertes Format gesendet werden, das nicht in den Standard-$_POST-Array eingefügt wird.
-		// Check JSON
-		// file_get_contents("php://input") ist sehr nützlich, wenn du den vollständigen Rohinhalt einer Anfrage brauchst, besonders wenn du mit APIs oder JSON-Daten arbeitest, die als Teil des HTTP-Requests gesendet werden.
-		$rawData = file_get_contents("php://input");
-
-		// Decode the JSON data
-		$jsonData = json_decode($rawData, true);
-
-		// Check if the JSON data is valid and not empty
-		if (json_last_error() !== JSON_ERROR_NONE) {
-			// The JSON is not valid
-			http_response_code(400); // Bad Request
-			echo json_encode(['error_codes' => 400, 'error' => 'Invalid JSON']);
-			exit;
-		}
-
-		if (empty($jsonData)) {
-			// The JSON is empty or not present
-			http_response_code(400); // Bad Request
-			echo json_encode(['error_codes' => 400, 'error' => 'Missing JSON body']);
-			exit;
-		}
-
-		if($this->checkAttributes($this->getRequireAttribute(), $jsonData)) {
-		 $order_id = $this->saveOrder($jsonData);
-
-		 if($order_id) {
-			$order_status_id = 18;
-
-			$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
-
-			$urlDocument = $jsonData['prescriptionURL'];
-			$this->saveDocumentToServer($urlDocument, $order_id);
-
-			// SEND MAIL
-			$order_info = $this->model_checkout_order->getOrder($order_id);
-			$this->sendMail($order_info, $order_status_id);
-			// END
-
-			echo json_encode(['codes' => 200, 'order_id' => $order_id]);
-        } else {
-			echo json_encode(['error_codes' => 401, 'error' => 'error while creating order']);
-		 }
-        }
+		try {
+			$this->load->model('catalog/product');
+			$this->load->model('checkout/order');
+	
+			// Check for the Bearer token
+			$token = $this->getBearerToken();
+			//echo $token; die();
+			if ($token === null) {
+				// Bearer token is missing
+				header('HTTP/1.0 401 Unauthorized');
+				echo json_encode(['error_codes' => 401, 'error' => 'Missing Bearer token']);
+				exit;
+			}
+	
+			if ($token != TOKEN) {
+				// Bearer token is missing
+				header('HTTP/1.0 401 Unauthorized');
+				echo json_encode(['error_codes' => 401, 'error' => 'Unauthorized']);
+				exit;
+			}
+			
+			// $_POST wird nur gefüllt, wenn die Daten in einem application/x-www-form-urlencoded oder multipart/form-data Format gesendet werden, das üblicherweise beim Senden von HTML-Formularen verwendet wird.
+			// php://input wird verwendet, wenn die Daten z. B. als JSON, XML oder ein anderes benutzerdefiniertes Format gesendet werden, das nicht in den Standard-$_POST-Array eingefügt wird.
+			// Check JSON
+			// file_get_contents("php://input") ist sehr nützlich, wenn du den vollständigen Rohinhalt einer Anfrage brauchst, besonders wenn du mit APIs oder JSON-Daten arbeitest, die als Teil des HTTP-Requests gesendet werden.
+			$rawData = file_get_contents("php://input");
+	
+			// Decode the JSON data
+			$jsonData = json_decode($rawData, true);
+	
+			// Check if the JSON data is valid and not empty
+			if (json_last_error() !== JSON_ERROR_NONE) {
+				// The JSON is not valid
+				http_response_code(400); // Bad Request
+				echo json_encode(['error_codes' => 400, 'error' => 'Invalid JSON']);
+				exit;
+			}
+	
+			if (empty($jsonData)) {
+				// The JSON is empty or not present
+				http_response_code(400); // Bad Request
+				echo json_encode(['error_codes' => 400, 'error' => 'Missing JSON body']);
+				exit;
+			}
+	
+			if($this->checkAttributes($this->getRequireAttribute(), $jsonData)) {
+			 $order_id = $this->saveOrder($jsonData);
+	
+			 if($order_id) {
+				$order_status_id = 18;
+	
+				$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
+	
+				$urlDocument = $jsonData['prescriptionURL'];
+				$this->saveDocumentToServer($urlDocument, $order_id);
+	
+				// SEND MAIL
+				$order_info = $this->model_checkout_order->getOrder($order_id);
+				$this->sendMail($order_info, $order_status_id);
+				// END
+	
+				echo json_encode(['codes' => 200, 'order_id' => $order_id]);
+			} else {
+				echo json_encode(['error_codes' => 401, 'error' => 'error while creating order']);
+			 }
+			}
+		} catch (\Exception $e) {
+		    //echo $e->getMessage();
+			// log error here by write $e->getMessage() in log file	
+		} catch (\Throwable $e) {
+			//echo $e->getMessage();	
+		  // log error here by write $e->getMessage() in log file
+		} 
     }
 	
 	public function converListOfSkuToID($products) {
