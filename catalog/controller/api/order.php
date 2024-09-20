@@ -10,8 +10,8 @@ class ControllerApiOrder extends Controller {
 				'homeAddress' => [
 					 'streetName',
 					 'postalCode',
-					 'city'
-				
+					 'city',
+					 'houseNr'
 			   ]
 			],
 			'products' => [
@@ -336,10 +336,10 @@ class ControllerApiOrder extends Controller {
             $order_data['payment_firstname'] = $data['customer']['firstname'];
 			$order_data['payment_lastname'] = $data['customer']['lastname'];
 			$order_data['payment_company'] = '';
-			$order_data['payment_address_1'] = '<br>' . $data['customer']['homeAddress']['streetName'];
+			$order_data['payment_address_1'] = $data['customer']['homeAddress']['streetName'].' '.$data['customer']['homeAddress']['houseNr'];
 			$order_data['payment_address_2'] = '';
 			$order_data['payment_city'] =  $data['customer']['homeAddress']['city'] . ' ';
-			$order_data['payment_postcode'] = '<br>' . $data['customer']['homeAddress']['postalCode'];
+			$order_data['payment_postcode'] = $data['customer']['homeAddress']['postalCode'];
 			$order_data['payment_zone'] = 'Thüringen';
 			$order_data['payment_zone_id'] = 1269;
 			$order_data['payment_country'] = 'Germany';
