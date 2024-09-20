@@ -1,4 +1,9 @@
 <?php
+include "./dompdf/autoload.inc.php";
+require_once('./fpdi/autoload.php');
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 class ControllerApiOrder extends Controller {
 	public function getRequireAttribute() {
 		return [
@@ -102,6 +107,304 @@ class ControllerApiOrder extends Controller {
 
 		return true;
 	}
+
+
+	public function sendMail($order_info, $order_status_id = 0, $comment = null) {
+		// Check for any downloadable products
+		$download_status = false;
+
+		$order_products = $this->model_checkout_order->getOrderProducts($order_info['order_id']);
+		
+		foreach ($order_products as $order_product) {
+			// Check if there are any linked downloads
+			$product_download_query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "product_to_download` WHERE product_id = '" . (int)$order_product['product_id'] . "'");
+
+			if ($product_download_query->row['total']) {
+				$download_status = true;
+			}
+		}
+		
+		// Load the language for any mails that might be required to be sent out
+		$language = new Language($order_info['language_code']);
+		$language->load($order_info['language_code']);
+		$language->load('mail/order_add');
+
+		// HTML Mail
+		$data['title'] = sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']);
+
+		$data['text_greeting'] = sprintf($language->get('text_greeting'), $order_info['store_name']);
+		$data['text_link'] = $language->get('text_link');
+		$data['text_download'] = $language->get('text_download');
+		$data['text_order_detail'] = $language->get('text_order_detail');
+		$data['text_instruction'] = $language->get('text_instruction');
+		$data['text_order_id'] = $language->get('text_order_id');
+		$data['text_date_added'] = $language->get('text_date_added');
+		$data['text_payment_method'] = $language->get('text_payment_method');
+		$data['text_shipping_method'] = $language->get('text_shipping_method');
+		$data['text_email'] = $language->get('text_email');
+		$data['text_telephone'] = $language->get('text_telephone');
+		$data['text_ip'] = $language->get('text_ip');
+		$data['text_order_status'] = $language->get('text_order_status');
+		$data['text_payment_address'] = $language->get('text_payment_address');
+		$data['text_shipping_address'] = $language->get('text_shipping_address');
+		$data['text_product'] = $language->get('text_product');
+		$data['text_model'] = $language->get('text_model');
+		$data['text_quantity'] = $language->get('text_quantity');
+		$data['text_price'] = $language->get('text_price');
+		$data['text_total'] = $language->get('text_total');
+		$data['text_footer'] = $language->get('text_footer');
+
+		$data['logo'] = $order_info['store_url'] . 'image/' . $this->config->get('config_logo');
+		$data['store_name'] = $order_info['store_name'];
+		$data['store_url'] = $order_info['store_url'];
+		$data['customer_id'] = $order_info['customer_id'];
+		$data['link'] = $order_info['store_url'] . 'index.php?route=account/order/info&order_id=' . $order_info['order_id'];
+
+		if ($download_status) {
+			$data['download'] = $order_info['store_url'] . 'index.php?route=account/download';
+		} else {
+			$data['download'] = '';
+		}
+
+		$data['order_id'] = $order_info['order_id'];
+		$data['date_added'] = date($language->get('date_format_short'), strtotime($order_info['date_added']));
+		$data['payment_method'] = $order_info['payment_method'];
+		$data['shipping_method'] = $order_info['shipping_method'];
+		$data['email'] = $order_info['email'];
+		$data['telephone'] = $order_info['telephone'];
+		$data['ip'] = $order_info['ip'];
+
+		$order_status_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status WHERE order_status_id = '" . (int)$order_status_id . "' AND language_id = '" . (int)$order_info['language_id'] . "'");
+	
+		if ($order_status_query->num_rows) {
+			$data['order_status'] = $order_status_query->row['name'];
+		} else {
+			$data['order_status'] = '';
+		}
+
+		if ($comment && $notify) {
+			$data['comment'] = nl2br($comment);
+		} else {
+			$data['comment'] = '';
+		}
+
+		if ($order_info['payment_address_format']) {
+			$format = $order_info['payment_address_format'];
+		} else {
+			$format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
+		}
+
+		$find = array(
+			'{firstname}',
+			'{lastname}',
+			'{company}',
+			'{address_1}',
+			'{address_2}',
+			'{city}',
+			'{postcode}',
+			'{zone}',
+			'{zone_code}',
+			'{country}'
+		);
+
+		$replace = array(
+			'firstname' => $order_info['payment_firstname'],
+			'lastname'  => $order_info['payment_lastname'],
+			'company'   => $order_info['payment_company'],
+			'address_1' => $order_info['payment_address_1'],
+			'address_2' => $order_info['payment_address_2'],
+			'city'      => $order_info['payment_city'],
+			'postcode'  => $order_info['payment_postcode'],
+			'zone'      => $order_info['payment_zone'],
+			'zone_code' => $order_info['payment_zone_code'],
+			'country'   => $order_info['payment_country']
+		);
+
+		$data['payment_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+
+		if ($order_info['shipping_address_format']) {
+			$format = $order_info['shipping_address_format'];
+		} else {
+			$format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
+		}
+
+		$find = array(
+			'{firstname}',
+			'{lastname}',
+			'{company}',
+			'{address_1}',
+			'{address_2}',
+			'{city}',
+			'{postcode}',
+			'{zone}',
+			'{zone_code}',
+			'{country}'
+		);
+
+		$replace = array(
+			'firstname' => $order_info['shipping_firstname'],
+			'lastname'  => $order_info['shipping_lastname'],
+			'company'   => $order_info['shipping_company'],
+			'address_1' => $order_info['shipping_address_1'],
+			'address_2' => $order_info['shipping_address_2'],
+			'city'      => $order_info['shipping_city'],
+			'postcode'  => $order_info['shipping_postcode'],
+			'zone'      => $order_info['shipping_zone'],
+			'zone_code' => $order_info['shipping_zone_code'],
+			'country'   => $order_info['shipping_country']
+		);
+
+		$data['shipping_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+
+		$this->load->model('tool/upload');
+
+		// Products
+		$data['products'] = array();
+
+		foreach ($order_products as $order_product) {
+			$option_data = array();
+
+			$order_options = $this->model_checkout_order->getOrderOptions($order_info['order_id'], $order_product['order_product_id']);
+
+			foreach ($order_options as $order_option) {
+				if ($order_option['type'] != 'file') {
+					$value = $order_option['value'];
+				} else {
+					$upload_info = $this->model_tool_upload->getUploadByCode($order_option['value']);
+
+					if ($upload_info) {
+						$value = $upload_info['name'];
+					} else {
+						$value = '';
+					}
+				}
+
+				$option_data[] = array(
+					'name'  => $order_option['name'],
+					'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
+				);
+			}
+
+			$data['products'][] = array(
+				'name'     => $order_product['name'],
+				'model'    => $order_product['model'],
+				'option'   => $option_data,
+				'quantity' => $order_product['quantity'],
+				'price'    => $this->currency->format($order_product['price'] + ($this->config->get('config_tax') ? $order_product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
+				'total'    => $this->currency->format($order_product['total'] + ($this->config->get('config_tax') ? ($order_product['tax'] * $order_product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value'])
+			);
+		}
+
+		// Vouchers
+		$data['vouchers'] = array();
+
+		$order_vouchers = $this->model_checkout_order->getOrderVouchers($order_info['order_id']);
+
+		foreach ($order_vouchers as $order_voucher) {
+			$data['vouchers'][] = array(
+				'description' => $order_voucher['description'],
+				'amount'      => $this->currency->format($order_voucher['amount'], $order_info['currency_code'], $order_info['currency_value']),
+			);
+		}
+
+		// Order Totals
+		$data['totals'] = array();
+		
+		$order_totals = $this->model_checkout_order->getOrderTotals($order_info['order_id']);
+
+		$this->document->displayOrder($order_totals, 0, 0, 0, 0, 0);
+
+		//print_r($order_totals); die();
+		
+		// Add net price
+		$count = count($order_totals);
+		//echo $count; die();
+		// if not coupon
+		if($count == 4) {
+			//print_r($order_totals); die();
+			$order_totals[$count - 1] = $order_totals[$count];
+		
+			$order_totals[$count - 1]['title'] = 'Gesamtnetto';
+			$order_totals[$count - 1]['value'] = round($order_totals[$count - 1]['value'] / 1.19);
+			
+			$order_totals[0]['sort_order'] = 0;
+			$order_totals[1]['sort_order'] = 1;
+			$order_totals[2]['sort_order'] = 2;
+			$order_totals[4]['sort_order'] = 4;
+			$order_totals[3]['sort_order'] = 3;		
+		} else { // if coupon
+			//print_r($order_totals); die();
+			// Because shipping = 0, so need to reduce total
+			//$order_totals[$count - 1]['value'] = $order_totals[$count - 1]['value'] - $order_totals[1]['value'];
+
+			// set shipping is 0
+			//$order_totals[1]['value'] = 0;
+
+			$order_totals[$count - 2]['title'] = 'Gesamtnetto';
+			$order_totals[$count - 2]['value'] = round($order_totals[$count - 1]['value'] / 1.19);
+			
+			$order_totals[0]['sort_order'] = 0;
+			$order_totals[1]['sort_order'] = 1;
+			$order_totals[2]['sort_order'] = 2;
+			$order_totals[4]['sort_order'] = 4;
+			$order_totals[3]['sort_order'] = 3;
+			
+			//print_r($order_totals); die();
+		}
+		
+		usort($order_totals, function($a, $b) {
+			return $a['sort_order'] - $b['sort_order']; // Ascending order
+		});
+		
+		// END
+		
+		foreach ($order_totals as $order_total) {
+			$data['totals'][] = array(
+				'title' => $order_total['title'],
+				'text'  => $this->currency->format($order_total['value'], $order_info['currency_code'], $order_info['currency_value']),
+			);
+		}
+	
+		$this->load->model('setting/setting');
+		
+		$from = $this->model_setting_setting->getSettingValue('config_email', $order_info['store_id']);
+		
+		if (!$from) {
+			$from = $this->config->get('config_email');
+		}
+
+		$data['mail_header'] = MAILHEADER;
+		$data['mail_footer'] = FOOTER;
+		$data['pdf_address'] = PDF_ADDRESS;
+		$data['ACCOUNT'] = ACCOUNT;
+		$data['text_inform_order'] = $language->get('text_inform_order');
+		$data['order_id'] = $order_info['order_id'];
+		$data['firstname'] = $order_info['firstname'];
+		$data['lastname'] = $order_info['lastname'];
+		$data['total'] = number_format($order_total['value'], 2, ',', '.');
+		
+		$subject = html_entity_decode(sprintf($language->get('text_subject'), 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+		$fromName = html_entity_decode('svapo.de, '.$order_info['store_name'], ENT_QUOTES, 'UTF-8');
+
+		$message = $this->load->view('mail/order_add_customer_ansay', $data);
+
+		$options = new Options();
+		$options->set('tempDir', '/tmp');
+		$options->set('chroot', __DIR__);    
+		$options->set('isRemoteEnabled', TRUE);
+		$dompdf = new Dompdf($options);
+		// $dompdf->setHtmlFooter($htmlFooter);
+		
+		$pdf_name = 'Auftragsbestaetigung-svapo-'.$order_info['order_id'].'.pdf';
+		$dompdf->loadHtml($this->load->view('mail/order_ansay_pdf', $data));
+		$file_location = "./admin/auftrag/".$pdf_name;
+		$dompdf->setPaper('A4', 'Horizontal');
+		$dompdf->render();
+		$pdf = $dompdf->output();
+		file_put_contents($file_location, $pdf);
+		
+		$this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
+	}
 	
 	public function addOrder() {
 		$this->load->model('catalog/product');
@@ -152,10 +455,17 @@ class ControllerApiOrder extends Controller {
 		 $order_id = $this->saveOrder($jsonData);
 
 		 if($order_id) {
-			$this->model_checkout_order->updateStatusOrder(18, $order_id);
+			$order_status_id = 18;
+
+			$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
 
 			$urlDocument = $jsonData['prescriptionURL'];
 			$this->saveDocumentToServer($urlDocument, $order_id);
+
+			// SEND MAIL
+			$order_info = $this->model_checkout_order->getOrder($order_id);
+			$this->sendMail($order_info, $order_status_id);
+			// END
 
 			echo json_encode(['codes' => 200, 'order_id' => $order_id]);
         } else {
@@ -299,13 +609,25 @@ class ControllerApiOrder extends Controller {
 
 			$sort_order = array();
 
-			foreach ($totals as $key => $value) {
+			foreach ($total_data['totals'] as $key => $value) {
 				$sort_order[$key] = $value['sort_order'];
 			}
 
-			array_multisort($sort_order, SORT_ASC, $totals);
+			array_multisort($sort_order, SORT_ASC, $total_data['totals']);
 
-			$order_data['totals'] = $totals;
+			$order_data = array_merge($order_data, $total_data);
+
+			$order_data['totals'][2] = $order_data['totals'][1];
+
+			$order_data['totals'][1]['code'] = 'shipping'; 
+			$order_data['totals'][1]['title'] = 'Abholung von Geschäft'; 
+			$order_data['totals'][1]['value'] = 0;
+			$order_data['totals'][1]['sort_order'] = 3;  
+			
+
+			//print_r($order_data['totals']); die();
+
+            //$order_data['totals'] = $totals;
 
 			$this->load->language('checkout/checkout');
 
@@ -1167,6 +1489,7 @@ class ControllerApiOrder extends Controller {
 					array_multisort($sort_order, SORT_ASC, $total_data['totals']);
 
 					$order_data = array_merge($order_data, $total_data);
+					//print_r($order_data['totals']); die();
 
 					if (isset($this->request->post['comment'])) {
 						$order_data['comment'] = $this->request->post['comment'];
@@ -1203,7 +1526,7 @@ class ControllerApiOrder extends Controller {
 						$order_status_id = $this->config->get('config_order_status_id');
 					}
 					
-					$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
+					//$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
 
 					// When order editing is completed, delete added order status for Void the order first.
 					if ($order_status_id) {

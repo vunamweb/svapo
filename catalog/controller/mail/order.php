@@ -3,13 +3,6 @@ include "./dompdf/autoload.inc.php";
 require_once('./fpdi/autoload.php');
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use PHPMailer\PHPMailer\PHPMailer;
-
-use setasign\Fpdi\Fpdi;
-
-require "PHPMailer.php";
-require "SMTP.php";
-require "Exception.php";
 
 class ControllerMailOrder extends Controller {
 	public function index(&$route, &$args) {
@@ -380,58 +373,9 @@ class ControllerMailOrder extends Controller {
 		
 		//print_r($order_total); die();
 		if($order_total['value'] > 0)
-		  $this->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
+		  $this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
 	}
 
-	function sendMailSMTP($to, $subject, $from, $fromName, $message, $type=null, $file=false, $status=false)
-    {
-		$files2 = '';
-		if($file && $status==1) {
-			$files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "admin/invoice/".$file;
-			$files2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/sign-pdf.pdf";
-		}
-		else if($type == 'edit') { }
-			// $files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Rechnung-svapo.pdf";
-        else {
-			// $files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Freiumschlag.pdf";
-			$files1 = null;
-			if($file) $files2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "admin/auftrag/".$file;			
-		}
-	 	
-		$mail = new PHPMailer();
-		$mail->IsSMTP(); // telling the class to use SMTP
-		$mail->SMTPDebug = 0; // enables SMTP debug information (for testing)
-		$mail->SMTPAuth = true; // enable SMTP authentication
-		$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // sets the prefix to the servier
-		$mail->Host = SMTP_HOST; // sets GMAIL as the SMTP server
-		$mail->Port = 465; // set the SMTP port for the GMAIL server
-		$mail->Username = SMTP_USER; // GMAIL username
-		$mail->Password = SMTP_PASSWORD;
-		$mail->CharSet = 'UTF-8';
-		$mail->AddAddress($to);
-		
-		// if($file) $mail->addBcc("invoice@svapo.de");
-		// if($file) $mail->addBcc("bk@freiheit-gruppe.de");
-		$mail->addBcc("svapo@7sc.eu");
-		$mail->addBcc("vukynamkhtn@gmail.com");
-		
-		$mail->Subject = $subject;
-		// $mail->FromName = $fromName;
-		$mail->FromName = $fromName;
-		$mail->From = $from;
-		$mail->IsHTML(true);
-		$mail->Body = $message;
-
-		if($files1) $mail->addAttachment($files1);
-		if($files2) $mail->addAttachment($files2);
-
-		if (!$mail->Send()) {
-			//echo "Mailer Error: " . $mail->ErrorInfo;
-		} else {
-			//echo "Message sent!";
-		}
-    }
-	
 	public function edit($order_info, $order_status_id, $comment) {
 		$language = new Language($order_info['language_code']);
 		$language->load($order_info['language_code']);
@@ -772,9 +716,7 @@ class ControllerMailOrder extends Controller {
 			$message = $this->load->view('mail/order_edit', $data);
 		} 
 	
-
-		
-		$this->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $from, $message, 'edit', $pdf_name, $status);
+        $this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $from, $message, 'edit', $pdf_name, $status);
 	}
 
 	public function getDateOrder($order_info) {
