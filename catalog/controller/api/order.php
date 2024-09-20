@@ -1,6 +1,6 @@
 <?php
 include "./dompdf/autoload.inc.php";
-require_once('./fpdi/autoload.php');
+//require_once('./fpdi/autoload.php');
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -1526,7 +1526,7 @@ class ControllerApiOrder extends Controller {
 						$order_status_id = $this->config->get('config_order_status_id');
 					}
 					
-					//$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
+					$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
 
 					// When order editing is completed, delete added order status for Void the order first.
 					if ($order_status_id) {

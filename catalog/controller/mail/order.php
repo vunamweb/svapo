@@ -1,6 +1,6 @@
 <?php
 include "./dompdf/autoload.inc.php";
-require_once('./fpdi/autoload.php');
+//require_once('./fpdi/autoload.php');
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -690,7 +690,7 @@ class ControllerMailOrder extends Controller {
 		
 		$status = false;
 		if($order_status_id == ORDER_ID) {
-			$this->exportPdfToSign($order_info, $data['products']);
+			//$this->exportPdfToSign($order_info, $data['products']);
 			//die();
 
 			$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';

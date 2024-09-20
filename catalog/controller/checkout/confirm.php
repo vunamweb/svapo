@@ -1,10 +1,4 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-
-require "PHPMailer.php";
-require "SMTP.php";
-require "Exception.php";
-
 class ControllerCheckoutConfirm extends Controller {
 	public function index() {
 		$redirect = '';
@@ -363,8 +357,8 @@ class ControllerCheckoutConfirm extends Controller {
 			$message = $this->load->view('mail/order_add_customer', $data);
 			$message_1 = $this->load->view('mail/order_add_admin', $data);
 			
-            $this->sendMailSMTP($order_data['email'], $subject, SMTP_USER, $fromName, $message, $this->session->data['upload_file']);
-			$this->sendMailSMTP($this->config->get('config_email'), $subject, SMTP_USER, $fromName, $message_1, $this->session->data['upload_file']);
+            $this->document->sendMailSMTP($order_data['email'], $subject, SMTP_USER, $fromName, $message, $this->session->data['upload_file']);
+			$this->document->sendMailSMTP($this->config->get('config_email'), $subject, SMTP_USER, $fromName, $message_1, $this->session->data['upload_file']);
 			//$this->load->controller('mail/order/add');
 			//$this->session->data['order_id'] . 'ddd'; die();
 
