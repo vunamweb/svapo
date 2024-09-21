@@ -10,7 +10,7 @@
 /**
 * Document class
 */
-include $_SERVER['DOCUMENT_ROOT'] . '/pharmacy/' . "dompdf/autoload.inc.php";
+include $_SERVER['DOCUMENT_ROOT'] . SUB_FOLDER . "dompdf/autoload.inc.php";
 //require_once('./fpdi/autoload.php');
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -18,9 +18,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 use setasign\Fpdi\Fpdi;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/pharmacy/' . "PHPMailer.php";
-require $_SERVER['DOCUMENT_ROOT'] . '/pharmacy/' . "SMTP.php";
-require $_SERVER['DOCUMENT_ROOT'] . '/pharmacy/' . "Exception.php";
+require $_SERVER['DOCUMENT_ROOT'] . SUB_FOLDER . "PHPMailer.php";
+require $_SERVER['DOCUMENT_ROOT'] . SUB_FOLDER . "SMTP.php";
+require $_SERVER['DOCUMENT_ROOT'] . SUB_FOLDER . "Exception.php";
 
 class Document {
 	private $title;
@@ -162,6 +162,19 @@ class Document {
 		}
      }
      
+     public function writeLog($json, $error) {
+          $data = 'JSON ' . $json . PHP_EOL . PHP_EOL . PHP_EOL;
+          $data .= 'Error: ' . $error . PHP_EOL;
+
+          $logfile = 'log/' . date("Y-m-d_H-i-s") . '.txt';  // Ersetze ":" durch "-"
+          // Schreibmodus 'a' für Anfügen, falls die Datei bereits existiert
+          $handle = fopen($logfile, 'a');			
+          // Schreibe die Rohdaten (oder das decodierte Array in JSON-Form wieder) in die Datei
+          fwrite($handle, $data . PHP_EOL);  // Optional: json_encode($jsonData) um das Array wieder als JSON zu speichern			
+          // Datei schließen
+          fclose($handle);
+     }
+
      public function sendMailSMTP($to, $subject, $from, $fromName, $message, $type=null, $file=false, $status=false)
      {
 		$files2 = '';

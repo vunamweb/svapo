@@ -34,3 +34,6 @@ define('DB_PREFIX', 'oc_');
 
 // OpenCart API
 define('OPENCART_SERVER', 'https://www.opencart.com/');
+
+// SUB FOLDER
+define('SUB_FOLDER', '/pharmacy/');

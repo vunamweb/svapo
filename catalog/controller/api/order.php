@@ -60,6 +60,8 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function checkAttributes($attributes, $jsonArray, string $parentKey = ''): bool {
+		$rawData = file_get_contents("php://input");
+
 		if(!$this->model_checkout_order->checkExistAttribute($jsonArray['pharmacy_id'], $jsonArray['internalOrderId']))
 	      return false; 
 		//print_r($jsonArray); die();
@@ -69,6 +71,7 @@ class ControllerApiOrder extends Controller {
 				// Check for nested attributes
 				if (!isset($jsonArray[$key])) {
 					echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key)]);
+					$this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key));
 					return false;
 				}
 				if (!$this->checkAttributes($value, $jsonArray[$key], $parentKey ? "$parentKey.$key" : $key)) {
@@ -90,6 +93,8 @@ class ControllerApiOrder extends Controller {
 				}
 				else if ( (!is_array($jsonArray) || !array_key_exists($value, $jsonArray)) && !$this->checkPropertyInArrayJson($value, $jsonArray) ) {
 					echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$value" : $value)]);
+					$this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$value" : $value));
+					
 					return false;
 				}
 			}
@@ -410,6 +415,8 @@ class ControllerApiOrder extends Controller {
 	}
 	
 	public function addOrder() {
+		$rawData = file_get_contents("php://input");
+
 		try {
 			$this->load->model('catalog/product');
 			$this->load->model('checkout/order');
@@ -421,6 +428,8 @@ class ControllerApiOrder extends Controller {
 				// Bearer token is missing
 				header('HTTP/1.0 401 Unauthorized');
 				echo json_encode(['error_codes' => 401, 'error' => 'Missing Bearer token']);
+
+				$this->document->writeLog($rawData, 'Missing Bearer token');
 				exit;
 			}
 	
@@ -428,6 +437,8 @@ class ControllerApiOrder extends Controller {
 				// Bearer token is missing
 				header('HTTP/1.0 401 Unauthorized');
 				echo json_encode(['error_codes' => 401, 'error' => 'Unauthorized']);
+
+				$this->document->writeLog($rawData, 'Unauthorized');
 				exit;
 			}
 			
@@ -435,7 +446,7 @@ class ControllerApiOrder extends Controller {
 			// php://input wird verwendet, wenn die Daten z. B. als JSON, XML oder ein anderes benutzerdefiniertes Format gesendet werden, das nicht in den Standard-$_POST-Array eingefügt wird.
 			// Check JSON
 			// file_get_contents("php://input") ist sehr nützlich, wenn du den vollständigen Rohinhalt einer Anfrage brauchst, besonders wenn du mit APIs oder JSON-Daten arbeitest, die als Teil des HTTP-Requests gesendet werden.
-			$rawData = file_get_contents("php://input");
+			//$rawData = file_get_contents("php://input");
 	
 			// Decode the JSON data
 			$jsonData = json_decode($rawData, true);
@@ -445,6 +456,8 @@ class ControllerApiOrder extends Controller {
 				// The JSON is not valid
 				http_response_code(400); // Bad Request
 				echo json_encode(['error_codes' => 400, 'error' => 'Invalid JSON']);
+
+				$this->document->writeLog($rawData, 'Invalid JSON');
 				exit;
 			}
 	
@@ -452,6 +465,8 @@ class ControllerApiOrder extends Controller {
 				// The JSON is empty or not present
 				http_response_code(400); // Bad Request
 				echo json_encode(['error_codes' => 400, 'error' => 'Missing JSON body']);
+
+				$this->document->writeLog($rawData, 'Missing JSON body');
 				exit;
 			}
 	
@@ -474,12 +489,15 @@ class ControllerApiOrder extends Controller {
 				echo json_encode(['codes' => 200, 'order_id' => $order_id]);
 			} else {
 				echo json_encode(['error_codes' => 401, 'error' => 'error while creating order']);
+				$this->document->writeLog($rawData, 'error while creating order');
 			 }
 			}
 		} catch (\Exception $e) {
-		    //echo $e->getMessage();
-			// log error here by write $e->getMessage() in log file	
+			echo json_encode(['error_codes' => 401, 'error' => $e->getMessage()]);
+			$this->document->writeLog($rawData, $e->getMessage());
 		} catch (\Throwable $e) {
+			echo json_encode(['error_codes' => 401, 'error' => $e->getMessage()]);
+			$this->document->writeLog($rawData, $e->getMessage());
 			//echo $e->getMessage();	
 		  // log error here by write $e->getMessage() in log file
 		} 

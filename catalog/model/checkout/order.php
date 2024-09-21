@@ -269,6 +269,8 @@ class ModelCheckoutOrder extends Model {
 	}
 	
 	public function checkExistAttribute($Pharmacy_id, $InternalOrderId) {
+		$rawData = file_get_contents("php://input");
+		
 		$result = array();
 
         $sql = 'select comment, order_id from '.DB_PREFIX.'order';
@@ -288,7 +290,9 @@ class ModelCheckoutOrder extends Model {
 
 				if($db_pharmacy_id == $Pharmacy_id && $Pharmacy_id != '') {
 					echo json_encode(['error_codes' => 402, 'error' => "pharmacy_id " . $Pharmacy_id . ' exist' ]);
-                    return false;
+					$this->document->writeLog($rawData, "pharmacy_id " . $Pharmacy_id . ' exist');
+			
+					return false;
 				}
 					
 				$db_internal_id = explode(' ', $comment[8]);
@@ -296,7 +300,9 @@ class ModelCheckoutOrder extends Model {
 
 				if($db_internal_id == $InternalOrderId && $InternalOrderId != '') {
 					echo json_encode(['error_codes' => 402, 'error' => "internalOrderId " . $InternalOrderId . ' exist' ]);
-                    return false;
+					$this->document->writeLog($rawData, "internalOrderId " . $InternalOrderId . ' exist');
+			
+					return false;
 				}
 					
 				//echo $db_internal_id; die();

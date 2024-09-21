@@ -124,7 +124,7 @@ define('TOKEN', 'AIzaSyAV4OcIzXCzfe8hQXYLXi_vnZ4jvLP7Ztc');
 define('ORDER_ID', 12);
 
 // SUB FOLDER
-define('SUB_FOLDER', 'pharmacy');
+define('SUB_FOLDER', '/pharmacy/');
 
 define('ADDRESS', 'Schloss-Apotheke, Paschalis Papadopoulos e. K.<br />
   Bürgeler Str. 35, 63075 Offenbach<br />		  
