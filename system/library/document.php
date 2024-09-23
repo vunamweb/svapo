@@ -162,7 +162,7 @@ class Document {
 		}
      }
      
-     public function writeLog($json, $error) {
+     public function writeLog($json, $error, $sendMail = true) {
           $data = 'JSON ' . $json . PHP_EOL . PHP_EOL . PHP_EOL;
           $data .= 'Error: ' . $error . PHP_EOL;
 
@@ -173,6 +173,18 @@ class Document {
           fwrite($handle, $data . PHP_EOL);  // Optional: json_encode($jsonData) um das Array wieder als JSON zu speichern			
           // Datei schließen
           fclose($handle);
+
+          // SEND MAIL TO OWNER
+          $subject = 'Log File ' . date("Y-m-d_H-i-s");
+          $from = SMTP_USER;
+          $fromName = 'svapo.de';
+          $to = 'vukynamkhtn@gmail.com';
+
+          $message = 'A user failed to create an order with the following error<br>';
+          $message .= $error;
+
+          $this->sendMailSMTP($to, $subject, $from, $fromName, $message);
+          // END 
      }
 
      public function sendMailSMTP($to, $subject, $from, $fromName, $message, $type=null, $file=false, $status=false)
@@ -204,8 +216,8 @@ class Document {
 		
 		// if($file) $mail->addBcc("invoice@svapo.de");
 		// if($file) $mail->addBcc("bk@freiheit-gruppe.de");
-		//$mail->addBcc("svapo@7sc.eu");
-		$mail->addBcc("vukynamkhtn@gmail.com");
+		$mail->addBcc("svapo@7sc.eu");
+		//$mail->addBcc("vukynamkhtn@gmail.com");
 		
 		$mail->Subject = $subject;
 		// $mail->FromName = $fromName;

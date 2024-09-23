@@ -649,7 +649,8 @@ class ControllerApiOrder extends Controller {
 			$order_data['totals'][2] = $order_data['totals'][1];
 
 			$order_data['totals'][1]['code'] = 'shipping'; 
-			$order_data['totals'][1]['title'] = 'Abholung von Geschäft'; 
+			// $order_data['totals'][1]['title'] = 'Abholung von Geschäft'; 
+			$order_data['totals'][1]['title'] = 'Versandkostenpauschale'; 
 			$order_data['totals'][1]['value'] = 7.99;
 			$order_data['totals'][1]['sort_order'] = 3;
 			
