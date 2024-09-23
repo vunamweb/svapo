@@ -178,7 +178,7 @@ class Document {
           $subject = 'Log File ' . date("Y-m-d_H-i-s");
           $from = SMTP_USER;
           $fromName = 'svapo.de';
-          $to = 'vukynamkhtn@gmail.com';
+          $to = 'info@svapo.de';
 
           $message = 'A user failed to create an order with the following error<br>';
           $message .= $error;
