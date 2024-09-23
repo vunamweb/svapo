@@ -1,10 +1,4 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-
-require "PHPMailer.php";
-require "SMTP.php";
-require "Exception.php";
-
 class ControllerMailForgotten extends Controller {
 	public function index(&$route, &$args, &$output) {			            
 		$this->load->language('mail/forgotten');
@@ -33,7 +27,7 @@ class ControllerMailForgotten extends Controller {
 
 		$subject = html_entity_decode(sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8');
 
-		$this->sendMailSMTP($args[0], $subject, SMTP_USER, $this->config->get('config_email'), $this->load->view('mail/forgotten', $data), $this->session->data['upload_file']);
+		$this->document->sendMailSMTP($args[0], $subject, SMTP_USER, $this->config->get('config_email'), $this->load->view('mail/forgotten', $data), $this->session->data['upload_file']);
 			
 	}
 

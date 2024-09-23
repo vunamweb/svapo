@@ -175,15 +175,17 @@ class Document {
           fclose($handle);
 
           // SEND MAIL TO OWNER
-          $subject = 'Log File ' . date("Y-m-d_H-i-s");
-          $from = SMTP_USER;
-          $fromName = 'svapo.de';
-          $to = 'info@svapo.de';
-
-          $message = 'A user failed to create an order with the following error<br>';
-          $message .= $error;
-
-          $this->sendMailSMTP($to, $subject, $from, $fromName, $message);
+          if($sendMail) {
+               $subject = 'Log File ' . date("Y-m-d_H-i-s");
+               $from = SMTP_USER;
+               $fromName = 'svapo.de';
+               $to = 'info@svapo.de';
+     
+               $message = 'A user failed to create an order with the following error<br>';
+               $message .= $error;
+     
+               $this->sendMailSMTP($to, $subject, $from, $fromName, $message);
+          }
           // END 
      }
 

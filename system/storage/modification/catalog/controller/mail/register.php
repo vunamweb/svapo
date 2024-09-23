@@ -1,38 +1,5 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-
-require "PHPMailer.php";
-require "SMTP.php";
-require "Exception.php";
-
 class ControllerMailRegister extends Controller {
-	function sendMailSMTP($to, $subject, $from, $fromName, $message)
-    {
-		$mail = new PHPMailer();
-		$mail->IsSMTP(); // telling the class to use SMTP
-		$mail->SMTPDebug = 0; // enables SMTP debug information (for testing)
-		$mail->SMTPAuth = true; // enable SMTP authentication
-		$mail->SMTPSecure = "ssl"; // sets the prefix to the servier
-		$mail->Host = SMTP_HOST; // sets GMAIL as the SMTP server
-		$mail->Port = 465; // set the SMTP port for the GMAIL server
-		$mail->Username = SMTP_USER; // GMAIL username
-		$mail->Password = SMTP_PASSWORD;
-		$mail->CharSet = 'UTF-8';
-		$mail->AddAddress($to);
-		// $mail->addBcc("b@7sc.eu");
-		$mail->Subject = $subject;
-		$mail->FromName = $fromName;
-		$mail->From = $from;
-		$mail->IsHTML(true);
-		$mail->Body = $message;
-
-		if (!$mail->Send()) {
-			//echo "Mailer Error: " . $mail->ErrorInfo;
-		} else {
-			//echo "Message sent!";
-		}
-    }
-  
 	public function index(&$route, &$args, &$output) {
 		$this->load->language('mail/register');
 
@@ -100,7 +67,8 @@ class ControllerMailRegister extends Controller {
 		$fromName = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 		$message = $this->load->view('mail/register', $data);
 
-		$this->sendMailSMTP($to, $subject, 'info@svapo.de', $fromName, $message);
+		$this->document->sendMailSMTP($to, $subject, 'info@svapo.de', $fromName, $message);
+		//$this->sendMailSMTP($to, $subject, 'info@svapo.de', $fromName, $message);
 	}
 	
 	public function alert(&$route, &$args, &$output) {
@@ -159,7 +127,7 @@ class ControllerMailRegister extends Controller {
 			$fromName = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 			$message = $this->load->view('mail/register_alert', $data);
 
-			$this->sendMailSMTP($args[0]['email'], $subject, 'info@svapo.de', $fromName, $message);
+			$this->document->sendMailSMTP($args[0]['email'], $subject, 'info@svapo.de', $fromName, $message);
 
 			// Send to additional alert emails if new account email is enabled
 			$emails = explode(',', $this->config->get('config_mail_alert_email'));
