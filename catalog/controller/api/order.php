@@ -62,8 +62,8 @@ class ControllerApiOrder extends Controller {
 	public function checkAttributes($attributes, $jsonArray, string $parentKey = ''): bool {
 		$rawData = file_get_contents("php://input");
 
-		if(!$this->model_checkout_order->checkExistAttribute($jsonArray['pharmacy_id'], $jsonArray['internalOrderId']))
-	      return false; 
+		//if(!$this->model_checkout_order->checkExistAttribute($jsonArray['pharmacy_id'], $jsonArray['internalOrderId']))
+	      //return false; 
 		//print_r($jsonArray); die();
 		foreach ($attributes as $key => $value) {
 			// if is parent
