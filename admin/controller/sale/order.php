@@ -226,11 +226,21 @@ class ControllerSaleOrder extends Controller {
 		//print_r($results); die();
 
 		foreach ($results as $result) {
+		    $valueShipping = $this->config->get('shipping_flat_cost');
+		    $minShipping = $this->config->get('shipping_free_total');
+		    $totalOrder= $result['total'];
+		
+			// if is not free shipping, so addd shipping with subtotal and display
+			if($totalOrder < $minShipping) {
+				$totalOrder = $totalOrder + $valueShipping;
+			} 
+
 			$data['orders'][] = array(
 				'order_id'      => $result['order_id'],
 				'customer'      => $result['customer'],
 				'order_status'  => $result['order_status'] ? $result['order_status'] : $this->language->get('text_missing'),
-				'total'         => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
+				//'total'         => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
+				'total'         => $this->currency->format($totalOrder, $result['currency_code'], $result['currency_value']),
 				'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
 				'shipping_code' => $result['shipping_code'],
