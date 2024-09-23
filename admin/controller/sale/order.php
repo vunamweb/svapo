@@ -892,7 +892,8 @@ class ControllerSaleOrder extends Controller {
 
 			// Payment Address
 			if ($order_info['payment_address_format']) {
-				$format = $order_info['payment_address_format'];
+				// $format = $order_info['payment_address_format'];
+				$format = '{firstname} {lastname}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{postcode} {city}';
 			} else {
 				$format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
 			}
@@ -924,6 +925,7 @@ class ControllerSaleOrder extends Controller {
 			);
 
 			$data['payment_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+			// $data['payment_address'] = $format;
 
 			// Shipping Address
 			if ($order_info['shipping_address_format']) {
@@ -945,11 +947,20 @@ class ControllerSaleOrder extends Controller {
 				'{country}'
 			);
 
+			$address_shipping = '<br>';
+
+			// if address shipping containers number 
+			if (preg_match('/\d/', $order_info['shipping_address_1'])) {
+               $address_shipping .= $order_info['shipping_address_1'];
+			} else { // if address shipping not containers number  
+			    $address_shipping .= $order_info['payment_address_1'];
+			}
+
 			$replace = array(
 				'firstname' => $order_info['shipping_firstname'],
 				'lastname'  => $order_info['shipping_lastname'],
 				'company'   => $order_info['shipping_company'],
-				'address_1' => $order_info['shipping_address_1'],
+				'address_1' => $address_shipping, //$order_info['shipping_address_1'],
 				'address_2' => $order_info['shipping_address_2'],
 				'city'      => $order_info['shipping_city'],
 				'postcode'  => $order_info['shipping_postcode'],

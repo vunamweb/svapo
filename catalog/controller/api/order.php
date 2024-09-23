@@ -690,7 +690,7 @@ class ControllerApiOrder extends Controller {
             $order_data['payment_firstname'] = $data['customer']['firstname'];
 			$order_data['payment_lastname'] = $data['customer']['lastname'];
 			$order_data['payment_company'] = '';
-			$order_data['payment_address_1'] = $data['customer']['homeAddress']['streetName'].' '.$data['customer']['homeAddress']['houseNr'];
+			$order_data['payment_address_1'] = ' ' . $data['customer']['homeAddress']['streetName'].' '.$data['customer']['homeAddress']['houseNr'] . ' ';
 			$order_data['payment_address_2'] = '';
 			$order_data['payment_city'] =  $data['customer']['homeAddress']['city'] . ' ';
 			$order_data['payment_postcode'] = $data['customer']['homeAddress']['postalCode'];
@@ -1762,6 +1762,19 @@ class ControllerApiOrder extends Controller {
 		return $obj;
     }
 
+	public function getAddressOfOrder($order_info) {
+	   //print_r($order_info); die();	
+       $address_shipping = $order_info['shipping_address_1'];
+	   $address_payment = $order_info['payment_address_1'];
+
+	   // if address shipping containers number  
+	   if (preg_match('/\d/', $address_shipping)) {
+		return $address_shipping;
+	   } else { // if address shipping not containers number  
+		return $address_payment;
+	   }
+	}
+
 	public function sendDhlShipmentRequest($order_id) {
 		$url = 'https://api-eu.dhl.com/parcel/de/shipping/v2/orders';
 
@@ -1802,7 +1815,8 @@ class ControllerApiOrder extends Controller {
 		//die();
 		
         $name2 = $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'];
-		$address2 = $order_info['shipping_address_1'];
+		$address2 = $this->getAddressOfOrder($order_info); //$order_info['shipping_address_1'];
+		//echo $address2; die();
 		$postCode2 = $order_info['shipping_postcode'];
 		$city2 = $order_info['shipping_city'];
 		$country2 = $order_info['shipping_iso_code_3'];
