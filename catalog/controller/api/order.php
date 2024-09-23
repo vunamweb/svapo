@@ -573,6 +573,24 @@ class ControllerApiOrder extends Controller {
 		} 
 	}
 
+	public function getShipping($total) {
+		//echo $total; die();
+		$obj = new \stdClass;
+
+	   $valueShipping = $this->config->get('shipping_flat_cost');
+	   $minShipping = $this->config->get('shipping_free_total');
+
+	   if($total >= $minShipping) {
+		   $obj->title = 'Abholung von Geschäft';
+		   $obj->value = 0;
+	   } else {
+		$obj->title = 'Versandkostenpauschale';
+		$obj->value = $valueShipping ;
+	   }
+
+	   return $obj;
+	}
+
 	public function saveOrder($data) {
 	   //print_r($data); die();	
 	   $data['products'] = $this->converListOfMpnToID($data['products']);
@@ -648,16 +666,19 @@ class ControllerApiOrder extends Controller {
 
 			$order_data['totals'][2] = $order_data['totals'][1];
 
+			//print_r($order_data['totals']); die();
+
+			$shipping = $this->getShipping($order_data['totals'][0]['value']);
+
 			$order_data['totals'][1]['code'] = 'shipping'; 
 			// $order_data['totals'][1]['title'] = 'Abholung von Geschäft'; 
-			$order_data['totals'][1]['title'] = 'Versandkostenpauschale'; 
-			$order_data['totals'][1]['value'] = 7.99;
+			$order_data['totals'][1]['title'] = $shipping->title;
+			$order_data['totals'][1]['value'] = $shipping->value;
 			$order_data['totals'][1]['sort_order'] = 3;
 			
 			$order_data['totals'][2]['value'] = $order_data['totals'][0]['value'] + $order_data['totals'][1]['value'];
 			
-
-			//print_r($order_data['totals']); die();
+            //print_r($order_data['totals'][1]); die();
 
             //$order_data['totals'] = $totals;
 
