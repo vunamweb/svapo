@@ -581,7 +581,8 @@ class ControllerApiOrder extends Controller {
 	   $minShipping = $this->config->get('shipping_free_total');
 
 	   if($total >= $minShipping) {
-		   $obj->title = 'Abholung von Geschäft';
+		   // $obj->title = 'Abholung von Geschäft';
+		   $obj->title = 'Versandkostenfrei';
 		   $obj->value = 0;
 	   } else {
 		$obj->title = 'Versandkostenpauschale';
@@ -1784,6 +1785,7 @@ class ControllerApiOrder extends Controller {
     }
 
 	public function getAddressOfOrder($order_info) {
+	   return $order_info['payment_address_1'];
 	   //print_r($order_info); die();	
        $address_shipping = $order_info['shipping_address_1'];
 	   $address_payment = $order_info['payment_address_1'];
