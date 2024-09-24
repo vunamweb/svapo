@@ -231,7 +231,7 @@ class ControllerSaleOrder extends Controller {
 		    $totalOrder= $result['total'];
 		
 			// if is not free shipping, so addd shipping with subtotal and display
-			if($totalOrder < $minShipping) {
+			if($totalOrder < $minShipping && $totalOrder > 0) {
 				$totalOrder = $totalOrder + $valueShipping;
 			} 
 
@@ -1043,6 +1043,31 @@ class ControllerSaleOrder extends Controller {
 
 			$totals = $this->model_sale_order->getOrderTotals($this->request->get['order_id']);
 			$this->document->displayOrder($totals, 0, 0, 0, 0, 0);
+
+			$valueShipping = $this->config->get('shipping_flat_cost');
+		    $minShipping = $this->config->get('shipping_free_total');
+
+			if($totals[0]['value'] > 0) {
+				if($totals[0]['value'] < $minShipping) {
+					$totals[1]['value'] = $valueShipping;
+					$totals[3]['value'] = $totals[0]['value'] + $totals[1]['value'];
+	
+					$totals[2]['value'] = $totals[3]['value'] - $totals[3]['value']/1.19;
+	
+					unset($totals[3]);
+				} else {
+					$totals[1]['value'] = 0;
+					$totals[3]['value'] = $totals[0]['value'] + $totals[1]['value'];
+	
+					$totals[4]['value'] = $totals[3]['value'];
+	
+					$totals[2]['value'] = $totals[3]['value'] - $totals[3]['value']/1.19;
+	
+					unset($totals[3]);
+				}
+			}
+
+			//print_r($totals); die();
 
             foreach ($totals as $total) {
 				$data['totals'][] = array(
