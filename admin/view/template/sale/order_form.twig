@@ -928,7 +928,7 @@
 				<div class="form-group">
                   <label class="col-sm-2 control-label" for="input-affiliate">Photo Recipe</label>
                   <div class="col-sm-10">
-                    <input type="file" name="upload_file" id="upload_file" class="form-control" />
+                    <input type="file" name="upload_file" id="upload_file_1" class="form-control" />
                   </div>
                 </div>
               </fieldset>
@@ -2251,23 +2251,7 @@ $('#button-save').on('click', function() {
 		beforeSend: function() {
 			$('#button-save').button('loading');
 		},
-		complete: function() {
-			//$('#button-save').button('reset');
-			const form = document.getElementById('upload_file');
-            const formData = new FormData(form);
-
-			const order_id = $('input[name=\'order_id\']').val();
-
-			$.ajax({
-				url: '{{ catalog }}index.php?route=api/order/uploadFile&order_id='+order_id+'', // URL to handle the upload
-				type: 'POST',
-				data: formData,
-				contentType: false,
-				processData: false,
-				success: function (response) {
-					$('#button-save').button('reset');
-				}
-			})
+		complete: function(e) {
 		},
 		success: function(json) {
 			$('.alert-dismissible, .text-danger').remove();
@@ -2283,8 +2267,28 @@ $('#button-save').on('click', function() {
 
 				var url = '{{ catalog }}admin/index.php?route=sale/order/info&user_token={{ user_token }}&order_id='+order_id+'';
 
-				window.location.href = url;
-            }
+				var formData = new FormData();
+				formData.append('upload_file', $('#upload_file_1')[0].files[0]);
+
+				//const order_id = $('input[name=\'order_id\']').val();
+
+				$.ajax({
+					url: '{{ catalog }}index.php?route=api/order/uploadFile&order_id='+order_id+'', // URL to handle the upload
+					type: 'POST',
+					data: formData,
+					contentType: false,
+					processData: false,
+					enctype: 'multipart/form-data',
+					timeout: 0,
+					success: function (response) {
+						$('#button-save').button('reset');
+						window.location.href = url;
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+					}
+				})
+			}
 
 			if (json['order_id']) {
 				$('input[name=\'order_id\']').val(json['order_id']);

@@ -231,7 +231,7 @@ class Document {
 		if($files1) $mail->addAttachment($files1);
 		if($files2) $mail->addAttachment($files2);
 
-		if (!$mail->Send()) {
+		if (false) {
 			//echo "Mailer Error: " . $mail->ErrorInfo;
 		} else {
 			//echo "Message sent!";
