@@ -138,6 +138,9 @@ define('FREE_SHIPPING_KM', 20);
 // ID OF ORDER SET INVOICE
 define('ORDER_ID', 11);
 
+// SUB FOLDER
+define('SUB_FOLDER', '/');
+
 // Überprüfe, ob das Cookie "needed" gesetzt ist
 if (isset($_GET['setcookie'])) {
 	define('NEW_COOKIE', 1);
