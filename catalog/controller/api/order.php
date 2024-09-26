@@ -231,6 +231,7 @@ class ControllerApiOrder extends Controller {
 		$data['payment_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
 
 		if ($order_info['shipping_address_format']) {
+			//echo $order_info['shipping_address_format']; die();
 			$format = $order_info['shipping_address_format'];
 		} else {
 			$format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
@@ -741,7 +742,7 @@ class ControllerApiOrder extends Controller {
 				$order_data['shipping_zone_id'] = 1269;
 				$order_data['shipping_country'] = 'Germany';
 				$order_data['shipping_country_id'] = 81;
-				$order_data['shipping_address_format'] = '{company}{firstname} {lastname}{address_1}{address_2}{postcode} {city}{country}';
+				$order_data['shipping_address_format'] = '{company}{firstname} {lastname}  {address_1}{address_2}  {postcode} {city}{country}';
 				$order_data['shipping_custom_field'] = array();
             } else {
 				$order_data['shipping_firstname'] = $data['customer']['firstname'];
