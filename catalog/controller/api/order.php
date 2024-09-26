@@ -253,7 +253,7 @@ class ControllerApiOrder extends Controller {
 			'firstname' => $order_info['shipping_firstname'],
 			'lastname'  => $order_info['shipping_lastname'],
 			'company'   => $order_info['shipping_company'],
-			'address_1' => $order_info['shipping_address_1'],
+			'address_1' => $order_info['payment_address_1'],
 			'address_2' => $order_info['shipping_address_2'],
 			'city'      => $order_info['shipping_city'],
 			'postcode'  => $order_info['shipping_postcode'],
