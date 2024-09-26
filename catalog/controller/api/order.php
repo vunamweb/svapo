@@ -733,10 +733,10 @@ class ControllerApiOrder extends Controller {
 				$order_data['shipping_firstname'] = $data['customer']['firstname'];
 				$order_data['shipping_lastname'] =  $data['customer']['lastname'];
 				$order_data['shipping_company'] = '';
-				$order_data['shipping_address_1'] = '<br>' . $data['customer']['deliveryAddress']['streetName'];
+				$order_data['shipping_address_1'] = ' ' . $data['customer']['deliveryAddress']['streetName'] . ' ';
 				$order_data['shipping_address_2'] = '';
 				$order_data['shipping_city'] = $data['customer']['deliveryAddress']['city'] . ' ';
-				$order_data['shipping_postcode'] = '<br>' . $data['customer']['deliveryAddress']['postalCode'];
+				$order_data['shipping_postcode'] = $data['customer']['deliveryAddress']['postalCode'];
 				$order_data['shipping_zone'] = 'Thüringen';
 				$order_data['shipping_zone_id'] = 1269;
 				$order_data['shipping_country'] = 'Germany';
