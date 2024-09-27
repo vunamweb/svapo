@@ -736,7 +736,7 @@ class ControllerApiOrder extends Controller {
 				$json = json_decode($response, true);					
 				$bestAddress = $this->getBestAddress($json);	
 				
-				print_r($bestAddress); die();
+				//print_r($bestAddress); die();
 				
 				$data['customer']['homeAddress']['streetName'] = $bestAddress['route'];
 				$data['customer']['homeAddress']['houseNr'] = $bestAddress['street_number'];
