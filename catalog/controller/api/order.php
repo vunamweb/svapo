@@ -4,6 +4,8 @@ include "./dompdf/autoload.inc.php";
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
+// Function for outputting the best possible address
+
 class ControllerApiOrder extends Controller {
 	public function getRequireAttribute() {
 		return [
@@ -231,7 +233,6 @@ class ControllerApiOrder extends Controller {
 		$data['payment_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
 
 		if ($order_info['shipping_address_format']) {
-			//echo $order_info['shipping_address_format']; die();
 			$format = $order_info['shipping_address_format'];
 		} else {
 			$format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
@@ -254,7 +255,7 @@ class ControllerApiOrder extends Controller {
 			'firstname' => $order_info['shipping_firstname'],
 			'lastname'  => $order_info['shipping_lastname'],
 			'company'   => $order_info['shipping_company'],
-			'address_1' => $order_info['payment_address_1'],
+			'address_1' => $order_info['shipping_address_1'],
 			'address_2' => $order_info['shipping_address_2'],
 			'city'      => $order_info['shipping_city'],
 			'postcode'  => $order_info['shipping_postcode'],
@@ -472,10 +473,15 @@ class ControllerApiOrder extends Controller {
 			}
 	
 			if($this->checkAttributes($this->getRequireAttribute(), $jsonData)) {
-			 $order_id = $this->saveOrder($jsonData);
-	
-			 if($order_id) {
-				$order_status_id = 18;
+			$response = $this->saveOrder($jsonData);
+
+			//print_r($response); die();
+
+			$order_id = $response->order_id;
+			$confirmed = $response->confirmed;
+
+			if($order_id) {
+				$order_status_id = ($confirmed == 1) ? 18 : 21;
 	
 				$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
 	
@@ -594,6 +600,9 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function saveOrder($data) {
+		$confirmed = 1;
+		$obj = new \stdClass;
+
 	   //print_r($data); die();	
 	   $data['products'] = $this->converListOfMpnToID($data['products']);
 
@@ -701,7 +710,50 @@ class ControllerApiOrder extends Controller {
 			}
 			
 			$this->load->model('account/customer');
+			
+			
+			// + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
+			// + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
+			$apiKey = 'AIzaSyAaohssv3AMP0VEeVk_pqPQpDK-ZKjiEn0';
+			$address = $data['customer']['homeAddress']['streetName'].' '.$data['customer']['homeAddress']['houseNr'].', '. $data['customer']['homeAddress']['postalCode'] .' '. $data['customer']['homeAddress']['city'];			
+			// API URL
+			$url = 'https://addressvalidation.googleapis.com/v1:validateAddress?key=' . $apiKey;			
+			// Adressdaten im JSON-Format (diesmal korrekt formatiert)
+			$data2google = json_encode([
+				"address" => [
+					"regionCode" => "DE", // Land (z.B. DE für Deutschland)
+					"addressLines" => [$address]
+				]
+			]);			
+			// HTTP-Optionen für den POST-Request
+			$options = [ 'http' => [ 'header'  => "Content-Type: application/json\r\n", 'method'  => 'POST', 'content' => $data2google, ], ];			
+			// Stream-Context erstellen
+			$context  = stream_context_create($options);			
+			// API-Aufruf durchführen und Antwort erhalten
+			$response = file_get_contents($url, false, $context);
+			// Überprüfen der API-Antwort
+			if ($response !== FALSE) {
+				$json = json_decode($response, true);					
+				$bestAddress = $this->getBestAddress($json);	
+				
+				print_r($bestAddress); die();
+				
+				$data['customer']['homeAddress']['streetName'] = $bestAddress['route'];
+				$data['customer']['homeAddress']['houseNr'] = $bestAddress['street_number'];
+				$data['customer']['homeAddress']['postalCode'] = $bestAddress['postal_code'];
+				$data['customer']['homeAddress']['city'] = $bestAddress['locality'];	
+				
+				$confirmed = $bestAddress['confirmed'];
 
+				// print_r($json);
+				// if confirmed status = 1 => status id : 18
+				// if confirmed status = 0 => status id : 21
+			}
+			
+			// + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
+			// + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
+			
+			
 			$order_data['customer_id'] = 0;
 			$order_data['customer_group_id'] = 1;
 			$order_data['firstname'] = $data['customer']['firstname'];
@@ -734,26 +786,28 @@ class ControllerApiOrder extends Controller {
 				$order_data['shipping_firstname'] = $data['customer']['firstname'];
 				$order_data['shipping_lastname'] =  $data['customer']['lastname'];
 				$order_data['shipping_company'] = '';
-				$order_data['shipping_address_1'] = ' ' . $data['customer']['deliveryAddress']['streetName'] . ' ';
+				$order_data['shipping_address_1'] = ' ' . $data['customer']['homeAddress']['streetName'].' '.$data['customer']['homeAddress']['houseNr'] . ' ';
+				// $order_data['shipping_address_1'] = '<br>' . $data['customer']['deliveryAddress']['streetName'];
 				$order_data['shipping_address_2'] = '';
-				$order_data['shipping_city'] = $data['customer']['deliveryAddress']['city'] . ' ';
-				$order_data['shipping_postcode'] = $data['customer']['deliveryAddress']['postalCode'];
-				$order_data['shipping_zone'] = 'Thüringen';
-				$order_data['shipping_zone_id'] = 1269;
+				$order_data['shipping_city'] = $data['customer']['homeAddress']['city'];
+				$order_data['shipping_postcode'] = $data['customer']['homeAddress']['postalCode'];
+				$order_data['shipping_zone'] = 'Hessen';
+				$order_data['shipping_zone_id'] = 1260;
 				$order_data['shipping_country'] = 'Germany';
 				$order_data['shipping_country_id'] = 81;
-				$order_data['shipping_address_format'] = '{company}{firstname} {lastname}  {address_1}{address_2}  {postcode} {city}{country}';
+				$order_data['shipping_address_format'] = '{company}{firstname} {lastname}  {address_1}{address_2}  {postcode} {city} {country}';
 				$order_data['shipping_custom_field'] = array();
             } else {
 				$order_data['shipping_firstname'] = $data['customer']['firstname'];
 				$order_data['shipping_lastname'] =  $data['customer']['lastname'];
 				$order_data['shipping_company'] = '';
-				$order_data['shipping_address_1'] = $order_data['payment_address_1'];
+				// $order_data['shipping_address_1'] = $order_data['payment_address_1'];
+				$order_data['shipping_address_1'] = ' ' . $data['customer']['homeAddress']['streetName'].' '.$data['customer']['homeAddress']['houseNr'] . ' ';
 				$order_data['shipping_address_2'] = '';
-				$order_data['shipping_city'] = $order_data['payment_city'];
-				$order_data['shipping_postcode'] = $order_data['payment_postcode'];
-				$order_data['shipping_zone'] = 'Thüringen';
-				$order_data['shipping_zone_id'] = 1269;
+				$order_data['shipping_city'] = $data['customer']['homeAddress']['city'];
+				$order_data['shipping_postcode'] = $data['customer']['homeAddress']['postalCode'];
+				$order_data['shipping_zone'] = 'Hessen';
+				$order_data['shipping_zone_id'] = 1260;
 				$order_data['shipping_country'] = 'Germany';
 				$order_data['shipping_country_id'] = 81;
 				$order_data['shipping_address_format'] = '{company}{firstname} {lastname}{address_1}{address_2}{postcode} {city}{country}';
@@ -830,7 +884,10 @@ class ControllerApiOrder extends Controller {
 
 			$this->cart->clear();
 
-			return $order_id;
+			$obj->order_id = $order_id;
+			$obj->confirmed = $confirmed;
+
+			return $obj;
         }
 	}
   
@@ -1923,5 +1980,38 @@ class ControllerApiOrder extends Controller {
 		
 		curl_close($ch);
 		return null;
+	}
+	
+	public function getBestAddress($response) {
+		$addressComponents = $response['result']['address']['addressComponents'];
+		$confirmed = 1;
+		$count = 0;
+		// Array for new address
+		$correctedAddress = [];
+	
+		// Füge nur bestätigte oder plausible Komponenten zur Ausgabe hinzu
+		foreach ($addressComponents as $component) {
+			$count++;
+			if($count<=5)  { 
+				if ($component['confirmationLevel'] === 'CONFIRMED') {
+					$component['componentName']['text'];
+					$correctedAddress[$component['componentType']] = $component['componentName']['text'];
+				}
+				else { 
+				// if ($component['confirmationLevel'] === 'UNCONFIRMED_BUT_PLAUSIBLE') {
+				// else if ($component['confirmationLevel'] === 'UNCONFIRMED_BUT_PLAUSIBLE') {
+					$correctedAddress[$component['componentType']] = $component['componentName']['text'];
+					$confirmed = 0;
+				}			
+			}
+		}
+	
+		$correctedAddress['confirmed'] = $confirmed;
+		
+		if (!empty($correctedAddress)) {
+			return $correctedAddress;
+		} else {
+			return null;
+		}
 	}
 }
