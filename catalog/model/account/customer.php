@@ -48,6 +48,12 @@ class ModelAccountCustomer extends Model {
 		return $query->row;
 	}
 
+	public function getGroupFromCustomer($customer_id) {
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE customer_id = '" . (int)$customer_id . "'");
+
+		return $query->row['customer_group_id'];
+	}
+
 	public function getCustomerByEmail($email) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "'");
 

@@ -708,18 +708,24 @@ class ControllerApiOrder extends Controller {
 	}
 	
 	public function converListOfMpnToID($products) {
-	   $result = array();
-	   
-	   foreach ($products as $product) {
-		   $product_id = $this->model_catalog_product->getIdFromMpn($product['id']);
-	
-		   $product['id'] = $product_id;
-	
-		   $result[] = $product;
-		}
+		$result = array();
 		
-		return $result;
-	}
+		foreach ($products as $product) {
+		   if($product['ansayProductId']) {
+			 //echo '1'; die();  
+			 $product_id = $this->model_catalog_product->getIdFromMpn($product['ansayProductId']);
+		   } else {
+			 //echo '2'; die();  
+			 $product_id = $this->model_catalog_product->getIdFromMpn($product['id']);
+		   } 
+	 
+		   $product['id'] = $product_id;
+		 
+		   $result[] = $product;
+		 }
+		 
+		 return $result;
+	 }
 
 	public function uploadFileToserver($filePath) {
 		// URL of the target server where the file will be uploaded
