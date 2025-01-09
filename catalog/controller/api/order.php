@@ -4,8 +4,6 @@ include "./dompdf/autoload.inc.php";
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-// Function for outputting the best possible address
-
 class ControllerApiOrder extends Controller {
 	public function getRequireAttribute() {
 		return [
@@ -119,7 +117,7 @@ class ControllerApiOrder extends Controller {
 	}
 
 
-	public function sendMail($order_info, $order_status_id = 0, $comment = null) {
+	public function sendMail($order_info, $order_status_id = 0, $customer_group_id, $deliveryType) {
 		// Check for any downloadable products
 		$download_status = false;
 
@@ -233,6 +231,7 @@ class ControllerApiOrder extends Controller {
 		$data['payment_address'] = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
 
 		if ($order_info['shipping_address_format']) {
+			//echo $order_info['shipping_address_format']; die();
 			$format = $order_info['shipping_address_format'];
 		} else {
 			$format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
@@ -255,7 +254,7 @@ class ControllerApiOrder extends Controller {
 			'firstname' => $order_info['shipping_firstname'],
 			'lastname'  => $order_info['shipping_lastname'],
 			'company'   => $order_info['shipping_company'],
-			'address_1' => $order_info['shipping_address_1'],
+			'address_1' => $order_info['payment_address_1'],
 			'address_2' => $order_info['shipping_address_2'],
 			'city'      => $order_info['shipping_city'],
 			'postcode'  => $order_info['shipping_postcode'],
@@ -396,7 +395,10 @@ class ControllerApiOrder extends Controller {
 		$subject = html_entity_decode(sprintf($language->get('text_subject'), 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
 		$fromName = html_entity_decode('svapo.de, '.$order_info['store_name'], ENT_QUOTES, 'UTF-8');
 
-		$message = $this->load->view('mail/order_add_customer_ansay', $data);
+		if($this->checkdeliveryType($deliveryType))
+		  $message = $this->load->view('mail/order_add_customer_process_17', $data);
+		else
+		  $message = ($customer_group_id == CUSTOMER_GROUP_ID) ? $this->load->view('mail/order_add_customer_ansay_special', $data) : $this->load->view('mail/order_add_customer_ansay', $data);
 
 		$options = new Options();
 		$options->set('tempDir', '/tmp');
@@ -415,14 +417,20 @@ class ControllerApiOrder extends Controller {
 		
 		$this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
 	}
+
+	public function checkdeliveryType($deliveryType) {
+		return (strtolower($deliveryType) == strtolower('pickup')) ? true : false;
+	}
 	
 	public function addOrder() {
+		$this->load->model('catalog/product');
+		$this->load->model('checkout/order');
+
 		$rawData = file_get_contents("php://input");
 
+		$this->model_checkout_order->saveJSONAnsay($rawData);
+
 		try {
-			$this->load->model('catalog/product');
-			$this->load->model('checkout/order');
-	
 			// Check for the Bearer token
 			$token = $this->getBearerToken();
 			//echo $token; die();
@@ -452,6 +460,8 @@ class ControllerApiOrder extends Controller {
 	
 			// Decode the JSON data
 			$jsonData = json_decode($rawData, true);
+			$deliveryType = $jsonData['deliveryType'];
+			//echo $deliveryType; die();
 	
 			// Check if the JSON data is valid and not empty
 			if (json_last_error() !== JSON_ERROR_NONE) {
@@ -478,10 +488,10 @@ class ControllerApiOrder extends Controller {
 			//print_r($response); die();
 
 			$order_id = $response->order_id;
-			$confirmed = $response->confirmed;
-
-			if($order_id) {
-				$order_status_id = ($confirmed == 1) ? 18 : 21;
+			$customer_group_id = $response->customer_group_id;
+	
+			 if($order_id) {
+				$order_status_id = ($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) ? ORDER_STATUS_ID : 18;
 	
 				$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
 	
@@ -490,13 +500,18 @@ class ControllerApiOrder extends Controller {
 	
 				// SEND MAIL
 				$order_info = $this->model_checkout_order->getOrder($order_id);
-				$this->sendMail($order_info, $order_status_id);
+				$this->sendMail($order_info, $order_status_id, $customer_group_id, $deliveryType);
 				// END
 	
 				echo json_encode(['codes' => 200, 'order_id' => $order_id]);
 			} else {
-				echo json_encode(['error_codes' => 401, 'error' => 'error while creating order']);
-				$this->document->writeLog($rawData, 'error while creating order');
+				$dataJSON = json_decode($rawData);
+
+				$errorLog = 'Error while creating order' . '<br>' . PHP_EOL;
+				$errorLog .= $dataJSON->customer->firstname . ' ' . $dataJSON->customer->lastname;
+				
+				echo json_encode(['error_codes' => 401, 'error' => $errorLog]);
+				$this->document->writeLog($rawData, $errorLog);
 			 }
 			}
 		} catch (\Exception $e) {
@@ -538,6 +553,39 @@ class ControllerApiOrder extends Controller {
 		return $result;
 	}
 
+	public function uploadFileToserver($filePath) {
+		// URL of the target server where the file will be uploaded
+		$targetUrl = URL_UPLOAD;
+
+		//echo $targetUrl . '///' . $filePath; die();
+		
+		// Initialize cURL session
+		$ch = curl_init();
+		
+		// Set cURL options
+		curl_setopt($ch, CURLOPT_URL, $targetUrl);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
+		
+		// Attach the file using the 'file' key
+		curl_setopt($ch, CURLOPT_POSTFIELDS, [
+			'file' => new CURLFile($filePath)
+		]);
+		
+		// Execute cURL request and capture the response
+		$response = curl_exec($ch);
+		
+		// Check for errors
+		if (curl_errno($ch)) {
+			return false;
+		} else {
+			return true;
+		}
+		
+		// Close cURL sessi
+	}
+
 	public function saveDocumentToServer($base64_string, $order_id) {
 		$mesage_error = 'Order created successfully, However upload document was failed because decode base 64 prescription URL' . 
 			'is not correct, maybe this url contains special character, Please correct it';
@@ -546,7 +594,7 @@ class ControllerApiOrder extends Controller {
 		$saveToDir = 'rEzEpT/'; // Make sure the folder has write permissions
 
 		// Filename (optional, you can also extract it from the URL)
-		$filename = 'document_ansay' . '_' . date("Y-m-d H:i:s") . '.pdf';
+		$filename = 'document_ansay_' . $order_id . '_' . date("Y-m-dH-i-s") . '.pdf';
 
 		// Complete path to save the file
 		$savePath = $saveToDir . $filename;
@@ -563,7 +611,20 @@ class ControllerApiOrder extends Controller {
 
 			// Save the file to the server
 			if (file_put_contents($savePath, $fileContent)) {
+			   // save name of file of order in database
 			   $this->model_checkout_order->editPhotoOrder($order_id, $filename);
+			   // upload file to server
+			   $this->uploadFileToserver($savePath);
+			   // delete file on local
+			   if (file_exists($savePath)) {
+				if (unlink($savePath)) {
+					//echo "File deleted successfully.";
+				} else {
+					//echo "Error: Could not delete the file.";
+				}
+			} else {
+				//echo "Error: File does not exist.";
+			}
 					//echo "File downloaded and saved successfully to $savePath";
 			} else {
 					//echo "Failed to save the file.";
@@ -580,14 +641,14 @@ class ControllerApiOrder extends Controller {
 		} 
 	}
 
-	public function getShipping($total) {
+	public function getShipping($total, $customer_group_id, $deliveryType) {
 		//echo $total; die();
 		$obj = new \stdClass;
 
 	   $valueShipping = $this->config->get('shipping_flat_cost');
 	   $minShipping = $this->config->get('shipping_free_total');
 
-	   if($total >= $minShipping) {
+	   if($total >= $minShipping || $customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) {
 		   // $obj->title = 'Abholung von Geschäft';
 		   $obj->title = 'Versandkostenfrei';
 		   $obj->value = 0;
@@ -600,9 +661,7 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function saveOrder($data) {
-		$confirmed = 1;
-		$obj = new \stdClass;
-
+	   $deliveryType = $data['deliveryType'];
 	   //print_r($data); die();	
 	   $data['products'] = $this->converListOfMpnToID($data['products']);
 
@@ -679,7 +738,19 @@ class ControllerApiOrder extends Controller {
 
 			//print_r($order_data['totals']); die();
 
-			$shipping = $this->getShipping($order_data['totals'][0]['value']);
+			$this->load->model('account/customer');
+
+			$email_customer = $data['customer']['email'];
+
+			$customerByEmail = $this->model_account_customer->getCustomerByEmail($email_customer);
+
+			$customer_id = $customerByEmail ? $customerByEmail['customer_id'] : 0;
+
+			$customer_group_id = $this->model_account_customer->getGroupFromCustomer($customer_id) ? $this->model_account_customer->getGroupFromCustomer($customer_id) : 1;
+
+			//echo 'customer_id: ' . $customer_id . '///' . 'customer_group_id: ' . $customer_group_id; die();
+			
+            $shipping = $this->getShipping($order_data['totals'][0]['value'], $customer_group_id, $deliveryType);
 
 			$order_data['totals'][1]['code'] = 'shipping'; 
 			// $order_data['totals'][1]['title'] = 'Abholung von Geschäft'; 
@@ -709,56 +780,11 @@ class ControllerApiOrder extends Controller {
 				}
 			}
 			
-			$this->load->model('account/customer');
-			
-			
-			// + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
-			// + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
-			$apiKey = 'AIzaSyAaohssv3AMP0VEeVk_pqPQpDK-ZKjiEn0';
-			$address = $data['customer']['homeAddress']['streetName'].' '.$data['customer']['homeAddress']['houseNr'].', '. $data['customer']['homeAddress']['postalCode'] .' '. $data['customer']['homeAddress']['city'];			
-			// API URL
-			$url = 'https://addressvalidation.googleapis.com/v1:validateAddress?key=' . $apiKey;			
-			// Adressdaten im JSON-Format (diesmal korrekt formatiert)
-			$data2google = json_encode([
-				"address" => [
-					"regionCode" => "DE", // Land (z.B. DE für Deutschland)
-					"addressLines" => [$address]
-				]
-			]);			
-			// HTTP-Optionen für den POST-Request
-			$options = [ 'http' => [ 'header'  => "Content-Type: application/json\r\n", 'method'  => 'POST', 'content' => $data2google, ], ];			
-			// Stream-Context erstellen
-			$context  = stream_context_create($options);			
-			// API-Aufruf durchführen und Antwort erhalten
-			$response = file_get_contents($url, false, $context);
-			// Überprüfen der API-Antwort
-			if ($response !== FALSE) {
-				$json = json_decode($response, true);					
-				$bestAddress = $this->getBestAddress($json);	
-				
-				//print_r($bestAddress); die();
-				
-				$data['customer']['homeAddress']['streetName'] = $bestAddress['route'];
-				$data['customer']['homeAddress']['houseNr'] = $bestAddress['street_number'];
-				$data['customer']['homeAddress']['postalCode'] = $bestAddress['postal_code'];
-				$data['customer']['homeAddress']['city'] = $bestAddress['locality'];	
-				
-				$confirmed = $bestAddress['confirmed'];
-
-				// print_r($json);
-				// if confirmed status = 1 => status id : 18
-				// if confirmed status = 0 => status id : 21
-			}
-			
-			// + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
-			// + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
-			
-			
-			$order_data['customer_id'] = 0;
-			$order_data['customer_group_id'] = 1;
+			$order_data['customer_id'] = $customer_id;
+			$order_data['customer_group_id'] = $customer_group_id; //1;
 			$order_data['firstname'] = $data['customer']['firstname'];
 			$order_data['lastname'] = $data['customer']['lastname'];
-			$order_data['email'] = $data['customer']['email'];
+			$order_data['email'] = $email_customer; //$data['customer']['email'];
 			$order_data['telephone'] = $data['customer']['phone'];
 			$order_data['custom_field'] = array();
 			
@@ -786,28 +812,26 @@ class ControllerApiOrder extends Controller {
 				$order_data['shipping_firstname'] = $data['customer']['firstname'];
 				$order_data['shipping_lastname'] =  $data['customer']['lastname'];
 				$order_data['shipping_company'] = '';
-				$order_data['shipping_address_1'] = ' ' . $data['customer']['homeAddress']['streetName'].' '.$data['customer']['homeAddress']['houseNr'] . ' ';
-				// $order_data['shipping_address_1'] = '<br>' . $data['customer']['deliveryAddress']['streetName'];
+				$order_data['shipping_address_1'] = ' ' . $data['customer']['deliveryAddress']['streetName'] . ' ';
 				$order_data['shipping_address_2'] = '';
-				$order_data['shipping_city'] = $data['customer']['homeAddress']['city'];
-				$order_data['shipping_postcode'] = $data['customer']['homeAddress']['postalCode'];
-				$order_data['shipping_zone'] = 'Hessen';
-				$order_data['shipping_zone_id'] = 1260;
+				$order_data['shipping_city'] = $data['customer']['deliveryAddress']['city'] . ' ';
+				$order_data['shipping_postcode'] = $data['customer']['deliveryAddress']['postalCode'];
+				$order_data['shipping_zone'] = 'Thüringen';
+				$order_data['shipping_zone_id'] = 1269;
 				$order_data['shipping_country'] = 'Germany';
 				$order_data['shipping_country_id'] = 81;
-				$order_data['shipping_address_format'] = '{company}{firstname} {lastname}  {address_1}{address_2}  {postcode} {city} {country}';
+				$order_data['shipping_address_format'] = '{company}{firstname} {lastname}  {address_1}{address_2}  {postcode} {city}{country}';
 				$order_data['shipping_custom_field'] = array();
             } else {
 				$order_data['shipping_firstname'] = $data['customer']['firstname'];
 				$order_data['shipping_lastname'] =  $data['customer']['lastname'];
 				$order_data['shipping_company'] = '';
-				// $order_data['shipping_address_1'] = $order_data['payment_address_1'];
-				$order_data['shipping_address_1'] = ' ' . $data['customer']['homeAddress']['streetName'].' '.$data['customer']['homeAddress']['houseNr'] . ' ';
+				$order_data['shipping_address_1'] = $order_data['payment_address_1'];
 				$order_data['shipping_address_2'] = '';
-				$order_data['shipping_city'] = $data['customer']['homeAddress']['city'];
-				$order_data['shipping_postcode'] = $data['customer']['homeAddress']['postalCode'];
-				$order_data['shipping_zone'] = 'Hessen';
-				$order_data['shipping_zone_id'] = 1260;
+				$order_data['shipping_city'] = $order_data['payment_city'];
+				$order_data['shipping_postcode'] = $order_data['payment_postcode'];
+				$order_data['shipping_zone'] = 'Thüringen';
+				$order_data['shipping_zone_id'] = 1269;
 				$order_data['shipping_country'] = 'Germany';
 				$order_data['shipping_country_id'] = 81;
 				$order_data['shipping_address_format'] = '{company}{firstname} {lastname}{address_1}{address_2}{postcode} {city}{country}';
@@ -884,8 +908,9 @@ class ControllerApiOrder extends Controller {
 
 			$this->cart->clear();
 
+			$obj = new \stdClass;
 			$obj->order_id = $order_id;
-			$obj->confirmed = $confirmed;
+			$obj->customer_group_id = $customer_group_id;
 
 			return $obj;
         }
@@ -931,6 +956,16 @@ class ControllerApiOrder extends Controller {
 		return $comment;
 	}
 
+	public function removeSpecialCharacter($fileName) {
+		$upload_file = $fileName;
+
+		$upload_file = trim($upload_file);
+		$upload_file = str_replace(' ', '', $upload_file);
+		$upload_file = str_replace(['(', ')'], '', $upload_file);
+
+		return $upload_file;
+	}
+
 	public function uploadFile() {
 		//echo 'ddd'; die();
 		$this->load->model('checkout/order');
@@ -939,9 +974,49 @@ class ControllerApiOrder extends Controller {
 
 		$namePhoto = $_FILES["upload_file"]["name"];
 
+        $namePhoto = $this->removeSpecialCharacter($namePhoto);
+		$namePhoto = date("Y-m-dH-i-s") . '_' . $namePhoto;
+
+		$tmpFilePath = $_FILES["upload_file"]['tmp_name'];
+		$fileName = $namePhoto;
+
+		// Open the file with CURLFile
+		$cfile = new CURLFile($tmpFilePath, $file['type'], $fileName);
+    
+		// Target server URL
+		$url = URL_UPLOAD;
+	
+		// Prepare the data for the POST request
+		$postData = [
+			'file' => $cfile,
+			// Add additional fields here if required
+			'additional_field' => 'value'
+		];
+	
+		// Initialize cURL session
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		
+		// Execute cURL and get the response
+		$response = curl_exec($ch);
+	
+		// Check for errors
+		if (curl_errno($ch)) {
+			echo 'Error:' . curl_error($ch);
+		} else {
+			$this->model_checkout_order->editPhotoOrder($order_id, $namePhoto);
+			echo 'Response from server: ' . $response;
+		}
+		
+		// Close cURL session
+		curl_close($ch);
+
 		//echo $namePhoto . 'ddd'; die();
 
-		$targetDirectory = "rEzEpT/"; // Directory where uploaded files will be saved
+		/*$targetDirectory = "rEzEpT/"; // Directory where uploaded files will be saved
 		$targetFile = $targetDirectory . basename($namePhoto); // Get the file name
 		
 		// Try to upload the file
@@ -949,7 +1024,7 @@ class ControllerApiOrder extends Controller {
 				$this->model_checkout_order->editPhotoOrder($order_id, $namePhoto);
 			} else {
 				echo "Sorry, there was an error uploading your file.";
-			}
+			}*/
 	}
 
 	public function add() {
@@ -1292,7 +1367,10 @@ class ControllerApiOrder extends Controller {
 
 				$this->load->model('checkout/order');
 
-				$json['order_id'] = $this->model_checkout_order->addOrder($order_data);
+				if($this->request->post['order_status_id'] == ORDER_STATUS_ID)
+				  $this->setNoShipping($order_data);
+				
+                $json['order_id'] = $this->model_checkout_order->addOrder($order_data);
 
 				// Set the order history
 				if (isset($this->request->post['order_status_id'])) {
@@ -1629,6 +1707,11 @@ class ControllerApiOrder extends Controller {
 						$order_data['commission'] = 0;
 					}
 
+					//print_r($order_data); die();
+					// if status is 17, then set shipping is 0
+					if($this->request->post['order_status_id'] == ORDER_STATUS_ID)
+					  $this->setNoShipping($order_data);
+
 					$this->model_checkout_order->editOrder($order_id, $order_data);
 
 					// Set the order history
@@ -1652,6 +1735,17 @@ class ControllerApiOrder extends Controller {
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
+	}
+
+	public function setNoShipping(&$order_data) {
+		//print_r($order_data); die();
+		$order_data['payment_method'] = 'Zahlung bei Abholung';
+		$order_data['payment_code'] = 'cod';
+		
+		$order_data['totals'][1]['title'] = 'Versandkostenfrei';
+		$order_data['totals'][1]['value'] = 0;
+
+		$order_data['totals'][2]['value'] = $order_data['totals'][0]['value'] + $order_data['totals'][1]['value'];
 	}
 
 	public function delete() {
@@ -1750,11 +1844,22 @@ class ControllerApiOrder extends Controller {
 
 			$order_info = $this->model_checkout_order->getOrder($order_id);
 
+			/*if(str_contains($order_info['upload_file'], 'prescription.pdf')) {
+				$json['error'] = 'Stop send for order has file upload prescription.pdf';
+
+				$this->response->addHeader('Content-Type: application/json');
+				$this->response->setOutput(json_encode($json));
+
+				return;
+			}*/
+			//print_r($order_info); die();
+
 			if ($order_info) {
 				if($this->request->post['order_status_id'] == ORDER_ID && $this->model_checkout_order->getDHLOrder($order_id) == ''){
 					$response = $this->sendDhlShipmentRequest($order_id);
 					//print_r($response); die();
 		
+					//if($response == null) {
 					if(isset($response['status']) && isset($response['status']['status']) && $response['status']['status'] == 200) {
 						$obj = new \stdClass;
 						$obj->label = $response['items'][0]['label'];
@@ -1771,16 +1876,27 @@ class ControllerApiOrder extends Controller {
 				
 				$this->model_checkout_order->addOrderHistory($order_id, $this->request->post['order_status_id'], $this->request->post['comment'], $this->request->post['notify'], $this->request->post['override']);
 
-				$json['success'] = $this->language->get('text_success');
+				// if DHL is ok
+				if(isset($response['status']) && isset($response['status']['status']) && $response['status']['status'] == 200)
+				//if($response == null)
+				  $json['success'] = $this->language->get('text_success');
+				// if DHL has error
+				else
+				  $json['error'] = $response;
+
 			} else {
 				$json['error'] = $this->language->get('error_not_found');
 			}
 		}
 
+		if(str_contains($order_info['upload_file'], 'prescription.pdf')) {
+				$json['error'] = 'Stop send for order has file upload prescription.pdf';
+        }
+
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
-
+      
 	public function getTotalWeight($products) {
 		$total_weight = 0;
 
@@ -1843,7 +1959,7 @@ class ControllerApiOrder extends Controller {
     }
 
 	public function getAddressOfOrder($order_info) {
-	   return $order_info['payment_address_1'];
+	   return trim($order_info['payment_address_1']);
 	   //print_r($order_info); die();	
        $address_shipping = $order_info['shipping_address_1'];
 	   $address_payment = $order_info['payment_address_1'];
@@ -1876,9 +1992,13 @@ class ControllerApiOrder extends Controller {
 
 		//print_r($order_info); die();
         //print_r($products); die(); 
-
-		$email = $order_info['email'];
-		$phone = $order_info['telephone'];
+		// EMAIL AND PHONE OF OWNER SHOP
+		$email1 = $this->config->get('config_email');
+		$phone1 = $this->config->get('config_telephone');
+		
+		// EMAIL AND PHONE OF CUSTOMER
+		$email2 = $order_info['email'];
+		$phone2 = $order_info['telephone'];
 
 		$name1 = $this->config->get('config_name');
 
@@ -1899,6 +2019,8 @@ class ControllerApiOrder extends Controller {
 		$address2 = $this->getAddressOfOrder($order_info); //$order_info['shipping_address_1'];
 		//echo $address2; die();
 		$postCode2 = $order_info['shipping_postcode'];
+		$postCode2 = str_replace('<br>', '', $postCode2);
+
 		$city2 = $order_info['shipping_city'];
 		$country2 = $order_info['shipping_iso_code_3'];
 		
@@ -1918,8 +2040,8 @@ class ControllerApiOrder extends Controller {
 				"postalCode": "'.$postCode1.'",
 				"city": "'.$city1.'",
 				"country": "'.$country1.'",
-				"email": "'.$email.'",
-				"phone": "'.$phone.'"
+				"email": "'.$email1.'",
+				"phone": "'.$phone1.'"
 				},
 				"consignee": {
 				"name1": "'.$name2.'",
@@ -1927,8 +2049,8 @@ class ControllerApiOrder extends Controller {
 				"postalCode": "'.$postCode2.'",
 				"city": "'.$city2.'",
 				"country": "'.$country2.'",
-				"email": "'.$email.'",
-				"phone": "'.$phone.'"
+				"email": "'.$email2.'",
+				"phone": "'.$phone2.'"
 				},
 				"details": {
 				"dim": {
@@ -1941,13 +2063,20 @@ class ControllerApiOrder extends Controller {
 					"uom": "g",
 					"value": 900
 				}
+				},
+				"services": {
+					"parcelOutletRouting": "'.$email2.'"
 				}
 			}
 			]
 		}
 		';
 
-		//print_r($shipmentDetails); die();
+		/*if($order_id == 9014) {
+			print_r($shipmentDetails); 
+			die();
+		}*/
+		
 
 		$ch = curl_init($url);
 		
@@ -1969,49 +2098,19 @@ class ControllerApiOrder extends Controller {
 		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		
 		if (curl_errno($ch)) {
-			echo 'cURL Error: ' . curl_error($ch);
+			return 'Error';
+			//echo 'cURL Error: ' . curl_error($ch);
 		} else {
 			if ($httpCode == 200) {
+				//return null;
 				return json_decode($response, true);
 			} else {
-				echo "HTTP Request failed. Status code: $httpCode. Response: $response";
+				return $response;
+				//echo "HTTP Request failed. Status code: $httpCode. Response: $response";
 			}
 		}
 		
 		curl_close($ch);
 		return null;
-	}
-	
-	public function getBestAddress($response) {
-		$addressComponents = $response['result']['address']['addressComponents'];
-		$confirmed = 1;
-		$count = 0;
-		// Array for new address
-		$correctedAddress = [];
-	
-		// Füge nur bestätigte oder plausible Komponenten zur Ausgabe hinzu
-		foreach ($addressComponents as $component) {
-			$count++;
-			if($count<=5)  { 
-				if ($component['confirmationLevel'] === 'CONFIRMED') {
-					$component['componentName']['text'];
-					$correctedAddress[$component['componentType']] = $component['componentName']['text'];
-				}
-				else { 
-				// if ($component['confirmationLevel'] === 'UNCONFIRMED_BUT_PLAUSIBLE') {
-				// else if ($component['confirmationLevel'] === 'UNCONFIRMED_BUT_PLAUSIBLE') {
-					$correctedAddress[$component['componentType']] = $component['componentName']['text'];
-					$confirmed = 0;
-				}			
-			}
-		}
-	
-		$correctedAddress['confirmed'] = $confirmed;
-		
-		if (!empty($correctedAddress)) {
-			return $correctedAddress;
-		} else {
-			return null;
-		}
 	}
 }

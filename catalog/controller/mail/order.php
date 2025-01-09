@@ -1,8 +1,9 @@
 <?php
 include "./dompdf/autoload.inc.php";
-//require_once('./fpdi/autoload.php');
+require_once('./fpdi/autoload.php');
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use setasign\Fpdi\Fpdi;
 
 class ControllerMailOrder extends Controller {
 	public function index(&$route, &$args) {
@@ -46,7 +47,29 @@ class ControllerMailOrder extends Controller {
 		}
 	}
 		
+	public function getOrderStatusID($order_status_id, $customer_group_id) {
+		if($customer_group_id == CUSTOMER_GROUP_ID)
+		 return ORDER_STATUS_ID;
+		
+		return $order_status_id; 
+	}
+
 	public function add($order_info, $order_status_id, $comment, $notify) {
+		$this->load->model('account/customer');
+
+		// get customer group id
+		$customer_id = $order_info['customer_id'];
+		//$customer_group_id = $this->model_account_customer->getGroupFromCustomer($customer_id);
+
+		$order_id = $order_info['order_id'];
+
+		// if is customer group special
+		/*if($order_status_id != $this->getOrderStatusID($order_status_id, $customer_group_id)) {
+			$order_status_id = $this->getOrderStatusID($order_status_id, $customer_group_id);
+
+			$this->model_checkout_order->editStatusOrder($order_id, $order_status_id);
+		}*/
+		
 		// Check for any downloadable products
 		$download_status = false;
 
@@ -373,7 +396,18 @@ class ControllerMailOrder extends Controller {
 		
 		//print_r($order_total); die();
 		if($order_total['value'] > 0)
-		  $this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
+		  $this->sendMail($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
+	}
+
+	public function sendMail($email, $subject, $SMTP_USER, $fromName, $message, $type, $pdf_name, $order_status_id = null, $data = null) {
+		// if order_status_id is in array of status_id
+		if(in_array($order_status_id, ORDER_STATUS_ID_ARRAY)) {
+			// define message
+			$message = $this->load->view('mail/order_add_customer_process_'.$order_status_id.'', $data);
+			$this->document->sendMailSMTP($email, $subject, $SMTP_USER, $fromName, $message, $type, $pdf_name);
+        } else { // if order_status_id is not in array of status_id
+			$this->document->sendMailSMTP($email, $subject, $SMTP_USER, $fromName, $message, $type, $pdf_name);
+        }
 	}
 
 	public function edit($order_info, $order_status_id, $comment) {
@@ -562,6 +596,7 @@ class ControllerMailOrder extends Controller {
 				'quantity' => $order_product['quantity'],
 				'price_int' => $order_product['price'],
 				'manufacture' => $order_product['manufacture'],
+				'upc'         => $order_product['upc'], 
 				'price'    => $this->currency->format($order_product['price'] + ($this->config->get('config_tax') ? $order_product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
 				'total'    => $this->currency->format($order_product['total'] + ($this->config->get('config_tax') ? ($order_product['tax'] * $order_product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value'])
 			);
@@ -656,6 +691,7 @@ class ControllerMailOrder extends Controller {
 		$data['text_inform_order'] = $language->get('text_inform_order');
 
 		$data['order_id'] = ( $order_status_id == ORDER_ID) ? $order_info['invoice_prefix'] . $invoiceNumber : $order_info['order_id'];
+		$data['auftrag_id'] = $order_info['order_id'];
 
 		$data['firstname'] = $order_info['firstname'];
 		$data['lastname'] = $order_info['lastname'];
@@ -664,21 +700,6 @@ class ControllerMailOrder extends Controller {
 		$dhl = json_decode($data['dhl']);
 
 		$data['trackingnumber'] = '<a target="_blank" href="https://www.dhl.de/de/privatkunden/dhl-sendungsverfolgung.html?piececode='.$dhl->shipmentNo.'">' . $dhl->shipmentNo . '</a>';
-
-		/*$mail = new Mail($this->config->get('config_mail_engine'));
-		$mail->parameter = $this->config->get('config_mail_parameter');
-		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-		$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-		$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-		$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-		$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
-
-		$mail->setTo($order_info['email']);
-		$mail->setFrom($from);
-		$mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
-		$mail->setSubject(html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8'));
-		$mail->setText($this->load->view('mail/order_edit', $data));
-		$mail->send();*/
 
 		//create pdf
 		$options = new Options();
@@ -689,14 +710,61 @@ class ControllerMailOrder extends Controller {
 		// $dompdf->setHtmlFooter($htmlFooter);
 		
 		$status = false;
+		// If is DHL
 		if($order_status_id == ORDER_ID) {
-			//$this->exportPdfToSign($order_info, $data['products']);
-			//die();
+			$urlPDF = HTTP_SERVER . 'rEzEpT/' . $order_info['upload_file'];
 
+			$upload_file = $order_info['upload_file'];
+			$upload_file = trim($upload_file);
+			$upload_file = str_replace(' ', '', $upload_file);
+			$upload_file = str_replace(['(', ')'], '', $upload_file);
+			$upload_file = str_replace([':'], '-', $upload_file);
+
+			if($this->isPdf($urlPDF)) {
+				//echo '1'; die();
+				$this->exportPdfToSign($order_info, $data['products']);
+				$status = 2;
+
+				if(str_contains($order_info['upload_file'], 'prescription.pdf')) {
+					$status = 3;
+	            }
+			} else {
+				//echo '2'; die();
+				$status = 3;
+			}
+            $pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
+			$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
+			$file_location = "./admin/invoice/".$pdf_name;
+			//$status = 1;
+			$dompdf->setPaper('A4', 'Horizontal');
+			$dompdf->render();
+			$pdf = $dompdf->output();
+			// $file_location = "./pdf/Rechnung-svapo.pdf";
+			file_put_contents($file_location, $pdf);
+			//end
+			// $subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+			$subject = html_entity_decode(sprintf('%s - Rechnung - ' . $order_info['order_id'], 'svapo.de, '.$order_info['store_name']), ENT_QUOTES, 'UTF-8');
+			$message = $this->load->view('mail/order_invoice', $data);
+		} /*else if($order_status_id == 23) {
+			$urlPDF = HTTP_SERVER . 'rEzEpT/' . $order_info['upload_file'];
+
+			$upload_file = $order_info['upload_file'];
+			$upload_file = trim($upload_file);
+		    $upload_file = str_replace(' ', '', $upload_file);
+
+			
+			if($this->isPdf($urlPDF)) {
+				//echo '1'; die();
+				$this->exportPdfToSign($order_info, $data['products']);
+				$status = 2;
+			} else {
+				//echo '2'; die();
+				$status = 3;
+			}
+			
 			$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
 			$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
 			$file_location = "./admin/invoice/".$pdf_name;
-			$status = 1;
 			$dompdf->setPaper('A4', 'Horizontal');
 			$dompdf->render();
 			$pdf = $dompdf->output();
@@ -706,7 +774,7 @@ class ControllerMailOrder extends Controller {
 			// $subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
 			$subject = html_entity_decode(sprintf('%s - Rechnung', 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
 			$message = $this->load->view('mail/order_invoice', $data);
-		}
+		}*/
     	else {
 			// $pdf_name = 'Auftragsbestaetigung-svapo-'.$order_info['order_id'].'.pdf';
 			// $dompdf->loadHtml($this->load->view('mail/order_pdf', $data));
@@ -716,7 +784,7 @@ class ControllerMailOrder extends Controller {
 			$message = $this->load->view('mail/order_edit', $data);
 		} 
 	
-        $this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $from, $message, 'edit', $pdf_name, $status);
+        $this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $from, $message, 'edit', $pdf_name, $status, $upload_file);
 	}
 
 	public function getDateOrder($order_info) {
@@ -778,13 +846,106 @@ class ControllerMailOrder extends Controller {
 		//$pdf->Write(0, '2345,6');
 	}
 
+	public function convertPDFToVersionLow($inputFile, $outputFile, $pdfVersion) {
+		// copy input file for the problem space
+		$new_input = trim($inputFile);
+		$new_input = str_replace(' ', '', $new_input);
+
+		$new_input = str_replace(['(', ')'], '', $new_input);
+
+		if($new_input != $inputFile)
+		  copy($inputFile, $new_input);
+		//  END 
+
+		// delete old file
+		if (file_exists($outputFile))
+		  unlink($outputFile);
+			
+		// Ghostscript command to convert PDF to a specific version
+		$command = "gs -dCompatibilityLevel=$pdfVersion -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -sOutputFile=$outputFile $new_input";
+
+		// Execute the command
+		exec($command, $output, $return_var);
+
+		/*if ($return_var === 0) {
+			echo "PDF successfully converted to version $pdfVersion.";
+		} else {
+			echo "Error in converting PDF.";
+		}*/
+    }
+
+	function isPdf($url) {
+		if(strpos($url, 'PDF') !== false || strpos($url, 'pdf') !== false)
+		  return true;
+        else 
+		  return false;
+		//echo $url; die();
+
+		// Fetch headers for the URL
+		/*$headers = get_headers($url, 1); // The 1 argument returns the headers as an associative array
+		
+		// Check if Content-Type is set and is 'application/pdf'
+		if (isset($headers['Content-Type'])) {
+			// Check if the Content-Type is an array (it can happen when there are redirects)
+			if (is_array($headers['Content-Type'])) {
+				return in_array('application/pdf', $headers['Content-Type']);
+			}
+			
+			// If not an array, simply compare
+			return $headers['Content-Type'] === 'application/pdf';
+		}
+		
+		return false;*/
+	}
+
+	public function uploadFileToLocal($localFilePath, $remoteFileUrl) {
+		// Get the contents of the remote file
+		$fileContents = file_get_contents($remoteFileUrl);
+
+		if ($fileContents !== false) {
+			// Save the file locally
+			if (file_put_contents($localFilePath, $fileContents)) {
+				//echo 'File successfully downloaded and saved locally.';
+			} else {
+				//echo 'Failed to save the file locally.';
+			}
+		} else {
+			//echo 'Failed to retrieve the file from the remote server.';
+		}
+	}
+	
 	public function exportPdfToSign($order_info, $products) {
+		$existLocalfile = true;
+
 		//print_r($products); die();
 		$upload_file = $order_info['upload_file'];
+
+		$inputFile  = 'rEzEpT/' . $upload_file;
+
+		// file on server
+		$remoteFileUrl = PATH_FILE_UPLOAD . $upload_file;
+
+		// upload file from server to local
+		if(!file_exists($inputFile)) {
+			$this->uploadFileToLocal($inputFile, $remoteFileUrl);
+			$existLocalfile = false;
+		}
+		
+		$outputFile = trim('pdf/' . 'DHL_' . $upload_file);
+		//$outputFile = trim('pdf/' . 'upload.pdf');
+		$outputFile = str_replace(' ', '', $outputFile);
+		$outputFile = str_replace(['(', ')'], '', $outputFile);
+		$outputFile = str_replace([':'], '-', $outputFile);
+		
+        //echo $outputFile; die();
+
+		$this->convertPDFToVersionLow($inputFile, $outputFile, 1.4);
+		//die();
+		
 		//print_r($order_info); die();
 		// Path to the existing PDF
-		//$pdfFilePath = 'rEzEpT/' . $upload_file;
-		$pdfFilePath = 'rEzEpT/test_convert.pdf';
+		$pdfFilePath = $outputFile; //'rEzEpT/' . $upload_file;
+		//$pdfFilePath = 'rEzEpT/test_convert.pdf';
 		
         $dateAdd = $this->getDateOrder($order_info);
 		$phone = '5314146'; //$order_info['telephone'];
@@ -861,68 +1022,138 @@ class ControllerMailOrder extends Controller {
 			$pdf->Write(0, 1);
 
 			// Add the total
-			$pdf->SetXY($initX + $spaceXEachProduct + $spaceX1EachProduct , $initY + $spaceYareaProduct + $spaceY1areaProduct * $position); // X and Y position
-			$pdf->Write(0, str_replace('.', ',', $total));
+			//$total = 193;
+			$total = number_format($total, 2, '.', ',');
+			$newTotal = str_replace('.', ',', $total);
+			$spaceTotal = strlen($newTotal) - 4;
+			$pdf->SetXY($initX + $spaceXEachProduct + $spaceX1EachProduct + $spaceTotal , $initY + $spaceYareaProduct + $spaceY1areaProduct * $position); // X and Y position
+			$pdf->Write(0, $newTotal);
 			//$this->setTextRight($pdf, str_replace('.', ',', $total), $initY + $spaceYareaProduct + $spaceY1areaProduct * $position);
 
 			$position++;
 		}
 
 		// total of product
-		$pdf->SetXY($initX + $spaceXTotal, $initY + $spaceYTotal); // X and Y position
+		$totalProduct = number_format($totalProduct, 2, '.', ',');
+		//$totalProduct = 156.98;
+		$spaceTotal = 162/(strlen(str_replace('.', ',', $totalProduct)) + 3);
+		
+		$pdf->SetXY($initX + $spaceXTotal + $spaceTotal, $initY + $spaceYTotal); // X and Y position
 		$pdf->Write(0, str_replace('.', ',', $totalProduct));
 		//$this->setTextRight($pdf, str_replace('.', ',', $totalProduct), $initY + $spaceYTotal);
 
 		// temp
 		$yLogo = $pageHeight/2;
 		$xLogo = 30;
-		$pdf->Image('pdf/logo.png', $xLogo, $yLogo, 30, 9 );
+		$pdf->Image('pdf/svapo-stamp.png', $xLogo, $yLogo, 100, 56 );
 
 		// add infor below temp
-		$yLogo = $yLogo + 12;
+		/*$yLogo = $yLogo + 12;
 		$this->setTextCenter($pdf, "Schloss Apotheke", $yLogo);
 		$this->setTextCenter($pdf, "Apotheker Paschalis Papadopoulos", $yLogo + 5);
 		$this->setTextCenter($pdf, iconv('utf-8', 'cp1252', "Bürgeler Str. 35 • 63075 Offenbach"), $yLogo + 10);
 		$this->setTextCenter($pdf, "Tel: 0155 66 200 690", $yLogo + 15);
-		$this->setTextCenter($pdf, "info@svapo.de", $yLogo + 20);
+		$this->setTextCenter($pdf, "info@svapo.de", $yLogo + 20);*/
+
+		$yLogo = $yLogo + 30;
 
 		// add list of product below infor
 		$position = 0;
 		
         foreach($products as $product) {
-			$name = $product['quantity'] . 'g ' . $product['name'];
+			//print_r($product); die();
+			$name = $product['quantity'] . 'g ' . $product['name'] . ' | ';
+			//$manufacture = $product['manufacture'] . ' | ';
 			$manufacture = $product['manufacture'];
+			$chargenNumer = $product['upc'] . ' | ';
 
 			$quantity = $product['quantity'];
 			$price = $product['price_int'];
 
-			$total = $price * $quantity . '€';
+			$total = $price * $quantity;
+			$total = number_format($total, 2, '.', ',');
+			$total = $total . '€';
 			$total = str_replace('.', ',', $total);
 			
 			// Add the name
 			$space = 30;
-			$spaceY1areaProduct = $spaceY1areaProduct;
+			$spaceY1areaProduct = 5;//$spaceY1areaProduct;
 			$spaceXEachProduct = $spaceXEachProduct + 30;
 			
 			$pdf->SetXY($xLogo, $yLogo + $space + $spaceY1areaProduct * $position); // X and Y position
-			$pdf->Write(0, $name);
+			//$pdf->Write(0, iconv('utf-8', 'cp1252', $name . $manufacture . $chargenNumer . $total));
+			$pdf->Write(0, iconv('utf-8', 'cp1252', $name . $manufacture));
+			
+            /*$space_1 = 5;
+			$increase = 1.7;
 
 			// Add the manufacture
-			$pdf->SetXY($xLogo + 80, $yLogo + $space + $spaceY1areaProduct * $position); // X and Y position
+			$pdf->SetXY($xLogo + $space_1 + strlen($name) * $increase, $yLogo + $space + $spaceY1areaProduct * $position); // X and Y position
 			$pdf->Write(0, $manufacture);
 
+			// Add the chargen nummer
+			$pdf->SetXY($xLogo + $space_1 * 1.5 + strlen($name) * $increase + strlen($manufacture) * $increase, $yLogo + $space + $spaceY1areaProduct * $position); // X and Y position
+			$pdf->Write(0, $chargenNumer);
+
 			// Add the total
-			$pdf->SetXY($xLogo + 150, $yLogo + $space + $spaceY1areaProduct * $position); // X and Y position
-			$pdf->Write(0, iconv('utf-8', 'cp1252', $total));
+			$pdf->SetXY($xLogo + $space_1 * 2.5 + strlen($name) * $increase + strlen($manufacture) * $increase + strlen($chargenNumer) * $increase, $yLogo + $space + $spaceY1areaProduct * $position); // X and Y position
+			$pdf->Write(0, iconv('utf-8', 'cp1252', $total)); */
 
 			$position++;
 		}
 		
 		// Output the new PDF
-		$newPdfFilePath = 'pdf/sign-pdf.pdf';
+		$newPdfFilePath = $outputFile; //'pdf/sign-pdf-test.pdf';
+		// BJOERN STOPPED GENERATE PDF
 		$pdf->Output($newPdfFilePath, 'F');
+		// upload file to server
+		$this->uploadFileToserver($newPdfFilePath);
+		// delete file reciepe of DHL on local
+		$this->deleteFile($newPdfFilePath);
+		// if not implement before, then delete local
+		if(!$existLocalfile)
+		$this->deleteFile($inputFile);
+	}
 
-		//echo "PDF modified successfully!";
+	public function deleteFile($file) {
+		if (file_exists($file)) {
+			if (unlink($file)) {
+				//echo "File deleted successfully.";
+			} else {
+				//echo "Error: Could not delete the file.";
+			}
+		}
+	}
+
+	public function uploadFileToserver($filePath) {
+		// URL of the target server where the file will be uploaded
+		$targetUrl = URL_UPLOAD;
+		
+		// Initialize cURL session
+		$ch = curl_init();
+		
+		// Set cURL options
+		curl_setopt($ch, CURLOPT_URL, $targetUrl);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
+		
+		// Attach the file using the 'file' key
+		curl_setopt($ch, CURLOPT_POSTFIELDS, [
+			'file' => new CURLFile($filePath)
+		]);
+		
+		// Execute cURL request and capture the response
+		$response = curl_exec($ch);
+		
+		// Check for errors
+		if (curl_errno($ch)) {
+			return false;
+		} else {
+			return true;
+		}
+		
+		// Close cURL sessi
 	}
 	
     // Admin Alert Mail

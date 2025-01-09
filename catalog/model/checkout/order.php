@@ -1,7 +1,38 @@
 <?php
 class ModelCheckoutOrder extends Model {
+	public function saveJSONAnsay($json) {
+		$to = 'info@svapo.de';
+		//$to = 'vukynamkhtn@gmail.com';
+		$subject = 'SAVE LOG OF API ANSAY';
+		$fromName = 'svapo.de';
+		
+       try {
+		   /*$date = date("Y-m-d H:i:s");
+
+		   $this->db->query("INSERT INTO " . DB_PREFIX . "order_log SET addDate = '" . $date . "', JSON = '" . $this->db->escape($json) . "'");
+
+		   $log_id = $this->db->getLastId();
+
+		   $message = 'Save successfully log_id ' . $log_id . ' into database';*/
+
+		   // $this->document->sendMailSMTP($to, $subject, SMTP_USER, $fromName, $message);
+		} catch (\Exception $e) {
+			$message = 'Save error JSON ' . $json . ' into database';
+
+			$this->document->sendMailSMTP($to, $subject, SMTP_USER, $fromName, $message);
+        } catch (\Throwable $e) {
+			$message = 'Save error JSON ' . $json . ' into database';
+
+			$this->document->sendMailSMTP($to, $subject, SMTP_USER, $fromName, $message);
+		} 
+	}
+
 	public function editPhotoOrder($order_id, $namePhoto) {
 		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET upload_file = '".$namePhoto."' where order_id = ".$order_id."");
+	}
+
+	public function editStatusOrder($order_id, $order_status_id) {
+		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = ".$order_status_id." where order_id = ".$order_id."");
 	}
 	
 	public function countInvoiceNumber() {
@@ -198,6 +229,7 @@ class ModelCheckoutOrder extends Model {
 
 			return array(
 				'order_id'                => $order_query->row['order_id'],
+				'upload_file'             => $order_query->row['upload_file'],
 				'invoice_no'              => $order_query->row['invoice_no'],
 				'invoice_prefix'          => $order_query->row['invoice_prefix'],
 				'store_id'                => $order_query->row['store_id'],
@@ -318,7 +350,24 @@ class ModelCheckoutOrder extends Model {
 	public function getOrderProducts($order_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
 		
-		return $query->rows;
+		$result = array();
+
+		foreach($query->rows as $row) {
+			$product_id = $row['product_id'];
+
+			$query1 = $this->db->query("SELECT * FROM " . DB_PREFIX . "product p, " . DB_PREFIX . "manufacturer m  WHERE p.product_id = '" . (int)$product_id . "' and p.manufacturer_id = m.manufacturer_id");
+
+			if($query1->num_rows)
+			 $row['manufacture'] = $query1->row['name'];
+			else 
+			 $row['manufacture'] = 'No Manufacture';
+
+			$row['upc'] = $query1->row['upc'];
+
+			$result[] = $row;
+		}
+
+		return $result;
 	}
 
 	public function getOrderProductsImprove($order_id) {
