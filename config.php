@@ -30,9 +30,14 @@ define('DB_PORT', '3306');
 define('DB_PREFIX', 'oc_');
 
 // SMTP
-define('SMTP_HOST', 'w0118b8d.kasserver.com');
-define('SMTP_USER', 'test@7sc.eu');
-define('SMTP_PASSWORD', 'FKEUcsvv2HtgtWvJ');
+define('SMTP_HOST', 'smtp.ionos.de');
+define('SMTP_USER', 'info@svapo.de');
+define('SMTP_PASSWORD', 'Bertolli11');
+
+define('SMTP_HOST2', 'w01f9b2f.kasserver.com');
+define('FROM_MAIL', 'info@svapo.de');
+define('SMTP_USER2', 'info@svapo.de');
+define('SMTP_PASSWORD2', 'rNo3VPWLJ2tsfDt9noDT');
 
 // WHATSAPP
 // https://wa.me/whatsappphonenumber?text=urlencodedtext
@@ -66,49 +71,57 @@ define('HEADER', '<table class="table" style="width: 680px;">
 
 define('MAILHEADER', '<!DOCTYPE html>
 <head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8">
 </head>
 <body>
 <style Type="text/css">
-body { background-color: #ffffff; } p, h1, h2, h3, td, a { font-family:	Arial, Verdana; font-size:	12px; line-height: 	16px; color: #666666; margin: 0 0 1px 0; padding: 0; } p.small, p.small a { font-size: 10px; line-height: 14px; color: #888888; } td { padding:6px 6px 6px 0;	margin:0; border:none !important; } h1, h2  { font-weight: 	bold; margin: 0 0 10px 0; } h1  { font-size: 16px; font-weight: normal; line-height: 20px; margin: 0 0 12px 0; } table { width: 100%; border:none !important; margin-bottom:20px;} table td table td table td table { width:auto !important; } table td table td table td table td { width:auto !important; padding:6px 6px 0 0; } colgroup { display: none; }
+body { background-color: #ffffff; } p, h1, h2, h3, td, a { font-family:	Arial, Verdana; font-size:	12px; line-height: 	16px; color: #666666; margin: 0 0 16px 0; padding: 0; } a { color:#689C39; } p.small, p.small a, td.small, td.small a { font-size: 10px; line-height: 14px; color: #888888; } td { padding:6px 6px 6px 0;	margin:0; border:none !important; } h1, h2  { font-weight: 	bold; margin: 0 0 10px 0; } h1  { font-size: 16px; font-weight: normal; line-height: 20px; margin: 0 0 12px 0; } table { width: 100%; border:none !important; margin-bottom:20px;} table td table td table td table { width:auto !important; } table td table td table td table td { width:auto !important; padding:6px 6px 0 0; } colgroup { display: none; }
 </style>
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td align="center">
 	<table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width: 600px">
 		<tr>
 			<td align="center" style="background: #fff;" colspan="2">
-			<img src="'.HTTPS_SERVER.'images/Logo-SVAPO.svg" style="width:200px;">
+				<img src="'.HTTPS_SERVER.'images/Logo-SVAPO.png" alt="svapo.de - Schloss Apotheke" style="width:120px;">
 			</td>
 		</tr>
 		<tr><td>
 ');
 
+define('ADDRESS', 'Schloss-Apotheke<br />
+  Bürgeler Str. 35, 63075 Offenbach<br />		  
+  Telefon: 0155 66 200 690<br />
+  E-Mail: info@svapo.de
+');
+define('ACCOUNT', 'Schloss-Apotheke<br />
+  Deutsche Apotheker - und Ärztebank<br />
+  IBAN: DE15 3006 0601 0047 5875 06<br />
+  BIC: DAAEDEDDXXX
+');
+
 define('FOOTER', '
-<table style="border-collapse: collapse; width: 100%;"  class="table top">
-			<tr>
-				<td colspan="3">
-					<hr>							  
-				</td>
-			</tr>
+	<table style="border-collapse: collapse; width: 100%;"  class="table top">
 		<tr>
-		  <td valign="top">Pharmacy<br>
-			  Inh.: Andreas Schneider<br>
-			  Am Steinberg 24<br>
-			  60437 Frankfurt/Pharmacy
+			<td colspan="2">
+				<hr>							  
+			</td>
+		</tr>
+		<tr>
+		  <td valign="top" class="small">
+'.ADDRESS.'
 		  </td>
-		  <td valign="top">
-			  Deutsche Kreditbank<br>
-			  Kto.: 1020 4280 64 / BLZ: 120 300 00<br>
-			  IBAN: DE40 1203 0000 1020 4280 64<br>
-			  BIC: BYLADEM1001<br>
-			  USt-IdNr.: DE216963084
-		  </td>
-		  <td valign="top">
-			  Tel.: 06101 – 41522<br>
-			  Fax: 06101 – 497484<br>
-			  info@Pharmacy
+		  <td valign="top" class="small">
+			 '.ACCOUNT.'<br>
+			  USt-IdNr.: DE328219952
 		  </td>
 		</tr>
-	</table>');
+		<tr>
+			<td colspan="2" style="text-align:center" class="small">
+				<hr>							  
+				<a href="'.HTTPS_SERVER.'agb/">AGB</a> | 
+				<a href="'.HTTPS_SERVER.'impressum/">Impressum</a>
+			</td>
+		</tr>
+    </table>');
 	
  // MORPHEUS
 define('MORPHEUS_HOMEPAGE', ['hometest/']);
@@ -126,17 +139,6 @@ define('ORDER_ID', 12);
 // SUB FOLDER
 define('SUB_FOLDER', '/pharmacy/');
 
-define('ADDRESS', 'Schloss-Apotheke, Paschalis Papadopoulos e. K.<br />
-  Bürgeler Str. 35, 63075 Offenbach<br />		  
-  Telefon: 0155 66 200 690<br />
-  E-Mail: info@svapo.de
-');
-define('ACCOUNT', 'Schloss-Apotheke, Paschalis Papadopoulos e. K.<br />
-  Deutsche Apotheker - und Ärztebank<br />
-  IBAN: DE15 3006 0601 0047 5875 06<br />
-  BIC: DAAEDEDDXXX
-');
-
 define('PDF_ADDRESS', '
 	'.ADDRESS.'
 	<br />
@@ -146,7 +148,27 @@ define('PDF_ADDRESS', '
 	USt-IdNr.: DE328219952
 ');
 
+// DEFINE CUSTOMMER GROUP ID AND ORDER STATUS ID BELONG TOGETHER
+define('CUSTOMER_GROUP_ID', 2);
+define('ORDER_STATUS_ID', 17);
+
+// DEFINE ARRAY ORDER STATUS ID FOR SPECIAL EMAIL
+define('ORDER_STATUS_ID_ARRAY', [3, 17]);
+
+// NEW STATUS ORDER AFTER CANCEL
+define('NEW_ORDER_STATUS_AFTER_CANCEL', 25);
+
+// DEFINE SPECIAL EMAIL
+define('SPECIAL_EMAIL', 'vu@pixeldusche.com');
+
+// DEFINE NEW STATUS1
+define('STATUS1', 7);
 
 
-   
-
+// UPLOAD FILE
+//define('URL_UPLOAD', 'https://www.morpheus-cms.de/vu/upload_file.php');
+//define('PATH_FILE_UPLOAD', 'https://www.morpheus-cms.de/vu/uploads/');
+//define('URL_UPLOAD', 'https://pharmacy.svapo.de/upload_file.php');
+//define('PATH_FILE_UPLOAD', 'https://pharmacy.svapo.de/uploads/');
+define('URL_UPLOAD', 'https://files.svapo.info/upload_file.php');
+define('PATH_FILE_UPLOAD', 'https://files.svapo.info/uploads/');
