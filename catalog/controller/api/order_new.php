@@ -711,11 +711,17 @@ class ControllerApiOrder extends Controller {
 	   $result = array();
 	   
 	   foreach ($products as $product) {
-		   $product_id = $this->model_catalog_product->getIdFromMpn($product['id']);
+		  if($product['ansayProductId']) {
+			//echo '1'; die();  
+			$product_id = $this->model_catalog_product->getIdFromMpn($product['ansayProductId']);
+	      } else {
+			//echo '2'; die();  
+			$product_id = $this->model_catalog_product->getIdFromMpn($product['id']);
+	      } 
 	
-		   $product['id'] = $product_id;
-	
-		   $result[] = $product;
+		  $product['id'] = $product_id;
+		
+	      $result[] = $product;
 		}
 		
 		return $result;
