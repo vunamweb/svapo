@@ -151,7 +151,7 @@ class ModelCatalogProduct extends Model {
         }
 
         foreach($listProduct as $product) 
-          if(!isset($product[$key])) {
+          if(!isset($product[$key]) || $product[$key] == '') {
             echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key)]);
             $this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key));
 					
