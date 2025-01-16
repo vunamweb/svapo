@@ -136,7 +136,7 @@ class ControllerApiOrder extends Controller {
 				// Check for nested attributes
 				if (!isset($jsonArray[$key])) {
 					echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key)]);
-					$this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key));
+					$this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key), true);
 					return false;
 				}
 				if (!$this->checkAttributesDocnow24($value, $jsonArray[$key], $parentKey ? "$parentKey.$key" : $key)) {
@@ -158,7 +158,7 @@ class ControllerApiOrder extends Controller {
 				}
 				else if ( (!is_array($jsonArray) || !array_key_exists($value, $jsonArray)) && !$this->checkPropertyInArrayJson($value, $jsonArray) ) {
 					echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$value" : $value)]);
-					$this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$value" : $value));
+					$this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$value" : $value), true);
 					
 					return false;
 				}

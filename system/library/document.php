@@ -162,9 +162,9 @@ class Document {
 		}
      }
      
-     public function writeLog($json, $error, $sendMail = true) {
+     public function writeLog($json, $error, $sendMail = true, $docNow = false) {
           $data = 'JSON ' . $json . PHP_EOL . PHP_EOL . PHP_EOL;
-          $data .= 'Error: ' . $error . PHP_EOL;
+          $data .= 'Error: ' . str_replace('<br>', '', $error) . PHP_EOL;
 
           $logfile = 'log/' . date("Y-m-d_H-i-s") . '.txt';  // Ersetze ":" durch "-"
           // Schreibmodus 'a' für Anfügen, falls die Datei bereits existiert
@@ -176,11 +176,12 @@ class Document {
 
           // SEND MAIL TO OWNER
           if($sendMail) {
-               $subject = 'Log File ' . date("Y-m-d_H-i-s");
+               $subject = ($docNow) ? 'Log File DocNow ' . date("Y-m-d_H-i-s") : 'Log File ' . date("Y-m-d_H-i-s");
                $from = SMTP_USER;
                $fromName = 'svapo.de';
-               $to = 'vu@pixeldusche.com';
-     
+               $to = 'info@svapo.de';
+               //$to = 'vukynamkhtn@gmail.com';
+               
                $message = 'A user failed to create an order with the following error<br>';
                $message .= $error;
      
@@ -189,12 +190,33 @@ class Document {
           // END 
      }
 
-     public function sendMailSMTP($to, $subject, $from, $fromName, $message, $type=null, $file=false, $status=false)
+     public function writeLogSendMail($error, $to) {
+          $data = 'Error below send mail to: ' . $to  . PHP_EOL;
+          $data .= $error;
+
+          $logfile = 'log_mail/' . date("Y-m-d_H-i-s") . '.txt';  // Ersetze ":" durch "-"
+          // Schreibmodus 'a' für Anfügen, falls die Datei bereits existiert
+          $handle = fopen($logfile, 'a');			
+          // Schreibe die Rohdaten (oder das decodierte Array in JSON-Form wieder) in die Datei
+          fwrite($handle, $data . PHP_EOL);  // Optional: json_encode($jsonData) um das Array wieder als JSON zu speichern			
+          // Datei schließen
+          fclose($handle);
+     }
+
+     public function sendMailSMTP($to, $subject, $from, $fromName, $message, $type=null, $file=false, $status=false, $upload_file=null)
      {
 		$files2 = '';
-		if($file && $status==1) {
+		if($file && ($status == 1 || $status == 3)) {
 			$files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "admin/invoice/".$file;
-			$files2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/sign-pdf.pdf";
+			//$files2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/sign-pdf.pdf";
+		} else if($file && $status==2) {
+               $files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "admin/invoice/".$file;
+               
+               //$files2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/" . $upload_file;
+               //if (!file_exists($files2))
+               $files2 = PATH_FILE_UPLOAD . 'DHL_' . $upload_file;
+
+               //echo $files1; die();
 		}
 		else if($type == 'edit') { }
 			// $files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Rechnung-svapo.pdf";
@@ -208,18 +230,30 @@ class Document {
 		$mail->IsSMTP(); // telling the class to use SMTP
 		$mail->SMTPDebug = 0; // enables SMTP debug information (for testing)
 		$mail->SMTPAuth = true; // enable SMTP authentication
-		$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // sets the prefix to the servier
-		$mail->Host = SMTP_HOST; // sets GMAIL as the SMTP server
+		// $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // sets the prefix to the servier
+        
+        $mail->SMTPSecure = "ssl";
+		$mail->Host = SMTP_HOST2; // sets GMAIL as the SMTP server
 		$mail->Port = 465; // set the SMTP port for the GMAIL server
-		$mail->Username = SMTP_USER; // GMAIL username
-		$mail->Password = SMTP_PASSWORD;
-		$mail->CharSet = 'UTF-8';
-		$mail->AddAddress($to);
-		
-		// if($file) $mail->addBcc("invoice@svapo.de");
-		// if($file) $mail->addBcc("bk@freiheit-gruppe.de");
-		//$mail->addBcc("svapo@7sc.eu");
-		$mail->addBcc("vu@pixeldusche.com");
+		$mail->Username = SMTP_USER2; // GMAIL username
+		$mail->Password = SMTP_PASSWORD2;
+          $mail->CharSet = 'UTF-8';
+          
+          // if set status to Test PDF, then send mail to b@7sc.eu
+          //2 mean that sent mail with attach Receipe
+          // 3 mean that, sent mail without attach Receipe
+          /*if($status == 2 || $status ==3)
+            //$mail->AddAddress('b@7sc.eu');
+            $mail->AddAddress($to);
+            //$mail->AddAddress('vukynamkhtn@gmail.com');
+          // if NOT set status to Test PDF, then send mail to customer
+          else
+            $mail->AddAddress($to);*/
+
+          $mail->AddAddress($to);  
+            
+          $mail->addBcc("svapo@7sc.eu");
+		//$mail->addBcc("vu@pixeldusche.com");
 		
 		$mail->Subject = $subject;
 		// $mail->FromName = $fromName;
@@ -228,12 +262,20 @@ class Document {
 		$mail->IsHTML(true);
 		$mail->Body = $message;
 
-		if($files1) $mail->addAttachment($files1);
-		if($files2) $mail->addAttachment($files2);
+          // attach invoice
+          if($files1) $mail->addAttachment($files1);
+          // attach recipe from server
+          if($files2) {
+               $fileContents = file_get_contents($files2);
+               $fileName = basename($files2);
+               //$mail->addAttachment($files2);
+               $mail->addStringAttachment($fileContents, $fileName);
+          } 
 
           //if(false) {
           if (!$mail->Send()) {
-			//echo "Mailer Error: " . $mail->ErrorInfo;
+               //echo "Mailer Error: " . $mail->ErrorInfo;
+               $this->writeLogSendMail($mail->ErrorInfo, $to);
 		} else {
 			//echo "Message sent!";
 		}
