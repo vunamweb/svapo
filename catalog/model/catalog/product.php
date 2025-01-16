@@ -125,8 +125,20 @@ class ModelCatalogProduct extends Model {
         return ($query->row['text'] != '') ? $query->row['text'] : 'Keine Daten';
     }
 
+    public function checkActivateProduct($ansay_id) {
+        $sql = 'select status from '.DB_PREFIX.'product where mpn = "'.$ansay_id.'"';
+
+        $query = $this->db->query($sql);
+
+        $status = $query->row['status'];
+
+        //echo $status . '/ddd'; die();
+        return ($status == '') ? 1 :$status;
+    }
+
     public function checkExistListProducts($listProduct, $key, $parentKey) {
         $rawData = file_get_contents("php://input");
+        $dataJSON = json_decode($rawData);
 
         $result = array();
 
@@ -144,11 +156,32 @@ class ModelCatalogProduct extends Model {
             $this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key));
 					
             return false;				
-          } else if (!in_array($product[$key], $result)) {
+          } else if(!$this->checkActivateProduct($product[$key])) {
+            $errorLog = $product[$key] . ' is not activated, Please active this product in admin' . '<br>' . PHP_EOL;
+            $errorLog .= $dataJSON->customer->firstname . ' ' . $dataJSON->customer->lastname;
+
+            $this->document->writeLog($rawData, $errorLog);
+            echo json_encode(['error_codes' => 402, 'error' => $errorLog]);
+
+            return false;
+          }
+          else if (!in_array($product[$key], $result)) {
             //echo json_encode(['error_codes' => 402, 'error' => ($parentKey ? "$parentKey.$key " . "$product[$key]" . " not exist" : $key)]);
             echo json_encode(['error_codes' => 402, 'error' => ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key)]);
-            $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key));
-			
+
+            try {
+                //print_r($dataJSON); die();
+
+                $errorLog = $product[$key] . ' = ' . $product['name'] . '<br>' . PHP_EOL;
+                $errorLog .= $dataJSON->customer->firstname . ' ' . $dataJSON->customer->lastname;
+
+                $this->document->writeLog($rawData, $errorLog);
+            } catch (\Exception $e) {
+                $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key));
+            } catch (\Throwable $e) {
+                $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key));
+            }
+
             return false;				
           }
 

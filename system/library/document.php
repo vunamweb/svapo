@@ -179,7 +179,7 @@ class Document {
                $subject = 'Log File ' . date("Y-m-d_H-i-s");
                $from = SMTP_USER;
                $fromName = 'svapo.de';
-               $to = 'info@svapo.de';
+               $to = 'vu@pixeldusche.com';
      
                $message = 'A user failed to create an order with the following error<br>';
                $message .= $error;
@@ -219,7 +219,7 @@ class Document {
 		// if($file) $mail->addBcc("invoice@svapo.de");
 		// if($file) $mail->addBcc("bk@freiheit-gruppe.de");
 		//$mail->addBcc("svapo@7sc.eu");
-		$mail->addBcc("vukynamkhtn@gmail.com");
+		$mail->addBcc("vu@pixeldusche.com");
 		
 		$mail->Subject = $subject;
 		// $mail->FromName = $fromName;
