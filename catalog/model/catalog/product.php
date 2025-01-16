@@ -153,14 +153,14 @@ class ModelCatalogProduct extends Model {
         foreach($listProduct as $product) 
           if(!isset($product[$key]) || $product[$key] == '') {
             echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key)]);
-            ($key == 'id') ? $this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key)) : $this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key), true);
+            ($key == 'id') ? $this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key)) : $this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key), true, true);
 					
             return false;				
           } else if(!$this->checkActivateProduct($product[$key])) {
             $errorLog = $product[$key] . ' is not activated, Please active this product in admin' . '<br>' . PHP_EOL;
             $errorLog .= $dataJSON->customer->firstname . ' ' . $dataJSON->customer->lastname;
 
-            ($key == 'id') ? $this->document->writeLog($rawData, $errorLog) ? $this->document->writeLog($rawData, $errorLog, true);
+            ($key == 'id') ? $this->document->writeLog($rawData, $errorLog) : $this->document->writeLog($rawData, $errorLog, true, true);
             echo json_encode(['error_codes' => 402, 'error' => $errorLog]);
 
             return false;
@@ -175,11 +175,11 @@ class ModelCatalogProduct extends Model {
                 $errorLog = $product[$key] . ' = ' . $product['name'] . '<br>' . PHP_EOL;
                 $errorLog .= $dataJSON->customer->firstname . ' ' . $dataJSON->customer->lastname;
 
-                ($key == 'id') ? $this->document->writeLog($rawData, $errorLog) : $this->document->writeLog($rawData, $errorLog, true);
+                ($key == 'id') ? $this->document->writeLog($rawData, $errorLog) : $this->document->writeLog($rawData, $errorLog, true, true);
             } catch (\Exception $e) {
-                ($key == 'id') ? $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key)) : $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key), true);
+                ($key == 'id') ? $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key)) : $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key), true, true);
             } catch (\Throwable $e) {
-                ($key == 'id') ? $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key)) : $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key), true);
+                ($key == 'id') ? $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key)) : $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key), true, true);
             }
 
             return false;				

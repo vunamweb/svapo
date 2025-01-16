@@ -136,7 +136,7 @@ class ControllerApiOrder extends Controller {
 				// Check for nested attributes
 				if (!isset($jsonArray[$key])) {
 					echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key)]);
-					$this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key), true);
+					$this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key), true, true);
 					return false;
 				}
 				if (!$this->checkAttributesDocnow24($value, $jsonArray[$key], $parentKey ? "$parentKey.$key" : $key)) {
@@ -158,7 +158,7 @@ class ControllerApiOrder extends Controller {
 				}
 				else if ( (!is_array($jsonArray) || !array_key_exists($value, $jsonArray)) && !$this->checkPropertyInArrayJson($value, $jsonArray) ) {
 					echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$value" : $value)]);
-					$this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$value" : $value), true);
+					$this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$value" : $value), true, true);
 					
 					return false;
 				}
@@ -637,7 +637,7 @@ class ControllerApiOrder extends Controller {
 				http_response_code(400); // Bad Request
 				echo json_encode(['error_codes' => 400, 'error' => 'Invalid JSON']);
 
-				$this->document->writeLog($rawData, 'Invalid JSON');
+				$this->document->writeLog($rawData, 'Invalid JSON', true);
 				exit;
 			}
 	
@@ -646,7 +646,7 @@ class ControllerApiOrder extends Controller {
 				http_response_code(400); // Bad Request
 				echo json_encode(['error_codes' => 400, 'error' => 'Missing JSON body']);
 
-				$this->document->writeLog($rawData, 'Missing JSON body');
+				$this->document->writeLog($rawData, 'Missing JSON body', true);
 				exit;
 			}
 	
@@ -679,15 +679,15 @@ class ControllerApiOrder extends Controller {
 				$errorLog .= $dataJSON->customer->firstname . ' ' . $dataJSON->customer->lastname;
 				
 				echo json_encode(['error_codes' => 401, 'error' => $errorLog]);
-				$this->document->writeLog($rawData, $errorLog);
+				$this->document->writeLog($rawData, $errorLog, true);
 			 }
 			}
 		} catch (\Exception $e) {
 			echo json_encode(['error_codes' => 401, 'error' => $e->getMessage()]);
-			$this->document->writeLog($rawData, $e->getMessage());
+			$this->document->writeLog($rawData, $e->getMessage(), true);
 		} catch (\Throwable $e) {
 			echo json_encode(['error_codes' => 401, 'error' => $e->getMessage()]);
-			$this->document->writeLog($rawData, $e->getMessage());
+			$this->document->writeLog($rawData, $e->getMessage(), true);
 			//echo $e->getMessage();	
 		  // log error here by write $e->getMessage() in log file
 		} 
