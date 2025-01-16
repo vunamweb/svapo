@@ -1,5 +1,0 @@
-JSON 
-
-
-Error: pharmacy_id TX7LXzCMxuFVIZhlMblR_5 exist
-
