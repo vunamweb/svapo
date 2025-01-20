@@ -4,19 +4,20 @@
 				<tr><td valign="top">{{ text_inform_order_admin }}</td></tr>
 				
 				<tr><td valign="top">
-					<!--<h2>Auftragbestätigung</h2>-->
 					<p>Liebe(r) {{ firstname }} {{ lastname }},<br/>
 					vielen Dank für Deinen Auftrag. Im Anhang findest Du Deine Rechnung.</p>					
 					<p>Herzlichen Dank für Deine Bestellung und Dein Vertrauen!</p>
 					<p>Dein svapo.de Team</p>									
 				</p>
 					<table>
+						<tr><td valign="top">Auftragsnummer</td><td valign="top">svapo-{{ auftrag_id }}<br></td></tr>
 						<tr><td valign="top">Rechnungsnummer</td><td valign="top">{{ order_id }}<br></td></tr>
 						<tr><td valign="top">Datum</td><td valign="top">{{ date_added }}</td></tr>
 						<!-- <tr><td valign="top">Status</td><td valign="top">{{ order_status }}</td></tr> -->
 						<tr><td valign="top">Status</td><td valign="top">Für den Versand vorbereitet.</td></tr>
 						{% if dhl %}
 						<tr><td valign="top">Trackingnumber DHL</td><td valign="top">{{ trackingnumber }}</td></tr>
+						<tr><td colspan="2"><br/>Dein Paket wird heute Abend (ca. 17:00 Uhr) von DHL abgeholt und im Paketzentrum weiterverarbeitet. Der Status ändert sich erst, wenn das Paket von DHL weiterverarbeitet wurde.</td></tr>
 						{% endif %}
 						<tr><td valign="top"></td><td valign="top">&nbsp;</td></tr>
 						{% if comment %}

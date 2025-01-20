@@ -20,8 +20,11 @@
 						{% if comment %}
 						<tr><td valign="top">Kommentar</td><td valign="top">{{ comment }}</td></tr>
 						{% endif %}				
-						{% if order_status=="Zahlung erhalten" %}
-						<tr><td valign="top" colspan="2">Deine Blüten werden für den Versand vorbereitet. In Kürze erhältst Du deine DHL -Sendungsnummer.</td></tr>		
+						{% if order_status starts with "Labor" %}
+						<tr><td valign="top" colspan="2">In diesem Schritt wird deine Ware verpackt und versandfertig gemacht. Als nächstes erhältst du deine Sendungsnummer.</td></tr>	
+						{% endif %}	
+						{% if order_status starts with "Zahlung" %}
+						<tr><td valign="top" colspan="2">Ab Zahlungserhalt übergeben wir dein Paket spätestens innerhalb von 2 Werktagen an DHL. Als nächstes informieren wir dich, wenn deine Ware verpackt wird.</td></tr>	
 						{% endif %}				
 					</table>
 		

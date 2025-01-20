@@ -179,8 +179,8 @@ class Document {
                $subject = ($docNow) ? 'Log File DocNow ' . date("Y-m-d_H-i-s") : 'Log File ' . date("Y-m-d_H-i-s");
                $from = SMTP_USER;
                $fromName = 'svapo.de';
-               $to = 'info@svapo.de';
-               //$to = 'vukynamkhtn@gmail.com';
+               //to = 'info@svapo.de';
+               $to = 'vukynamkhtn@gmail.com';
                
                $message = 'A user failed to create an order with the following error<br>';
                $message .= $error;
@@ -252,8 +252,8 @@ class Document {
 
           $mail->AddAddress($to);  
             
-          $mail->addBcc("svapo@7sc.eu");
-		//$mail->addBcc("vu@pixeldusche.com");
+          //$mail->addBcc("svapo@7sc.eu");
+		$mail->addBcc("vu@pixeldusche.com");
 		
 		$mail->Subject = $subject;
 		// $mail->FromName = $fromName;
