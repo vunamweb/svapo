@@ -59,7 +59,7 @@
                 <label class="col-sm-2 control-label" for="input-customer">{{ entry_customer }}</label>
                 <div class="col-sm-10">
                   <input type="text" name="customer" value="{{ customer }}" placeholder="{{ entry_customer }}" id="input-customer" class="form-control" />
-                  <input type="hidden" name="customer_id" value="{{ customer_id }}" />
+                  <input type="hidden" name="customer_id" id="value_customer_id" value="{{ customer_id }}" />
                 </div>
               </div>
               <div class="form-group">
@@ -1137,10 +1137,16 @@ $('input[name=\'customer\']').autocomplete({
 
 // Custom Fields
 $('select[name=\'customer_group_id\']').on('change', function() {
+	var customer_id = $('#value_customer_id').val();
+	var cutomer_group_id = this.value;
+
 	$.ajax({
-		url: 'index.php?route=customer/customer/customfield&user_token={{ user_token }}&customer_group_id=' + this.value,
+		url: 'index.php?route=customer/customer/customfield&user_token={{ user_token }}&customer_group_id=' + this.value + '&customer_id=' + customer_id,
 		dataType: 'json',
 		success: function(json) {
+			if(cutomer_group_id == 2)
+			  $('#input-order-status').val(17);
+
 			$('.custom-field').hide();
 			$('.custom-field').removeClass('required');
 
@@ -1694,6 +1700,9 @@ $('select[name=\'payment_address\']').on('change', function() {
 			$('select[name=\'payment_address\']').prop('disabled', false);
 		},
 		success: function(json) {
+			if(json.customer_group_id == 2)
+			  $('#input-order-status').val(17);
+			//alert(json.customer_group_id);
 			// Reset all fields
 			$('#tab-payment input[type=\'text\'], #tab-payment input[type=\'text\'], #tab-payment textarea').val('');
 			$('#tab-payment select option').not('#tab-payment select[name=\'payment_address\']').removeAttr('selected');
