@@ -62,7 +62,7 @@
                   <input type="hidden" name="customer_id" id="value_customer_id" value="{{ customer_id }}" />
                 </div>
               </div>
-              <div class="form-group">
+			  <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-customer-group">{{ entry_customer_group }}</label>
                 <div class="col-sm-10">
                   <select name="customer_group_id" id="input-customer-group" class="form-control">
@@ -1133,6 +1133,99 @@ $('input[name=\'customer\']').autocomplete({
 			$('#input-shipping-country option').eq(1).trigger('change'); 
         }, 2000);
 	}
+});
+
+// Customer Email
+$('input[name=\'email\']').autocomplete({
+	'source': function(request, response) {
+		$.ajax({
+			url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_email=' +  encodeURIComponent(request),
+			dataType: 'json',
+			success: function(json) {
+				json.unshift({
+					customer_id: '0',
+					customer_group_id: '{{ customer_group_id }}',
+					name: '{{ text_none }}',
+					customer_group: '',
+					firstname: '',
+					lastname: '',
+					email: '',
+					telephone: '',
+					custom_field: [],
+					address: []
+				});
+
+				response($.map(json, function(item) {
+					return {
+						category: item['customer_group'],
+						label: item['email'],
+						value: item['customer_id'],
+						customer_group_id: item['customer_group_id'],
+						firstname: item['firstname'],
+						lastname: item['lastname'],
+						email: item['email'],
+						custom_field: item['custom_field'],
+						telephone: item['telephone'],
+						address: item['address']
+					}
+				}));
+			}
+		});
+	},
+	'select': function(item) {
+		// Reset all custom fields
+		$('#tab-customer input[type=\'text\'], #tab-customer textarea').not('#tab-customer input[name=\'customer\'], #tab-customer input[name=\'customer_id\']').val('');
+		$('#tab-customer select option').not($('#tab-customer select[name=\'store_id\'] option, #tab-customer select[name=\'currency\'] option')).removeAttr('selected');
+		$('#tab-customer input[type=\'checkbox\'], #tab-customer input[type=\'radio\']').removeAttr('checked');
+
+		$('#tab-customer input[name=\'customer_email\']').val(item['label']);
+		$('#tab-customer input[name=\'customer\']').val(item['firstname'] + ' ' + item['lastname']);
+		$('#tab-customer input[name=\'customer_id\']').val(item['value']);
+		$('#tab-customer select[name=\'customer_group_id\']').val(item['customer_group_id']);
+		$('#tab-customer input[name=\'firstname\']').val(item['firstname']);
+		$('#tab-customer input[name=\'lastname\']').val(item['lastname']);
+		$('#tab-customer input[name=\'email\']').val(item['email']);
+		$('#tab-customer input[name=\'telephone\']').val(item['telephone']);
+
+		for (i in item.custom_field) {
+			$('#tab-customer select[name=\'custom_field[' + i + ']\']').val(item.custom_field[i]);
+			$('#tab-customer textarea[name=\'custom_field[' + i + ']\']').val(item.custom_field[i]);
+			$('#tab-customer input[name^=\'custom_field[' + i + ']\'][type=\'text\']').val(item.custom_field[i]);
+			$('#tab-customer input[name^=\'custom_field[' + i + ']\'][type=\'hidden\']').val(item.custom_field[i]);
+			$('#tab-customer input[name^=\'custom_field[' + i + ']\'][type=\'radio\'][value=\'' + item.custom_field[i] + '\']').prop('checked', true);
+
+			if (item.custom_field[i]) {
+				for (j = 0; j < item.custom_field[i].length; j++) {
+					$('#tab-customer input[name^=\'custom_field[' + i + ']\'][type=\'checkbox\'][value=\'' + item.custom_field[i][j] + '\']').prop('checked', true);
+				}
+			}
+		}
+
+		$('select[name=\'customer_group_id\']').trigger('change');
+
+		html = '<option value="0">{{ text_none }}</option>';
+
+		for (i in  item['address']) {
+			html += '<option value="' + item['address'][i]['address_id'] + '">' + item['address'][i]['firstname'] + ' ' + item['address'][i]['lastname'] + ', ' + item['address'][i]['address_1'] + ', ' + item['address'][i]['city'] + ', ' + item['address'][i]['country'] + '</option>';
+		}
+
+		$('select[name=\'payment_address\']').html(html);
+		$('select[name=\'shipping_address\']').html(html);
+
+		if(item['address'] != null) {
+			$('#input-payment-address option').eq(1).prop('selected', true);
+			$('#input-payment-address option').eq(1).trigger('change');
+        }
+
+		setTimeout(function() {
+			$('#input-payment-country option').eq(1).prop('selected', true);
+			$('#input-payment-country option').eq(1).trigger('change'); 
+
+			$('#input-shipping-country option').eq(1).prop('selected', true);
+			$('#input-shipping-country option').eq(1).trigger('change'); 
+        }, 2000);
+	}
+	
 });
 
 // Custom Fields
