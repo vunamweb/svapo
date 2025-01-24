@@ -315,7 +315,10 @@ class ControllerCatalogProduct extends Controller {
         if ( isset( $this->request->get[ 'page' ] ) ) {
             $url .= '&page=' . $this->request->get[ 'page' ];
         }
-
+		
+		$data['user_group_id'] = $this->user->getGroupId();
+		$data['user_id']       = $this->user->getId();
+		
         $data[ 'breadcrumbs' ] = array();
 
         $data[ 'breadcrumbs' ][] = array(
@@ -339,6 +342,7 @@ class ControllerCatalogProduct extends Controller {
             'filter_model'	  => $filter_model,
             'filter_price'	  => $filter_price,
             'filter_quantity' => $filter_quantity,
+            'filter_jan' => $filter_jan,
             'filter_status'   => $filter_status,
             'sort'            => $sort,
             'order'           => $order,
@@ -376,7 +380,15 @@ class ControllerCatalogProduct extends Controller {
                 'image'      => $image,
                 'name'       => $result[ 'name' ],
                 'model'      => $result[ 'model' ],
-                'price'      => $this->currency->format( $result[ 'price' ], $this->config->get( 'config_currency' ) ),
+                'jan'      => $result[ 'jan' ],
+                'upc'      => $result[ 'upc' ],
+                'sku'      => $result[ 'sku' ],                
+                'mpn'      => $result[ 'mpn' ],                
+                'stock_status_id' => $result[ 'stock_status_id' ],
+                // 'price'      => $this->currency->format( $result[ 'price' ], $this->config->get( 'config_currency' ) ),
+				'price'      => number_format( $result[ 'price' ], 2, ',' ),
+				'ek'         => isset($result['ek']) ? number_format( $result['ek'], 2, ',' ) : 0,
+				're'         => isset($result['re']) ? number_format( $result['re'], 2, ',' ) : 0,
                 'special'    => $special,
                 'quantity'   => $result[ 'quantity' ],
                 'status'     => $result[ 'status' ] ? $this->language->get( 'text_enabled' ) : $this->language->get( 'text_disabled' ),
@@ -419,7 +431,11 @@ class ControllerCatalogProduct extends Controller {
         if ( isset( $this->request->get[ 'filter_price' ] ) ) {
             $url .= '&filter_price=' . $this->request->get[ 'filter_price' ];
         }
-
+        
+        if ( isset( $this->request->get[ 'filter_jan' ] ) ) {
+            $url .= '&filter_jan=' . $this->request->get[ 'filter_jan' ];
+        }
+        
         if ( isset( $this->request->get[ 'filter_quantity' ] ) ) {
             $url .= '&filter_quantity=' . $this->request->get[ 'filter_quantity' ];
         }
@@ -440,6 +456,7 @@ class ControllerCatalogProduct extends Controller {
 
         $data[ 'sort_name' ] = $this->url->link( 'catalog/product', 'user_token=' . $this->session->data[ 'user_token' ] . '&sort=pd.name' . $url, true );
         $data[ 'sort_model' ] = $this->url->link( 'catalog/product', 'user_token=' . $this->session->data[ 'user_token' ] . '&sort=p.model' . $url, true );
+        $data[ 'sort_jan' ] = $this->url->link( 'catalog/product', 'user_token=' . $this->session->data[ 'user_token' ] . '&sort=p.jan' . $url, true );
         $data[ 'sort_price' ] = $this->url->link( 'catalog/product', 'user_token=' . $this->session->data[ 'user_token' ] . '&sort=p.price' . $url, true );
         $data[ 'sort_quantity' ] = $this->url->link( 'catalog/product', 'user_token=' . $this->session->data[ 'user_token' ] . '&sort=p.quantity' . $url, true );
         $data[ 'sort_status' ] = $this->url->link( 'catalog/product', 'user_token=' . $this->session->data[ 'user_token' ] . '&sort=p.status' . $url, true );
@@ -458,7 +475,11 @@ class ControllerCatalogProduct extends Controller {
         if ( isset( $this->request->get[ 'filter_price' ] ) ) {
             $url .= '&filter_price=' . $this->request->get[ 'filter_price' ];
         }
-
+        
+        if ( isset( $this->request->get[ 'filter_jan' ] ) ) {
+            $url .= '&filter_jan=' . $this->request->get[ 'filter_jan' ];
+        }
+        
         if ( isset( $this->request->get[ 'filter_quantity' ] ) ) {
             $url .= '&filter_quantity=' . $this->request->get[ 'filter_quantity' ];
         }
@@ -488,6 +509,7 @@ class ControllerCatalogProduct extends Controller {
         $data[ 'filter_name' ] = $filter_name;
         $data[ 'filter_model' ] = $filter_model;
         $data[ 'filter_price' ] = $filter_price;
+        $data[ 'filter_jan' ] = $filter_jan;
         $data[ 'filter_quantity' ] = $filter_quantity;
         $data[ 'filter_status' ] = $filter_status;
 
@@ -519,7 +541,13 @@ class ControllerCatalogProduct extends Controller {
         } else {
             $filter_price = '';
         }
-
+        
+        if ( isset( $this->request->get[ 'filter_jan' ] ) ) {
+            $filter_jan = $this->request->get[ 'filter_jan' ];
+        } else {
+            $filter_jan = '';
+        }
+        
         if ( isset( $this->request->get[ 'filter_quantity' ] ) ) {
             $filter_quantity = $this->request->get[ 'filter_quantity' ];
         } else {
@@ -563,7 +591,11 @@ class ControllerCatalogProduct extends Controller {
         if ( isset( $this->request->get[ 'filter_price' ] ) ) {
             $url .= '&filter_price=' . $this->request->get[ 'filter_price' ];
         }
-
+        
+        if ( isset( $this->request->get[ 'filter_jan' ] ) ) {
+            $url .= '&filter_jan=' . $this->request->get[ 'filter_jan' ];
+        }
+        
         if ( isset( $this->request->get[ 'filter_quantity' ] ) ) {
             $url .= '&filter_quantity=' . $this->request->get[ 'filter_quantity' ];
         }
@@ -603,6 +635,7 @@ class ControllerCatalogProduct extends Controller {
             'filter_name'	  => $filter_name,
             'filter_model'	  => $filter_model,
             'filter_price'	  => $filter_price,
+            'filter_jan'	  => $filter_jan,
             'filter_quantity' => $filter_quantity,
             'filter_status'   => $filter_status,
             'sort'            => $sort,
@@ -642,6 +675,8 @@ class ControllerCatalogProduct extends Controller {
                 'name'       => $result[ 'name' ],
                 'model'      => $result[ 'model' ],
 				'pzn'      => $result[ 'sku' ],
+                'mpn'      => $result[ 'mpn' ],
+                'stock_status_id' => $result[ 'stock_status_id' ],
                 'price'      => $this->currency->format( $result[ 'price' ], $this->config->get( 'config_currency' ) ),
                 'special'    => $special,
                 'quantity'   => $result[ 'quantity' ],
@@ -854,7 +889,10 @@ class ControllerCatalogProduct extends Controller {
 
     protected function getForm() {
         $data[ 'text_form' ] = !isset( $this->request->get[ 'product_id' ] ) ? $this->language->get( 'text_add' ) : $this->language->get( 'text_edit' );
-
+		
+		$data['user_group_id'] = $this->user->getGroupId();
+		$data['user_id']       = $this->user->getId();
+		
         if ( isset( $this->error[ 'warning' ] ) ) {
             $data[ 'error_warning' ] = $this->error[ 'warning' ];
         } else {
@@ -1062,6 +1100,24 @@ class ControllerCatalogProduct extends Controller {
         } else {
             $data[ 'price' ] = '';
         }
+		
+		// BJOERN ADD NEW FIELD
+		if (isset($this->request->post['ek'])) {
+			$data['ek'] = $this->request->post['ek'];
+		} elseif (!empty($product_info)) {
+			$data['ek'] = $product_info['ek'];
+		} else {
+			$data['ek'] = '';
+		}
+		if (isset($this->request->post['ek'])) {
+			$data['re'] = $this->request->post['re'];
+		} elseif (!empty($product_info)) {
+			$data['re'] = $product_info['re'];
+		} else {
+			$data['re'] = '';
+		}
+
+		// ____ end Bjoern
 
         $this->load->model( 'catalog/recurring' );
 

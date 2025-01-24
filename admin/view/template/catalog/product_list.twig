@@ -14,6 +14,7 @@
         <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
         {% endfor %}
       </ul>
+	  User: {{ user_id }} / {{ user_group_id }}
     </div>
   </div>
   <div class="container-fluid">{% if error_warning %}
@@ -54,75 +55,16 @@
               <select name="filter_status" id="input-status" class="form-control">
                 <option value=""></option>
                 
-                
-                
-                  
-                
-
                   {% if filter_status == '1' %}
-
-                
-                
-                  
-                
-                
                 <option value="1" selected="selected">{{ text_enabled }}</option>
-                
-                
-                
-                  
-                
-
                   {% else %}
-
-                
-                
-                  
-                
-                
                 <option value="1">{{ text_enabled }}</option>
-                
-                
-                
-                  
-                
-
                   {% endif %}
                   {% if filter_status == '0' %}
-
-                
-                
-                  
-                
-                
                 <option value="0" selected="selected">{{ text_disabled }}</option>
-                
-                
-                
-                  
-                
-
                   {% else %}
-
-                
-                
-                  
-                
-                
                 <option value="0">{{ text_disabled }}</option>
-                
-                
-                
-                  
-                
-
                   {% endif %}
-
-
-              
-              
-                
-              
               
               </select>
             </div>
@@ -147,7 +89,23 @@
                       <td class="text-center">{{ column_image }}</td>
                       <td class="text-left">{% if sort == 'pd.name' %} <a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a> {% else %} <a href="{{ sort_name }}">{{ column_name }}</a> {% endif %}</td>
                       <td class="text-left">{% if sort == 'p.model' %} <a href="{{ sort_model }}" class="{{ order|lower }}">{{ column_model }}</a> {% else %} <a href="{{ sort_model }}">{{ column_model }}</a> {% endif %}</td>
+                      
+                      <td class="text-left">Verwendbar</td>
+                     <!-- <td class="text-left">PZN</td> -->
+                      <td class="text-left">Stock<br>Status</td>
+                      <td class="text-left">Ansay</td>
+                      
+                      <!--
+                        <td class="text-left">{% if sort == 'p.jan' %} <a href="{{ sort_jan }}" class="{{ order|lower }}">Verwendbar</a> {% else %} <a href="{{ sort_jan }}">Verwendbar</a> {% endif %}</td>
+                      <td class="text-left">{% if sort == 'p.upc' %} <a href="{{ sort_upc }}" class="{{ order|lower }}">Ch.B.</a> {% else %} <a href="{{ sort_upc }}">Ch.B.</a> {% endif %}</td>
+                    -->
+                    
                       <td class="text-right">{% if sort == 'p.price' %} <a href="{{ sort_price }}" class="{{ order|lower }}">{{ column_price }}</a> {% else %} <a href="{{ sort_price }}">{{ column_price }}</a> {% endif %}</td>
+{% if user_group_id == 1 or user_group_id == 12 %}
+					  <td class="text-left">EK</td>
+					  <td class="text-left">RE</td>
+{% endif %}			  
+					  
                       <td class="text-right">{% if sort == 'p.quantity' %} <a href="{{ sort_quantity }}" class="{{ order|lower }}">{{ column_quantity }}</a> {% else %} <a href="{{ sort_quantity }}">{{ column_quantity }}</a> {% endif %}</td>
                       <td class="text-left">{% if sort == 'p.status' %} <a href="{{ sort_status }}" class="{{ order|lower }}">{{ column_status }}</a> {% else %} <a href="{{ sort_status }}">{{ column_status }}</a> {% endif %}</td>
                       <td class="text-right">{{ column_action }}</td>
@@ -166,11 +124,19 @@
                     <td class="text-center">{% if product.image %} <img src="{{ product.image }}" alt="{{ product.name }}" class="img-thumbnail" /> {% else %} <span class="img-thumbnail list"><i class="fa fa-camera fa-2x"></i></span> {% endif %}</td>
                     <td class="text-left">{{ product.name }}</td>
                     <td class="text-left">{{ product.model }}</td>
+                    <td class="text-left">{{ product.jan }}</td>
+                    <!--<td class="text-left">{{ product.sku }}</td>-->
+                    <td class="text-left">{{ product.stock_status_id }}</td>
+                    <td class="text-left">{{ product.mpn }}</td>
                     <td class="text-right">{% if product.special %} <span style="text-decoration: line-through;">{{ product.price }}</span><br/>
                       <div class="text-danger">{{ product.special }}</div>
                       {% else %}
                       {{ product.price }}
-                      {% endif %}</td>
+					  {% endif %}</td>
+{% if user_group_id == 1 or user_group_id == 12 %}
+					<td class="text-left">{{ product.ek }}</td>
+					<td class="text-left">{{ product.re }}</td>
+{% endif %}
                     <td class="text-right">{% if product.quantity <= 0 %} <span class="label label-warning">{{ product.quantity }}</span> {% elseif product.quantity <= 5 %} <span class="label label-danger">{{ product.quantity }}</span> {% else %} <span class="label label-success">{{ product.quantity }}</span> {% endif %}</td>
                     <td class="text-left">{{ product.status }}</td>
                     <td class="text-right"><a href="{{ product.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>

@@ -147,6 +147,30 @@
                   <input type="text" name="price" value="{{ price }}" placeholder="{{ entry_price }}" id="input-price" class="form-control"/>
                 </div>
               </div>
+<!-- new field bjoern -->
+					
+{% if user_group_id == 1 or user_group_id == 12 %}
+			  <div class="form-group">
+				  <label class="col-sm-2 control-label" for="input-ek">EK</label>
+				  <div class="col-sm-10">
+					<input type="text" name="ek" value="{{ ek }}" placeholder="" id="input-ek" class="form-control"/>
+				  </div>
+				</div>
+{% else %}
+					<input type="hidden" name="ek" value="{{ ek }}" id="input-ek" />
+{% endif %}
+{% if user_group_id == 1 or user_group_id == 12 %}
+			  <div class="form-group">
+				  <label class="col-sm-2 control-label" for="input-ek">RE</label>
+				  <div class="col-sm-10">
+					<input type="text" name="re" value="{{ re }}" placeholder="" id="input-re" class="form-control" readonly />
+				  </div>
+				</div>
+{% else %}
+					<input type="hidden" name="re" value="{{ re }}" placeholder="" id="input-re" class="form-control" readonly />
+{% endif %}
+<!-- end field bjoern -->
+
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-tax-class">{{ entry_tax_class }}</label>
                 <div class="col-sm-10">
