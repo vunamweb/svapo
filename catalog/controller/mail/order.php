@@ -778,15 +778,28 @@ class ControllerMailOrder extends Controller {
 			$message = $this->load->view('mail/order_invoice', $data);
 		}*/
     	else {
-			// $pdf_name = 'Auftragsbestaetigung-svapo-'.$order_info['order_id'].'.pdf';
-			// $dompdf->loadHtml($this->load->view('mail/order_pdf', $data));
-			// $file_location = "./admin/auftrag/".$pdf_name;
-			// $status = 2;
 			$subject = html_entity_decode(sprintf($language->get('text_subject'), 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+			
+			if($order_status_id == 25 || $order_status_id == 18)
+			  $message = $this->load->view('mail/order_add_new', $data);
+			// if not cancel
+			else if ($order_status_id != STATUS1 && !(in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && !in_array($order_status_id, array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status')))))
+			  $message = $this->load->view('mail/order_edit', $data);
+			// if is STATUS 7
+			else if($order_status_id == STATUS1)
+			$message = $this->load->view('mail/order_add_customer_process_'.$order_status_id.'', $data);
+			else {
+				$count = count($data['totals']);
+				$data['totals'][$count - 1]['text'] = '-' . $data['totals'][$count - 1]['text'];
+				
+				$message = $this->load->view('mail/order_cancel', $data);
+			} 
+
+            /*$subject = html_entity_decode(sprintf($language->get('text_subject'), 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
 			if($order_status_id == 25 || $order_status_id == 18)
 			  $message = $this->load->view('mail/order_add_new', $data);
 			else   
-			  $message = $this->load->view('mail/order_edit', $data);
+			  $message = $this->load->view('mail/order_edit', $data);*/
 		} 
 	
         $this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $from, $message, 'edit', $pdf_name, $status, $upload_file);
