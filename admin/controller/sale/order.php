@@ -1071,8 +1071,17 @@ class ControllerSaleOrder extends Controller {
 					$totals[3]['value'] = $totals[0]['value'] + $totals[1]['value'];
 	
 					$totals[2]['value'] = $totals[3]['value'] - $totals[3]['value']/1.19;
-	
+
+					if($order_info['order_status_id'] != 27)
+					$totals[4]['value'] = $totals[3]['value'];
+					else 
+					$totals[4]['value'] = $totals[3]['value'] * -1;
+					
 					unset($totals[3]);
+
+					if($this->request->get['order_id'] == 36063 || $this->request->get['order_id'] == 2869) {
+						//print_r($totals); die();
+				    }
 				} else {
 					$totals[1]['value'] = 0;
 					$totals[3]['value'] = $totals[0]['value'] + $totals[1]['value'];
