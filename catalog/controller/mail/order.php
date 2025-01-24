@@ -782,7 +782,7 @@ class ControllerMailOrder extends Controller {
 			// $status = 2;
 			$subject = html_entity_decode(sprintf($language->get('text_subject'), 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
 			if($order_status_id == 25 || $order_status_id == 18)
-			  $message = $this->load->view('mail/order_add', $data);
+			  $message = $this->load->view('mail/order_add_new', $data);
 			else   
 			  $message = $this->load->view('mail/order_edit', $data);
 		} 
