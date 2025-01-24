@@ -655,6 +655,8 @@ class ControllerMailOrder extends Controller {
 			
 			//print_r($order_totals); die();
 		}
+
+		$data['total'] = number_format($order_totals[$count]['value'], 2, ',', '.');
 		
 
 		usort($order_totals, function($a, $b) {
