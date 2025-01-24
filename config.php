@@ -164,6 +164,8 @@ define('SPECIAL_EMAIL', 'vu@pixeldusche.com');
 // DEFINE NEW STATUS1
 define('STATUS1', 7);
 
+//define('PATH_FILE_UPLOAD', 'https://pharmacy.svapo.de/uploads/');
+
 
 // UPLOAD FILE
 //define('URL_UPLOAD', 'https://www.morpheus-cms.de/vu/upload_file.php');

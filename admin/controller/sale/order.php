@@ -97,6 +97,12 @@ class ControllerSaleOrder extends Controller {
 			$filter_customer = '';
 		}
 
+		if (isset($this->request->get['filter_email'])) {
+			$filter_email = $this->request->get['filter_email'];
+		} else {
+			$filter_email = '';
+		}
+
 		if (isset($this->request->get['filter_order_status'])) {
 			$filter_order_status = $this->request->get['filter_order_status'];
 		} else {
@@ -209,6 +215,7 @@ class ControllerSaleOrder extends Controller {
 		$filter_data = array(
 			'filter_order_id'        => $filter_order_id,
 			'filter_customer'	     => $filter_customer,
+			'filter_email'	         => $filter_email,
 			'filter_order_status'    => $filter_order_status,
 			'filter_order_status_id' => $filter_order_status_id,
 			'filter_total'           => $filter_total,
@@ -226,14 +233,17 @@ class ControllerSaleOrder extends Controller {
 		//print_r($results); die();
 
 		foreach ($results as $result) {
-		    $valueShipping = $this->config->get('shipping_flat_cost');
+			//print_r($result); die();
+			/*$valueShipping = $this->config->get('shipping_flat_cost');
 		    $minShipping = $this->config->get('shipping_free_total');
 		    $totalOrder= $result['total'];
 		
 			// if is not free shipping, so addd shipping with subtotal and display
 			if($totalOrder < $minShipping && $totalOrder > 0) {
 				$totalOrder = $totalOrder + $valueShipping;
-			} 
+			}*/
+			
+			$totalOrder= $result['total_real'];
 
 			$data['orders'][] = array(
 				'order_id'      => $result['order_id'],
@@ -842,14 +852,16 @@ class ControllerSaleOrder extends Controller {
 
 				// Dateiname für das PDF
 				$pdf_file = 'dhl/dokument.pdf';
+				$pdf_file_id = 'dhl/dokument_'.$data['order_id'].'.pdf';
 				//echo $pdf_file; die();
 
 				// PDF-Datei speichern
-				file_put_contents($pdf_file, $pdf_decoded);
+				file_put_contents($pdf_file_id, $pdf_decoded);
 
-				$data['label'] = $pdf_file;
+				//$data['label'] = $pdf_file;
+				$data['label'] = $pdf_file_id;
 				
-                $data['shipmentRefNo'] = $dhl->shipmentRefNo;
+				$data['shipmentRefNo'] = $dhl->shipmentRefNo;
 				$data['shipmentNo'] = $dhl->shipmentNo;
 				$data['routingCode'] = $dhl->routingCode;
 				
@@ -871,7 +883,13 @@ class ControllerSaleOrder extends Controller {
 				$data['invoice_no'] = '';
 			}
 
-			$data['upload_file'] = $order_info['upload_file'];
+			$urlFile = '../rEzEpT/' . $order_info['upload_file']; 
+
+			if(file_exists($urlFile))
+			 $data['upload_file'] = '../rEzEpT/' . $order_info['upload_file'];
+			else 
+			 $data['upload_file'] = PATH_FILE_UPLOAD . $order_info['upload_file'];
+			  
 
 			$data['date_added'] = date($this->language->get('date_format_short'), strtotime($order_info['date_added']));
 
@@ -1048,7 +1066,7 @@ class ControllerSaleOrder extends Controller {
 		    $minShipping = $this->config->get('shipping_free_total');
 
 			if($totals[0]['value'] > 0) {
-				if($totals[0]['value'] < $minShipping) {
+				if($totals[0]['value'] < $minShipping && $order_info['order_status_id'] != 17) {
 					$totals[1]['value'] = $valueShipping;
 					$totals[3]['value'] = $totals[0]['value'] + $totals[1]['value'];
 	
