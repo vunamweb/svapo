@@ -781,7 +781,10 @@ class ControllerMailOrder extends Controller {
 			// $file_location = "./admin/auftrag/".$pdf_name;
 			// $status = 2;
 			$subject = html_entity_decode(sprintf($language->get('text_subject'), 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
-			$message = $this->load->view('mail/order_edit', $data);
+			if($order_status_id == 25 || $order_status_id == 18)
+			  $message = $this->load->view('mail/order_add', $data);
+			else   
+			  $message = $this->load->view('mail/order_edit', $data);
 		} 
 	
         $this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $from, $message, 'edit', $pdf_name, $status, $upload_file);
