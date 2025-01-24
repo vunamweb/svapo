@@ -2018,55 +2018,53 @@ class ControllerApiOrder extends Controller {
 
 			$order_info = $this->model_checkout_order->getOrder($order_id);
 
-			/*if(str_contains($order_info['upload_file'], 'prescription.pdf')) {
-				$json['error'] = 'Stop send for order has file upload prescription.pdf';
-
-				$this->response->addHeader('Content-Type: application/json');
-				$this->response->setOutput(json_encode($json));
-
-				return;
-			}*/
 			//print_r($order_info); die();
 
-			if ($order_info) {
-				if($this->request->post['order_status_id'] == ORDER_ID && $this->model_checkout_order->getDHLOrder($order_id) == ''){
-					$response = $this->sendDhlShipmentRequest($order_id);
-					//print_r($response); die();
-		
-					//if($response == null) {
-					if(isset($response['status']) && isset($response['status']['status']) && $response['status']['status'] == 200) {
-						$obj = new \stdClass;
-						$obj->label = $response['items'][0]['label'];
-						$obj->shipmentRefNo = $response['items'][0]['shipmentRefNo'];
-						$obj->shipmentNo = $response['items'][0]['shipmentNo'];
-						$obj->routingCode = $response['items'][0]['routingCode'];
-						
-		
-						$this->model_checkout_order->updateDHLOrder(json_encode($obj), $order_id);
-		
-						//print_r($obj); die();
+			if (in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && !in_array($this->request->post['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))))
+		     if($order_info['invoice_no'] == 0) {
+				$json['error'] = 'Der Bestellung liegt keine Rechnungsnummer bei und sie kann deshalb nicht abgebrochen werden';
+			 } else {
+				if ($order_info) {
+					if($this->request->post['order_status_id'] == ORDER_ID && $this->model_checkout_order->getDHLOrder($order_id) == ''){
+						$response = $this->sendDhlShipmentRequest($order_id);
+						//print_r($response); die();
+			
+						//if($response == null) {
+						if(isset($response['status']) && isset($response['status']['status']) && $response['status']['status'] == 200) {
+							$obj = new \stdClass;
+							$obj->label = $response['items'][0]['label'];
+							$obj->shipmentRefNo = $response['items'][0]['shipmentRefNo'];
+							$obj->shipmentNo = $response['items'][0]['shipmentNo'];
+							$obj->routingCode = $response['items'][0]['routingCode'];
+							
+			
+							$this->model_checkout_order->updateDHLOrder(json_encode($obj), $order_id);
+			
+							//print_r($obj); die();
+						}
 					}
+					
+					$this->model_checkout_order->addOrderHistory($order_id, $this->request->post['order_status_id'], $this->request->post['comment'], $this->request->post['notify'], $this->request->post['override']);
+	
+					// if DHL is ok
+					if(isset($response['status']) && isset($response['status']['status']) && $response['status']['status'] == 200)
+					//if($response == null)
+					  $json['success'] = $this->language->get('text_success');
+					// if DHL has error
+					else
+					  $json['error'] = $response;
+	
+				} else {
+					$json['error'] = $this->language->get('error_not_found');
 				}
-				
-				$this->model_checkout_order->addOrderHistory($order_id, $this->request->post['order_status_id'], $this->request->post['comment'], $this->request->post['notify'], $this->request->post['override']);
+			 } 
 
-				// if DHL is ok
-				if(isset($response['status']) && isset($response['status']['status']) && $response['status']['status'] == 200)
-				//if($response == null)
-				  $json['success'] = $this->language->get('text_success');
-				// if DHL has error
-				else
-				  $json['error'] = $response;
-
-			} else {
-				$json['error'] = $this->language->get('error_not_found');
-			}
 		}
 
 		if(str_contains($order_info['upload_file'], 'prescription.pdf')) {
 				$json['error'] = 'Stop send for order has file upload prescription.pdf';
-        }
-
+		}
+		
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}

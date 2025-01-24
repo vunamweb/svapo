@@ -792,6 +792,8 @@ class ControllerMailOrder extends Controller {
 				$count = count($data['totals']);
 				$data['totals'][$count - 1]['text'] = '-' . $data['totals'][$count - 1]['text'];
 				
+				$subject = html_entity_decode(sprintf('Order STORNIERT', 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+			
 				$message = $this->load->view('mail/order_cancel', $data);
 			} 
 
