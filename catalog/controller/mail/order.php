@@ -619,10 +619,31 @@ class ControllerMailOrder extends Controller {
 		
 		$order_totals = $this->model_checkout_order->getOrderTotals($order_info['order_id']);
 
-		$this->document->displayOrder($order_totals, 0, 0, 0, 0, 0);
+		// get value shipping of order
+		$value_shipping = $this->config->get('shipping_flat_cost');
+
+		foreach ($order_totals as $order_total) {
+			if($order_total['code'] == 'sub_total') {
+				$total = $order_total['value'];
+				$minShipping = $this->config->get('shipping_free_total');
+
+				if($total >= $minShipping)
+				  $value_shipping = 0; 
+            }
+		}
+        // end
+		
+        $this->document->displayOrder($order_totals, 0, 0, 0, 0, 0);
+
+		$count = count($order_totals);
+
+		// SET SHIPPING
+		$order_totals[1]['value'] = $value_shipping;
+		$order_totals[$count]['value'] = $order_totals[0]['value'] + $order_totals[1]['value'];
+		$order_totals[2]['value'] = round( $order_totals[$count]['value'] - $order_totals[$count]['value']/1.19 ,2);
+		// END
 
 		// Add net price
-		$count = count($order_totals);
 		// if not coupon
 		if($count == 4) {
 			//print_r($order_totals); die();
@@ -655,8 +676,8 @@ class ControllerMailOrder extends Controller {
 			
 			//print_r($order_totals); die();
 		}
-
-		$data['total'] = number_format($order_totals[$count]['value'], 2, ',', '.');
+            
+        $data['total'] = number_format($order_totals[$count]['value'], 2, ',', '.');
 		
 
 		usort($order_totals, function($a, $b) {
@@ -747,23 +768,10 @@ class ControllerMailOrder extends Controller {
 			// $subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
 			$subject = html_entity_decode(sprintf('%s - Rechnung - ' . $order_info['order_id'], 'svapo.de, '.$order_info['store_name']), ENT_QUOTES, 'UTF-8');
 			$message = $this->load->view('mail/order_invoice', $data);
-		} /*else if($order_status_id == 23) {
-			$urlPDF = HTTP_SERVER . 'rEzEpT/' . $order_info['upload_file'];
+		  // if cancel
+		  } /*else if(in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && !in_array($order_status_id, array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status')))) {
+			//$data['totals'][$count - 1]['text'] = '-' . $data['totals'][$count - 1]['text'];
 
-			$upload_file = $order_info['upload_file'];
-			$upload_file = trim($upload_file);
-		    $upload_file = str_replace(' ', '', $upload_file);
-
-			
-			if($this->isPdf($urlPDF)) {
-				//echo '1'; die();
-				$this->exportPdfToSign($order_info, $data['products']);
-				$status = 2;
-			} else {
-				//echo '2'; die();
-				$status = 3;
-			}
-			
 			$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
 			$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
 			$file_location = "./admin/invoice/".$pdf_name;
@@ -773,9 +781,6 @@ class ControllerMailOrder extends Controller {
 			// $file_location = "./pdf/Rechnung-svapo.pdf";
 			file_put_contents($file_location, $pdf);
 			//end
-			// $subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
-			$subject = html_entity_decode(sprintf('%s - Rechnung', 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
-			$message = $this->load->view('mail/order_invoice', $data);
 		}*/
     	else {
 			$subject = html_entity_decode(sprintf($language->get('text_subject'), 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
@@ -789,6 +794,20 @@ class ControllerMailOrder extends Controller {
 			else if($order_status_id == STATUS1)
 			$message = $this->load->view('mail/order_add_customer_process_'.$order_status_id.'', $data);
 			else {
+				// PDF INVOICE
+				$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
+				$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
+				$file_location = "./admin/invoice/".$pdf_name;
+				$dompdf->setPaper('A4', 'Horizontal');
+				$dompdf->render();
+				$pdf = $dompdf->output();
+				// $file_location = "./pdf/Rechnung-svapo.pdf";
+				file_put_contents($file_location, $pdf);
+				// END
+
+				$upload_file = $pdf_name;
+				$status = 2;
+			
 				$count = count($data['totals']);
 				$data['totals'][$count - 1]['text'] = '-' . $data['totals'][$count - 1]['text'];
 				
