@@ -795,6 +795,8 @@ class ControllerMailOrder extends Controller {
 			$message = $this->load->view('mail/order_add_customer_process_'.$order_status_id.'', $data);
 			else {
 				// PDF INVOICE
+				$data['totals'][$count]['text'] = '-' . $data['totals'][$count]['text'];
+
 				$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
 				$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
 				$file_location = "./admin/invoice/".$pdf_name;
@@ -809,6 +811,8 @@ class ControllerMailOrder extends Controller {
 				$status = 2;
 			
 				$count = count($data['totals']);
+
+				$data['totals'][$count]['text'] = $data['totals'][$count]['text'];
 				$data['totals'][$count - 1]['text'] = '-' . $data['totals'][$count - 1]['text'];
 				
 				$subject = html_entity_decode(sprintf('Order STORNIERT', 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
