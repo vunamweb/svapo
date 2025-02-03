@@ -17,7 +17,13 @@ class ControllerApiOrder extends Controller {
 					 'postalCode',
 					 'city',
 					 'houseNr'
-			   ]
+				],
+				'deliveryAddress' => [
+					'streetName',
+					'postalCode',
+					'city',
+					'houseNr'
+			  ]
 			],
 			'products' => [
 				'id' => "array",
@@ -38,7 +44,13 @@ class ControllerApiOrder extends Controller {
 					 'postalCode',
 					 'city',
 					 'houseNr'
-			   ]
+				],
+				'deliveryAddress' => [
+					'streetName',
+					'postalCode',
+					'city',
+					'houseNr'
+			  ]
 			],
 			'products' => [
 				'ansayProductId' => "array",
