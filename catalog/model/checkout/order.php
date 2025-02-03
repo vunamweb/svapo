@@ -5,17 +5,25 @@ class ModelCheckoutOrder extends Model {
 		//$to = 'vukynamkhtn@gmail.com';
 		$subject = 'SAVE LOG OF API ANSAY';
 		$fromName = 'svapo.de';
-		
-       try {
-		   /*$date = date("Y-m-d H:i:s");
 
-		   $this->db->query("INSERT INTO " . DB_PREFIX . "order_log SET addDate = '" . $date . "', JSON = '" . $this->db->escape($json) . "'");
+		try {
+			$dataJSON = json_decode($json);
+			//print_r($dataJSON); die();
+			$typeJSON = (isset($dataJSON->products[0]->ansayProductId)) ? 'docnow' : 'ansay';
+			//echo($typeJSON); die();
+		   if($typeJSON == 'docnow') {
+   
+			$date = date("Y-m-d H:i:s");
 
-		   $log_id = $this->db->getLastId();
-
-		   $message = 'Save successfully log_id ' . $log_id . ' into database';*/
-
-		   // $this->document->sendMailSMTP($to, $subject, SMTP_USER, $fromName, $message);
+			$this->db->query("INSERT INTO " . DB_PREFIX . "order_log SET addDate = '" . $date . "', JSON = '" . $this->db->escape($json) . "'");
+ 
+			/*$log_id = $this->db->getLastId();
+ 
+			$message = 'Save successfully log_id ' . $log_id . ' into database';
+ 
+			$this->document->sendMailSMTP($to, $subject, SMTP_USER, $fromName, $message);*/
+		 
+		   } 	
 		} catch (\Exception $e) {
 			$message = 'Save error JSON ' . $json . ' into database';
 
@@ -607,8 +615,8 @@ class ModelCheckoutOrder extends Model {
 				}
 			}
 
-			if (in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && !in_array($order_status_id, array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))))
-			  $this->duplicateOrder($order_id);
+			/*if (in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && !in_array($order_status_id, array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))))
+			  $this->duplicateOrder($order_id);*/
 
 			$this->cache->delete('product');
 		}
