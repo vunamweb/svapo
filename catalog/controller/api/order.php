@@ -986,7 +986,7 @@ class ControllerApiOrder extends Controller {
 				$order_data['shipping_firstname'] = $data['customer']['firstname'];
 				$order_data['shipping_lastname'] =  $data['customer']['lastname'];
 				$order_data['shipping_company'] = '';
-				$order_data['shipping_address_1'] = ' ' . $data['customer']['deliveryAddress']['streetName'] . ' ';
+				$order_data['shipping_address_1'] = ' ' . $data['customer']['deliveryAddress']['streetName'] . ' ' . $data['customer']['deliveryAddress']['houseNr'];
 				$order_data['shipping_address_2'] = '';
 				$order_data['shipping_city'] = $data['customer']['deliveryAddress']['city'] . ' ';
 				$order_data['shipping_postcode'] = $data['customer']['deliveryAddress']['postalCode'];
@@ -2020,7 +2020,8 @@ class ControllerApiOrder extends Controller {
 
 			//print_r($order_info); die();
 
-			if ($order_info['invoice_no'] == 0 && in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && !in_array($this->request->post['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))))
+			if(false)
+			//if ($order_info['invoice_no'] == 0 && in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && !in_array($this->request->post['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))))
 		    {
 				$json['error'] = 'Der Bestellung liegt keine Rechnungsnummer bei und sie kann deshalb nicht abgebrochen werden';
 			 } else {
