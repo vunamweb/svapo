@@ -793,6 +793,7 @@ class ControllerMailOrder extends Controller {
 			// if is STATUS 7
 			else if($order_status_id == STATUS1)
 			$message = $this->load->view('mail/order_add_customer_process_'.$order_status_id.'', $data);
+			// is cancel
 			else {
 				// PDF INVOICE
 				$data['totals'][$count]['text'] = '-' . $data['totals'][$count]['text'];

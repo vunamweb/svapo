@@ -615,8 +615,8 @@ class ModelCheckoutOrder extends Model {
 				}
 			}
 
-			/*if (in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && !in_array($order_status_id, array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))))
-			  $this->duplicateOrder($order_id);*/
+			if (in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && !in_array($order_status_id, array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))))
+			  $this->duplicateOrder($order_id);
 
 			$this->cache->delete('product');
 		}
