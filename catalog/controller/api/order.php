@@ -2032,7 +2032,8 @@ class ControllerApiOrder extends Controller {
 
 			//print_r($order_info); die();
 
-			if ($order_info['invoice_no'] == 0 && in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && !in_array($this->request->post['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))))
+			if(false)
+			//if ($order_info['invoice_no'] == 0 && in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && !in_array($this->request->post['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))))
 		    {
 				$json['error'] = 'Der Bestellung liegt keine Rechnungsnummer bei und sie kann deshalb nicht abgebrochen werden';
 			 } else {

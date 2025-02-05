@@ -615,7 +615,7 @@ class ModelCheckoutOrder extends Model {
 				}
 			}
 
-			if (in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && $order_status_id >0 && !in_array($order_status_id, array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))))
+			if ($order_status_id > 0 && $order_info['invoice_no'] > 0 && !in_array($order_status_id, array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))))
 			  $this->duplicateOrder($order_id);
 
 			$this->cache->delete('product');

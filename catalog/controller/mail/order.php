@@ -788,7 +788,7 @@ class ControllerMailOrder extends Controller {
 			if($order_status_id == 25 || $order_status_id == 18)
 			  $message = $this->load->view('mail/order_add_new', $data);
 			// if not cancel
-			else if ($order_status_id != STATUS1 && !(in_array($order_info['order_status_id'], array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && !in_array($order_status_id, array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status')))))
+			else if ($order_status_id != STATUS1 && !($order_info['invoice_no'] > 0 && !in_array($order_status_id, array_merge($this->config->get('config_processing_status'), $this->config->get('config_complete_status')))))
 			  $message = $this->load->view('mail/order_edit', $data);
 			// if is STATUS 7
 			else if($order_status_id == STATUS1)
