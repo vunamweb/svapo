@@ -243,7 +243,7 @@ class ControllerSaleOrder extends Controller {
 				$totalOrder = $totalOrder + $valueShipping;
 			}*/
 			
-			$totalOrder= $result['total_real'];
+			$totalOrder = ($result['order_status_id'] != 27) ? $result['total_real'] : $result['total_real'] * -1;
 
 			$data['orders'][] = array(
 				'order_id'      => $result['order_id'],
@@ -1065,6 +1065,7 @@ class ControllerSaleOrder extends Controller {
 			$valueShipping = $this->config->get('shipping_flat_cost');
 		    $minShipping = $this->config->get('shipping_free_total');
 
+			
 			if($totals[0]['value'] > 0) {
 				if($totals[0]['value'] < $minShipping && $order_info['order_status_id'] != 17) {
 					$totals[1]['value'] = $valueShipping;
@@ -1086,7 +1087,11 @@ class ControllerSaleOrder extends Controller {
 					$totals[1]['value'] = 0;
 					$totals[3]['value'] = $totals[0]['value'] + $totals[1]['value'];
 	
+					if($order_info['order_status_id'] != 27)
 					$totals[4]['value'] = $totals[3]['value'];
+					else 
+					$totals[4]['value'] = $totals[3]['value'] * -1;
+
 	
 					$totals[2]['value'] = $totals[3]['value'] - $totals[3]['value']/1.19;
 	
@@ -1094,6 +1099,11 @@ class ControllerSaleOrder extends Controller {
 				}
 			}
 
+			/*if($order_id == 41083 || $order_id == 2883) {
+				print_r($totals);
+				//echo $order_info['order_status_id'];
+				die(); 
+			}*/
 			//print_r($totals); die();
 
             foreach ($totals as $total) {

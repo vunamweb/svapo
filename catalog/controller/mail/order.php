@@ -799,7 +799,7 @@ class ControllerMailOrder extends Controller {
 				$data['totals'][$count]['text'] = '-' . $data['totals'][$count]['text'];
 
 				$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
-				$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
+				$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice_cancel', $data));
 				$file_location = "./admin/invoice/".$pdf_name;
 				$dompdf->setPaper('A4', 'Horizontal');
 				$dompdf->render();
