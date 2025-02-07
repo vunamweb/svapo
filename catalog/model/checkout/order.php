@@ -930,11 +930,6 @@ class ModelCheckoutOrder extends Model {
 		$data['firstname'] = $order_info['firstname'];
 		$data['lastname'] = $order_info['lastname'];
 
-		$data['dhl'] = $this->model_checkout_order->getDHLOrder($order_info['order_id']);
-		$dhl = json_decode($data['dhl']);
-
-		$data['trackingnumber'] = '<a target="_blank" href="https://www.dhl.de/de/privatkunden/dhl-sendungsverfolgung.html?piececode='.$dhl->shipmentNo.'">' . $dhl->shipmentNo . '</a>';
-
 		//create pdf
 		$options = new Options();
 		$options->set('tempDir', '/tmp');
@@ -945,7 +940,9 @@ class ModelCheckoutOrder extends Model {
 		// PDF INVOICE
 		$data['totals'][$count]['text'] = '-' . $data['totals'][$count]['text'];
 
-		$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
+		$data['order_id'] = str_replace('-00', '-', $order_info['invoice_prefix']. $order_info['invoice_no']);
+
+        $pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
 		$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice_cancel', $data));
 		$file_location = "./admin/invoice/".$pdf_name;
 		$dompdf->setPaper('A4', 'Horizontal');

@@ -798,6 +798,8 @@ class ControllerMailOrder extends Controller {
 				// PDF INVOICE
 				$data['totals'][$count]['text'] = '-' . $data['totals'][$count]['text'];
 
+				$data['order_id'] = str_replace('-00', '-', $order_info['invoice_prefix']. $order_info['invoice_no']);
+
 				$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
 				$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice_cancel', $data));
 				$file_location = "./admin/invoice/".$pdf_name;
