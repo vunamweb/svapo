@@ -253,7 +253,8 @@ class ControllerApiOrder extends Controller {
 
 					//return true; 
 				}
-				else if ( (!is_array($jsonArray) || !array_key_exists($value, $jsonArray)) && !$this->checkPropertyInArrayJson($value, $jsonArray) ) {
+				else if ( (!is_array($jsonArray)) && !$this->checkPropertyInArrayJson($value, $jsonArray) ) {
+					//print_r($jsonArray); die();
 					echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$value" : $value)]);
 					$this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$value" : $value), true, true);
 					
@@ -853,7 +854,7 @@ class ControllerApiOrder extends Controller {
 			if($this->checkAttributesMedcanonestop($this->getRequireAttributeMedcanonestop(), $jsonData)) {
 			$response = $this->saveOrder($jsonData);
 
-			//print_r($response); die();
+			print_r($response) . '/ddd'; die();
 
 			$order_id = $response->order_id;
 			$customer_group_id = $response->customer_group_id;
