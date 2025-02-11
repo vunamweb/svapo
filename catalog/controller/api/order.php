@@ -59,6 +59,47 @@ class ControllerApiOrder extends Controller {
 		];
 	}
 
+	public function getRequireAttributeMedcanonestop() {
+		return [
+			'customer' => [
+				'firstname',
+				'lastname',
+				'email',
+				'phone',
+				'homeAddress' => [
+					 'streetName',
+					 'postalCode',
+					 'city',
+					 'houseNr'
+				],
+				'deliveryAddress' => [
+					'streetName',
+					'postalCode',
+					'city',
+					'houseNr'
+			  ]
+			],
+			'product' => [
+				'id' => "array",
+				'quantity',
+				'name',
+				'cultivar',
+				'category'
+			],
+			"doctor" => [
+				"name",
+				"cityOfSignature",
+				"dateOfSignature"
+			],
+			'Address' => [
+				'streetName',
+				'postalCode',
+				'city',
+				'houseNr'
+		   ],
+		];
+	}
+
 	// Function to get the Authorization header
 	public function getAuthorizationHeader() {
 		$headers = null;
@@ -152,6 +193,50 @@ class ControllerApiOrder extends Controller {
 					return false;
 				}
 				if (!$this->checkAttributesDocnow24($value, $jsonArray[$key], $parentKey ? "$parentKey.$key" : $key)) {
+					return false;
+				}
+			} else { // if is child
+				/*if($value == 'quantity') {
+					print_r($jsonArray);
+				    die();
+				}*/
+				// if is array
+				if($value == 'array') {
+					//echo '111'; die();
+					//print_r($jsonArray);
+					if(!$this->model_catalog_product->checkExistListProducts($jsonArray, $key, $parentKey))
+					 return false;
+
+					//return true; 
+				}
+				else if ( (!is_array($jsonArray) || !array_key_exists($value, $jsonArray)) && !$this->checkPropertyInArrayJson($value, $jsonArray) ) {
+					echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$value" : $value)]);
+					$this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$value" : $value), true, true);
+					
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	public function checkAttributesMedcanonestop($attributes, $jsonArray, string $parentKey = ''): bool {
+		$rawData = file_get_contents("php://input");
+
+		//if(!$this->model_checkout_order->checkExistAttribute($jsonArray['pharmacy_id'], $jsonArray['internalOrderId']))
+	      //return false; 
+		//print_r($jsonArray); die();
+		foreach ($attributes as $key => $value) {
+			// if is parent
+			if (is_array($value)) {
+				// Check for nested attributes
+				if (!isset($jsonArray[$key])) {
+					echo json_encode(['error_codes' => 402, 'error' => "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key)]);
+					$this->document->writeLog($rawData, "Missing or invalid attribute: " . ($parentKey ? "$parentKey.$key" : $key), true, true);
+					return false;
+				}
+				if (!$this->checkAttributesMedcanonestop($value, $jsonArray[$key], $parentKey ? "$parentKey.$key" : $key)) {
 					return false;
 				}
 			} else { // if is child
@@ -663,6 +748,109 @@ class ControllerApiOrder extends Controller {
 			}
 	
 			if($this->checkAttributesDocnow24($this->getRequireAttributeDocnow24(), $jsonData)) {
+			$response = $this->saveOrder($jsonData);
+
+			//print_r($response); die();
+
+			$order_id = $response->order_id;
+			$customer_group_id = $response->customer_group_id;
+	
+			 if($order_id) {
+				$order_status_id = ($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) ? ORDER_STATUS_ID : 25;
+	
+				$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
+	
+				$urlDocument = $jsonData['prescriptionURL'];
+				$this->saveDocumentToServer($urlDocument, $order_id);
+	
+				// SEND MAIL
+				$order_info = $this->model_checkout_order->getOrder($order_id);
+				$this->sendMail($order_info, $order_status_id, $customer_group_id, $deliveryType);
+				// END
+	
+				echo json_encode(['codes' => 200, 'order_id' => $order_id]);
+			} else {
+				$dataJSON = json_decode($rawData);
+
+				$errorLog = 'Error while creating order' . '<br>' . PHP_EOL;
+				$errorLog .= $dataJSON->customer->firstname . ' ' . $dataJSON->customer->lastname;
+				
+				echo json_encode(['error_codes' => 401, 'error' => $errorLog]);
+				$this->document->writeLog($rawData, $errorLog, true);
+			 }
+			}
+		} catch (\Exception $e) {
+			echo json_encode(['error_codes' => 401, 'error' => $e->getMessage()]);
+			$this->document->writeLog($rawData, $e->getMessage(), true);
+		} catch (\Throwable $e) {
+			echo json_encode(['error_codes' => 401, 'error' => $e->getMessage()]);
+			$this->document->writeLog($rawData, $e->getMessage(), true);
+			//echo $e->getMessage();	
+		  // log error here by write $e->getMessage() in log file
+		} 
+	}
+	
+	public function addOrderMedcanonestop() {
+		$this->load->model('catalog/product');
+		$this->load->model('checkout/order');
+
+		$rawData = file_get_contents("php://input");
+
+		$this->model_checkout_order->saveJSONAnsay($rawData);
+
+		try {
+			// Check for the Bearer token
+			$token = $this->getBearerToken();
+			//echo $token; die();
+			/*if ($token === null) {
+				// Bearer token is missing
+				header('HTTP/1.0 401 Unauthorized');
+				echo json_encode(['error_codes' => 401, 'error' => 'Missing Bearer token']);
+
+				$this->document->writeLog($rawData, 'Missing Bearer token');
+				exit;
+			}
+	
+			if ($token != TOKEN) {
+				// Bearer token is missing
+				header('HTTP/1.0 401 Unauthorized');
+				echo json_encode(['error_codes' => 401, 'error' => 'Unauthorized']);
+
+				$this->document->writeLog($rawData, 'Unauthorized');
+				exit;
+			}*/
+			
+			// $_POST wird nur gefüllt, wenn die Daten in einem application/x-www-form-urlencoded oder multipart/form-data Format gesendet werden, das üblicherweise beim Senden von HTML-Formularen verwendet wird.
+			// php://input wird verwendet, wenn die Daten z. B. als JSON, XML oder ein anderes benutzerdefiniertes Format gesendet werden, das nicht in den Standard-$_POST-Array eingefügt wird.
+			// Check JSON
+			// file_get_contents("php://input") ist sehr nützlich, wenn du den vollständigen Rohinhalt einer Anfrage brauchst, besonders wenn du mit APIs oder JSON-Daten arbeitest, die als Teil des HTTP-Requests gesendet werden.
+			//$rawData = file_get_contents("php://input");
+	
+			// Decode the JSON data
+			$jsonData = json_decode($rawData, true);
+			$deliveryType = $jsonData['deliveryType'];
+			//echo $deliveryType; die();
+	
+			// Check if the JSON data is valid and not empty
+			if (json_last_error() !== JSON_ERROR_NONE) {
+				// The JSON is not valid
+				http_response_code(400); // Bad Request
+				echo json_encode(['error_codes' => 400, 'error' => 'Invalid JSON']);
+
+				$this->document->writeLog($rawData, 'Invalid JSON', true);
+				exit;
+			}
+	
+			if (empty($jsonData)) {
+				// The JSON is empty or not present
+				http_response_code(400); // Bad Request
+				echo json_encode(['error_codes' => 400, 'error' => 'Missing JSON body']);
+
+				$this->document->writeLog($rawData, 'Missing JSON body', true);
+				exit;
+			}
+	
+			if($this->checkAttributesMedcanonestop($this->getRequireAttributeMedcanonestop(), $jsonData)) {
 			$response = $this->saveOrder($jsonData);
 
 			//print_r($response); die();
