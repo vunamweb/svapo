@@ -854,8 +854,6 @@ class ControllerApiOrder extends Controller {
 			if($this->checkAttributesMedcanonestop($this->getRequireAttributeMedcanonestop(), $jsonData)) {
 			$response = $this->saveOrder($jsonData);
 
-			print_r($response) . '/ddd'; die();
-
 			$order_id = $response->order_id;
 			$customer_group_id = $response->customer_group_id;
 	
@@ -1038,7 +1036,7 @@ class ControllerApiOrder extends Controller {
 	public function saveOrder($data) {
 	   $deliveryType = $data['deliveryType'];
 	   //print_r($data); die();	
-	   $data['products'] = $this->converListOfMpnToID($data['products']);
+	   $data['products'] = (isset($data['products'])) ? $this->converListOfMpnToID($data['products']) : $this->converListOfMpnToID($data['product']);
 
 	   $products = $data['products'];
 

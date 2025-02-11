@@ -180,7 +180,7 @@ class Document {
                $from = SMTP_USER;
                $fromName = 'svapo.de';
                //$to = 'info@svapo.de';
-               $to = 'vukynamkhtn@gmail.com';
+               $to = 'vu@pixeldusche.com';
                
                $message = 'A user failed to create an order with the following error and JSON<br>';
                $message .= $error;
