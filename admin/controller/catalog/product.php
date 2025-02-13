@@ -384,6 +384,7 @@ class ControllerCatalogProduct extends Controller {
                 'upc'      => $result[ 'upc' ],
                 'sku'      => $result[ 'sku' ],                
                 'mpn'      => $result[ 'mpn' ],                
+				'isbn'      => $result[ 'isbn' ],                
                 'stock_status_id' => $result[ 'stock_status_id' ],
                 // 'price'      => $this->currency->format( $result[ 'price' ], $this->config->get( 'config_currency' ) ),
 				'price'      => number_format( $result[ 'price' ], 2, ',' ),
@@ -676,6 +677,7 @@ class ControllerCatalogProduct extends Controller {
                 'model'      => $result[ 'model' ],
 				'pzn'      => $result[ 'sku' ],
                 'mpn'      => $result[ 'mpn' ],
+				'isbn'      => $result[ 'isbn' ],
                 'stock_status_id' => $result[ 'stock_status_id' ],
                 'price'      => $this->currency->format( $result[ 'price' ], $this->config->get( 'config_currency' ) ),
                 'special'    => $special,
@@ -1050,6 +1052,15 @@ class ControllerCatalogProduct extends Controller {
         } else {
             $data[ 'mpn' ] = '';
         }
+		
+		if ( isset( $this->request->post[ 'isbn' ] ) ) {
+			$data[ 'isbn' ] = $this->request->post[ 'isbn' ];
+		} elseif ( !empty( $product_info ) ) {
+			$data[ 'isbn' ] = $product_info[ 'isbn' ];
+		} else {
+			$data[ 'isbn' ] = '';
+		}
+
 
         if ( isset( $this->request->post[ 'location' ] ) ) {
             $data[ 'location' ] = $this->request->post[ 'location' ];
