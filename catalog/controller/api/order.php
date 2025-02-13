@@ -79,7 +79,7 @@ class ControllerApiOrder extends Controller {
 					'houseNr'
 			  ]
 			],
-			'product' => [
+			'products' => [
 				'id' => "array",
 				'quantity',
 				'name',
@@ -796,6 +796,8 @@ class ControllerApiOrder extends Controller {
 		$this->load->model('checkout/order');
 
 		$rawData = file_get_contents("php://input");
+
+		//print_r(json_decode($rawData, true)); die();
 
 		$this->model_checkout_order->saveJSONAnsay($rawData);
 
