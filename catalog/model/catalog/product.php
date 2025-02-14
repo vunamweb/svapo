@@ -136,18 +136,23 @@ class ModelCatalogProduct extends Model {
         return ($status == '') ? 1 :$status;
     }
 
-    public function checkExistListProducts($listProduct, $key, $parentKey) {
+    public function checkExistListProducts($listProduct, $key, $parentKey, $mcos = false) {
         $rawData = file_get_contents("php://input");
         $dataJSON = json_decode($rawData);
 
+        $nameField = (!$mcos) ? 'mpn ' : 'isbn ';
+
         $result = array();
 
-        $sql = 'select mpn from '.DB_PREFIX.'product';
-
+        if(!$mcos)
+          $sql = 'select mpn from '.DB_PREFIX.'product';
+        else
+          $sql = 'select isbn from '.DB_PREFIX.'product';
+         
         $query = $this->db->query($sql);
 
         foreach ( $query->rows as $row ) {
-            $result[] = $row['mpn'];
+            $result[] = (!$mcos) ? $row['mpn'] : $row['isbn'];
         }
 
         foreach($listProduct as $product) 
@@ -167,7 +172,7 @@ class ModelCatalogProduct extends Model {
           }
           else if (!in_array($product[$key], $result)) {
             //echo json_encode(['error_codes' => 402, 'error' => ($parentKey ? "$parentKey.$key " . "$product[$key]" . " not exist" : $key)]);
-            echo json_encode(['error_codes' => 402, 'error' => ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key)]);
+            echo json_encode(['error_codes' => 402, 'error' => ($parentKey ? $nameField . "$product[$key]" . " not exist" : $key)]);
 
             try {
                 //print_r($dataJSON); die();
@@ -177,9 +182,9 @@ class ModelCatalogProduct extends Model {
 
                 ($key == 'id') ? $this->document->writeLog($rawData, $errorLog) : $this->document->writeLog($rawData, $errorLog, true, true);
             } catch (\Exception $e) {
-                ($key == 'id') ? $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key)) : $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key), true, true);
+                ($key == 'id') ? $this->document->writeLog($rawData, ($parentKey ? $nameField . "$product[$key]" . " not exist" : $key)) : $this->document->writeLog($rawData, ($parentKey ? $nameField . "$product[$key]" . " not exist" : $key), true, true);
             } catch (\Throwable $e) {
-                ($key == 'id') ? $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key)) : $this->document->writeLog($rawData, ($parentKey ? "mpn " . "$product[$key]" . " not exist" : $key), true, true);
+                ($key == 'id') ? $this->document->writeLog($rawData, ($parentKey ? $nameField . "$product[$key]" . " not exist" : $key)) : $this->document->writeLog($rawData, ($parentKey ? $nameField . "$product[$key]" . " not exist" : $key), true, true);
             }
 
             return false;				
@@ -200,6 +205,16 @@ class ModelCatalogProduct extends Model {
     
     public function getIdFromMpn($mpn) {
         $sql = 'select product_id from '.DB_PREFIX.'product where mpn = "'.$mpn.'"';
+    
+        $query = $this->db->query($sql);
+    
+        //echo $query->row['product_id'] . '/';
+    
+        return ($query->row['product_id'] != '') ? $query->row['product_id'] : $this->getIdFromIsbn($mpn);
+    }
+
+    public function getIdFromIsbn($isbn) {
+        $sql = 'select product_id from '.DB_PREFIX.'product where isbn = "'.$isbn.'"';
     
         $query = $this->db->query($sql);
     

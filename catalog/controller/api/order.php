@@ -248,7 +248,7 @@ class ControllerApiOrder extends Controller {
 				if($value == 'array') {
 					//echo '111'; die();
 					//print_r($jsonArray);
-					if(!$this->model_catalog_product->checkExistListProducts($jsonArray, $key, $parentKey))
+					if(!$this->model_catalog_product->checkExistListProducts($jsonArray, $key, $parentKey, true))
 					 return false;
 
 					//return true; 
@@ -860,7 +860,7 @@ class ControllerApiOrder extends Controller {
 			$customer_group_id = $response->customer_group_id;
 	
 			 if($order_id) {
-				$order_status_id = ($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) ? ORDER_STATUS_ID : 25;
+				$order_status_id = ($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) ? ORDER_STATUS_ID : 30;
 	
 				$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
 	
