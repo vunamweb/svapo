@@ -38,4 +38,4 @@ define('OPENCART_SERVER', 'https://www.opencart.com/');
 // SUB FOLDER
 define('SUB_FOLDER', '/pharmacy/');
 
-define('PATH_FILE_UPLOAD', 'https://pharmacy.svapo.de/uploads/');
+define('PATH_FILE_UPLOAD', 'https://files.svapo.info/uploads/');

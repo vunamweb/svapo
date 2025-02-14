@@ -190,6 +190,11 @@
         </table>
         <div>
         <a target="_blank" href="{{ upload_file }}">Link upload file</a>
+        <input type="file" name="upload_file" id="upload_file_1" class="form-control">
+        <br>
+        <div class="text-right">
+         <button id="button-resend" data-loading-text="Resend .." class="btn btn-primary"><i class="fa fa-repeat"></i> Resend and Upload File</button>
+      </div>
         {% if label %}
         <br><br><a target="_blank" href="{{ label }}">Lable DHL</a>
         <p>ShipmentRefNo: {{ shipmentRefNo }}</p>
@@ -557,6 +562,55 @@
   });
 
   $('#history').load('index.php?route=sale/order/history&user_token={{ user_token }}&order_id={{ order_id }}');
+
+  $('#button-resend').on('click', function() {
+	$.ajax({
+		url: '{{ catalog }}index.php?route=api/order/history_&api_token={{ api_token }}&store_id={{ store_id }}&order_id={{ order_id }}',
+		type: 'post',
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-resend').button('loading');
+		},
+		complete: function() {
+			$('#button-resend').button('reset');
+      
+      // upload file
+      	var url = '{{ catalog }}admin/index.php?route=sale/order/info&user_token={{ user_token }}&order_id={{ order_id }}';
+
+        var formData = new FormData();
+				formData.append('upload_file', $('#upload_file_1')[0].files[0]);
+
+				//const order_id = $('input[name=\'order_id\']').val();
+
+				if($('#upload_file_1')[0].files[0] != undefined) {
+          $.ajax({
+            url: '{{ catalog }}index.php?route=api/order/uploadFile&order_id={{ order_id }}', // URL to handle the upload
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            enctype: 'multipart/form-data',
+            timeout: 0,
+            success: function (response) {
+              //$('#button-save').button('reset');
+              window.location.href = url;
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+          })
+        }
+      // end 
+		},
+		success: function(json) {
+			$('.alert-dismissible').remove();
+      $('#history').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> erfolgreich gesendet<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+    },
+		error: function(xhr, ajaxOptions, thrownError) {
+      $('#resend').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> erfolgreich gesendet<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+    }
+	});
+});
 
   $('#button-history').on('click', function() {
 	  $.ajax({

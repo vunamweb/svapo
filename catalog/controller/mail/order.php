@@ -410,6 +410,15 @@ class ControllerMailOrder extends Controller {
         }
 	}
 
+	public function resend() {
+		$this->load->model('checkout/order');
+
+		$order_info = $this->model_checkout_order->getOrder($this->request->get['order_id']);
+		$order_status_id = $order_info['order_status_id'];
+
+        $this->add($order_info, $order_status_id, '', '');
+	}
+
 	public function edit($order_info, $order_status_id, $comment) {
 		$language = new Language($order_info['language_code']);
 		$language->load($order_info['language_code']);

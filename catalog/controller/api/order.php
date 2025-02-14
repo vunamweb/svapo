@@ -2270,6 +2270,10 @@ class ControllerApiOrder extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
+	public function history_() {
+		$this->load->controller('mail/order/resend');
+	}
       
 	public function getTotalWeight($products) {
 		$total_weight = 0;
