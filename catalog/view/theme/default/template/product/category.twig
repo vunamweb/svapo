@@ -10,7 +10,7 @@
 							<div class="input-group input-group-lg mb-0">
 								<input type="hidden" name="route" value="product/search">
 								<input type="hidden" name="description" value="true">
-								<input type="text" name="search" class="btn_search btn_cta form-control bg-transparent border-secondary rounded-0 border-0 text-center" placeholder="WAS SUCHEN SIE" autocomplete="off">
+								<input type="text" name="search" class="btn_search btn_cta form-control bg-transparent border-secondary rounded-0 border-0 text-center" placeholder="WAS SUCHST DU?" autocomplete="off">
 								<button class="btn bg-transparent btn-outline-secondary rounded-0 border-end-0" type="submit"><img class="icon_search" src="images/search2.svg" alt="Canabis Suche"></button>
 							</div>
 						</form>
@@ -30,17 +30,7 @@
         </section>		
 		
 		<div class="start"></div>
-		
-		{% if logged == false %}
-		<section>
-			<div class="container container_product mt-5">
-				<div class="box_vang bg-warning text-center py-lg-4 py-1 px-4 d-flex align-items-center justify-content-center">
-					<img class="icon_whatsapp me-1" src="images/whatsapp.svg" alt=""><a href="{{ whatapp_link }}" target="_blank"><span class="text1">{{ whatsapp }}</span></a>
-				</div>
-			</div>
-		</section>
-		{% endif %}
-		
+				
         <section class="megamenu">
 			<div class="container">
 				   {{ column_left }}					
@@ -84,6 +74,7 @@
 <div class="row row_sp d-flex flex-rows">
 	
 {% for product in products %}
+{% if product.stockid != 5 %}
 							<div class="col-md-4 col-lg-4 col-xl-3 col-12 product-grid CTA" ref="{{ product.href }}">
                                 <div class="item_sp h-100">
                                     <div class="column-1 hide productThumb">
@@ -98,13 +89,13 @@
 											<b>{{ product.price }}</b> / Gramm
 										</div>						
 										<div class="mb-4 column-4 isstock">
-											{{ product.stock }}													 
+											{{ product.stock }}		 
 										</div>
 									</div>
 									
 									<table class="table table-bordered table-list-view">
 										<tbody>							
-											<!--		
+										<!--		
 											<tr>
 												  <td class="td-list-view">
 													  {{ text_Lager }}
@@ -164,6 +155,7 @@
 									                                    
                                 </div>
                             </div>
+{% endif %}
 {% endfor %}
                         </div>
                     </div>
