@@ -425,6 +425,7 @@ class ModelCatalogProduct extends Model {
 
         $sort_data = array(
             'pd.name',
+            'pd.date',
             'p.model',
             'p.quantity',
             'p.price',
@@ -434,7 +435,7 @@ class ModelCatalogProduct extends Model {
         );
 
         if ( isset( $data[ 'sort' ] ) && in_array( $data[ 'sort' ], $sort_data ) ) {
-            if ( $data[ 'sort' ] == 'pd.name' || $data[ 'sort' ] == 'p.model' ) {
+            if ( $data[ 'sort' ] == 'pd.name' || $data[ 'sort' ] == 'p.model' || $data[ 'sort' ] == 'pd.date' ) {
                 $sql .= ' ORDER BY LCASE(' . $data[ 'sort' ] . ')';
             } elseif ( $data[ 'sort' ] == 'p.price' ) {
                 $sql .= ' ORDER BY (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)';
@@ -443,6 +444,12 @@ class ModelCatalogProduct extends Model {
             }
         } else {
             $sql .= ' ORDER BY p.sort_order';
+        }
+
+        if ( isset( $data[ 'order' ] ) && ( $data[ 'order' ] == 'DESC' ) ) {
+            $sql .= ' DESC, LCASE(pd.name) DESC';
+        } else {
+            $sql .= ' ASC, LCASE(pd.name) ASC';
         }
 
         if ( isset( $data[ 'order' ] ) && ( $data[ 'order' ] == 'DESC' ) ) {
