@@ -53,8 +53,16 @@
                   <p><b>{{ product.name }}</b></p>
                   <p><b>{{ product.manufacturer_id }}</b></p>
                   <table width="100%"><tr>
+                    <tr>
                     <td>Charge: {{ product.upc }}</td>
                     <td align="right"><p><b>{{ product.quantity }}g</b></p></td>
+                    </tr>
+                    {% for attribute in product.attributes %}
+                      <tr>
+                      <td>{{ attribute.name }}:</td>
+                      <td align="right"><p><b>{{ attribute.text }}</b></p></td>
+                      </tr>
+                    {% endfor %}
                   </tr></table>
             </td>          
           </tr>

@@ -1918,7 +1918,30 @@ class ControllerSaleOrder extends Controller {
 
 						$options = $this->model_sale_order->getOrderOptions($order_id, $product['order_product_id']);
 
-						foreach ($options as $option) {
+						$attributes = $this->model_catalog_product->getProductAttributes($product['product_id']);
+						
+						$filterAttributes = array();
+
+						$count = 0;
+
+						foreach($attributes as $attribute) {
+						   if($attribute['attribute_id'] == 33) {
+							$filterAttributes[$count]['name'] = 'Strain';
+							$filterAttributes[$count]['text'] = $attribute['product_attribute_description'][2]['text'];
+						   } else if($attribute['attribute_id'] == 34) {
+							$filterAttributes[$count]['name'] = 'THC';
+							$filterAttributes[$count]['text'] = $attribute['product_attribute_description'][2]['text'];
+						   } else if($attribute['attribute_id'] == 35) {
+							$filterAttributes[$count]['name'] = 'CBD';
+							$filterAttributes[$count]['text'] = $attribute['product_attribute_description'][2]['text'];
+						   }	
+						  
+						  $count++; 
+						}
+
+						//print_r($filterAttributes); die();
+
+                        foreach ($options as $option) {
 							if ($option['type'] != 'file') {
 								$value = $option['value'];
 							} else {
@@ -1964,6 +1987,7 @@ class ControllerSaleOrder extends Controller {
 							'name'     => $product_info['name'],
 							'model'    => $product_info['model'],
 							'option'   => $option_data,
+							'attributes' => $filterAttributes,
 							'quantity' => $product['quantity'],
 							'location' => $product_info['location'],
 							'sku'      => $product_info['sku'],
