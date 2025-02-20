@@ -296,8 +296,8 @@ class ControllerProductCategory extends Controller {
 
 			$data['sorts'][] = array(
 				'text'  => $this->language->get('text_name_newest'),
-				'value' => 'pd.date_added',
-				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=pd.date&order=ASC' . $url)
+				'value' => 'p.date_added',
+				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.date_added&order=ASC' . $url)
 			);
 
 			$data['sorts'][] = array(
