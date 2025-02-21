@@ -2395,7 +2395,7 @@ class ControllerApiOrder extends Controller {
 		
         $name2 = $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'];
 		$address2 = $this->getAddressOfOrder($order_info); //$order_info['shipping_address_1'];
-		$companyCustomer = $order_info['shipping_company'];
+		$companyCustomer =  $order_info['shipping_company'];
 		//echo $address2; die();
 		$postCode2 = $order_info['shipping_postcode'];
 		$postCode2 = str_replace('<br>', '', $postCode2);
@@ -2424,7 +2424,13 @@ class ControllerApiOrder extends Controller {
 				},
 				"consignee": {
 				"name1": "'.$name2.'",
-				"name2": "'.$companyCustomer.'",
+				';
+
+				// if company of customer is not empty
+				if($companyCustomer != '')
+				 $shipmentDetails .= '"name2": ' . '"' . $companyCustomer . '"' . ',';
+
+				$shipmentDetails .= '
 				"addressStreet": "'.$address2.'",
 				"postalCode": "'.$postCode2.'",
 				"city": "'.$city2.'",
@@ -2452,7 +2458,7 @@ class ControllerApiOrder extends Controller {
 		}
 		';
 
-		/*if($order_id == 9014) {
+		/*if(true) {
 			print_r($shipmentDetails); 
 			die();
 		}*/
