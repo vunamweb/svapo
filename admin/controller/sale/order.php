@@ -917,7 +917,7 @@ class ControllerSaleOrder extends Controller {
 			$data['telephone'] = $order_info['telephone'];
 
 			$data['shipping_method'] = $order_info['shipping_method'];
-			$data['payment_method'] = $order_info['payment_method'];
+			$data['payment_method'] = ($order_info['order_status_id'] != 17) ? $order_info['payment_method'] : 'Barzahlung vor Ort';
 
 			// Payment Address
 			if ($order_info['payment_address_format']) {
