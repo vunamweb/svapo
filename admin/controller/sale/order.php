@@ -543,6 +543,7 @@ class ControllerSaleOrder extends Controller {
 					'model'      => $product['model'],
 					'option'     => $this->model_sale_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']),
 					'quantity'   => $product['quantity'],
+					'ean'   => $product['ean'],
 					'price'      => $product['price'],
 					'total'      => $product['total'],
 					'reward'     => $product['reward']
@@ -1039,6 +1040,7 @@ class ControllerSaleOrder extends Controller {
 					'model'    		   => $product['model'],
 					'option'   		   => $option_data,
 					'quantity'		   => $product['quantity'],
+					'ean'		   => $product['ean'],
 					'price'    		   => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
 					'total'    		   => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']),
 					'href'     		   => $this->url->link('catalog/product/edit', 'user_token=' . $this->session->data['user_token'] . '&product_id=' . $product['product_id'], true)
@@ -1982,9 +1984,11 @@ class ControllerSaleOrder extends Controller {
 						} else {
 							$data['manufacturer_name'] = 'Kein Hersteller';
 						}
-
+												
+						$name2 = trenneString($product_info['name']);
 						$product_data[] = array(
 							'name'     => $product_info['name'],
+							'name2'     => $name2,
 							'model'    => $product_info['model'],
 							'option'   => $option_data,
 							'attributes' => $filterAttributes,
@@ -2036,4 +2040,27 @@ class ControllerSaleOrder extends Controller {
 
 		$this->response->setOutput($this->load->view('sale/order_shipping', $data));
 	}
+	
+	
 }
+	function trenneString($string, $maxLaenge = 30) {
+		$laenge = strlen($string);
+	
+		if ($laenge <= $maxLaenge) {
+			return $string; // Nichts zu tun, String ist kurz genug
+		}
+	
+		// Suche das nächste Leerzeichen nach der maximalen Länge
+		$leerzeichenPos = strpos($string, ' ', $maxLaenge);
+	
+		// Wenn kein Leerzeichen gefunden wird, erzwinge die Trennung bei der maximalen Länge
+		if ($leerzeichenPos === false) {
+			return substr($string, 0, $maxLaenge) . ' ' . substr($string, $maxLaenge);
+		}
+	
+		// Trenne den String beim Leerzeichen
+		$teil1 = substr($string, 0, $leerzeichenPos);
+		$teil2 = substr($string, $leerzeichenPos + 1); // +1, um das Leerzeichen zu überspringen
+	
+		return $teil1 . '<br>' . $teil2; // Füge die Teile mit einem Leerzeichen wieder zusammen
+	}
