@@ -2437,7 +2437,7 @@ class ControllerApiOrder extends Controller {
 
 				// if shipping_2 of customer is not empty
 				if($address2_2 != '')
-				 $shipmentDetails .= '"additionalAddressInformation1": ' . '"' . $address2_2 . '"' . ',';
+				 $shipmentDetails .= '"name3": ' . '"' . $address2_2 . '"' . ',';
 
 
 				$shipmentDetails .= '
