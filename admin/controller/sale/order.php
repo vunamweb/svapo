@@ -12,6 +12,10 @@ class ControllerSaleOrder extends Controller {
 		$this->getList();
 	}
 
+	public function detention() {
+		echo 'ddd';
+	}
+
 	public function add() {
 		$this->load->language('sale/order');
 
