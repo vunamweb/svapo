@@ -260,6 +260,43 @@ class ModelSaleOrder extends Model {
 		return $result;
 	}
 
+	public function getOrdersDetention($data = array()) {
+		$result = array();
+
+		$query = $this->db->query("SELECT o.order_id, o.date_added, op.product_id, op.name AS product_name, p.quantity AS stock_quantity
+		FROM " . DB_PREFIX . "order o
+		JOIN " . DB_PREFIX . "order_product op ON o.order_id = op.order_id
+		JOIN " . DB_PREFIX . "product p ON op.product_id = p.product_id
+		WHERE p.quantity <= 0 and o.order_status_id <> 31
+		ORDER BY o.date_added DESC");
+
+		//print_r($query->rows); die();
+
+		foreach($query->rows as $row) {
+			$order_id = $row['order_id'];
+			$order_status_id = $row['order_status_id'];
+
+			$query1 = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_total WHERE order_id = '" . (int)$order_id . "'");
+
+			//print_r($query1->rows); die();
+			$total = $query1->rows[0]['value'];
+			$shipping = $query1->rows[1]['value'];
+
+			$minShipping = $this->config->get('shipping_free_total');
+
+			//echo $total . '/' . $shipping . '/' . $minShipping; die();
+			
+			if($order_status_id == 17 || ($total >= $minShipping))
+			  $row['total_real'] = $total;
+			else
+			  $row['total_real'] = $total + $shipping;
+
+			$result[] = $row;  
+        }
+
+		return $result;
+	}
+
 	public function getOrderProducts($order_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
 
