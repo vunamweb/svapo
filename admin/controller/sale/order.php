@@ -67,7 +67,7 @@ class ControllerSaleOrder extends Controller {
 		 // end
 
 		 //$this->response->redirect($this->url->link('sale/order/detention', '', true));
-		 $this->response->redirect($this->url->link('sale/order/detention', 'user_token=' . $this->session->data['user_token'], true));
+		 $this->response->redirect($this->url->link('sale/order/detention', 'user_token=' . $this->session->data['user_token'], 'message=1', true));
 	}
 	
 	public function delete() {
@@ -600,7 +600,7 @@ class ControllerSaleOrder extends Controller {
 			'sort'                   => $sort,
 			'order'                  => $order,
 			'start'                  => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'                  => 100 //$this->config->get('config_limit_admin')
+			'limit'                  => 1 //$this->config->get('config_limit_admin')
 		);
 
 		$order_total = $this->model_sale_order->getTotalOrders($filter_data);

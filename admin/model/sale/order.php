@@ -270,6 +270,8 @@ class ModelSaleOrder extends Model {
 		WHERE p.quantity <= 0 and o.order_status_id <> 31
 		ORDER BY o.date_added DESC");
 
+		//return $query->rows;
+
 		//print_r($query->rows); die();
 
 		foreach($query->rows as $row) {
