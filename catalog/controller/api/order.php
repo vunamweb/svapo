@@ -656,7 +656,8 @@ class ControllerApiOrder extends Controller {
 			 if($order_id) {
 				$order_status_id = ($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) ? ORDER_STATUS_ID : 18;
 	
-				$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
+				//$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
+				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
 	
 				$urlDocument = $jsonData['prescriptionURL'];
 				$this->saveDocumentToServer($urlDocument, $order_id);
@@ -759,7 +760,8 @@ class ControllerApiOrder extends Controller {
 			 if($order_id) {
 				$order_status_id = ($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) ? ORDER_STATUS_ID : 25;
 	
-				$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
+				//$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
+				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
 	
 				$urlDocument = $jsonData['prescriptionURL'];
 				$this->saveDocumentToServer($urlDocument, $order_id);
@@ -862,7 +864,8 @@ class ControllerApiOrder extends Controller {
 			 if($order_id) {
 				$order_status_id = ($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) ? ORDER_STATUS_ID : 30;
 	
-				$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
+				//$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
+				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
 	
 				$urlDocument = $jsonData['prescriptionURL'];
 				$this->saveDocumentToServer($urlDocument, $order_id);
