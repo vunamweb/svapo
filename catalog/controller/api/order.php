@@ -2277,6 +2277,10 @@ class ControllerApiOrder extends Controller {
 	public function history_() {
 		$this->load->controller('mail/order/resend');
 	}
+
+	public function noticeToCusmtomer() {
+		
+	}
       
 	public function getTotalWeight($products) {
 		$total_weight = 0;
