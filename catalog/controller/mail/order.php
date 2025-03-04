@@ -363,7 +363,7 @@ class ControllerMailOrder extends Controller {
 
 		//echo 'nam';
 
-		$this->document->sendMailSMTP("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
+		$this->document->sendMailSMTP("post@pixel-dusche.de", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
 		
 		//$this->sendMail("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
 	}
@@ -741,6 +741,7 @@ class ControllerMailOrder extends Controller {
 		//print_r($orders); die();
 
 		$message = '';
+		$count = 0;
 
 		foreach($orders as $order) {
 			$givenDate = new DateTime(date("Y-m-d", strtotime($order['date_added']))); // Replace with your date
@@ -749,6 +750,8 @@ class ControllerMailOrder extends Controller {
 
 			// if order is 7 days old
 			if ($interval->days == 7) {
+				$count++;
+
                 $order_info = $this->model_checkout_order->getOrder($order['order_id']);
 				$order_status_id = $order_info['order_status_id'];
 
@@ -758,7 +761,7 @@ class ControllerMailOrder extends Controller {
 			} 
 		}
 
-		echo $message;
+		echo ($count == 0) ? 'No Email was send' : 'Total '.$count.' mail have been sent with detail below <br><br>' . $message;
 	}
 
 	public function edit($order_info, $order_status_id, $comment) {
