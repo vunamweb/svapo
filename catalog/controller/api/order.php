@@ -2279,7 +2279,7 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function noticeToCusmtomer() {
-		
+		$this->load->controller('mail/order/noticeToCusmtomer');
 	}
       
 	public function getTotalWeight($products) {

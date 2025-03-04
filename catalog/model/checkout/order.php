@@ -444,7 +444,7 @@ class ModelCheckoutOrder extends Model {
         return true;
 	}
 
-	public function getOrders($data = array()) {
+	public function getOrdersAvaiable($data = array()) {
 		$result = array();
 
 		$sql = "SELECT o.order_id, CONCAT(o.firstname, ' ', o.lastname) AS customer, (SELECT os.name FROM " . DB_PREFIX . "order_status os WHERE os.order_status_id = o.order_status_id AND os.language_id = '" . (int)$this->config->get('config_language_id') . "') AS order_status, o.shipping_code, o.total, o.currency_code, o.currency_value, o.date_added, o.date_modified, o.order_status_id FROM `" . DB_PREFIX . "order` o";
@@ -466,6 +466,8 @@ class ModelCheckoutOrder extends Model {
 		} else {
 			$sql .= " WHERE o.order_status_id > '0'";
 		}
+
+		$sql .= " AND o.order_status_id <> 31";
 
 		if (!empty($data['filter_order_id'])) {
 			$sql .= " AND o.order_id = '" . (int)$data['filter_order_id'] . "'";
