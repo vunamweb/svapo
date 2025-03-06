@@ -1349,7 +1349,6 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function uploadFile() {
-		//echo 'ddd'; die();
 		$this->load->model('checkout/order');
 
 		$order_id = $this->request->get['order_id'];
@@ -1407,6 +1406,9 @@ class ControllerApiOrder extends Controller {
 			} else {
 				echo "Sorry, there was an error uploading your file.";
 			}*/
+	   // Send sign pdf
+	   $this->load->controller('mail/order/sendSignPDF');  
+	   // End 
 	}
 
 	public function add() {
@@ -2283,7 +2285,13 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function history_() {
-		$this->load->controller('mail/order/resend');
+		$file = $this->request->get['file'];
+
+		if($file == 0) {
+			$this->load->controller('mail/order/resend');
+	    } else {
+		  // Nothing to do
+		}
 	}
 
 	public function crontab1() {

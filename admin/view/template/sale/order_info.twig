@@ -564,8 +564,10 @@
   $('#history').load('index.php?route=sale/order/history&user_token={{ user_token }}&order_id={{ order_id }}');
 
   $('#button-resend').on('click', function() {
+  var file = $('#upload_file_1')[0].files[0] == undefined ? 0 : 1;
+
 	$.ajax({
-		url: '{{ catalog }}index.php?route=api/order/history_&api_token={{ api_token }}&store_id={{ store_id }}&order_id={{ order_id }}',
+		url: '{{ catalog }}index.php?route=api/order/history_&api_token={{ api_token }}&store_id={{ store_id }}&order_id={{ order_id }}&file='+file+'',
 		type: 'post',
 		dataType: 'json',
 		beforeSend: function() {
