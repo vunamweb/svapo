@@ -1284,6 +1284,10 @@ class ControllerApiOrder extends Controller {
 			$order_id = $this->model_checkout_order->addOrder($order_data);
 			$this->session->data['order_id'] = $order_id;
 
+			// save for tracking hisory of product
+			foreach($order_data['products'] as $data)
+			$this->db->query("INSERT INTO " . DB_PREFIX . "product_stock_history SET product_id = '" . (int)$data["product_id"] . "', order_id = '".$order_id."', type = '3', quantity = '" . (int)$data['quantity'] . "', date_create = NOW()");
+
 			$this->cart->clear();
 
 			$obj = new \stdClass;
@@ -1758,6 +1762,10 @@ class ControllerApiOrder extends Controller {
 				}
 
 				$this->model_checkout_order->addOrderHistory($json['order_id'], $order_status_id);
+
+				// save for tracking hisory of product
+		        foreach($order_data['products'] as $data)
+		          $this->db->query("INSERT INTO " . DB_PREFIX . "product_stock_history SET product_id = '" . (int)$data["product_id"] . "', order_id = '".$json['order_id']."', type = '2', quantity = '" . (int)$data['quantity'] . "', date_create = NOW()");
 				
 				// clear cart since the order has already been successfully stored.
 				$this->cart->clear();

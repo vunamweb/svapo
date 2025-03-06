@@ -77,6 +77,9 @@ class ModelCatalogProduct extends Model {
 
 		$product_id = $this->db->getLastId();
 
+		// save for tracking hisory of product
+		$this->db->query("INSERT INTO " . DB_PREFIX . "product_stock_history SET product_id = '" . (int)$product_id . "', order_id = '0', type = '0', quantity = '" . (int)$data['quantity'] . "', date_create = NOW()");
+		
 		if (isset($data['image'])) {
 			$this->db->query("UPDATE " . DB_PREFIX . "product SET image = '" . $this->db->escape($data['image']) . "' WHERE product_id = '" . (int)$product_id . "'");
 		}
@@ -212,6 +215,9 @@ class ModelCatalogProduct extends Model {
 	}
 
 	public function editProduct($product_id, $data) {
+		// save for tracking hisory of product
+		$this->db->query("INSERT INTO " . DB_PREFIX . "product_stock_history SET product_id = '" . (int)$product_id . "', order_id = '0', type = '1', quantity = '" . (int)$data['quantity'] . "', date_create = NOW()");
+
 		$price  = isset($data['price']) ? (float)$data['price'] : 0;
 		$ek     = isset($data['ek'])    ? (float)$data['ek']    : 0;
 		$reValue = ($price / 1.19) - $ek;
