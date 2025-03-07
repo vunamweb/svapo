@@ -180,7 +180,7 @@ class Document {
                $from = SMTP_USER;
                $fromName = 'svapo.de';
                //$to = 'info@svapo.de';
-               $to = 'vu@pixeldusche.com';
+               $to = 'vukynamkhtn@gmail.com';
                
                $message = 'A user failed to create an order with the following error and JSON<br>';
                $message .= $error;
@@ -220,7 +220,11 @@ class Document {
 
                //echo $files1; die();
 		}
-		else if($type == 'edit') { }
+		else if($type == 'edit') { 
+
+          } else if($type == 'resend') {
+               $files2 = PATH_FILE_UPLOAD . 'DHL_' . $upload_file;
+          }
 			// $files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Rechnung-svapo.pdf";
         else {
 			// $files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Freiumschlag.pdf";
@@ -274,8 +278,8 @@ class Document {
                $mail->addStringAttachment($fileContents, $fileName);
           } 
 
-          if(false) {
-          //if (!$mail->Send()) {
+          //if(false) {
+          if (!$mail->Send()) {
                //echo "Mailer Error: " . $mail->ErrorInfo;
                $this->writeLogSendMail($mail->ErrorInfo, $to);
 		} else {
