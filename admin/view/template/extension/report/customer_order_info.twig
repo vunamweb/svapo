@@ -6,6 +6,38 @@
       </div>
       <div class="panel-body">
         <div class="form-group">
+          <label class="control-label">Gram from</label>
+          <div>
+            <input type="text" name="filter_gram_from" value="{{ filter_gram_from }}" placeholder="Gram from" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Gram To</label>
+          <div>
+            <input type="text" name="filter_gram_to" value="{{ filter_gram_to }}" placeholder="Gram to" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Price from</label>
+          <div>
+            <input type="text" name="filter_price_from" value="{{ filter_price_from }}" placeholder="Price from" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Price to</label>
+          <div>
+            <input type="text" name="filter_price_to" value="{{ filter_price_to }}" placeholder="Price to" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="input-date-start">{{ entry_date_start }}</label>
+          <div class="input-group date">
+            <input type="text" name="filter_date_start" value="{{ filter_date_start }}" placeholder="{{ entry_date_start }}" data-date-format="YYYY-MM-DD" id="input-date-start" class="form-control" />
+            <span class="input-group-btn">
+            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+            </span></div>
+        </div>
+        <div class="form-group">
           <label class="control-label" for="input-date-start">{{ entry_date_start }}</label>
           <div class="input-group date">
             <input type="text" name="filter_date_start" value="{{ filter_date_start }}" placeholder="{{ entry_date_start }}" data-date-format="YYYY-MM-DD" id="input-date-start" class="form-control" />
@@ -122,7 +154,31 @@ $('#button-filter').on('click', function() {
 	
 	if (filter_order_status_id != 0) {
 		url += '&filter_order_status_id=' + encodeURIComponent(filter_order_status_id);
+	}
+
+  var filter_gram_from = $('input[name=\'filter_gram_from\']').val();
+	
+	if (filter_gram_from) {
+		url += '&filter_gram_from=' + encodeURIComponent(filter_gram_from);
+	}
+
+  var filter_gram_to = $('input[name=\'filter_gram_to\']').val();
+	
+	if (filter_gram_to) {
+		url += '&filter_gram_to=' + encodeURIComponent(filter_gram_to);
 	} 
+
+  var filter_price_from = $('input[name=\'filter_price_from\']').val();
+	
+	if (filter_price_from) {
+		url += '&filter_price_from=' + encodeURIComponent(filter_price_from);
+	} 
+
+  var filter_price_to = $('input[name=\'filter_price_to\']').val();
+	
+	if (filter_price_to) {
+		url += '&filter_price_to=' + encodeURIComponent(filter_price_to);
+	}  
 	
 	location = 'index.php?route=report/report&user_token={{ user_token }}&code=customer_order' + url;
 });

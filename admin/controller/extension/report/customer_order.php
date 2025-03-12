@@ -96,11 +96,36 @@ class ControllerExtensionReportCustomerOrder extends Controller {
 			$filter_order_status_id = 0;
 		}
 
+		if (isset($this->request->get['filter_gram_from'])) {
+			$filter_gram_from = $this->request->get['filter_gram_from'];
+		} else {
+			$filter_gram_from = '';
+		}
+
+		if (isset($this->request->get['filter_gram_to'])) {
+			$filter_gram_to = $this->request->get['filter_gram_to'];
+		} else {
+			$filter_gram_to = '';
+		}
+
+		if (isset($this->request->get['filter_price_from'])) {
+			$filter_price_from = $this->request->get['filter_price_from'];
+		} else {
+			$filter_price_from = '';
+		}
+
+		if (isset($this->request->get['filter_price_to'])) {
+			$filter_price_to = $this->request->get['filter_price_to'];
+		} else {
+			$filter_price_to = '';
+		}
+
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
 		} else {
 			$page = 1;
 		}
+		
 
 		$this->load->model('extension/report/customer');
 
@@ -110,14 +135,18 @@ class ControllerExtensionReportCustomerOrder extends Controller {
 			'filter_date_start'			=> $filter_date_start,
 			'filter_date_end'			=> $filter_date_end,
 			'filter_customer'			=> $filter_customer,
+			'filter_gram_from'			=> $filter_gram_from,
+			'filter_gram_to'			=> $filter_gram_to,
+			'filter_price_from'			=> $filter_price_from,
+			'filter_price_to'			=> $filter_price_to,
 			'filter_order_status_id'	=> $filter_order_status_id,
 			'start'						=> ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit'						=> $this->config->get('config_limit_admin')
 		);
 
-		$customer_total = $this->model_extension_report_customer->getTotalOrders($filter_data);
-
-		$results = $this->model_extension_report_customer->getOrders($filter_data);
+		$customer_total = count($this->model_extension_report_customer->getOrders_adjust($filter_data)); //$this->model_extension_report_customer->getTotalOrders($filter_data);
+        //echo $customer_total;
+		$results = $this->model_extension_report_customer->getOrders_adjust($filter_data);
 
 		foreach ($results as $result) {
 			$data['customers'][] = array(
@@ -170,6 +199,11 @@ class ControllerExtensionReportCustomerOrder extends Controller {
 		$data['filter_date_end'] = $filter_date_end;
 		$data['filter_customer'] = $filter_customer;
 		$data['filter_order_status_id'] = $filter_order_status_id;
+		$data['filter_gram_from'] = $filter_gram_from;
+		$data['filter_gram_to'] = $filter_gram_to;
+		$data['filter_price_from'] = $filter_price_from;
+		$data['filter_price_to'] = $filter_price_to;
+		
 
 		return $this->load->view('extension/report/customer_order_info', $data);
 	}
