@@ -368,6 +368,12 @@ class ControllerMailOrder extends Controller {
 		//$this->sendMail("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
 	}
 
+	public function countInvoiceNumber() {
+		$query = $this->db->query("SELECT max(invoice_no) as maxNo FROM " . DB_PREFIX . "order WHERE invoice_no <> 0");
+		
+		return $query->rows[0]['maxNo'];
+	}
+
 	public function add($order_info, $order_status_id, $comment, $notify) {
 		$this->load->model('account/customer');
 
@@ -649,7 +655,10 @@ class ControllerMailOrder extends Controller {
 		$data['pdf_address'] = PDF_ADDRESS;
 		$data['ACCOUNT'] = ACCOUNT;
 		$data['text_inform_order'] = $language->get('text_inform_order');
-		$data['order_id'] = $order_info['order_id'];
+
+		$invoice_number = $this->countInvoiceNumber() + 1;
+        $data['order_id'] = ($order_status_id != ORDER_ID) ? $order_info['order_id'] : $invoice_number;
+
 		$data['firstname'] = $order_info['firstname'];
 		$data['lastname'] = $order_info['lastname'];
 		$data['total'] = number_format($order_total['value'], 2, ',', '.');
@@ -699,9 +708,14 @@ class ControllerMailOrder extends Controller {
 		$options->set('isRemoteEnabled', TRUE);
 		$dompdf = new Dompdf($options);
 		// $dompdf->setHtmlFooter($htmlFooter);
+		if($order_status_id != ORDER_ID) {
+			$pdf_name = 'Auftragsbestaetigung-svapo-'.$order_info['order_id'].'.pdf';
+            $dompdf->loadHtml($this->load->view('mail/order_pdf', $data));
+		} else {
+			$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
+            $dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
+		}
 		
-		$pdf_name = 'Auftragsbestaetigung-svapo-'.$order_info['order_id'].'.pdf';
-		$dompdf->loadHtml($this->load->view('mail/order_pdf', $data));
 		$file_location = "./admin/auftrag/".$pdf_name;
 		$dompdf->setPaper('A4', 'Horizontal');
 		$dompdf->render();
@@ -710,12 +724,37 @@ class ControllerMailOrder extends Controller {
 		
 		//print_r($order_total); die();
 		if($order_total['value'] > 0)
-		  $this->sendMail($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
+		  $this->sendMail($order_info['order_id'], $order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
 	}
 
-	public function sendMail($email, $subject, $SMTP_USER, $fromName, $message, $type, $pdf_name, $order_status_id = null, $data = null) {
+	public function sendMail($order_id, $email, $subject, $SMTP_USER, $fromName, $message, $type, $pdf_name, $order_status_id = null, $data = null) {
+		// if DHL
+		if($order_status_id == ORDER_ID) {
+			//create pdf and save
+			$options = new Options();
+			$options->set('tempDir', '/tmp');
+			$options->set('chroot', __DIR__);    
+			$options->set('isRemoteEnabled', TRUE);
+			$dompdf = new Dompdf($options);
+
+			$pdf_name_invoice = 'Rechnung-svapo-'.$order_id.'.pdf';
+
+			$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
+
+			$file_location = "./admin/invoice/".$pdf_name_invoice;
+
+			$dompdf->setPaper('A4', 'Horizontal');
+			$dompdf->render();
+			$pdf = $dompdf->output();
+			file_put_contents($file_location, $pdf);
+			//end
+
+			$message = $this->load->view('mail/order_pdf_invoice', $data);
+
+			$this->document->sendMailSMTP($email, $subject, $SMTP_USER, $fromName, $message, $type, $pdf_name);
+		}	
 		// if order_status_id is in array of status_id
-		if(in_array($order_status_id, ORDER_STATUS_ID_ARRAY)) {
+		else if(in_array($order_status_id, ORDER_STATUS_ID_ARRAY)) {
 			// define message
 			$message = $this->load->view('mail/order_add_customer_process_'.$order_status_id.'', $data);
 			$this->document->sendMailSMTP($email, $subject, $SMTP_USER, $fromName, $message, $type, $pdf_name);
