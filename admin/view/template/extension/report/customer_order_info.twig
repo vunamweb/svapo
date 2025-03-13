@@ -71,7 +71,7 @@
           </select>
         </div>
         <div class="form-group text-right">
-          <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
+          <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-file-excel-o"></i> Export</button>
         </div>
       </div>
     </div>
@@ -180,7 +180,7 @@ $('#button-filter').on('click', function() {
 		url += '&filter_price_to=' + encodeURIComponent(filter_price_to);
 	}  
 	
-	location = 'index.php?route=report/report&user_token={{ user_token }}&code=customer_order' + url;
+	location = 'index.php?route=report/report&user_token={{ user_token }}&code=customer_order&export=1' + url;
 });
 //--></script> 
 <script type="text/javascript"><!--

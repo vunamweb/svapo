@@ -69,8 +69,45 @@ class ControllerExtensionReportCustomerOrder extends Controller {
 		return !$this->error;
 	}
 			
+	public function exPortCSV($data) {
+		header( 'Content-Type: text/csv' );
+		header( 'Content-Disposition: attachment;filename=data.csv' );
+
+		ob_start();
+
+		$delimiter = ';';
+
+		$output = fopen( 'php://output', 'w' );
+
+		$headers = array();
+
+		$headers[0] = 'ID';
+		$headers[1] = 'Kunde';
+		$headers[2] = 'Email';
+		$headers[3] = 'Kundengruppe';
+		$headers[4] = 'Status';
+		$headers[5] = 'Bestellnummer';
+		$headers[6] = 'Gram';
+		$headers[7] = 'Gesamt';
+		
+		fputcsv( $output, $headers, $delimiter );
+		
+		foreach ( $data as $item )
+          fputcsv( $output, $item, $delimiter );
+
+		fclose( $output );
+		
+		die();
+    }
+
 	public function report() {
 		$this->load->language('extension/report/customer_order');
+
+		if (isset($this->request->get['export'])) {
+			$export = $this->request->get['export'];
+		} else {
+			$export = '';
+		}
 
 		if (isset($this->request->get['filter_date_start'])) {
 			$filter_date_start = $this->request->get['filter_date_start'];
@@ -147,6 +184,9 @@ class ControllerExtensionReportCustomerOrder extends Controller {
 		$customer_total = count($this->model_extension_report_customer->getOrders_adjust($filter_data)); //$this->model_extension_report_customer->getTotalOrders($filter_data);
         //echo $customer_total;
 		$results = $this->model_extension_report_customer->getOrders_adjust($filter_data);
+
+		if($export)
+		  $this->exPortCSV($results);
 
 		foreach ($results as $result) {
 			$data['customers'][] = array(

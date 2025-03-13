@@ -90,13 +90,13 @@ class ControllerApiOrder extends Controller {
 				"name",
 				"cityOfSignature",
 				"dateOfSignature"
-			],
-			'Address' => [
+			]
+			/*'Address' => [
 				'streetName',
 				'postalCode',
 				'city',
 				'houseNr'
-		   ],
+		   ],*/
 		];
 	}
 
