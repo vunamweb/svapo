@@ -177,8 +177,8 @@ class ControllerExtensionReportCustomerOrder extends Controller {
 			'filter_price_from'			=> $filter_price_from,
 			'filter_price_to'			=> $filter_price_to,
 			'filter_order_status_id'	=> $filter_order_status_id,
-			'start'						=> ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'						=> $this->config->get('config_limit_admin')
+			//'start'						=> ($page - 1) * $this->config->get('config_limit_admin'),
+			//'limit'						=> $this->config->get('config_limit_admin')
 		);
 
 		$customer_total = count($this->model_extension_report_customer->getOrders_adjust($filter_data)); //$this->model_extension_report_customer->getTotalOrders($filter_data);
