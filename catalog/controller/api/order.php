@@ -591,7 +591,7 @@ class ControllerApiOrder extends Controller {
 
 		$rawData = file_get_contents("php://input");
 
-		$this->model_checkout_order->saveJSONAnsay($rawData);
+		$this->model_checkout_order->saveJSONAnsay($rawData, false);
 
 		try {
 			// Check for the Bearer token
@@ -695,7 +695,7 @@ class ControllerApiOrder extends Controller {
 
 		$rawData = file_get_contents("php://input");
 
-		$this->model_checkout_order->saveJSONAnsay($rawData);
+		$this->model_checkout_order->saveJSONAnsay($rawData, false);
 
 		try {
 			// Check for the Bearer token
@@ -801,7 +801,7 @@ class ControllerApiOrder extends Controller {
 
 		//print_r(json_decode($rawData, true)); die();
 
-		$this->model_checkout_order->saveJSONAnsay($rawData);
+		$this->model_checkout_order->saveJSONAnsay($rawData, true);
 
 		try {
 			// Check for the Bearer token

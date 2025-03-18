@@ -6,7 +6,7 @@ use Dompdf\Options;
 use setasign\Fpdi\Fpdi;
 
 class ModelCheckoutOrder extends Model {
-	public function saveJSONAnsay($json) {
+	public function saveJSONAnsay($json, $save = true) {
 		$to = 'info@svapo.de';
 		//$to = 'vukynamkhtn@gmail.com';
 		$subject = 'SAVE LOG OF API ANSAY';
@@ -15,9 +15,9 @@ class ModelCheckoutOrder extends Model {
 		try {
 			$dataJSON = json_decode($json);
 			//print_r($dataJSON); die();
-			$typeJSON = (isset($dataJSON->products[0]->ansayProductId)) ? 'docnow' : 'ansay';
+			//$typeJSON = (isset($dataJSON->products[0]->ansayProductId)) ? 'docnow' : 'ansay';
 			//echo($typeJSON); die();
-		   if($typeJSON == 'docnow') {
+		   if($save) {
    
 			$date = date("Y-m-d H:i:s");
 
