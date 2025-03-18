@@ -1285,8 +1285,8 @@ class ControllerApiOrder extends Controller {
 			$this->session->data['order_id'] = $order_id;
 
 			// save for tracking hisory of product
-			foreach($order_data['products'] as $data)
-			$this->db->query("INSERT INTO " . DB_PREFIX . "product_stock_history SET product_id = '" . (int)$data["product_id"] . "', order_id = '".$order_id."', type = '3', quantity = '" . (int)$data['quantity'] . "', date_create = NOW()");
+			//foreach($order_data['products'] as $data)
+			//$this->db->query("INSERT INTO " . DB_PREFIX . "product_stock_history SET product_id = '" . (int)$data["product_id"] . "', order_id = '".$order_id."', type = '3', quantity = '" . (int)$data['quantity'] . "', date_create = NOW()");
 
 			$this->cart->clear();
 
@@ -1407,7 +1407,7 @@ class ControllerApiOrder extends Controller {
 				echo "Sorry, there was an error uploading your file.";
 			}*/
 	   // Send sign pdf
-	   $this->load->controller('mail/order/sendSignPDF');  
+	   // $this->load->controller('mail/order/sendSignPDF');  
 	   // End 
 	}
 
@@ -1766,8 +1766,8 @@ class ControllerApiOrder extends Controller {
 				$this->model_checkout_order->addOrderHistory($json['order_id'], $order_status_id);
 
 				// save for tracking hisory of product
-		        foreach($order_data['products'] as $data)
-		          $this->db->query("INSERT INTO " . DB_PREFIX . "product_stock_history SET product_id = '" . (int)$data["product_id"] . "', order_id = '".$json['order_id']."', type = '2', quantity = '" . (int)$data['quantity'] . "', date_create = NOW()");
+		        //foreach($order_data['products'] as $data)
+		        //  $this->db->query("INSERT INTO " . DB_PREFIX . "product_stock_history SET product_id = '" . (int)$data["product_id"] . "', order_id = '".$json['order_id']."', type = '2', quantity = '" . (int)$data['quantity'] . "', date_create = NOW()");
 				
 				// clear cart since the order has already been successfully stored.
 				$this->cart->clear();
