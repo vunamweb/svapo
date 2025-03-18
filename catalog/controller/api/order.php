@@ -660,7 +660,7 @@ class ControllerApiOrder extends Controller {
 				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
 	
 				$urlDocument = $jsonData['prescriptionURL'];
-				$this->saveDocumentToServer($urlDocument, $order_id);
+				$this->saveDocumentToServer($urlDocument, $order_id, 'Ansay');
 	
 				// SEND MAIL
 				$order_info = $this->model_checkout_order->getOrder($order_id);
@@ -764,7 +764,7 @@ class ControllerApiOrder extends Controller {
 				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
 	
 				$urlDocument = $jsonData['prescriptionURL'];
-				$this->saveDocumentToServer($urlDocument, $order_id);
+				$this->saveDocumentToServer($urlDocument, $order_id, 'Docnow');
 	
 				// SEND MAIL
 				$order_info = $this->model_checkout_order->getOrder($order_id);
@@ -868,7 +868,7 @@ class ControllerApiOrder extends Controller {
 				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
 	
 				$urlDocument = $jsonData['prescriptionURL'];
-				$this->saveDocumentToServer($urlDocument, $order_id);
+				$this->saveDocumentToServer($urlDocument, $order_id, 'Mcos');
 	
 				// SEND MAIL
 				$order_info = $this->model_checkout_order->getOrder($order_id);
@@ -964,7 +964,7 @@ class ControllerApiOrder extends Controller {
 		// Close cURL sessi
 	}
 
-	public function saveDocumentToServer($base64_string, $order_id) {
+	public function saveDocumentToServer($base64_string, $order_id, $prefix_name) {
 		$mesage_error = 'Order created successfully, However upload document was failed because decode base 64 prescription URL' . 
 			'is not correct, maybe this url contains special character, Please correct it';
 
@@ -972,7 +972,7 @@ class ControllerApiOrder extends Controller {
 		$saveToDir = 'rEzEpT/'; // Make sure the folder has write permissions
 
 		// Filename (optional, you can also extract it from the URL)
-		$filename = 'document_ansay_' . $order_id . '_' . date("Y-m-dH-i-s") . '.pdf';
+		$filename = 'document_'.$prefix_name.'_' . $order_id . '_' . date("Y-m-dH-i-s") . '.pdf';
 
 		// Complete path to save the file
 		$savePath = $saveToDir . $filename;
