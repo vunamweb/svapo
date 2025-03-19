@@ -2276,9 +2276,9 @@ class ControllerApiOrder extends Controller {
 
 		}
 
-		if(str_contains($order_info['upload_file'], 'prescription.pdf')) {
+		/*if(str_contains($order_info['upload_file'], 'prescription.pdf')) {
 				$json['error'] = 'Stop send for order has file upload prescription.pdf';
-		}
+		}*/
 		
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
