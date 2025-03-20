@@ -124,6 +124,31 @@ class ModelCatalogProduct extends Model {
 
         return ($query->row['text'] != '') ? $query->row['text'] : 'Keine Daten';
     }
+	
+	public function getValueCBDOfproduct($product_id) {
+		$sql = 'select text from '.DB_PREFIX.'product_attribute where product_id = '.$product_id.' and (attribute_id = 35 )';
+	
+		$query = $this->db->query($sql);
+	
+		return ($query->row['text'] != '') ? $query->row['text'] : 'Keine Daten';
+	}
+	
+	public function getValueBehandlungOfproduct($product_id) {
+		$sql = 'select text from '.DB_PREFIX.'product_attribute where product_id = '.$product_id.' and (attribute_id = 105 )';
+	
+		$query = $this->db->query($sql);
+	
+		return ($query->row['text'] != '') ? $query->row['text'] : 'Keine Daten';
+	}
+
+	public function getValueCountryOfproduct($product_id) {
+		$sql = 'select text from '.DB_PREFIX.'product_attribute where product_id = '.$product_id.' and (attribute_id = 42 )';
+	
+		$query = $this->db->query($sql);
+	
+		return ($query->row['text'] != '') ? $query->row['text'] : 'Keine Daten';
+	}
+
 
     public function checkActivateProduct($ansay_id) {
         $sql = 'select status from '.DB_PREFIX.'product where mpn = "'.$ansay_id.'"';
