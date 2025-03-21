@@ -8,6 +8,12 @@ class ControllerProductCategory extends Controller {
 		$this->load->model('account/customer');
 		$this->load->controller('product/manufacturer');
 
+		if (isset($this->request->get['atb'])) {
+			$atb = $this->request->get['atb'];
+		} else {
+			$atb = '';
+		}
+
 		if (isset($this->request->get['filter'])) {
 			$filter = $this->request->get['filter'];
 		} else {
@@ -436,6 +442,9 @@ class ControllerProductCategory extends Controller {
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
+
+			$data['atb'] = $atb;
+			//echo $atb; die();
 
 			if(!$this->request->get['filter_atb'])
 			$this->response->setOutput($this->load->view('product/category', $data));
