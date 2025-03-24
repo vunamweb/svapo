@@ -193,7 +193,7 @@ $(function () {
         $('.loading').show();
 
         $.ajax({
-            url: (!currentURL.includes('order')) ? currentURL + '?filter_atb=true' + '&atb_id=' +listAttribute : currentURL + '&filter_atb=true' + '&atb_id=' +listAttribute,  // URL to fetch data from
+            url: (!currentURL.includes('order') && !currentURL.includes('atb')) ? currentURL + '?filter_atb=true' + '&atb_id=' +listAttribute : currentURL + '&filter_atb=true' + '&atb_id=' +listAttribute,  // URL to fetch data from
             method: 'GET', // HTTP method
             success: function(data) {
                $('.product .row_product').html(data);
