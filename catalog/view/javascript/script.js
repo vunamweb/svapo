@@ -1,3 +1,24 @@
+$(document).on('click', '.zustimmen', function() {
+	event.preventDefault();
+	$('#cookie_disclaimer').slideUp("slow");
+	var nDays = 60;
+	var aDays = 720;
+	var cookieValue = "true";
+	var today = new Date();
+	var expire = new Date();
+	var expireDel = new Date();
+	expire.setTime(today.getTime() + 3600000*24*nDays);
+	expireDel.setTime(today.getTime() - 3600000*24*100);
+	var cookieName = "cookie_disclaimer";
+	document.cookie = cookieName+"="+escape(cookieValue)+";expires="+expire.toGMTString()+";path=/";
+	// Die aktuelle URL ohne den Query-String erhalten
+	var urlWithoutQueryString = window.location.href.split('?')[0];	
+	// Die URL umschreiben, um den Query-String zu entfernen
+	window.history.replaceState({}, document.title, urlWithoutQueryString);
+	// Zur neuen URL navigieren
+	window.location.href = urlWithoutQueryString;
+})
+
 var vw = ($('html').css('font-size').replace('px', ''));
 function _sticky() {
     var winscroll = $(window).scrollTop();
@@ -23,7 +44,14 @@ function _sticky() {
 // 	});
 // });
 
+
 $(document).ready(function() {
+	$('.linkbox, .CTA').on("click", function() {
+		event.preventDefault();
+		var URL = $(this).attr("ref");
+		console.log(URL);
+		location.href = (URL);		
+	});	
 	// Beim Klick auf .mega-link das Mega-Menü anzeigen/verstecken
 	$('.mega-link').click(function() {
 		// Schließe alle anderen Mega-Menüs
@@ -199,15 +227,21 @@ $(window).on("load", function () {
 });
 var lastScrollTop = 0;
 $(window).on("scroll", function (event) {
-    var st = $(this).scrollTop();
-    if (st > lastScrollTop) {
-        _sticky();
-    } else {
-        $("body").removeClass("sticky");
-    }
-    lastScrollTop = st;
-    const scrollSpy = new bootstrap.ScrollSpy($("#page"), {
-        target: '.nav3 .nav',
-        //rootMargin:'0px 0px -61%'
-    })
+	var st = $(this).scrollTop();
+	
+	if (st > lastScrollTop) {
+		_sticky();
+	} else {
+		$("body").removeClass("sticky");
+	}
+	
+	lastScrollTop = st;
+
+	// ScrollSpy nur ausführen, wenn #page existiert
+	var pageElement = document.getElementById("page");
+	if (pageElement) {
+		const scrollSpy = new bootstrap.ScrollSpy(pageElement, {
+			target: '.nav3 .nav',
+		});
+	}
 });
