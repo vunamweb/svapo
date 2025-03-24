@@ -36,15 +36,25 @@
     --bs-body-color: #000;
     --bs-body-color-rgb: 0,0,0;
     --ratio: 1;
-	--yellow: #689C39;
+	--yellow: #608430;
 	--yellow-light: rgba(104, 156, 57, .9);
 	--green-light: rgba(104, 156, 57, .75);
-	--green: #689C39;
+	--green: #608430;
     --bs-secondary-color:#707070;/*placeholder*/
     --bs-danger-rgb: 255, 46, 23;
     --bs-success-rgb: 16, 185, 129;
     --red: rgb(var(--bs-danger-rgb));
-    --linear-gradient-primary:linear-gradient(90deg, #1440A1 0%, #2558C8 50%, #1440A1 100%);
+    --linear-gradient-primary:linear-gradient(90deg, #1440A1 0%, #2558C8 50%, #1440A1 100%);	
+	--font: #595B60;
+	--bs-table-color: var(--font);
+	--bs-emphasis-color: var(--font);
+	--bs-accordion-btn-color: var(--font);
+	--bs-accordion-color: var(--font);
+	--bs-body-color: var(--font);
+}
+.row {
+	--bs-gutter-x: 2rem;
+	--bs-gutter-y: 0;
 }
 .btn-warning{
     --bs-btn-bg: var(--yellow);
@@ -115,6 +125,7 @@
 html {
     width: 100vw;
     overflow-x: hidden;
+	font-size: 12px;
 }
 
 body {
@@ -122,10 +133,11 @@ body {
     overflow-x: hidden;
     margin-right: 0 !important;
     padding-right: 0 !important;
-    color: #000;
+    color: var(--font);
     font-weight: normal;
     font-style: normal;
     background-color: #fff;
+	font-size:12px;
 }
 
 *,
@@ -248,18 +260,12 @@ form button
 
 @media (max-width: 1050px) {
 	html{
-		font-size:1.07421875vw !important;
+		font-size:12px;
 	}
 }
 
 @media (max-width: 991px) {
-    html {
-        font-size: 3.266666666666667vw !important; /*16px*/
-		font-size: 2vw !important; /*16px*/
-    }
-    body {
-        font-size:0.875rem;
-    }
+
     .popup{
         width:21.4375rem;
     }
@@ -272,21 +278,13 @@ form button
     }
 
     .container {
-        width: 100%;
-        max-width: 100%;
-        --bs-gutter-x:1.5rem;
-    }
+		width:95%;
+		max-width:none;
+		--bs-gutter-x: 0;
+	}
 }
 
 @media (min-width: 992px) {
-    html {
-        font-size: 0.8333333333333333vw; /*16px~1920*/
-		font-size: 0.75vw; /*16px~1920*/
-    }
-    body {
-        font-size: 1.5625rem;
-		font-size: 1.25rem;
-    }
     .pc {
         display: block !important;
     }
@@ -296,7 +294,7 @@ form button
     }
 
     .container {
-        width:91.125rem;
+        width:90%;
         max-width:none;
         --bs-gutter-x: 0;
     }
@@ -307,16 +305,21 @@ form button
 }
 
 @media (min-width: 1051px) and (max-width: 1439.98px) {
-    html{
-        font-size:1vw;
-        font-size:0.9375vw;
-    }
+
 }
 .popup{
     overflow:visible;
 }
-@media (max-width: 991px){
-
+@media (max-width: 768px){
+	.container {
+		--bs-gutter-x: 1.5rem;
+		--bs-gutter-y: 0;
+		width: 100%;
+		padding-right: calc(var(--bs-gutter-x)* .5);
+		padding-left: calc(var(--bs-gutter-x)* .5);
+		margin-right: auto;
+		margin-left: auto;		
+	}
 }
 .popup h5{
     font-size: 1.25rem;
