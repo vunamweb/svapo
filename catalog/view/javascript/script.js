@@ -189,15 +189,15 @@ $(function () {
         var currentURL = window.location.href;
         //alert(currentURL);
 
-        $('.row.row_sp').hide();
+        $('.product .row_product').hide();
         $('.loading').show();
 
         $.ajax({
-            url: currentURL + '?filter_atb=true' + '&atb_id=' +listAttribute,  // URL to fetch data from
+            url: (!currentURL.includes('order')) ? currentURL + '?filter_atb=true' + '&atb_id=' +listAttribute : currentURL + '&filter_atb=true' + '&atb_id=' +listAttribute,  // URL to fetch data from
             method: 'GET', // HTTP method
             success: function(data) {
-               $('.row.row_sp').html(data);
-               $('.row.row_sp').show();
+               $('.product .row_product').html(data);
+               $('.product .row_product').show();
                $('.loading').hide();
 
                if($('#list-view').hasClass('active'))
