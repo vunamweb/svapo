@@ -1,4 +1,3 @@
-<div class="row">
   {% for category in categories %}
   {% if category.category_id == category_id %} 
   <div class="title text1 text-black font_Inter mb-lg-4 mb-2 active">{{ category.name }}</div>
@@ -14,4 +13,3 @@
   {% else %} {{ category.name }}
   {% endif %}
   {% endfor %}
-</div>
