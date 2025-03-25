@@ -177,16 +177,30 @@ class ControllerExtensionReportCustomerOrder extends Controller {
 			'filter_price_from'			=> $filter_price_from,
 			'filter_price_to'			=> $filter_price_to,
 			'filter_order_status_id'	=> $filter_order_status_id,
+			'start'						=> ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'						=> $this->config->get('config_limit_admin')
+		);
+
+		$filter_data_report = array(
+			'filter_date_start'			=> $filter_date_start,
+			'filter_date_end'			=> $filter_date_end,
+			'filter_customer'			=> $filter_customer,
+			'filter_gram_from'			=> $filter_gram_from,
+			'filter_gram_to'			=> $filter_gram_to,
+			'filter_price_from'			=> $filter_price_from,
+			'filter_price_to'			=> $filter_price_to,
+			'filter_order_status_id'	=> $filter_order_status_id,
 			//'start'						=> ($page - 1) * $this->config->get('config_limit_admin'),
 			//'limit'						=> $this->config->get('config_limit_admin')
 		);
 
-		$customer_total = count($this->model_extension_report_customer->getOrders_adjust($filter_data)); //$this->model_extension_report_customer->getTotalOrders($filter_data);
+		$customer_total = count($this->model_extension_report_customer->getOrders_adjust($filter_data_report)); //$this->model_extension_report_customer->getTotalOrders($filter_data);
         //echo $customer_total;
 		$results = $this->model_extension_report_customer->getOrders_adjust($filter_data);
-
-		if($export)
-		  $this->exPortCSV($results);
+		$results_report = $this->model_extension_report_customer->getOrders_adjust($filter_data_report);
+		
+        if($export)
+		  $this->exPortCSV($results_report);
 
 		foreach ($results as $result) {
 			$data['customers'][] = array(
