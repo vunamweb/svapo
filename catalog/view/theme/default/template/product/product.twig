@@ -1,117 +1,199 @@
 {{ header }}
 <main>
-        <section class="product pt-lg-3 pt-0 mt-3">
-            <div class="container container_product">
-                {% if login == false %}
-				<div class="box_vang bg-warning text-center py-lg-4 py-1 px-4 d-flex align-items-center justify-content-center">
-                    <img class="icon_whatsapp me-1" src="images/whatsapp.svg" alt="">
-					<a href="{{ whatapp_link }}" target="_blank">
-					  <span class="text1">{{ whatsapp }}</span>
-					</a>
-                </div>
-				{% endif %}
-                <div class="detail">
-                <div class="row g-0 justify-content-between">
-                    <div class="col-lg-auto col-left">
-                        <div class="text3 mb-2"><a href="javascript:history.back()" class="btn btn-default">ZURÜCK</a></div>						
-						
-						<div class="mobileOn">
-						
-						<div class="mb-lg-5 pb-3">
-						<ul class="thumbnails">
-            {% if thumb %}
-            <li><a class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a></li>
-            {% endif %}
-            {% if images %}
-            {% for image in images %}
-            <li class="image-additional"><a class="thumbnail" href="{{ image.popup }}" title="{{ heading_title }}"> <img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a></li>
-            {% endfor %}
-            {% endif %}
-          </ul>
+		<section>
+				<div class="container text-center btn-bar">                    
+					<div class="mb-0">
+						<div class="me-auto hstack gap-lg-3 gap-1 justify-content-end">
+                        	<a href="javascript:history.back()" class="btn_cta btn btn-default">ZURÜCK</a>						
+							{% if logged %}
+		
+							{% else %}
+								<a href="./index.php?route=account/account" class="btn_cta btn btn-lg py-2 text-uppercase rounded-0">LOGIN</a>			
+							{% endif %}
+							<a href="./vorbestellen" class="btn_cta btn btn-info btn-lg py-2 btn-light text-uppercase rounded-0">Rezept hochladen</a>
 						</div>
-						<div class="text1 mb-lg-4 mb-3 mt-4">{{ heading_title }}</div>
-						  	<div class="price_detail text2 mb-3"><b>{{ price }}</b> / Gramm</div>
-		                </div>
-                        <div class="mb-lg-4 mb-2"><a href="./vorbestellen" class="btn btn_cta btn-warning">JETZT Rezept hochladen</a></div>
-                        <!--<div class="mb-lg-5 mb-4"><a class="btn btn_cta btn-warning disabled">IN DEN WARENKORB</a></div>-->
-						
-						<hr>
-						
-						{% for group in attributes_list %}
-						<div class="attribute_product">
-							<div class="name_group_attribute">{{ group.name }} {{ group.attribute_group_id }}</div>
-							{% set listAttribute = group.list %}
-							<ul>
-								{% for attribute in listAttribute %}
-									{% if attribute.image is not empty %}
-										<li class="icon"><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute"/>{{ attribute.name }}</li>
-									{% else %}
-										<li>{{ attribute.name }}</li>
-									{% endif %}
-								{% endfor %}
-							</ul>
-						</div>
-						<hr>
-						{% endfor %}
-                    </div>
-					
-                    <div class="col-lg-6 col-right ps-lg-5">
-                        <div class="text1 mb-lg-4 mb-3">{{ heading_title }}</div>
-						<!-- <p class="name_category">{{ category }} :   {{ name_category }}</p> -->
-
-   						<div class="price_detail text2 mb-3">{{ price }} / Gramm</div>						  
-                        <!--<div class="text3 mb-lg-2 mb-1">BESCHREIBUNG</div>-->												
-						
-                        <div class="text4 mb-lg-5 mb-4 text-black">
-                        <table class="table table-bordered">
-                			{% for attribute_group in attribute_groups %}
-                				<!-- 
-								<thead>
-                  					<tr>
-                    					<td colspan="2"><strong>{{ attribute_group.name }}</strong></td>
-                  					</tr>
-                				</thead>
-								-->
-                				<tbody>
-
-								{% for attribute in attribute_group.attribute %}
-                					{% if attribute.text is not empty %}
-									<tr>
-                  						<td>{{ attribute.name }}</td>
-                  						<td>{{ attribute.text }}</td>
-                					</tr>
-									{% endif %}
-                				{% endfor %}
+					</div>
+				</div>
+		</section>		
+		
+		<section class="product detail-product">
+			<div class="container container_product">
+				<div class="detail">
+					<div class="row">
+						<div class="col-12 col-md-6 col-left">	
+							
+								<div class="mobileOn">			
+									{% set matching_attributes = [] %}
 									
-                  			</tbody>
-                			{% endfor %}
-							{% if image_manufacturer is not empty %}
-							<tr>
-										  <td>Hersteller</td>
-										  <td><img src="mthumb.php?w=60&amp;src=image/{{ image_manufacturer }}" class="img_manufacture"/></td>
-									</tr>
+									{% for group in attributes_list %}
+										{% set listAttribute = group.list %}
+									
+										{% for attribute in listAttribute %}
+											{% set name_lower = attribute.name|lower %}
+											{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}
+												{% set matching_attributes = matching_attributes|merge([attribute.name]) %}
+											{% endif %}
+										{% endfor %}
+									{% endfor %}
+									
+									{% if matching_attributes is not empty %}
+										<div class="detail-hybrid">
+											<span class="badge bg-secondary {{ matching_attributes|join(', ') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ matching_attributes|join(', ') }}">
+												{{ matching_attributes|join(', ') }}
+											</span>
+										</div>
+									{% endif %}									
+								</div>
+								
+							<div class="detail-hl">			
+								<h1>{{ heading_title }}</h1>
+							</div>
+							
+							<div class="detail-price">			
+								<div class="price_detail"><b>{{ price }}</b><span>Gramm</span></div>
+							</div>
+							
+							
+								<div class="mobileOn">			
+									<div class="detail-stock">			
+										{{ stock }}
+									</div>
+								</div>
+									
+									
+							<div class="detail-img">
+								<ul class="thumbnails">
+									{% if thumb %}
+									<li><a class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" class="img-fluid" /></a></li>
 									{% endif %}
-									<tr>
-										  <td>{{ text_stock }}</td>
-										  <td>{{ stock }}</td>
-									</tr>
-              			</table>
-						  
-                        </div>
-                        
-						<div class="text5 text-uppercase">
-                            DETAILIERTE INFORMATIONEN
-                        </div>
-                        <hr class="my-lg-3 my-2">
-                        <div class="text6 text-secondary">
-                        {{ description }}
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </section>
-    </main>
+									{% if images %}
+									{% for image in images %}
+									<li class="image-additional"><a class="thumbnail" href="{{ image.popup }}" title="{{ heading_title }}"> <img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a></li>
+									{% endfor %}
+									{% endif %}
+								</ul>
+							</div>
+							
+							<div class="text5 text-uppercase">
+								DETAILIERTE INFORMATIONEN
+							</div>
+							<hr class="my-lg-3 my-2">
+							<div class="description">
+							{{ description }}
+							</div>
+														
+						</div>
+						
+						<div class="col-12 col-md-6 col-lg-6 col-right">
+							<div class="mobileOn mb-5"></div>
+							<div class="mobileOff">
+								{% set matching_attributes = [] %}
+								
+								{% for group in attributes_list %}
+									{% set listAttribute = group.list %}
+								
+									{% for attribute in listAttribute %}
+										{% set name_lower = attribute.name|lower %}
+										{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}
+											{% set matching_attributes = matching_attributes|merge([attribute.name]) %}
+										{% endif %}
+									{% endfor %}
+								{% endfor %}
+								
+								{% if matching_attributes is not empty %}
+									<div class="detail-hybrid">
+										<span class="badge bg-secondary {{ matching_attributes|join(', ') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ matching_attributes|join(', ') }}">
+											{{ matching_attributes|join(', ') }}
+										</span>
+									</div>
+								{% endif %}
+								
+								<div class="detail-stock">			
+									{{ stock }}
+								</div>
+							</div>
+							
+							<div class="mb-lg-5 mb-4 text-black">
+								<table class="table table-bordered">
+									<tbody>
+									{% for attribute_group in attribute_groups %}	
+										{% for attribute in attribute_group.attribute %}
+											{% if attribute.text is not empty %}
+											<tr>
+												<td>{{ attribute.name }}</td>
+												<td>
+													{% if "bestrahlt" in attribute.text %}
+														<span class="icon"><img src="images/{{ attribute.text }}.svg" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.text }}" "="">
+														</span>
+														{{ attribute.text }}
+													{% else %}
+														{{ attribute.text }}
+													{% endif %}
+												</td>
+											</tr>
+											{% endif %}
+										{% endfor %}
+											
+										{% endfor %}
+										
+										{% if image_manufacturer is not empty %}
+										<tr>
+											<td>Hersteller</td>
+											<td><img src="mthumb.php?h=80&amp;src=image/{{ image_manufacturer }}" class="img_manufacture"/></td>
+										</tr>
+										{% endif %}											
+							
+										{% for group in attributes_list %}
+											{% if group.name != "THC" and group.name != "Genetik" %}
+												<tr>
+													<td>{{ group.name }}</td>
+													<td>
+														{% set listAttribute = group.list %}
+														{% for attribute in listAttribute %}
+															{% if attribute.image is not empty %}
+																<span class="icon">
+																	<img src="uploads/icon/{{ attribute.image }}" class="icon_attribute"  
+																		 data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.name }}" />
+																</span>
+															{% endif %}
+														{% endfor %}
+													</td>
+												</tr>
+											{% endif %}
+										{% endfor %}
+							
+									</tbody>
+								</table>							
+							</div>
+							
+
+	<!-- CHECK -->				
+							<!-- CHECK -->				
+								<div class="mobileOn mt-5">			
+									<div class="detail-hl">			
+										<h1>{{ heading_title }}</h1>
+									</div>
+									
+									<div class="detail-price">			
+										<div class="price_detail"><b>{{ price }}</b><span>Gramm</span></div>
+									</div>
+				
+									<a href="./vorbestellen" class="btn_cta btn btn-info btn-lg py-2 btn-light text-uppercase rounded-0">Rezept hochladen</a>
+
+									<a href="javascript:history.back()" class="btn_cta btn btn-default">ZURÜCK</a>						
+
+								</div>
+							<!-- CHECK -->		
+	<!-- CHECK -->				
+
+
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
 <script type="text/javascript"><!--
 $('select[name=\'recurring_id\'], input[name="quantity"]').change(function(){
 	$.ajax({
@@ -180,28 +262,28 @@ $('#button-cart').on('click', function() {
 				$('#cart > ul').load('index.php?route=common/cart/info ul li');
 			}
 		},
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
 	});
 });
 //--></script> 
 <script type="text/javascript"><!--
-$('.date').datetimepicker({
-	language: '{{ datepicker }}',
-	pickTime: false
-});
-
-$('.datetime').datetimepicker({
-	language: '{{ datepicker }}',
-	pickDate: true,
-	pickTime: true
-});
-
-$('.time').datetimepicker({
-	language: '{{ datepicker }}',
-	pickDate: false
-});
+// $('.date').datetimepicker({
+// 	language: '{{ datepicker }}',
+// 	pickTime: false
+// });
+// 
+// $('.datetime').datetimepicker({
+// 	language: '{{ datepicker }}',
+// 	pickDate: true,
+// 	pickTime: true
+// });
+// 
+// $('.time').datetimepicker({
+// 	language: '{{ datepicker }}',
+// 	pickDate: false
+// });
 
 $('button[id^=\'button-upload\']').on('click', function() {
 	var node = this;
@@ -213,7 +295,7 @@ $('button[id^=\'button-upload\']').on('click', function() {
 	$('#form-upload input[name=\'file\']').trigger('click');
 
 	if (typeof timer != 'undefined') {
-    	clearInterval(timer);
+		clearInterval(timer);
 	}
 
 	timer = setInterval(function() {
@@ -257,13 +339,13 @@ $('button[id^=\'button-upload\']').on('click', function() {
 //--></script> 
 <script type="text/javascript"><!--
 $('#review').delegate('.pagination a', 'click', function(e) {
-    e.preventDefault();
+	e.preventDefault();
 
-    $('#review').fadeOut('slow');
+	$('#review').fadeOut('slow');
 
-    $('#review').load(this.href);
+	$('#review').load(this.href);
 
-    $('#review').fadeIn('slow');
+	$('#review').fadeIn('slow');
 });
 
 $('#review').load('index.php?route=product/product/review&product_id={{ product_id }}');
