@@ -14,6 +14,12 @@ class ControllerProductCategory extends Controller {
 			$atb = '';
 		}
 
+		if (isset($this->request->get['manufactor_id'])) {
+			$manufacter = $this->request->get['manufactor_id'];
+		} else {
+			$manufacter = '';
+		}
+
 		if (isset($this->request->get['filter'])) {
 			$filter = $this->request->get['filter'];
 		} else {
@@ -168,8 +174,8 @@ class ControllerProductCategory extends Controller {
 
 			$results = $this->model_catalog_product->getProducts($filter_data);
 
-			if($this->request->get['atb_id'])
-			  $results = $this->model_catalog_product->getProductByAttribute($results, $this->request->get['atb_id']);
+			if($this->request->get['atb_id'] || $this->request->get['manufactor_id'])
+			  $results = $this->model_catalog_product->getProductByAttribute($results, $this->request->get['atb_id'], $this->request->get['manufactor_id']);
 
 			//print_r(count($results)); die();
 			$manufacturers = $this->model_catalog_manufacturer->getManufacturers();				

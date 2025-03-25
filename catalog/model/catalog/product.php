@@ -310,10 +310,14 @@ class ModelCatalogProduct extends Model {
         }
     }
 
-    public function getProductByAttribute( $results, $attribute_id ) {
+    public function getProductByAttribute( $results, $attribute_id, $manufacter_id ) {
+        //print_r($results);
         $response = array();
         
         $attribute_id = explode(',', $attribute_id);
+        $manufacter_list_id = explode(',', $manufacter_id);
+
+        //print_r($manufacter_list_id); die();
 
         //print_r($results[50]); die();
 
@@ -321,6 +325,7 @@ class ModelCatalogProduct extends Model {
             $check = true;
 
             $attributes = $result[ 'attributes' ];
+            $product_manufacter_id = $result['manufacturer_id'];
 
             try {
                 $attributes = json_decode( $attributes );
@@ -337,7 +342,10 @@ class ModelCatalogProduct extends Model {
             //print_r($attributes); die();
             foreach($attribute_id as $id)
               if($id != '' && !in_array($id, $attributes))
-                $check = false;  
+                $check = false;
+                
+              if($manufacter_id != '' && !in_array($product_manufacter_id, $manufacter_list_id))
+                $check = false;    
 
             //if(true)
             if ($check)

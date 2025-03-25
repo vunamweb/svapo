@@ -216,8 +216,15 @@ $(function () {
         var listAttribute = '';
 
         $('.filter_attribute').each(function(){
-            if($(this).is(':checked'))
+            if($(this).is(':checked') && !$(this).hasClass('filter_manufactor'))
             listAttribute = listAttribute + $(this).attr('data') + ',';
+        })
+
+        var listManufactor = '';
+
+        $('.filter_manufactor').each(function(){
+            if($(this).is(':checked'))
+            listManufactor = listManufactor + $(this).attr('data') + ',';
         })
 
         var currentURL = window.location.href;
@@ -227,7 +234,7 @@ $(function () {
         $('.loading').show();
 
         $.ajax({
-            url: (!currentURL.includes('order') && !currentURL.includes('atb')) ? currentURL + '?filter_atb=true' + '&atb_id=' +listAttribute : currentURL + '&filter_atb=true' + '&atb_id=' +listAttribute,  // URL to fetch data from
+            url: (!currentURL.includes('order') && !currentURL.includes('atb')) ? currentURL + '?filter_atb=true' + '&atb_id=' +listAttribute + '&manufactor_id=' +listManufactor : currentURL + '&filter_atb=true' + '&atb_id=' +listAttribute + '&manufactor_id=' +listManufactor,  // URL to fetch data from
             method: 'GET', // HTTP method
             success: function(data) {
                $('.product .row_product').html(data);
