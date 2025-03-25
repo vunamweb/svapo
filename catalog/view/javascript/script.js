@@ -126,6 +126,40 @@ function init_slider() {
     }
 }
 
+if ($(".start_swiper").length) {
+	var swiper = new Swiper(".start_swiper", {
+	  slidesPerView: 1,
+	  spaceBetween: 30,
+	  loop: true,
+	  autoplay: {
+		  delay: 5000,
+		  disableOnInteraction: false,
+	  },
+	  navigation: {
+		  nextEl: ".swiper-button-next",
+		  prevEl: ".swiper-button-prev",
+	  },
+	  breakpoints: {
+		  768: {
+			slidesPerView: 2,
+			spaceBetween: 20,
+		  },
+		  1200: {
+			slidesPerView: 4,
+			spaceBetween: 40,
+		  },
+		  1600: {
+			slidesPerView: 5,
+			spaceBetween: 50,
+		  },
+		},
+	  // pagination: {
+		// el: ".swiper-pagination",
+		// clickable: true,
+	  // },
+	});
+}
+
 function _scrollTo(hash) {
     if (hash && $(hash).length) {
         let nav = $("header").height();
