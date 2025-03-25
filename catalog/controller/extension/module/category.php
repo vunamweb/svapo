@@ -56,17 +56,14 @@ class ControllerExtensionModuleCategory extends Controller {
 
 
         foreach ( $categories as $category ) {
-            $name = '<div class="col-md col-6 item item-cat ' . $category[ 'name' ] . ' dd'.$category[ 'attribute_group_id' ].'"><div class="mega-link">';
+            $name = '<div class="col item item-cat ' . $category[ 'name' ] . ' dd'.$category[ 'attribute_group_id' ].'"><div class="mega-link">';
 
 				$name .= '<h4 class="title text1 text-black categoryHL font_Inter ' . $category[ 'name' ] . '">' . $category[ 'name' ] . '</h4>
-				<div class="mega-menu ">
-					<div class="row">
-						<div class="col">
-							<div class="row">';
+				<div class="mega-menu ">';
 
 				$name .= $this->model_catalog_category->getCategoryAttribute($category[ 'attribute_group_id' ]);
 					
-			$name .= '</div></div></div></div></div></div>';
+			$name .= '</div></div></div>';
 
 					//$name = 'ndd';
 
