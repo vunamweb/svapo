@@ -692,14 +692,35 @@ class ModelCatalogProduct extends Model {
         return $query->rows;
     }
 
+    public function getThcOfProduct($product_id) {
+        $attribute_id = 34;
+
+        $query = $this->db->query("SELECT text FROM " . DB_PREFIX . "product_attribute 
+        WHERE product_id = '" . (int)$product_id . "' 
+        AND attribute_id = '" . (int)$attribute_id . "'");
+
+        if ($query->num_rows) {
+            return $query->row['text']; // Output the attribute value
+        } else {
+            return null;
+        }
+    }
+
     public function getProductRelated( $product_id ) {
+        $THC_product_text = $this->getThcOfProduct($product_id);
+        //echo $THC_product_text; die();
+
         $product_data = array();
 
-        $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX . 'product_related pr LEFT JOIN ' . DB_PREFIX . 'product p ON (pr.related_id = p.product_id) LEFT JOIN ' . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE pr.product_id = '" . ( int )$product_id . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . ( int )$this->config->get( 'config_store_id' ) . "'" );
+        $query = $this->db->query("SELECT product_id FROM " . DB_PREFIX . "product_attribute 
+        WHERE product_id <> '" . (int)$product_id . "' 
+        AND text = '" . $THC_product_text . "'");
 
         foreach ( $query->rows as $result ) {
-            $product_data[ $result[ 'related_id' ] ] = $this->getProduct( $result[ 'related_id' ] );
+            $product_data[ $result[ 'product_id' ] ] = $this->getProduct( $result[ 'product_id' ] );
         }
+
+        //print_r($product_data); die();
 
         return $product_data;
     }
