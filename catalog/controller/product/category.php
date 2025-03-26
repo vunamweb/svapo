@@ -450,6 +450,8 @@ class ControllerProductCategory extends Controller {
 			$data['header'] = $this->load->controller('common/header');
 
 			$data['atb'] = $atb;
+
+			$data['count_product'] = count($data['products']);
 			//echo $atb; die();
 
 			if(!$this->request->get['filter_atb'])
