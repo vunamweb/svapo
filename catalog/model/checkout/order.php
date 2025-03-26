@@ -530,6 +530,8 @@ class ModelCheckoutOrder extends Model {
 		//echo $sql; die();
 		$query = $this->db->query($sql);
 
+		return $query->rows;
+
 		//print_r($query->rows); die();
 
 		foreach($query->rows as $row) {

@@ -1,0 +1,135 @@
+{{ mail_header }}
+
+	<!-- {{ payment_address }} -->	
+    14
+		
+		
+<table class="table" style="width: 100%;">
+		<tr>
+			<td>
+               {% if shipping_address %}
+        	   		{{ shipping_address }}
+        		{% endif %}
+
+				<!-- {{ pdf_address }} -->
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<br />
+				<h2>Auftragsbestätigung</h2>
+				
+				<p>Liebe(r) {{ firstname }} {{ lastname }},<br/>
+				vielen Dank für Deinen Auftrag. Im Anhang findest Du Deine Auftragsbestätigung.</p>
+				
+				<p>Jetzt ist Dein Mitwirken gefragt: Bitte überweise den Betrag von <b>{{ total }} &euro;</b> mit dem Betreff <b>svapo-{{ order_id }}</b> auf folgende Bankverbindung:</p>
+				<p><b>{{ ACCOUNT }}</b></p>
+				<br />
+				<p>Nachdem wir Deine Zahlung erhalten haben, informieren wir Dich und erneut, wenn wir Deine Blüten versenden (inkl. DHL - Sendungsnummer).</p>
+				<p>Übrigens, mit dem Anlegen eines Kontos erfolgen zukünftige Bestellungen schneller, der Auftragsstatus kann nachverfolgt und bisherige Bestellungen angesehen werden! <a href="https://www.svapo.de/index.php?route=account/login">Anmeldung</a></p>
+				<p>Herzlichen Dank für Deine Bestellung!</p>
+				<p>Viele Grüße, Dein svapo.de Team</p>	
+			</td>
+		</tr>
+  </table>
+
+  
+  <table style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+	<thead>
+	  <tr>
+		<td style="background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;" colspan="2">
+			{{ text_order_detail }}
+		</td>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr>
+		<td style=" border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">
+			<!-- <b>{{ text_order_id }}</b>:&nbsp; {{ order_id }}<br/> -->
+			<b>{{ text_date_added }}</b>:&nbsp; {{ date_added }}<br/>
+			<b>{{ text_payment_method }}</b>:&nbsp; {{ payment_method }}<br/>
+		</td>
+		<td style=" border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">
+			<b>{{ text_email }}</b>:&nbsp; {{ email }}<br/>			
+		</td>
+	  </tr>
+	</tbody>
+</table>
+				  
+				  
+				  {% if comment %}
+	<table style="border-collapse: collapse; width: 100%; border-top: 1px solid #DDDDDD; border-left: 1px solid #DDDDDD; margin-bottom: 20px;">
+					<thead>
+					  <tr>
+						<td style=" border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;">{{ text_instruction }}</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td style=" border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ comment }}</td>
+					  </tr>
+					</tbody>
+				  </table>
+				  {% endif %}
+				  
+	<table style="border-collapse: collapse; width: 100%; border-top: 1px solid #DDDDDD; border-left: 1px solid #DDDDDD; margin-bottom: 20px;">
+					<thead>
+					  <tr>
+						<td style=" border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;">{{ text_product }}</td>
+						<td style=" border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_quantity }}</td>
+						<td style=" border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_price }}</td>
+						<td style=" border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_total }}</td>
+					  </tr>
+					</thead>
+					<tbody>
+					
+					{% for product in products %}
+					<tr>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ product.name }}
+						{% for option in product.option %}<br/>
+						&nbsp;<small> - {{ option.name }}: {{ option.value }}</small>{% endfor %}</td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ product.quantity }}</td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ product.price }}</td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">
+					  {{ product.total }}
+						
+					  </td>
+					</tr>
+					{% endfor %}
+					{% for voucher in vouchers %}
+					<tr>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ voucher.description }}</td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">1</td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ voucher.amount }}</td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ voucher.amount }}</td>
+					</tr>
+					{% endfor %}
+					  </tbody>
+					
+					<tfoot>
+					
+					{% for total in totals %}
+					<tr>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;" colspan="3"><b>{{ total.title }}:</b></td>
+					  <td style=" border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ total.text }}</td>
+					</tr>
+					{% endfor %}
+					  </tfoot>
+					
+				  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  			  <br/><br/>				  
+				  {{ mail_footer }}				  
+	
+		  
+  </td></tr></table>
+		  
+  </body>
+  </html>
