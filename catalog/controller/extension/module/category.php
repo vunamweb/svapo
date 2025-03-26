@@ -32,8 +32,8 @@ class ControllerExtensionModuleCategory extends Controller {
 
         $categories = $this->model_catalog_category->getAttributeGroups();
 
-        $manufacturers = $this->model_catalog_manufacturer->getManufacturers();
-        //print_r($manufacturers);
+        $manufacturers = $this->model_catalog_manufacturer->getManufacturerHasProduct();
+        //print_r($manufacturers); die();
 
         $childManufactor = '';
 
