@@ -129,6 +129,7 @@
         {% if i < (tags|length - 1) %} <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>,
         {% else %} <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a> {% endif %}
         {% endfor %} </p>
+		{% else %} <h3>Kein verwandtes Produkt</h3>
         {% endif %}
 							</div>
 														
