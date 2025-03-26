@@ -109,7 +109,7 @@
               <p class="price"> {% if not product.special %}
                 {{ product.price }}
                 {% else %} <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span> {% endif %}
-                {% if product.tax %} <span class="price-tax">{{ text_tax }} {{ product.tax }}</span> {% endif %} </p>
+                </p>
               {% endif %} </div>
           </div>
         </div>
@@ -122,6 +122,7 @@
         {% endif %}
         {% set i = i + 1 %}
         {% endfor %} </div>
+		{% else %} <h3>Kein verwandtes Produkt</h3>
         {% endif %}
         {% if tags %}
         <p>{{ text_tags }}
@@ -129,8 +130,7 @@
         {% if i < (tags|length - 1) %} <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>,
         {% else %} <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a> {% endif %}
         {% endfor %} </p>
-		{% else %} <h3>Kein verwandtes Produkt</h3>
-        {% endif %}
+		{% endif %}
 							</div>
 														
 						</div>
