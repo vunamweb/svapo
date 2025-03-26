@@ -296,8 +296,8 @@
 		  atbList = atb.split(',');
 
 		for (let i = 0; i < atbList.length; i++) {
-          $('input[data='+atbList[i]+']').prop('checked', true);
-        }
+          $('input[id=check_'+atbList[i]+']').prop('checked', true);
+		}
 
 		var listAttribute = '';
 

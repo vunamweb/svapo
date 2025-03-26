@@ -120,7 +120,7 @@ class ControllerExtensionModuleCategory extends Controller {
 
     public function showManufactor($manufactors) {
         foreach ( $manufactors as $row ) {
-            $response .= '<a href="javascript:void(0)" class="nav-link col-xl-2 col-lg-3 col-6 col-md-4 text-secondary text2 no-wrap"><input id="check_'.$row['manufacturer_id'].'" type="checkbox" class="filter_attribute filter_manufactor" data="'.$row['manufacturer_id'].'"/><label class="label_atb" for="check_'.$row['attribute_id'].'">'.$row[ 'name' ].'</label></a>';
+            $response .= '<a href="javascript:void(0)" class="nav-link col-xl-2 col-lg-3 col-6 col-md-4 text-secondary text2 no-wrap"><input id="manufactor_'.$row['manufacturer_id'].'" type="checkbox" class="filter_attribute filter_manufactor" data="'.$row['manufacturer_id'].'"/><label class="label_atb" for="check_'.$row['attribute_id'].'">'.$row[ 'name' ].'</label></a>';
         }
 
         // $response .= '</div>';
