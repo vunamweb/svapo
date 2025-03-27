@@ -467,7 +467,7 @@ class ModelCheckoutOrder extends Model {
 			$sql .= " WHERE o.order_status_id > '0'";
 		}
 
-		$sql .= " AND o.order_status_id <> 31";
+		$sql .= " AND o.order_status_id <> ".STATUS_CANCEL."";
 
 		if (!empty($data['filter_order_id'])) {
 			$sql .= " AND o.order_id = '" . (int)$data['filter_order_id'] . "'";

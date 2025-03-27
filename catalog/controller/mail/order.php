@@ -340,7 +340,7 @@ class ControllerMailOrder extends Controller {
 		$data['lastname'] = $order_info['lastname'];
 		$data['total'] = number_format($order_total['value'], 2, ',', '.');
 		
-		$subject = "Bestellbenachrichtigung ist 7 Tage alt"; //html_entity_decode(sprintf($language->get('text_subject'), 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+		$subject = SUBJECT_CRONTAB1; //html_entity_decode(sprintf($language->get('text_subject'), 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
 		$fromName = html_entity_decode('svapo.de, '.$order_info['store_name'], ENT_QUOTES, 'UTF-8');
 
 		$message = $this->load->view('mail/order_notice_customer_7_days', $data);
@@ -363,9 +363,9 @@ class ControllerMailOrder extends Controller {
 
 		//echo 'nam';
 
-		$this->document->sendMailSMTP("post@pixel-dusche.de", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
+		//$this->document->sendMailSMTP("post@pixel-dusche.de", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
 		
-		//$this->sendMail("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
+		$this->sendMail("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
 	}
 
 	public function sendMailForOrderIs14day($order_info, $order_status_id, $comment, $notify) {
@@ -654,7 +654,7 @@ class ControllerMailOrder extends Controller {
 		$data['lastname'] = $order_info['lastname'];
 		$data['total'] = number_format($order_total['value'], 2, ',', '.');
 		
-		$subject = "Bestellbenachrichtigung ist 7 Tage alt"; //html_entity_decode(sprintf($language->get('text_subject'), 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
+		$subject = SUBJECT_CRONTAB2; //html_entity_decode(sprintf($language->get('text_subject'), 'svapo.de, '.$order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
 		$fromName = html_entity_decode('svapo.de, '.$order_info['store_name'], ENT_QUOTES, 'UTF-8');
 
 		$message = $this->load->view('mail/order_notice_customer_14_days', $data);
@@ -1102,7 +1102,7 @@ class ControllerMailOrder extends Controller {
 			$interval = $today->diff($givenDate);
 
 			// if order is 7 days old
-			if ($interval->days == 7) {
+			if ($interval->days == DAY_CRONTAB1) {
 				$count++;
 
                 $order_info = $this->model_checkout_order->getOrder($order['order_id']);
@@ -1121,7 +1121,9 @@ class ControllerMailOrder extends Controller {
 		$this->load->model('checkout/order');
 
 		$orders = $this->model_checkout_order->getOrdersAvaiable();
-		$new_status = 31;
+		$new_status = STATUS_CANCEL;
+
+		//$start_day = '2025-02-01';
 
 		//print_r($orders); die();
 
@@ -1133,8 +1135,10 @@ class ControllerMailOrder extends Controller {
 			$today = new DateTime(); // Current date
 			$interval = $today->diff($givenDate);
 
-			// if order is more than 14 days old
-			if ($interval->days >= 14) {
+			//$checkDate = ($givenDate >= new DateTime($start_day)) ? true : false;
+
+			// if order is more than 10 days old
+			if ($interval->days >= DAY_CRONTAB2) {
 				$count++;
 
 				$order_id = $order['order_id'];
@@ -1146,7 +1150,7 @@ class ControllerMailOrder extends Controller {
 
 				$this->restore($order_id);
 
-				//$this->sendMailForOrderIs14day($order_info, $order_status_id, '', '');
+				$this->sendMailForOrderIs14day($order_info, $order_status_id, '', '');
 			} 
 		}
 
@@ -1166,7 +1170,7 @@ class ControllerMailOrder extends Controller {
 		// end 
 
 		 // set status of order to 31
-		 $status_id = 31;
+		 $status_id = STATUS_CANCEL;
 		 $this->db->query("UPDATE " . DB_PREFIX . "order 
 		 SET order_status_id = '" . (int)$status_id . "' 
 		 WHERE order_id = '" . (int)$order_id . "'");

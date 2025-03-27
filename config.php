@@ -174,3 +174,14 @@ define('STATUS1', 7);
 //define('PATH_FILE_UPLOAD', 'https://pharmacy.svapo.de/uploads/');
 define('URL_UPLOAD', 'https://files.svapo.info/upload_file.php');
 define('PATH_FILE_UPLOAD', 'https://files.svapo.info/uploads/');
+
+// STATUS CANCEL
+define('STATUS_CANCEL', 9);
+
+// CRONTAB1
+define('DAY_CRONTAB1', 7);
+define('SUBJECT_CRONTAB1', 'Crontab1');
+
+// CRONTAB2
+define('DAY_CRONTAB2', 10);
+define('SUBJECT_CRONTAB2', 'Crontab2');
