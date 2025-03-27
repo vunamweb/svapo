@@ -363,9 +363,9 @@ class ControllerMailOrder extends Controller {
 
 		//echo 'nam';
 
-		//$this->document->sendMailSMTP("post@pixel-dusche.de", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
+		$this->document->sendMailSMTP("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
 		
-		$this->sendMail("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
+		//$this->sendMail("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
 	}
 
 	public function sendMailForOrderIs14day($order_info, $order_status_id, $comment, $notify) {
@@ -677,9 +677,9 @@ class ControllerMailOrder extends Controller {
 
 		//echo 'nam';
 
-		//$this->document->sendMailSMTP("post@pixel-dusche.de", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
+		$this->document->sendMailSMTP("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
 		
-		$this->sendMail("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
+		//$this->sendMail("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
 	}
 
 	public function countInvoiceNumber() {
@@ -1096,10 +1096,15 @@ class ControllerMailOrder extends Controller {
 		$message = '';
 		$count = 0;
 
+		$listSendMail = array();
+
 		foreach($orders as $order) {
 			$givenDate = new DateTime(date("Y-m-d", strtotime($order['date_added']))); // Replace with your date
+			//$givenDate = new DateTime('2025-03-20'); // Replace with your date
 			$today = new DateTime(); // Current date
 			$interval = $today->diff($givenDate);
+
+			//echo $interval->days; die();
 
 			// if order is 7 days old
 			if ($interval->days == DAY_CRONTAB1) {
@@ -1110,11 +1115,18 @@ class ControllerMailOrder extends Controller {
 
 				$message .= 'Send mail to ' . $order_info['email'] . ' has order id ' . $order_info['order_id'] . ' has been created at ' . $order['date_added'] . '<br>';
 
-				$this->sendMailForOrderIs7day($order_info, $order_status_id, '', '');
+				$listSendMail[] = $order_info;
+
+				//$this->sendMailForOrderIs7day($order_info, $order_status_id, '', '');
 			} 
 		}
 
 		echo ($count == 0) ? 'No Email was send' : 'Total '.$count.' mail have been sent with detail below <br><br>' . $message;
+		
+		// send mail to customer
+		for($i = 0; $i < count($listSendMail); $i++)
+		    if($i <= 1)
+		       $this->sendMailForOrderIs7day($listSendMail[$i], null, '', '');
 	}
 
 	public function crontab2() {
@@ -1129,6 +1141,8 @@ class ControllerMailOrder extends Controller {
 
 		$message = '';
 		$count = 0;
+
+		$listSendMail = array();
 
 		foreach($orders as $order) {
 			$givenDate = new DateTime(date("Y-m-d", strtotime($order['date_added']))); // Replace with your date
@@ -1150,12 +1164,19 @@ class ControllerMailOrder extends Controller {
 
 				$this->restore($order_id);
 
-				$this->sendMailForOrderIs14day($order_info, $order_status_id, '', '');
+				//$this->sendMailForOrderIs14day($order_info, $order_status_id, '', '');
+				$listSendMail[] = $order_info;
 			} 
 		}
 
 		echo ($count == 0) ? 'No Order found' : 'Total '.$count.' orders have been found with detail below <br><br>' . $message;
-	
+		
+		flush(); 
+
+		// send mail to customer
+		for($i = 0; $i < count($listSendMail); $i++)
+		    if($i <= 1)
+		       $this->sendMailForOrderIs14day($listSendMail[$i], null, '', '');
 	}
 
 	public function restore($order_id) {
