@@ -1125,8 +1125,7 @@ class ControllerMailOrder extends Controller {
 		
 		// send mail to customer
 		for($i = 0; $i < count($listSendMail); $i++)
-		    if($i <= 1)
-		       $this->sendMailForOrderIs7day($listSendMail[$i], null, '', '');
+		    $this->sendMailForOrderIs7day($listSendMail[$i], null, '', '');
 	}
 
 	public function crontab2() {
@@ -1152,7 +1151,7 @@ class ControllerMailOrder extends Controller {
 			//$checkDate = ($givenDate >= new DateTime($start_day)) ? true : false;
 
 			// if order is more than 10 days old
-			if ($interval->days >= DAY_CRONTAB2) {
+			if ($interval->days = DAY_CRONTAB2) {
 				$count++;
 
 				$order_id = $order['order_id'];
@@ -1171,12 +1170,11 @@ class ControllerMailOrder extends Controller {
 
 		echo ($count == 0) ? 'No Order found' : 'Total '.$count.' orders have been found with detail below <br><br>' . $message;
 		
-		flush(); 
+		//flush(); 
 
 		// send mail to customer
 		for($i = 0; $i < count($listSendMail); $i++)
-		    if($i <= 1)
-		       $this->sendMailForOrderIs14day($listSendMail[$i], null, '', '');
+		    $this->sendMailForOrderIs14day($listSendMail[$i], null, '', '');
 	}
 
 	public function restore($order_id) {
