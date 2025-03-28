@@ -37,7 +37,7 @@ define('SMTP_PASSWORD', 'Bertolli11');
 define('SMTP_HOST2', 'w01f9b2f.kasserver.com');
 define('FROM_MAIL', 'info@svapo.de');
 define('SMTP_USER2', 'info@svapo.de');
-define('SMTP_PASSWORD2', 'JzYdkmnniaN3mdBvPYr8');
+define('SMTP_PASSWORD2', 'E72wDgDqeAXdSijTYGx5');
 
 // WHATSAPP
 // https://wa.me/whatsappphonenumber?text=urlencodedtext
