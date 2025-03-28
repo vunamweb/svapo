@@ -1,0 +1,38 @@
+{{ mail_header }}
+
+	<!-- {{ payment_address }} -->	
+    		
+<table class="table" style="width: 100%;">
+		<tr>
+			<td>
+               {% if shipping_address %}
+        	   		{{ shipping_address }}
+        		{% endif %}
+
+				<!-- {{ pdf_address }} -->
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<br />
+				<h2>Auftrag storniert</h2>
+				
+				<p>Liebe(r) {{ firstname }} {{ lastname }},<br/>				
+				leider haben wir zu Deiner Bestellung keinen Zahlungseingang erhalten. </p>
+				
+				<p>Deine Bestellung wird daher automatisch storniert, und die Blüten werden wieder freigegeben.</p>
+				
+				<p>Solltest Du weiterhin Interesse an Deinen Blüten haben, melde Dich gerne bei unserem Kundenservice (<a href="mailto:info@svapo.de">info@svapo.de</a>) unter Angabe Deiner Auftragsnummer {{ order_id }}.</p>
+				
+				<p>Viele Grüße, Dein svapo-Team</p>
+			</td>
+		</tr>
+  </table>
+
+	<br/><br/>				  
+	{{ mail_footer }}				  
+
+  </td></tr></table>
+		  
+  </body>
+  </html>

@@ -16,18 +16,36 @@
 		<tr>
 			<td>
 				<br />
-				<h2>Auftragsbestätigung</h2>
+				<h2>Auftragsbestätigung Erinnerung</h2>
 				
 				<p>Liebe(r) {{ firstname }} {{ lastname }},<br/>
-				vielen Dank für Deinen Auftrag. Im Anhang findest Du Deine Auftragsbestätigung.</p>
+				vielen Dank für Deine Bestellung bei uns!</p>
 				
-				<p>Jetzt ist Dein Mitwirken gefragt: Bitte überweise den Betrag von <b>{{ total }} &euro;</b> mit dem Betreff <b>svapo-{{ order_id }}</b> auf folgende Bankverbindung:</p>
+				<p>Wir haben Deine Bestellung Nr. {{ order_id }} erhalten und die Blüten für Dich reserviert.</p>
+				
+				<p>Leider konnten wir bislang noch keinen Zahlungseingang feststellen. Bitte beachte, dass wir Deine Bestellung erst nach Eingang der Zahlung weiterbearbeiten können.</p>
+				
+				<p>Sollten wir innerhalb der nächsten <b>5 Tage</b> keinen Zahlungseingang verzeichnen, wird die Bestellung automatisch storniert.</p>
+				
+				<p>Falls Du die Zahlung bereits vorgenommen hast, kannst Du diese Nachricht einfach ignorieren – Deine Bestellung wird dann automatisch freigegeben, sobald der Betrag bei uns eingegangen ist.</p>
+				
+				<p>Falls Du Fragen hast oder Unterstützung benötigst, melde Dich gerne bei uns.</p>
+	
+				<p>Bitte überweise den Betrag in Höhe von {{ total }} € mit dem Betreff {{ order_id }} an folgende Bankverbindung:</p>
 				<p><b>{{ ACCOUNT }}</b></p>
-				<br />
-				<p>Nachdem wir Deine Zahlung erhalten haben, informieren wir Dich und erneut, wenn wir Deine Blüten versenden (inkl. DHL - Sendungsnummer).</p>
-				<p>Übrigens, mit dem Anlegen eines Kontos erfolgen zukünftige Bestellungen schneller, der Auftragsstatus kann nachverfolgt und bisherige Bestellungen angesehen werden! <a href="https://www.svapo.de/index.php?route=account/login">Anmeldung</a></p>
-				<p>Herzlichen Dank für Deine Bestellung!</p>
-				<p>Viele Grüße, Dein svapo.de Team</p>	
+				
+				<table><tr>
+					<td><img src="https://www.svapo.de/qrIBAN.php?id={{ order_id }}&total={{ total }}" alt="sepa" style="width:140px;height:140px;"></td>
+					<td> &nbsp; </td>
+					<td><img src="https://www.svapo.de/images/scanme.png" alt="scan me" style="width:160px;height:56px;"></td>
+				</tr></table>
+				
+				<p>Sobald Deine Zahlung bei uns eingegangen ist, erhältst Du eine Bestätigung. Natürlich informieren wir Dich auch, wenn Deine Blüten auf den Weg zu Dir sind – inklusive DHL-Sendungsnummer.</p>
+				
+				<p><b>Tipp:</b> Mit einem Kundenkonto kannst Du Bestellungen schneller aufgeben, den Status jederzeit nachverfolgen und vergangene Bestellungen einsehen. Jetzt registrieren: <a href="https://www.svapo.de/index.php?route=account/login">Anmeldung</a></p>
+				
+				<p>Vielen Dank für Deine Bestellung!</p>
+				<p>Viele Grüße, Dein svapo-Team</p>	
 			</td>
 		</tr>
   </table>
