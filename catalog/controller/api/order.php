@@ -2299,56 +2299,9 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function crontab2() {
-		$this->load->model('checkout/order');
-
-		$orders = $this->model_checkout_order->getOrdersAvaiable();
-		$new_status = 31;
-
-		//print_r($orders); die();
-
-		$message = '';
-		$count = 0;
-
-		foreach($orders as $order) {
-			$givenDate = new DateTime(date("Y-m-d", strtotime($order['date_added']))); // Replace with your date
-			$today = new DateTime(); // Current date
-			$interval = $today->diff($givenDate);
-
-			// if order is 7 days old
-			if ($interval->days >= 14) {
-				$count++;
-
-				$order_id = $order['order_id'];
-				$order_info = $this->model_checkout_order->getOrder($order_id);
-				
-                $message .= 'Set status '.$new_status.' and back product to stock for ' . $order_info['email'] . ' has order id ' . $order_info['order_id'] . ' has been created at ' . $order['date_added'] . '<br>';
-
-				$this->restore($order_id);
-			} 
-		}
-
-		echo ($count == 0) ? 'No Order found' : 'Total '.$count.' orders have been found with detail below <br><br>' . $message;
+		$this->load->controller('mail/order/crontab2');
 	}
 
-	public function restore($order_id) {
-		// back product of order to stock
-		$order_products = $this->db->query("SELECT product_id, quantity FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
-
-		foreach ($order_products->rows as $product) {
-			$this->db->query("UPDATE " . DB_PREFIX . "product 
-							  SET quantity = quantity + " . (int)$product['quantity'] . " 
-							  WHERE product_id = '" . (int)$product['product_id'] . "'");
-		}
-		// end 
-
-		 // set status of order to 31
-		 $status_id = 31;
-		 $this->db->query("UPDATE " . DB_PREFIX . "order 
-		 SET order_status_id = '" . (int)$status_id . "' 
-		 WHERE order_id = '" . (int)$order_id . "'");
-		 // end
-    }
-      
 	public function getTotalWeight($products) {
 		$total_weight = 0;
 
