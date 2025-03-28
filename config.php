@@ -184,4 +184,4 @@ define('SUBJECT_CRONTAB1', 'Auftragsbestätigung Erinnerung');
 
 // CRONTAB2
 define('DAY_CRONTAB2', 10);
-define('SUBJECT_CRONTAB2', 'Crontab2');
+define('SUBJECT_CRONTAB2', 'Stornierung Deines Auftrags');
