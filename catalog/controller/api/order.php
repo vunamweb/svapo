@@ -1763,7 +1763,7 @@ class ControllerApiOrder extends Controller {
 					$order_status_id = $this->config->get('config_order_status_id');
 				}
 
-				$this->model_checkout_order->addOrderHistory($json['order_id'], $order_status_id);
+				$this->model_checkout_order->addOrderHistory($json['order_id'], $order_status_id, '', true, false);
 
 				// save for tracking hisory of product
 		        //foreach($order_data['products'] as $data)

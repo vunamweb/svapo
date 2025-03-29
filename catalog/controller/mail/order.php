@@ -1037,7 +1037,7 @@ class ControllerMailOrder extends Controller {
 		file_put_contents($file_location, $pdf);
 		
 		//print_r($order_total); die();
-		if($order_total['value'] > 0)
+		if($order_total['value'] > 0 && $notify)
 		  $this->sendMail($order_info['order_id'], $order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
 	}
 
