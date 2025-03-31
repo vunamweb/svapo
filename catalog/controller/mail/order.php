@@ -363,7 +363,7 @@ class ControllerMailOrder extends Controller {
 
 		//echo 'nam';
 
-		$this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
+		$this->document->sendMailSMTP('bk@7sc.eu', $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
 		
 		//$this->sendMail("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
 	}
@@ -677,7 +677,7 @@ class ControllerMailOrder extends Controller {
 
 		//echo 'nam';
 
-		$this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
+		$this->document->sendMailSMTP('bk@7sc.eu', $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
 		
 		//$this->sendMail("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
 	}
