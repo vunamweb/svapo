@@ -660,7 +660,7 @@ class ControllerMailOrder extends Controller {
 		$message = $this->load->view('mail/order_notice_customer_14_days', $data);
 
 		//create pdf
-		$options = new Options();
+		/*$options = new Options();
 		$options->set('tempDir', '/tmp');
 		$options->set('chroot', __DIR__);    
 		$options->set('isRemoteEnabled', TRUE);
@@ -673,11 +673,11 @@ class ControllerMailOrder extends Controller {
 		$dompdf->setPaper('A4', 'Horizontal');
 		$dompdf->render();
 		$pdf = $dompdf->output();
-		file_put_contents($file_location, $pdf);
+		file_put_contents($file_location, $pdf);*/
 
 		//echo 'nam';
 
-		$this->document->sendMailSMTP('bk@7sc.eu', $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
+		$this->document->sendMailSMTP('bk@7sc.eu', $subject, SMTP_USER, $fromName, $message, 'add', '');
 		
 		//$this->sendMail("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
 	}
@@ -1107,7 +1107,7 @@ class ControllerMailOrder extends Controller {
 			//echo $interval->days; die();
 
 			// if order is 7 days old
-			if ($interval->days == DAY_CRONTAB1) {
+			if ($interval->days == DAY_CRONTAB1 + 1) {
 				$count++;
 
                 $order_info = $this->model_checkout_order->getOrder($order['order_id']);
@@ -1148,10 +1148,12 @@ class ControllerMailOrder extends Controller {
 			$today = new DateTime(); // Current date
 			$interval = $today->diff($givenDate);
 
+			//echo $interval->days; die(); 
+
 			//$checkDate = ($givenDate >= new DateTime($start_day)) ? true : false;
 
 			// if order is more than 10 days old
-			if ($interval->days = DAY_CRONTAB2) {
+			if ($interval->days == DAY_CRONTAB2 + 1) {
 				$count++;
 
 				$order_id = $order['order_id'];
