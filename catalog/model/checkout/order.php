@@ -468,8 +468,8 @@ class ModelCheckoutOrder extends Model {
 		}
 
 		// $sql .= " AND o.order_status_id <> ".STATUS_CANCEL."";
-		// $sql .= " AND (o.order_status_id = 25 OR o.order_status_id = 18 OR o.order_status_id = 30 OR o.order_status_id = 3) ";
-		$sql .= " AND (o.order_status_id = 30) ";
+		$sql .= " AND (o.order_status_id = 25 OR o.order_status_id = 18 OR o.order_status_id = 30 OR o.order_status_id = 3) ";
+		// $sql .= " AND (o.order_status_id = 18) ";
 
 		if (!empty($data['filter_order_id'])) {
 			$sql .= " AND o.order_id = '" . (int)$data['filter_order_id'] . "'";
@@ -529,12 +529,13 @@ class ModelCheckoutOrder extends Model {
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
 
+		// $sql .= " LIMIT 0,1";
 		//echo $sql; die();
 		$query = $this->db->query($sql);
 
+		// print_r($query->rows); die();
 		return $query->rows;
 
-		//print_r($query->rows); die();
 
 		foreach($query->rows as $row) {
 			$order_id = $row['order_id'];
