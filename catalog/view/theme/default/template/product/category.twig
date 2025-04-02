@@ -42,7 +42,8 @@
 						</div>
 					</div>
 					<div class="col">
-						<a href="#" class="btn btn-default resetfilter">Reset Filter</a>
+						<!--<a href="#" class="btn btn-default resetfilter">Reset Filter</a>-->
+						<a href="./shop/" class="btn btn-default">Reset Filter</a>
 					</div>
 				</div>
 			</div>
@@ -191,7 +192,8 @@
 															</div>
 
 														</div>
-														<div class="col-12 col-md-6 text-right icons"><span class="icon"><img src="images/{{ product.Behandlung }}.svg" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="{{ product.Behandlung }}""></span>
+														<div class="col-12 col-md-6 text-right icons">
+															<span class="icon"><img src="images/{{ product.Behandlung }}.svg" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="{{ product.Behandlung }}""></span><br />
 		
 															{% for group in product.attributes_list %}
 																{% set listAttribute = group.list %}
