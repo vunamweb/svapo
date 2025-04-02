@@ -15,6 +15,12 @@ class ControllerProductCategory extends Controller {
 		}
 
 		if (isset($this->request->get['manufactor_id'])) {
+			$manufactor_id = $this->request->get['manufactor_id'];
+		} else {
+			$manufactor_id = '';
+		}
+
+		if (isset($this->request->get['manufactor_id'])) {
 			$manufacter = $this->request->get['manufactor_id'];
 		} else {
 			$manufacter = '';
@@ -450,6 +456,7 @@ class ControllerProductCategory extends Controller {
 			$data['header'] = $this->load->controller('common/header');
 
 			$data['atb'] = $atb;
+			$data['manufactor_id'] = $manufactor_id;
 
 			$data['count_product'] = count($data['products']);
 			//echo $atb; die();
