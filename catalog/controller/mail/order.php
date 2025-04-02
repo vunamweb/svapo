@@ -363,7 +363,7 @@ class ControllerMailOrder extends Controller {
 
 		//echo 'nam';
 
-		$this->document->sendMailSMTP('bk@7sc.eu', $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
+		$this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
 		
 		//$this->sendMail("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
 	}
@@ -677,7 +677,7 @@ class ControllerMailOrder extends Controller {
 
 		//echo 'nam';
 
-		$this->document->sendMailSMTP('bk@7sc.eu', $subject, SMTP_USER, $fromName, $message, 'add', '');
+		$this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', '');
 		
 		//$this->sendMail("vu@pixeldusche.com", $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name, $order_status_id, $data);
 	}
@@ -1116,16 +1116,14 @@ class ControllerMailOrder extends Controller {
 				$message .= 'Send mail to ' . $order_info['email'] . ' has order id ' . $order_info['order_id'] . ' has been created at ' . $order['date_added'] . '<br>';
 
 				$listSendMail[] = $order_info;
-
-				//$this->sendMailForOrderIs7day($order_info, $order_status_id, '', '');
-			} 
+            } 
 		}
 
 		echo ($count == 0) ? 'No Email was send' : 'Total '.$count.' mail have been sent with detail below <br><br>' . $message;
 		
 		// send mail to customer
-		for($i = 0; $i < count($listSendMail); $i++)
-		    $this->sendMailForOrderIs7day($listSendMail[$i], null, '', '');
+		//for($i = 0; $i < count($listSendMail); $i++)
+		//  $this->sendMailForOrderIs7day($listSendMail[$i], null, '', '');
 	}
 
 	public function crontab2() {
@@ -1163,7 +1161,7 @@ class ControllerMailOrder extends Controller {
 				
                 $message .= 'Set status '.$new_status.' and back product to stock for ' . $order_info['email'] . ' has order id ' . $order_info['order_id'] . ' has been created at ' . $order['date_added'] . '<br>';
 
-				$this->restore($order_id);
+				//$this->restore($order_id);
 
 				//$this->sendMailForOrderIs14day($order_info, $order_status_id, '', '');
 				$listSendMail[] = $order_info;
@@ -1175,8 +1173,8 @@ class ControllerMailOrder extends Controller {
 		//flush(); 
 
 		// send mail to customer
-		for($i = 0; $i < count($listSendMail); $i++)
-		    $this->sendMailForOrderIs14day($listSendMail[$i], null, '', '');
+		//for($i = 0; $i < count($listSendMail); $i++)
+		//    $this->sendMailForOrderIs14day($listSendMail[$i], null, '', '');
 	}
 
 	public function restore($order_id) {
