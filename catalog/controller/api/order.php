@@ -2294,6 +2294,16 @@ class ControllerApiOrder extends Controller {
 		}
 	}
 
+	public function crontab1_2() {
+		echo 'Start send mail for orders are ' . DAY_CRONTAB1 . ' Days' . '--------------------------' . '<br><br>';
+		$this->crontab1();
+		echo '<br><br>' . 'End --------------------------' . '<br><br>';
+
+		echo 'Start send mail and back product to stock for orders are ' . DAY_CRONTAB2 . ' Days' . '--------------------------' . '<br><br>';
+		$this->crontab2();
+		echo '<br><br>' . 'End --------------------------' . '<br><br>';
+	}
+
 	public function crontab1() {
 		$this->load->controller('mail/order/noticeToCusmtomer');
 	}
