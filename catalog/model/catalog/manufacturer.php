@@ -10,7 +10,7 @@ class ModelCatalogManufacturer extends Model {
 		$query = $this->db->query("SELECT DISTINCT m.manufacturer_id, m.name
 		FROM " . DB_PREFIX . "manufacturer m
 		JOIN " . DB_PREFIX . "product p ON m.manufacturer_id = p.manufacturer_id
-		WHERE p.status = 1");
+		WHERE p.status = 1 order by m.name");
 
 		return $query->rows;
 	}
