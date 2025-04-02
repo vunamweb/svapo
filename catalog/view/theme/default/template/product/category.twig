@@ -315,7 +315,7 @@
 		var listAttribute = '';
 
         $('.filter_attribute').each(function(){
-            if($(this).is(':checked'))
+            if($(this).is(':checked') && !$(this).hasClass('filter_manufactor'))
             listAttribute = listAttribute + $(this).attr('data') + ',';
         })
 
