@@ -8,8 +8,8 @@ class ControllerProductCategory extends Controller {
 		$this->load->model('account/customer');
 		$this->load->controller('product/manufacturer');
 
-		if (isset($this->request->get['atb'])) {
-			$atb = $this->request->get['atb'];
+		if (isset($this->request->get['atb_id'])) {
+			$atb = $this->request->get['atb_id'];
 		} else {
 			$atb = '';
 		}

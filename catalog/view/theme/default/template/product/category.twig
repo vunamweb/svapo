@@ -97,6 +97,7 @@
 							
 							</div>
 	
+<div>Total {{ count_product }} results found </div>
 {% for product in products %}
 						<a href="{{ product.href }}" class="col-12 col-md-6 col-lg-4 col-xl-3 col-12 product-grid">
                         	<div class="co coList">										
@@ -300,7 +301,7 @@
           $('input[id=manufactor_'+manufactorsList[i]+']').prop('checked', true);
 		}
 
-		var listAttribute = '';
+		/* var listAttribute = '';
 
         $('.filter_attribute').each(function(){
             if($(this).is(':checked') && !$(this).hasClass('filter_manufactor'))
@@ -331,7 +332,7 @@
                 // Handle error response
                 console.error(status + ": " + error); // Log error to console
             }
-        });
+        }); */
 	}
 
 	var targetClass = 'div.start';
