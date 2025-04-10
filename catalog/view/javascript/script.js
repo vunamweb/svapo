@@ -1,3 +1,58 @@
+// barrier-free - high contrast
+
+window.addEventListener('DOMContentLoaded', function () {
+  const contrast = document.cookie.match(/contrast=([^;]+)/);
+  if (contrast && contrast[1] === 'on') {
+	document.body.classList.add('high-contrast');
+	document.documentElement.classList.add('high-contrast'); // ← das ist <html>
+	document.getElementById('contrast-toggle').setAttribute('aria-pressed', 'true');
+  }
+});
+
+document.getElementById('contrast-toggle').addEventListener('click', function () {
+  const isActive = document.body.classList.toggle('high-contrast');
+  document.documentElement.classList.toggle('high-contrast', isActive);
+
+  this.setAttribute('aria-pressed', isActive);
+
+  // Cookie setzen, 30 Tage gültig
+  document.cookie = "contrast=" + (isActive ? "on" : "off") + "; path=/; max-age=2592000";
+
+  // Seite neu laden
+  location.reload();
+});
+
+
+/*
+function removeImagesForHighContrast() {
+  if (document.body.classList.contains('high-contrast')) {
+	const icons = document.querySelectorAll('.icon'); // Klassenname beliebig
+	icons.forEach(icon => icon.remove());
+  }
+}
+// 1. Beim Laden der Seite: Zustand aus localStorage anwenden
+  if (localStorage.getItem('contrast') === 'on') {
+	document.body.classList.add('high-contrast');
+	document.getElementById('contrast-toggle').setAttribute('aria-pressed', 'true');
+	removeImagesForHighContrast();
+  }
+
+  // 2. Button-Click: Umschalten + speichern
+  document.getElementById('contrast-toggle').addEventListener('click', function () {
+	const body = document.body;
+	const isActive = body.classList.toggle('high-contrast');
+
+	this.setAttribute('aria-pressed', isActive);
+
+	if (isActive) {
+	  localStorage.setItem('contrast', 'on');
+	  removeImagesForHighContrast(); 
+	} else {
+	  localStorage.removeItem('contrast');
+	}
+  });
+ */ 
+
 $(document).on('click', '.zustimmen', function() {
 	event.preventDefault();
 	$('#cookie_disclaimer').slideUp("slow");
@@ -46,12 +101,16 @@ function _sticky() {
 
 
 $(document).ready(function() {
-	$('.linkbox, .CTA').on("click", function() {
+	$('.linkbox, .CTA').on("click", function(event) {
+		// Wenn der Klick auf ein <a> oder Kind davon ging → nichts tun
+		if ($(event.target).closest('a').length) {
+			return;
+		}
 		event.preventDefault();
 		var URL = $(this).attr("ref");
 		console.log(URL);
-		location.href = (URL);		
-	});	
+		location.href = URL;		
+	});
 	// Beim Klick auf .mega-link das Mega-Menü anzeigen/verstecken
 	$('.mega-link').click(function() {
 		// Schließe alle anderen Mega-Menüs
@@ -68,68 +127,68 @@ $(document).ready(function() {
 });
 
 function init_slider() {
-    if ($(".banner_slider").length) {
-        var swiper = new Swiper(".banner_slider", {
-            spaceBetween: 0,
-            loop: true,
-            effect: "fade",
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false,
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-        });
-    }
-    if ($(".list_slider").length) {
-        $(".list_slider").each(function (index, value) {
-            if ($(window).width() > 992) {
-                var space = $(this).data("space");
-            } else {
-                var space = $(this).data("space-mb");
-            }
-            var swiper2 = new Swiper(this, {
-                slidesPerView: "auto",
-                spaceBetween: vw * space,
-                loop: true,
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                }
-            });
-        });
-    }
-    if ($(".vuisong_slider").length) {
-        $(".vuisong_slider").each(function (index, value) {
-            if ($(window).width() > 992) {
-                var space = $(this).data("space");
-            } else {
-                var space = $(this).data("space-mb");
-            }
-            var swiper2 = new Swiper(this, {
-                slidesPerView: "auto",
-                spaceBetween: vw * space,
-                centeredSlides: true,
-                loop: true,
-                navigation: {
-                    nextEl: ".vuisongvungvang .swiper-button-next",
-                    prevEl: ".vuisongvungvang .swiper-button-prev",
-                }
-            });
-        });
-    }
+    // if ($(".banner_slider").length) {
+    //     var swiper = new Swiper(".banner_slider", {
+    //         spaceBetween: 0,
+    //         loop: true,
+    //         effect: "fade",
+    //         autoplay: {
+    //             delay: 4000,
+    //             disableOnInteraction: false,
+    //         },
+    //         navigation: {
+    //             nextEl: ".swiper-button-next",
+    //             prevEl: ".swiper-button-prev",
+    //         },
+    //         pagination: {
+    //             el: ".swiper-pagination",
+    //             clickable: true,
+    //         },
+    //     });
+    // }
+    // if ($(".list_slider").length) {
+    //     $(".list_slider").each(function (index, value) {
+    //         if ($(window).width() > 992) {
+    //             var space = $(this).data("space");
+    //         } else {
+    //             var space = $(this).data("space-mb");
+    //         }
+    //         var swiper2 = new Swiper(this, {
+    //             slidesPerView: "auto",
+    //             spaceBetween: vw * space,
+    //             loop: true,
+    //             navigation: {
+    //                 nextEl: ".swiper-button-next",
+    //                 prevEl: ".swiper-button-prev",
+    //             }
+    //         });
+    //     });
+    // }
+    // if ($(".vuisong_slider").length) {
+    //     $(".vuisong_slider").each(function (index, value) {
+    //         if ($(window).width() > 992) {
+    //             var space = $(this).data("space");
+    //         } else {
+    //             var space = $(this).data("space-mb");
+    //         }
+    //         var swiper2 = new Swiper(this, {
+    //             slidesPerView: "auto",
+    //             spaceBetween: vw * space,
+    //             centeredSlides: true,
+    //             loop: true,
+    //             navigation: {
+    //                 nextEl: ".vuisongvungvang .swiper-button-next",
+    //                 prevEl: ".vuisongvungvang .swiper-button-prev",
+    //             }
+    //         });
+    //     });
+    // }
 }
 
 if ($(".start_swiper").length) {
 	var swiper = new Swiper(".start_swiper", {
 	  slidesPerView: 1,
-	  spaceBetween: 30,
+	  spaceBetween: 100,
 	  loop: true,
 	  autoplay: {
 		  delay: 5000,
@@ -144,7 +203,11 @@ if ($(".start_swiper").length) {
 			slidesPerView: 2,
 			spaceBetween: 20,
 		  },
-		  1200: {
+		  900: {
+			  slidesPerView: 3,
+			  spaceBetween: 20,
+		  },
+		  1100: {
 			slidesPerView: 4,
 			spaceBetween: 40,
 		  },
@@ -211,6 +274,16 @@ function callPopup(url) {
         },
     });
 }
+
+  // Alle Tooltips auf der Seite aktivieren
+  document.addEventListener('DOMContentLoaded', function () {
+	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+	tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+	  new bootstrap.Tooltip(tooltipTriggerEl);
+	});
+  });
+  
+  
 $(function () {
     $('.filter_attribute').click(function(){
         var listAttribute = '';
