@@ -322,7 +322,7 @@ class ModelCatalogProduct extends Model {
         //print_r($results[50]); die();
 
         foreach ( $results as $result ) {
-            $check = true;
+            $check = false;
 
             $attributes = $result[ 'attributes' ];
             $product_manufacter_id = $result['manufacturer_id'];
@@ -341,11 +341,11 @@ class ModelCatalogProduct extends Model {
 
             //print_r($attributes); die();
             foreach($attribute_id as $id)
-              if($id != '' && !in_array($id, $attributes))
-                $check = false;
+              if($id != '' && in_array($id, $attributes))
+                $check = true;
                 
-              if($manufacter_id != '' && !in_array($product_manufacter_id, $manufacter_list_id))
-                $check = false;    
+              if($manufacter_id != '' && in_array($product_manufacter_id, $manufacter_list_id))
+                $check = true;    
 
             //if(true)
             if ($check)
