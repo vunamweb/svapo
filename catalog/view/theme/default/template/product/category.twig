@@ -30,17 +30,19 @@
 					</div>
 					{{ column_left }}					
 					<div class="col">
-						<div class="form-group input-group input-group-sm short_price_name">
-							<select id="input-sort" class="form-control" onchange="location = this.value;">
-							{% for sorts in sorts %}
-							{% if sorts.value == '%s-%s'|format(sort, order) %}
-							<option value="{{ sorts.href }}" selected="selected">{{ sorts.text }}</option>
-							{% else %}
-							<option value="{{ sorts.href }}">{{ sorts.text }}</option>
-							{% endif %}
-							{% endfor %}
-							</select>
-						</div>
+							<div class="mega-link ">
+								<h4>Sortierung</h4>
+								<div class="mega-menu ">
+								{% for sorts in sorts %}
+									{% set is_active = sorts.value == '%s-%s'|format(sort, order) %}
+									<a href="{{ sorts.href }}"
+									class="nav-link nav-sort col-xl-2 col-lg-3 col-6 col-md-4 text-secondary text2 no-wrap {{ is_active ? 'active' : '' }}">
+									{{ sorts.text }}
+									</a>
+								{% endfor %}
+								</div>
+							</div>
+						
 					</div>
 					<div class="col">
 						<!--<a href="#" class="btn btn-default resetfilter">Reset Filter</a>-->
@@ -53,7 +55,6 @@
 		<section>
             <div class="container">				
                 <div class="row">
-				</div>
 				</div>
 			</div>
 		</section>
@@ -101,7 +102,7 @@
 {% for product in products %}
 						<a href="{{ product.href }}" class="col-12 col-md-6 col-lg-4 col-xl-3 col-12 product-grid">
                         	<div class="co coList">										
-                           		<h4>xxxxxxxx{{ product.name }}</h4>
+                           		<h4>{{ product.name }}</h4>
 							</div>									
 							<div class="co coList">						
 							  {{ product.Kultivar }}
@@ -131,7 +132,7 @@
 								  {{ product.Behandlung }}
 							</div>
 							<div class="co coList">						
-								<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.name }}" class="hersteller" />
+								<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.manufacturer_name }}" class="hersteller" />
 							</div>
 							<div class="co coList">
 								{{ product.stock }}													 
@@ -168,11 +169,11 @@
 														</div>
 													{% endif %}
 												</div>
-												<div class="col-8">
+												<div class="col-8 plist">
 													<h4>{{ product.name }}<br />
 												{{ product.Kultivar }}</h4>
 												</div>
-												<div class="col-4">														
+												<div class="col-4 ps-0 pt-2">	
 													<span class="badge bg-primary">{{ product.THC }} THC</span>	
 													<span class="badge bg-primary">{{ product.CBD }} CBD</span>
 												</div>
@@ -181,7 +182,7 @@
 										
 										<div class="grid-row">
 											<div class="row thc">
-												<div class="col-6">						
+												<div class="col-12 col-md-5 col-lg-6">						
 													<div class="grid-stock">
 														{{ product.stock }}	
 													</div>
@@ -190,19 +191,27 @@
 													</div>
 
 												</div>
-												<div class="col-12 col-md-6 text-right icons">
-													<span class="icon"><img src="images/{{ product.Behandlung }}.svg" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="{{ product.Behandlung }}""></span><br />
+												<div class="col-12 col-md-7 col-lg-6 text-right icons">
+													{% if contrast %}
+													{% else %}
+													<span class="icon"><img src="images/{{ product.Behandlung }}.svg" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ product.Behandlung }}" alt="{{ product.Behandlung }}"></span> 
+													{% endif %}
+													<span class="icon_attribute-text hide">{{ product.Behandlung }}</span>
+													&nbsp; &nbsp; 
 
 													{% for group in product.attributes_list %}
 														{% set listAttribute = group.list %}
 													
 														{% for attribute in listAttribute %}
 															{% set name_lower = attribute.name|lower %}
-															{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}								
+															{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}	
 															{% else %}
 																{% if attribute.image is not empty %}
-																	<span class="icon"><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.name }}"/>
-																	</span>
+																	{% if contrast %}
+																	{% else %}
+																		<span class="icon"><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.name }}" alt="{{ attribute.name }}" /></span>
+																	{% endif %}
+																	<span class="icon_attribute-text hide">{{ attribute.name }}</span>
 																{% endif %}
 															{% endif %}
 														{% endfor %}							
@@ -230,7 +239,7 @@
 												<span>Gramm</span>
 											</div>
 											<div class="col-6 grid-logo">						
-												<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.name }}" class="hersteller" />											
+												<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.manufacturer_name }}" class="hersteller" />	
 											</div>
 										</div>
 									</div>
