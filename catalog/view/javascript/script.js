@@ -307,7 +307,7 @@ $(function () {
         $('.loading').show();
 
         $.ajax({
-            url: (!currentURL.includes('order') && !currentURL.includes('atb')) ? currentURL + '?filter_atb=true' + '&atb_id=' +listAttribute + '&manufactor_id=' +listManufactor : currentURL + '&filter_atb=true' + '&atb_id=' +listAttribute + '&manufactor_id=' +listManufactor,  // URL to fetch data from
+            url: (!currentURL.includes('order') && !currentURL.includes('atb') && !currentURL.includes('manufactor')) ? currentURL + '?filter_atb=true' + '&atb_id=' +listAttribute + '&manufactor_id=' +listManufactor : currentURL + '&filter_atb=true' + '&atb_id=' +listAttribute + '&manufactor_id=' +listManufactor,  // URL to fetch data from
             method: 'GET', // HTTP method
             success: function(data) {
                $('.product .row_product').html(data);
