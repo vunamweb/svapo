@@ -2413,7 +2413,7 @@ class ControllerApiOrder extends Controller {
 		
 		// EMAIL AND PHONE OF CUSTOMER
 		$email2 = $order_info['email'];
-		$phone2 = $order_info['telephone'];
+		$phone2 = ($order_info['telephone'] != '') ? $order_info['telephone'] : '069 60504047';
 
 		$name1 = $this->config->get('config_name');
 
