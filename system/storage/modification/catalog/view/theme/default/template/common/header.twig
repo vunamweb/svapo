@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 {% set randomNumber = random(1, 100) %}
-<html
-	dir="{{ direction }}" lang="{{ lang }}">
+<html dir="{{ direction }}" lang="{{ lang }}" class="high- contrast">
 	<!--<![endif]-->
 	<head>
 		<meta charset="UTF-8"/>
@@ -16,11 +15,12 @@
 			<meta name="keywords" content="{{ keywords }}"/>
 		{% endif %}
 		<link href="catalog/view/theme/default/stylesheet/bootstrap.min.css" rel="stylesheet">
+		<link href="catalog/view/javascript/swiper/swiper-bundle.min.css" rel="stylesheet">
 		<link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 		<link href="catalog/view/theme/default/stylesheet/import.css?v={{ randomNumber }}" rel="stylesheet"/>
 		<link href="catalog/view/theme/default/stylesheet/stylesheet.css?v={{ randomNumber }}" rel="stylesheet">
 		<link href="catalog/view/theme/default/stylesheet/style.css?v={{ randomNumber }}" rel="stylesheet"/>
-		<script src="catalog/view/javascript/jquery/jquery.2.2.4.min.js"></script>
+		<script src="catalog/view/javascript/jquery/jquery.2.2.4.min.js"></script>		
 		{% for style in styles %}
 			<link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
 		{% endfor %}
@@ -33,76 +33,93 @@
 		{% for analytic in analytics %}
 			{{ analytic }}
 		{% endfor %}
+		<!-- Matomo -->
+		<script>
+		  var _paq = window._paq = window._paq || [];
+		  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+		  _paq.push(["setDoNotTrack", true]);
+		  _paq.push(["disableCookies"]);
+		  _paq.push(['trackPageView']);
+		  _paq.push(['enableLinkTracking']);
+		  (function() {
+			var u="//www.svapo.de/matomo/";
+			_paq.push(['setTrackerUrl', u+'matomo.php']);
+			_paq.push(['setSiteId', '1']);
+			var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+			g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+		  })();
+		</script>
+		<!-- End Matomo Code -->
+
 	</head>
-	<body>
+	<body class="high- contrast">
 		<div id="loader" style="display: none;">
 			<div class="spinner-border" role="status"></div>
 		</div>
-		<header class="fixed-top shadow-sm">
-			<nav class="navbar navbar-expand-lg bg-body-tertiary">
-				<div class="container-fluid">
-					<a class="navbar-brand p-0 m-0" href="./"><img class="logo" src="./images/Logo-SVAPO.svg" alt="{{ name }}"></a>
-					<div class="pc collapse navbar-collapse" id="navbarNav">
-						{{ tmdheader }}
-					</div>
-					<button class="navbar-toggler d-block p-0 m-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMain" aria-controls="navbarsMain" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-				</div>
-			</nav>
-			<div class="mb nav3 navbar bg-white">
-				<div class="container-fluid px-0">
-					<div class="nav-scroller w-100">
-						<nav class="nav w-100 justify-content-between">
-							{{ tmdheader_1 }}
-						</nav>
-					</div>
+		
+		
+		<!-- Header -->
+		<nav class="navbar navbar-expand-lg">
+			<div class="container">
+				<a class="navbar-brand" href="./"">
+					<img class="logo" src="./images/Logo-SVAPO.svg" alt="{{ name }}">
+				</a>
+		
+				<!-- Toggle-Button für Mobile Ansicht -->
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMain"
+						aria-controls="navbarsMain" aria-expanded="false" aria-label="Menü umschalten">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+		
+				<!-- Menü (rechts) -->
+				<div class="collapse navbar-collapse justify-content-end" id="navbarsMain">
+					<ul class="navbar-nav">
+						<li class="nav-item kontrast-off">
+							<a class="nav-link" href="./">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="./shop">Livebestand</a>
+						</li>
+						{% if logged %}
+							<li class="nav-item">
+								<a class="nav-link" href="./index.php?route=account/account">{{ menu_account }}</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="./vorbestellen">{{ add_order }}</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="./logout">{{ menu_logout }}</a>
+							</li>
+						{% else %}
+							<li class="nav-item">
+								<a class="nav-link" href="./login">{{ menu_login }}</a>
+							</li>
+							<li class="nav-item kontrast-off">
+								<a class="nav-link" href="./login">{{ add_order }}</a>
+							</li>
+							<li class="nav-item hide">
+								<a class="nav-link" href="./register">{{ menu_register }}</a>
+							</li>
+						{% endif %}
+						
+						{{ menu_morpheus }}
+
+						{% if logged == false %}
+							<li class="nav-item hide">
+								<a class="nav-link" href="./password">{{ password }}</a>
+							</li>
+						{% endif %}
+							<li>
+								<button class="btn btn-kontrast" id="contrast-toggle" aria-pressed="true">
+								  <img src="./images/barrierefreiheit-w.png" alt="Barrierefreiheit - Hoher Kontrast" class="Barrierefreiheit">
+								  <span class="visually-hidden">Kontrast und Barrierefreiheit umschalten</span>
+								</button>
+							</li>
+					</ul>
 				</div>
 			</div>
-			<nav class="menu-dropdown position-absolute z-1 top-0 start-0 bg-white shadow">
-				<div class="container-fluid">
-					<div class="collapse navbar-collapse" id="navbarsMain">
-						<ul class="navbar-nav">
-							{% if logged %}
-								<li class="nav-item">
-									<a class="nav-link" href="./vorbestellen">{{ add_order }}</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="./index.php?route=account/account">{{ menu_account }}</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="./logout">{{ menu_logout }}</a>
-								</li>
-							{% else %}
-								<li class="nav-item">
-									<a class="nav-link" href="./login">{{ add_order }}</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="./login">{{ menu_login }}</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="./register">{{ menu_register }}</a>
-								</li>
-							{% endif %}
-
-							<li class="nav-item">
-								<a class="nav-link" href="./shop">{{ shop }}</a>
-							</li>
-							{{ menu_morpheus }}
-							<li class="nav-item">
-								<a class="nav-link" href="{{ whatapp_link }}" target="_blank">{{ whatsapp_chat }}<img class="icon_whatsapp ms-3" src="image/whatsapp-beige.svg" alt=""></a>
-							</li>
-							
-							{% if logged == false %}
-								<li class="nav-item hide">
-									<a class="nav-link" href="./password">{{ password }}</a>
-								</li>
-							{% endif %}
-						</ul>
-					</div>
-				</div>
-			</nav>
-		</header>
+		</nav>	
+		
 		<div class="header_height"></div>
 	</body>
 </html>
