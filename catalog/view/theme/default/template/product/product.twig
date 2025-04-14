@@ -50,7 +50,7 @@
 							</div>
 							
 							<div class="detail-price">			
-								<div class="price_detail"><b>{{ price }}</b><span>Gramm</span></div>
+								<div class="price_detail"><b>{{ price }}</b><span>{{ unit }}</span></div>
 							</div>
 							
 							
@@ -75,64 +75,12 @@
 							</div>
 							
 							<div class="text5 text-uppercase">
-								DETAILIERTE INFORMATIONEN
+								<h2>DETAILIERTE INFORMATIONEN</h2>
 							</div>
 							<hr class="my-lg-3 my-2">
 							<div class="description">
 							{{ description }}
-							</div>
-                            <hr>
-							<div class="related_product">
-							{% if products %}
-      <h3>{{ text_related }}</h3>
-      <div class="row"> {% set i = 0 %}
-        {% for product in products %}
-        {% if column_left and column_right %}
-        {% set class = 'col-xs-8 col-sm-6' %}
-        {% elseif column_left or column_right %}
-        {% set class = 'col-xs-6 col-md-4' %}
-        {% else %}
-        {% set class = 'col-xs-6 col-sm-3' %}
-        {% endif %}
-        <div class="{{ class }}">
-          <div class="product-thumb transition">
-            <div class="image"><a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" /></a></div>
-            <div class="caption">
-              <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
-              <p>{{ product.description }}</p>
-              {% if product.rating %}
-              <div class="rating"> {% for j in 1..5 %}
-                {% if product.rating < j %} <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span> {% else %} <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span> {% endif %}
-                {% endfor %} </div>
-              {% endif %}
-              {% if product.price %}
-              <p class="price"> {% if not product.special %}
-                {{ product.price }}
-                {% else %} <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span> {% endif %}
-                </p>
-              {% endif %} </div>
-          </div>
-        </div>
-        {% if column_left and column_right and (i + 1) % 2 == 0 %}
-        <div class="clearfix visible-md visible-sm"></div>
-        {% elseif column_left or column_right and (i + 1) % 3 == 0 %}
-        <div class="clearfix visible-md"></div>
-        {% elseif (i + 1) % 4 == 0 %}
-        <div class="clearfix visible-md"></div>
-        {% endif %}
-        {% set i = i + 1 %}
-        {% endfor %} </div>
-		{% else %} <h3>Kein verwandtes Produkt</h3>
-        {% endif %}
-        {% if tags %}
-        <p>{{ text_tags }}
-        {% for i in 0..tags|length - 1 %}
-        {% if i < (tags|length - 1) %} <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>,
-        {% else %} <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a> {% endif %}
-        {% endfor %} </p>
-		{% endif %}
-							</div>
-														
+							</div>														
 						</div>
 						
 						<div class="col-12 col-md-6 col-lg-6 col-right">
@@ -174,8 +122,10 @@
 												<td>{{ attribute.name }}</td>
 												<td>
 													{% if "bestrahlt" in attribute.text %}
-														<span class="icon"><img src="images/{{ attribute.text }}.svg" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.text }}" "="">
-														</span>
+														{% if contrast %}
+														{% else %}
+															<span class="icon"><img src="images/{{ attribute.text }}.svg" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.text }}" alt="{{ attribute.text }}" "=""></span>
+														{% endif %}
 														{{ attribute.text }}
 													{% else %}
 														{{ attribute.text }}
@@ -190,7 +140,7 @@
 										{% if image_manufacturer is not empty %}
 										<tr>
 											<td>Hersteller</td>
-											<td><img src="mthumb.php?h=80&amp;src=image/{{ image_manufacturer }}" class="img_manufacture"/></td>
+											<td><img src="mthumb.php?h=80&amp;src=image/{{ image_manufacturer }}" class="img_manufacture" alt="{{ manufacturer_name }}"/></td>
 										</tr>
 										{% endif %}											
 							
@@ -202,10 +152,13 @@
 														{% set listAttribute = group.list %}
 														{% for attribute in listAttribute %}
 															{% if attribute.image is not empty %}
+																{% if contrast %}
+																{% else %}
 																<span class="icon">
-																	<img src="uploads/icon/{{ attribute.image }}" class="icon_attribute"  
-																		 data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.name }}" />
+																	<img src="uploads/icon/{{ attribute.image }}" class="icon_attribute"  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.name }}" alt="{{ attribute.name }}" />
 																</span>
+																{% endif %}
+																<span class="icon_attribute-text hide">{{ attribute.name }}</span>
 															{% endif %}
 														{% endfor %}
 													</td>
@@ -226,7 +179,7 @@
 									</div>
 									
 									<div class="detail-price">			
-										<div class="price_detail"><b>{{ price }}</b><span>Gramm</span></div>
+										<div class="price_detail"><b>{{ price }}</b><span>Gramm{{ product.unit }}</span></div>
 									</div>
 				
 									<a href="./vorbestellen" class="btn_cta btn btn-info btn-lg py-2 btn-light text-uppercase rounded-0">Rezept hochladen</a>
@@ -244,6 +197,126 @@
 				</div>
 			</div>
 		</section>
+		
+		
+		<section class="container">
+			<div class="row related_product product-grid">
+			{% if products %}
+				<hr>
+				<h3>{{ text_related }}</h3>
+				
+				<div class="row"> {% set i = 0 %}
+					{% for product in products %}					
+						<div class="col-12 col-md-6 col-lg-6 col-xl-4">
+
+				
+													<div class="coGrid related">
+														<div class="bg-light2">
+															
+															<div class="grid-row">										
+																<div class="row">
+																	<div class="col-12 hybrid-row rel">	
+																		{% set matching_attributes = [] %}
+																		
+																		{% for group in product.attributes_list %}
+																			{% set listAttribute = group.list %}
+																		
+																			{% for attribute in listAttribute %}
+																				{% set name_lower = attribute.name|lower %}
+																				{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}
+																					{% set matching_attributes = matching_attributes|merge([attribute.name]) %}
+																				{% endif %}
+																			{% endfor %}
+																		{% endfor %}
+																		
+																		{% if matching_attributes is not empty %}
+																			<div class="hybrid">
+																				<span class="badge bg-secondary {{ matching_attributes|join(', ') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ matching_attributes|join(', ') }}" alt="{{ matching_attributes|join(', ') }}">{{ matching_attributes|join(', ') }}</span>
+																			</div>
+																		{% endif %}
+																	</div>
+																	<div class="col-8">
+																		<h4><a href="{{ product.href }}">{{ product.name }}<br />
+																	{{ product.Kultivar }}</a></h4>
+																	</div>
+																	<div class="col-4">														
+																		<span class="badge bg-primary">{{ product.THC }} THC</span>															
+																		<span class="badge bg-primary">{{ product.CBD }} CBD</span>
+																	</div>
+																</div>
+															</div>
+															
+															<div class="grid-row">
+																<div class="row thc">
+																	<div class="col-6">						
+																		<div class="grid-stock">
+																			{{ product.stock }}	
+																		</div>
+																		<div class="grid-land">
+																			<b>{{ product.country }}</b>
+																		</div>
+													
+																	</div>
+																	<div class="col-12 col-md-6 text-right icons"><span class="icon"><img src="images/{{ product.Behandlung }}.svg" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ product.Behandlung }}" alt="{{ product.Behandlung }}"></span>
+													
+																		{% for group in product.attributes_list %}
+																			{% set listAttribute = group.list %}
+																		
+																			{% for attribute in listAttribute %}
+																				{% set name_lower = attribute.name|lower %}
+																				{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}								
+																				{% else %}
+																					{% if attribute.image is not empty %}
+																						<span class="icon"><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.name }}" alt="{{ attribute.name }}"/>
+																						</span>
+																					{% endif %}
+																				{% endif %}
+																			{% endfor %}							
+																		{% endfor %}
+																	</div>
+																</div>
+															</div>
+														</div>									
+														<div class="grid-row ps-4 pe-4 grid-mobileOff">	
+															<div class="row">
+																<div class="col-3">						
+																</div>
+																<div class="col-12 col-md-6 grid-img">						
+																	<a class="d-block" href="{{ product.href }}"><img class="image_sp" src="{{ product.thumb }}" alt="{{ product.name }}"></a>
+																</div>
+																<div class="col-3">						
+																</div>
+															</div>
+														</div>
+														
+														<div class="grid-row ps-4 pe-4 price-logo">	
+															<div class="row h-100">
+																<div class="col-6 grid-price">						
+																	<b>{{ product.price }}</b>
+																	<span>Gramm{{ product.unit }}</span>
+																</div>
+																<div class="col-6 grid-logo">						
+																	<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.name }}" class="hersteller" />											
+																</div>
+															</div>
+														</div>
+													
+													</div>
+				
+							
+						</div>
+						
+					{% endfor %} 
+				</div>
+			
+			{% else %} <h3>Kein verwandtes Produkt</h3>
+			{% endif %}
+			
+			
+			</div>
+			</div>
+		</section>
+								
 	</main>
 <script type="text/javascript"><!--
 $('select[name=\'recurring_id\'], input[name="quantity"]').change(function(){

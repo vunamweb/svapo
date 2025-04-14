@@ -4,6 +4,8 @@ class ControllerProductProduct extends Controller {
 
 	public function index() {
 		$this->load->language('product/product');
+		
+		$data['contrast'] = $this->contrast;
 
 		$data['breadcrumbs'] = array();
 
@@ -252,6 +254,12 @@ class ControllerProductProduct extends Controller {
 			// $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
 			// $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
+						
+			$this->load->model('localisation/weight_class');
+			$weight_info = $this->model_localisation_weight_class->getWeightClass($product_info['weight_class_id']);
+			$unit = $weight_info ? $weight_info['title'] : '';
+			$data['unit'] = $unit;
+			
 			$data['heading_title'] = $product_info['name'];
 
 			$data['text_minimum'] = sprintf($this->language->get('text_minimum'), $product_info['minimum']);
@@ -266,6 +274,7 @@ class ControllerProductProduct extends Controller {
 			$data['manufacturer'] = $product_info['manufacturer'];
 			$manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($product_info['manufacturer_id']);
 			$data['image_manufacturer'] = $manufacturer_info['image'];
+			$data['manufacturer_name'] = $manufacturer_info['name'];
 			//print_r($manufacturer_info); die();
 
 			$data['manufacturers'] = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $product_info['manufacturer_id']);
@@ -418,8 +427,15 @@ class ControllerProductProduct extends Controller {
 			$data['products'] = array();
 
 			$results = $this->model_catalog_product->getProductRelated($this->request->get['product_id']);
-
+			
+			$manufacturers = $this->model_catalog_manufacturer->getManufacturers();				
+			$manufacturerData = array();	
+			
 			foreach ($results as $result) {
+				if (!$result || !is_array($result)) {
+					continue;
+				}
+
 				if ($result['image']) {
 					$image = $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_related_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_related_height'));
 				} else {
@@ -451,7 +467,38 @@ class ControllerProductProduct extends Controller {
 				} else {
 					$rating = false;
 				}
-
+				
+				// NEW BJORN
+				// print_r($manufacturers);
+				// echo $result['manufacturer_id'];
+				foreach ($manufacturers as $manufacturer) {
+					// echo $manufacturer['manufacturer_id'] ."==". $result['manufacturer_id']."<br>";
+					if ($manufacturer['manufacturer_id'] == $result['manufacturer_id']) {
+						// Fügen Sie die Herstellerdaten zum aktuellen Produkt hinzu
+						// echo $manufacturer['name'];
+						$manufacturer_name = $manufacturer['name'];
+						$manufacturer_image = $manufacturer['image'];
+						break;
+					}
+				}
+				
+				if ($result['quantity'] <= 0) {
+					// $stock_status = '<span class="notinstock"></span>'.$result['stock_status'];
+					$stock_status = '<span class="notinstock"></span>nicht lieferbar';
+				} 
+				else if ($result['quantity'] < 10) {
+					// $stock_status = '<span class="notinstock"></span>'.$result['stock_status'];
+					$stock_status = '<span class="instock10"></span>unter 10 Gramm';
+				} 
+				else if ($result['quantity'] <= 20) {
+					// $stock_status = '<span class="notinstock"></span>'.$result['stock_status'];
+					$stock_status = '<span class="instock20"></span>10-20 Gramm';
+				}
+				else {
+					$stock_status = '<span class="instock"></span>'.$result['stock_status'];
+				}
+				
+								
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
 					'thumb'       => $image,
@@ -462,7 +509,21 @@ class ControllerProductProduct extends Controller {
 					'tax'         => $tax,
 					'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
 					'rating'      => $rating,
+					'stock' 	  => $stock_status,					
+					'stockid'     => $result['stock_status_id'],
+					
+					'attributes_list' => $this->model_catalog_product->getListNameAttributeProductInCategory($result['attributes']),
+					'Kultivar' => $this->model_catalog_product->getValueKluivarOfproduct($result['product_id']),
+					'THC' => $this->model_catalog_product->getValueTHCOfproduct($result['product_id']),
+					'CBD' => $this->model_catalog_product->getValueCBDOfproduct($result['product_id']),
+					'country' => $this->model_catalog_product->getValueCountryOfproduct($result['product_id']),
+					'Behandlung' => $this->model_catalog_product->getValueBehandlungOfproduct($result['product_id']),
+					
+					'manufacturer_name' => $manufacturer_name ,
+					'manufacturer_image' => $manufacturer_image,
+					
 					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'])
+					
 				);
 			}
 

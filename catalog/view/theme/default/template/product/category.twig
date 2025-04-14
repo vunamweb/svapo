@@ -2,8 +2,20 @@
 <main>
         <section>
                 <div class="container text-center">                    
-                    <div class="mb-0">
-                        <div class="me-auto hstack gap-lg-3 gap-1 justify-content-end">
+                    <div class="row mb-0">
+						<!--
+						<div class="col-6">
+							<form action="./index.php" method="get" class="suche">
+								<div class="input-group input-group-lg mb-0">
+									<input type="hidden" name="route" value="product/search">
+									<input type="hidden" name="description" value="true">
+									<input type="text" name="search" class="input-search form-control bg-transparent border-secondary rounded-0 border-0 text-center" placeholder="WAS SUCHST DU?" autocomplete="off">
+									<button class="btn bg-transparent btn-outline-secondary rounded-0 border-end-0" type="submit"><img class="icon_search" src="./images/search2.svg" alt="Canabis Suche"></button>
+								</div>
+							</form>
+						</div>
+						-->
+                        <div class="col-12 me-auto hstack gap-lg-3 gap-1 justify-content-end">
 							{% if logged %}
 
 							{% else %}
@@ -18,20 +30,28 @@
 		</section>		
 		
 		<div class="start"></div>
+		
+		<section>
+			<div class="container">				
+				<div class="row cms-text">
+					<h1>WAS SUCHST DU?</h1>
+				</div>
+			</div>
+		</section>
 				
         <section class="megamenu">
 			<div class="container">
 				<div class="row">
 					<div class="col hidden-md view">
 						<div class="btn-group btn-group-sm">
-							<button type="button" id="list-view" class="btn btn-default" data-toggle="tooltip" title="{{ button_list }}"><i class="fa fa-bars"></i></button>
-							<button type="button" id="grid-view" class="btn btn-default" data-toggle="tooltip" title="{{ button_grid }}"><i class="fa fa-th"></i></button>
+							<button type="button" id="list-view" class="btn btn-default btn-list" data-toggle="tooltip" title="{{ button_list }}"><i class="fa fa-bars"></i></button>
+							<button type="button" id="grid-view" class="btn btn-default btn-list" data-toggle="tooltip" title="{{ button_grid }}"><i class="fa fa-th"></i></button>
 						</div>
 					</div>
 					{{ column_left }}					
 					<div class="col">
 							<div class="mega-link ">
-								<h4>Sortierung</h4>
+								<h4 class="title text-black">Sortierung</h4>
 								<div class="mega-menu ">
 								{% for sorts in sorts %}
 									{% set is_active = sorts.value == '%s-%s'|format(sort, order) %}
@@ -46,15 +66,8 @@
 					</div>
 					<div class="col">
 						<!--<a href="#" class="btn btn-default resetfilter">Reset Filter</a>-->
-						<a href="./shop/" class="btn btn-default">Reset Filter</a>
+						<a href="./shop/" class="btn btn-default btn-reset text-black">Reset Filter</a>
 					</div>
-				</div>
-			</div>
-		</section>
-		
-		<section>
-            <div class="container">				
-                <div class="row">
 				</div>
 			</div>
 		</section>
@@ -93,7 +106,7 @@
 										Bestand
 									</div>
 									<div class="co price">
-										Preis / g
+										Preis / g ml
 									</div>
 							
 							</div>
@@ -171,7 +184,7 @@
 												</div>
 												<div class="col-8 plist">
 													<h4>{{ product.name }}<br />
-												{{ product.Kultivar }}</h4>
+													<span>{{ product.Kultivar }}</span></h4>
 												</div>
 												<div class="col-4 ps-0 pt-2">	
 													<span class="badge bg-primary">{{ product.THC }} THC</span>	
@@ -182,7 +195,7 @@
 										
 										<div class="grid-row">
 											<div class="row thc">
-												<div class="col-12 col-md-5 col-lg-6">						
+												<div class="col-12 col-md-5 col-lg-6">	
 													<div class="grid-stock">
 														{{ product.stock }}	
 													</div>
@@ -236,7 +249,7 @@
 										<div class="row h-100">
 											<div class="col-6 grid-price">						
 												<b>{{ product.price }}</b>
-												<span>Gramm</span>
+												<span>{{ product.unit }}</span>
 											</div>
 											<div class="col-6 grid-logo">						
 												<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.manufacturer_name }}" class="hersteller" />	

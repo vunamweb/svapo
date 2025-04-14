@@ -1,154 +1,150 @@
 <div>Total {{ count_product }} results found</div>
 {% for product in products %}
-							<div class="col-12 col-md-6 col-lg-4 col-xl-3 col-12 product-grid CTA" ref="{{ product.href }}">
-                                	<div class="co coList">										
-                                   		<h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
-									</div>									
-									<div class="co coList">						
-									  {{ product.Kultivar }}
-									</div>
-									<div class="co coList">
-											{% for group in product.attributes_list %}
-												{% set listAttribute = group.list %}
-											
-												{% for attribute in listAttribute %}
-													{% set name_lower = attribute.name|lower %}
-													{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}
-														{{ attribute.name }}
-													{% endif %}
-												{% endfor %}
-											{% endfor %}
-									</div>
-									<div class="co coList land">						
-										  {{ product.country }}
-									</div>
-									<div class="co coList sml">						
-					  					{{ product.THC }}
-									</div>
-									<div class="co coList sml">						
-										  {{ product.CBD }}
-									</div>
-									<div class="co coList Behandlung">						
-										  {{ product.Behandlung }}
-									</div>
-									<div class="co coList">						
-										<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.name }}" class="hersteller" />
-									</div>
-									<div class="co coList">
-										{{ product.stock }}													 
-									</div>
-									<div class="co coList price">						
-										<b>{{ product.price }}</b>
-									</div>
-									
-									
-									
-									<!-- v2 grid version --> 
-									
-									
-									
-									<div class="coGrid">
-										<div class="">
-											<div class="bg-light2">
-												
-												<div class="grid-row">										
-													<div class="row">
-														<div class="col-12 hybrid-row rel">	
-															{% set matching_attributes = [] %}
-															
-															{% for group in product.attributes_list %}
-																{% set listAttribute = group.list %}
-															
-																{% for attribute in listAttribute %}
-																	{% set name_lower = attribute.name|lower %}
-																	{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}
-																		{% set matching_attributes = matching_attributes|merge([attribute.name]) %}
-																	{% endif %}
-																{% endfor %}
-															{% endfor %}
-															
-															{% if matching_attributes is not empty %}
-																<div class="hybrid">
-																	<span class="badge bg-secondary {{ matching_attributes|join(', ') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ matching_attributes|join(', ') }}">{{ matching_attributes|join(', ') }}</span>
-																</div>
-															{% endif %}
-														</div>
-														<div class="col-8">
-															<h4><a href="{{ product.href }}">{{ product.name }}<br />
-														{{ product.Kultivar }}</a></h4>
-														</div>
-														<div class="col-4">														
-															<span class="badge bg-primary">{{ product.THC }} THC</span>															
-															<span class="badge bg-primary">{{ product.CBD }} CBD</span>
-														</div>
-													</div>
-												</div>
-												
-												<div class="grid-row">
-													<div class="row thc">
-														<div class="col-6">						
-															<div class="grid-stock">
-																{{ product.stock }}	
-															</div>
-															<div class="grid-land">
-																<b>{{ product.country }}</b>
-															</div>
-
-														</div>
-														<div class="col-12 col-md-6 text-right icons"><span class="icon"><img src="images/{{ product.Behandlung }}.svg" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ product.Behandlung }}"></span>
-		
-															{% for group in product.attributes_list %}
-																{% set listAttribute = group.list %}
-															
-																{% for attribute in listAttribute %}
-																	{% set name_lower = attribute.name|lower %}
-																	{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}								
-																	{% else %}
-																		{% if attribute.image is not empty %}
-																			<span class="icon"><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.name }}"/>
-																			</span>
-																		{% endif %}
-																	{% endif %}
-																{% endfor %}							
-															{% endfor %}
-														</div>
-													</div>
-												</div>
-											</div>									
-											<div class="grid-row ps-4 pe-4 grid-mobileOff">	
-												<div class="row">
-													<div class="col-3">						
-													</div>
-													<div class="col-12 col-md-6 grid-img">						
-														<a class="d-block" href="{{ product.href }}"><img class="image_sp" src="{{ product.thumb }}" alt="{{ product.name }}"></a>
-													</div>
-													<div class="col-3">						
-													</div>
-												</div>
-											</div>
-											
-											<div class="grid-row ps-4 pe-4 price-logo">	
-												<div class="row h-100">
-													<div class="col-6 grid-price">						
-														<b>{{ product.price }}</b>
-														<span>Gramm</span>
-													</div>
-													<div class="col-6 grid-logo">						
-														<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.name }}" class="hersteller" />											
-													</div>
-												</div>
-											</div>
+							<a href="{{ product.href }}" class="col-12 col-md-6 col-lg-4 col-xl-3 col-12 product-grid">
+								<div class="co coList">										
+									   <h4>{{ product.name }}</h4>
+								</div>									
+								<div class="co coList">						
+								  {{ product.Kultivar }}
+								</div>
+								<div class="co coList">
+										{% for group in product.attributes_list %}
+											{% set listAttribute = group.list %}
 										
+											{% for attribute in listAttribute %}
+												{% set name_lower = attribute.name|lower %}
+												{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}
+													{{ attribute.name }}
+												{% endif %}
+											{% endfor %}
+										{% endfor %}
+								</div>
+								<div class="co coList land">						
+									  {{ product.country }}
+								</div>
+								<div class="co coList sml">						
+									  {{ product.THC }}
+								</div>
+								<div class="co coList sml">						
+									  {{ product.CBD }}
+								</div>
+								<div class="co coList Behandlung">						
+									  {{ product.Behandlung }}
+								</div>
+								<div class="co coList">						
+									<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.manufacturer_name }}" class="hersteller" />
+								</div>
+								<div class="co coList">
+									{{ product.stock }}													 
+								</div>
+								<div class="co coList price">						
+									<b>{{ product.price }}</b>
+								</div>
+								
+								<!-- v2 grid version --> 
+							
+								<div class="coGrid">
+									<div class="">
+										<div class="bg-light2">
+											
+											<div class="grid-row">										
+												<div class="row">
+													<div class="col-12 hybrid-row rel">	
+														{% set matching_attributes = [] %}
+														
+														{% for group in product.attributes_list %}
+															{% set listAttribute = group.list %}
+														
+															{% for attribute in listAttribute %}
+																{% set name_lower = attribute.name|lower %}
+																{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}
+																	{% set matching_attributes = matching_attributes|merge([attribute.name]) %}
+																{% endif %}
+															{% endfor %}
+														{% endfor %}
+														
+														{% if matching_attributes is not empty %}
+															<div class="hybrid">
+																<span class="badge bg-secondary {{ matching_attributes|join(', ') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ matching_attributes|join(', ') }}">{{ matching_attributes|join(', ') }}</span>
+															</div>
+														{% endif %}
+													</div>
+													<div class="col-8 plist">
+														<h4>{{ product.name }}<br />
+														<span>{{ product.Kultivar }}</span></h4>
+													</div>
+													<div class="col-4 ps-0 pt-2">	
+														<span class="badge bg-primary">{{ product.THC }} THC</span>	
+														<span class="badge bg-primary">{{ product.CBD }} CBD</span>
+													</div>
+												</div>
+											</div>
+											
+											<div class="grid-row">
+												<div class="row thc">
+													<div class="col-12 col-md-5 col-lg-6">	
+														<div class="grid-stock">
+															{{ product.stock }}	
+														</div>
+														<div class="grid-land">
+															<b>{{ product.country }}</b>
+														</div>
+							
+													</div>
+													<div class="col-12 col-md-7 col-lg-6 text-right icons">
+														{% if contrast %}
+														{% else %}
+														<span class="icon"><img src="images/{{ product.Behandlung }}.svg" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ product.Behandlung }}" alt="{{ product.Behandlung }}"></span> 
+														{% endif %}
+														<span class="icon_attribute-text hide">{{ product.Behandlung }}</span>
+														&nbsp; &nbsp; 
+							
+														{% for group in product.attributes_list %}
+															{% set listAttribute = group.list %}
+														
+															{% for attribute in listAttribute %}
+																{% set name_lower = attribute.name|lower %}
+																{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}	
+																{% else %}
+																	{% if attribute.image is not empty %}
+																		{% if contrast %}
+																		{% else %}
+																			<span class="icon"><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.name }}" alt="{{ attribute.name }}" /></span>
+																		{% endif %}
+																		<span class="icon_attribute-text hide">{{ attribute.name }}</span>
+																	{% endif %}
+																{% endif %}
+															{% endfor %}							
+														{% endfor %}
+													</div>
+												</div>
+											</div>
+										</div>									
+										<div class="grid-row ps-4 pe-4 grid-mobileOff">	
+											<div class="row">
+												<div class="col-3">						
+												</div>
+												<div class="col-12 col-md-6 grid-img">						
+													<img class="image_sp" src="{{ product.thumb }}" alt="{{ product.name }}">
+												</div>
+												<div class="col-3">						
+												</div>
+											</div>
 										</div>
 										
-																				
-									<!-- v2 grid version MOBILE --> 
-										
-										
-										
-										
-										
-										
+										<div class="grid-row ps-4 pe-4 price-logo">	
+											<div class="row h-100">
+												<div class="col-6 grid-price">						
+													<b>{{ product.price }}</b>
+													<span>{{ product.unit }}</span>
+												</div>
+												<div class="col-6 grid-logo">						
+													<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.manufacturer_name }}" class="hersteller" />	
+												</div>
+											</div>
+										</div>
+									
 									</div>
-							</div>
+								</div>
+								
 {% endfor %}

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% set randomNumber = random(1, 100) %}
-<html dir="{{ direction }}" lang="{{ lang }}" class="high- contrast">
+<html dir="{{ direction }}" lang="{{ lang }}">
 	<!--<![endif]-->
 	<head>
 		<meta charset="UTF-8"/>
@@ -52,13 +52,16 @@
 		<!-- End Matomo Code -->
 
 	</head>
-	<body class="high- contrast">
-		<div id="loader" style="display: none;">
-			<div class="spinner-border" role="status"></div>
-		</div>
+	<body>
+		<a class="visually-hidden-focusable" href="#main-content">Zum Inhalt springen</a>
 		
+		<header role="banner">
+			<button class="btn btn-kontrast c1 contrast-toggle" aria-pressed="true">
+			<img src="./images/barrierefreiheit-w.png" alt="Barrierefreiheit - Hoher Kontrast" class="Barrierefreiheit">
+			<span class="visually-hidden">Kontrast und Barrierefreiheit umschalten</span>
+			</button>
+		</header>
 		
-		<!-- Header -->
 		<nav class="navbar navbar-expand-lg">
 			<div class="container">
 				<a class="navbar-brand" href="./"">
@@ -75,14 +78,14 @@
 				<div class="collapse navbar-collapse justify-content-end" id="navbarsMain">
 					<ul class="navbar-nav">
 						<li class="nav-item kontrast-off">
-							<a class="nav-link" href="./">Home</a>
+							<a class="nav-link" href="./" accesskey="1">Home</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./shop">Livebestand</a>
+							<a class="nav-link" href="./shop" accesskey="4">Livebestand</a>
 						</li>
 						{% if logged %}
 							<li class="nav-item">
-								<a class="nav-link" href="./index.php?route=account/account">{{ menu_account }}</a>
+								<a class="nav-link" href="./index.php?route=account/account" accesskey="2">{{ menu_account }}</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="./vorbestellen">{{ add_order }}</a>
@@ -92,7 +95,7 @@
 							</li>
 						{% else %}
 							<li class="nav-item">
-								<a class="nav-link" href="./login">{{ menu_login }}</a>
+								<a class="nav-link" href="./login" accesskey="2">{{ menu_login }}</a>
 							</li>
 							<li class="nav-item kontrast-off">
 								<a class="nav-link" href="./login">{{ add_order }}</a>
@@ -109,17 +112,11 @@
 								<a class="nav-link" href="./password">{{ password }}</a>
 							</li>
 						{% endif %}
-							<li>
-								<button class="btn btn-kontrast" id="contrast-toggle" aria-pressed="true">
-								  <img src="./images/barrierefreiheit-w.png" alt="Barrierefreiheit - Hoher Kontrast" class="Barrierefreiheit">
-								  <span class="visually-hidden">Kontrast und Barrierefreiheit umschalten</span>
-								</button>
-							</li>
 					</ul>
 				</div>
 			</div>
 		</nav>	
 		
 		<div class="header_height"></div>
-	</body>
-</html>
+
+		<div id="main-content"></div>
