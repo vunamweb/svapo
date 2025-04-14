@@ -2,13 +2,11 @@
 class ControllerProductSearch extends Controller {
 	public function index() {
 		$this->load->language('product/search');
-
 		$this->load->model('catalog/category');
-
 		$this->load->model('catalog/product');
-
 		$this->load->model('tool/image');
-
+		$this->load->controller('product/manufacturer');
+		
 		if (isset($this->request->get['search'])) {
 			$search = $this->request->get['search'];
 		} else {
@@ -187,6 +185,13 @@ class ControllerProductSearch extends Controller {
 			$product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
 			$results = $this->model_catalog_product->getProducts($filter_data);
+			
+			if($this->request->get['atb_id'] || $this->request->get['manufactor_id'])
+			  $results = $this->model_catalog_product->getProductByAttribute($results, $this->request->get['atb_id'], $this->request->get['manufactor_id']);
+			
+			//print_r(count($results)); die();
+			$manufacturers = $this->model_catalog_manufacturer->getManufacturers();				
+			$manufacturerData = array();	
 
 			foreach ($results as $result) {
 				if ($result['image']) {
@@ -220,17 +225,36 @@ class ControllerProductSearch extends Controller {
 				} else {
 					$rating = false;
 				}
-
+				
+				foreach ($manufacturers as $manufacturer) {
+					// echo $manufacturer['manufacturer_id'] ."==". $result['manufacturer_id']."<br>";
+					if ($manufacturer['manufacturer_id'] == $result['manufacturer_id']) {
+						// Fügen Sie die Herstellerdaten zum aktuellen Produkt hinzu
+						// echo $manufacturer['name'];
+						$manufacturer_name = $manufacturer['name'];
+						$manufacturer_image = $manufacturer['image'];
+						break;
+					}
+				}	
+				
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
 					'thumb'       => $image,
 					'name'        => $result['name'],
+					'attributes_list' => $this->model_catalog_product->getListNameAttributeProductInCategory($result['attributes']),
+					'Kultivar' => $this->model_catalog_product->getValueKluivarOfproduct($result['product_id']),
+					'THC' => $this->model_catalog_product->getValueTHCOfproduct($result['product_id']),
+					'CBD' => $this->model_catalog_product->getValueCBDOfproduct($result['product_id']),
+					'country' => $this->model_catalog_product->getValueCountryOfproduct($result['product_id']),
+					'Behandlung' => $this->model_catalog_product->getValueBehandlungOfproduct($result['product_id']),					
 					'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
 					'price'       => $price,
 					'special'     => $special,
 					'tax'         => $tax,
 					'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
 					'rating'      => $result['rating'],
+					'manufacturer_name' => $manufacturer_name ,
+					'manufacturer_image' => $manufacturer_image,					
 					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'] . $url)
 				);
 			}

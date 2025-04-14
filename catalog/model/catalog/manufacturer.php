@@ -6,6 +6,15 @@ class ModelCatalogManufacturer extends Model {
 		return $query->row;
 	}
 
+	public function getManufacturerHasProduct() {
+		$query = $this->db->query("SELECT DISTINCT m.manufacturer_id, m.name
+		FROM " . DB_PREFIX . "manufacturer m
+		JOIN " . DB_PREFIX . "product p ON m.manufacturer_id = p.manufacturer_id
+		WHERE p.status = 1 order by m.name");
+
+		return $query->rows;
+	}
+
 	public function getManufacturers($data = array()) {
 		if ($data) {
 			$sql = "SELECT * FROM " . DB_PREFIX . "manufacturer m LEFT JOIN " . DB_PREFIX . "manufacturer_to_store m2s ON (m.manufacturer_id = m2s.manufacturer_id) WHERE m2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";

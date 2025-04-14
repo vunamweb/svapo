@@ -1,46 +1,55 @@
 <footer>
-    <div class="container">
-        <div class="row gx-0 gy-3">
-            <div class="col-lg-5">
-                <div class="row gx-3">
-                    <div class="mb-4 pb-3 col-lg-12 col-auto logo-footer">
-                        <img class="logo_footer" src="images/logo_footer.svg" alt="">
-                    </div>
-                    <div class="mb-0 col-lg-6 col">
-                        <div class="txt text1 font_Inter">
-                          {{ footer_1 }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-7">
-                <div class="row g-lg-0 g-4">
-                    <div class="col-lg-7 col-5">
-                        <div class="txt text2 capitals">
-                            {{ footer_2 }}
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-7">
-                        <div class="txt text3">
-                            <div class="vstack gap-lg-4 gap-3">
-                                <ul class="menu_morpheus">{{ menu_morpheus }}</ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="bg-white text-center py-lg-5 py-2">
-        <img class="logo_bottom" src="images/logo.svg" alt="">
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-lg-3">
+			  {{ footer_1 }}
+			  
+			  <img src="./images/legal.svg" alt="" class="legal" />
+			</div>
+			<div class="col-12 col-lg-3">
+				{{ footer_2 }}
+			</div>
+			<div class="col-12 col-lg-3">
+				{{ footer_3 }}
+			</div>
+			<div class="col-12 col-lg-3">
+				<ul class="menu_morpheus">
+					{{ menu_morpheus }}
+					
+					<li class="nav-item"><a href="./impressum/" class="nav-link"><i class="square rotate-0" id="rotate-square"></i> Impressum</a></li>
+					<li class="nav-item"><a href="./datenschutz/" class="nav-link"><i class="square rotate-0" id="rotate-square"></i> Datenschutz</a></li>
+					<li class="nav-item"><a href="./agb/" class="nav-link"><i class="square rotate-0" id="rotate-square"></i> AGB</a></li>
+					
+					<!-- <li class="nav-item"><a href="?setcookie=1" class="nav-link"><i class="square rotate-3" id="rotate-square"></i> Cookie Einstellungen</a></li>-->
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="bg-white text-center py-lg-5 py-2">
+		<img class="logo_bottom" src="./images/Logo-SVAPO.svg" alt="svapo, die Cannabis Apotheke">
+	</div>
 </footer>
 </div>
+
+<div id="loader" style="display: none;">
+	<div class="spinner-border" role="status"></div>
+</div>
+
+{% if NEW_COOKIE is not empty %}
+	<div id="cookie_disclaimer">
+		<p>Für Grundeinstellungen, unseren Kunden-Login und Bestellung setzen wir sog. Cookies ein. Weitere Informationen erhalten Sie in unserer <a href="/datenschutzerklaerung/">Datenschutzerklärung</a>. Die Seite ist ohne die notwendigen Cookies nicht nutzbar. Statistiken werden ohne Einsatz von Cookies und damit anonymisiert erhoben.</p>
+		<p class="mt3"><a href="#" id="acceptall" class="btn btn-info btnMore zustimmen">Zustimmen</a></p>
+	</div>
+{% else %}
+
+{% endif %}
+
 <script src="catalog/view/javascript/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="catalog/view/javascript/swiper/swiper-bundle.min.js"></script>
 <script src="catalog/view/javascript/fancybox/jquery.fancybox.min.js"></script>
 <script src="catalog/view/javascript/svg-injector.min.js"></script>
 <script src="catalog/view/javascript/script.js"></script>
 <script src="catalog/view/javascript/common.js" type="text/javascript"></script>
+
 </body>
 </html>

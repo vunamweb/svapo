@@ -1,12 +1,33 @@
 <?php
 class ControllerProductCategory extends Controller {
 	public function index() {
+		$data['contrast'] = $this->contrast;
+
 		$this->load->language('product/category');
 		$this->load->model('catalog/category');
 		$this->load->model('catalog/product');
 		$this->load->model('tool/image');
 		$this->load->model('account/customer');
 		$this->load->controller('product/manufacturer');
+		$this->load->model('localisation/weight_class');
+		
+		if (isset($this->request->get['atb_id'])) {
+			$atb = $this->request->get['atb_id'];
+		} else {
+			$atb = '';
+		}
+
+		if (isset($this->request->get['manufactor_id'])) {
+			$manufactor_id = $this->request->get['manufactor_id'];
+		} else {
+			$manufactor_id = '';
+		}
+
+		if (isset($this->request->get['manufactor_id'])) {
+			$manufacter = $this->request->get['manufactor_id'];
+		} else {
+			$manufacter = '';
+		}
 
 		if (isset($this->request->get['filter'])) {
 			$filter = $this->request->get['filter'];
@@ -17,13 +38,15 @@ class ControllerProductCategory extends Controller {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
-			$sort = 'p.sort_order';
+			// $sort = 'p.sort_order';
+			$sort = 'p.date_added';
 		}
 
 		if (isset($this->request->get['order'])) {
 			$order = $this->request->get['order'];
 		} else {
-			$order = 'ASC';
+			// $order = 'ASC';
+			$order = 'DESC';
 		}
 
 		if (isset($this->request->get['page'])) {
@@ -162,8 +185,8 @@ class ControllerProductCategory extends Controller {
 
 			$results = $this->model_catalog_product->getProducts($filter_data);
 
-			if($this->request->get['atb_id'])
-			  $results = $this->model_catalog_product->getProductByAttribute($results, $this->request->get['atb_id']);
+			if($this->request->get['atb_id'] || $this->request->get['manufactor_id'])
+			  $results = $this->model_catalog_product->getProductByAttribute($results, $this->request->get['atb_id'], $this->request->get['manufactor_id']);
 
 			//print_r(count($results)); die();
 			$manufacturers = $this->model_catalog_manufacturer->getManufacturers();				
@@ -238,6 +261,10 @@ class ControllerProductCategory extends Controller {
 				// if (stripos($result['stock_status'], 'sofort') !== false) $stock_status =  '<span class="instock"></span>*'.$result['quantity'].'**'.$result['stock_status'].'*';
 				// else '<span class="notinstock"></span>';
 				
+				
+				$weight_info = $this->model_localisation_weight_class->getWeightClass($result['weight_class_id']);				
+				$unit = $weight_info ? $weight_info['title'] : '';
+				
 				if ($result['quantity'] <= 0) {
 					// $stock_status = '<span class="notinstock"></span>'.$result['stock_status'];
 					$stock_status = '<span class="notinstock"></span>nicht lieferbar';
@@ -262,6 +289,9 @@ class ControllerProductCategory extends Controller {
 					'attributes_list' => $this->model_catalog_product->getListNameAttributeProductInCategory($result['attributes']),
 					'Kultivar' => $this->model_catalog_product->getValueKluivarOfproduct($result['product_id']),
 					'THC' => $this->model_catalog_product->getValueTHCOfproduct($result['product_id']),
+					'CBD' => $this->model_catalog_product->getValueCBDOfproduct($result['product_id']),
+					'country' => $this->model_catalog_product->getValueCountryOfproduct($result['product_id']),
+					'Behandlung' => $this->model_catalog_product->getValueBehandlungOfproduct($result['product_id']),
 					'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
 					'price'       => $price,
 					'special'     => $special,
@@ -271,7 +301,8 @@ class ControllerProductCategory extends Controller {
 					'manufacturer_name' => $manufacturer_name ,
 					'manufacturer_image' => $manufacturer_image,
 					'stock' => $stock_status,					
-					'stockid'        => $result['stock_status_id'],
+					'stockid'  => $result['stock_status_id'],
+					'unit' 		=> $unit,
 					'href'        => $this->url->link('product/product', 'path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url)
 				);
 			}
@@ -288,29 +319,41 @@ class ControllerProductCategory extends Controller {
 
 			$data['sorts'] = array();
 
-			$data['sorts'][] = array(
-				'text'  => $this->language->get('text_default'),
-				'value' => 'p.sort_order-ASC',
-				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.sort_order&order=ASC' . $url)
-			);
+			// $data['sorts'][] = array(
+			// 	'text'  => $this->language->get('text_default'),
+			// 	'value' => 'p.sort_order-ASC',
+			// 	'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.sort_order&order=ASC' . $url)
+			// );
 
 			$data['sorts'][] = array(
 				'text'  => $this->language->get('text_name_newest'),
 				'value' => 'p.date_added',
-				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.date_added&order=ASC' . $url)
+				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.date_added&order=DESC' . $url)
 			);
-
+			
 			$data['sorts'][] = array(
-				'text'  => $this->language->get('text_name_asc'),
-				'value' => 'pd.name-ASC',
-				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=pd.name&order=ASC' . $url)
+				'text'  => 'THC (aufsteigend)', // oder $this->language->get('text_thc_asc') für Mehrsprachigkeit
+				'value' => 'p.thc-ASC',
+				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.thc&order=ASC' . $url)
 			);
-
+			
 			$data['sorts'][] = array(
-				'text'  => $this->language->get('text_name_desc'),
-				'value' => 'pd.name-DESC',
-				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=pd.name&order=DESC' . $url)
+				'text'  => 'THC (absteigend)',
+				'value' => 'p.thc-DESC',
+				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.thc&order=DESC' . $url)
 			);
+			
+// 			$data['sorts'][] = array(
+// 				'text'  => $this->language->get('text_name_asc'),
+// 				'value' => 'pd.name-ASC',
+// 				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=pd.name&order=ASC' . $url)
+// 			);
+// 
+// 			$data['sorts'][] = array(
+// 				'text'  => $this->language->get('text_name_desc'),
+// 				'value' => 'pd.name-DESC',
+// 				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=pd.name&order=DESC' . $url)
+// 			);
 
 			$data['sorts'][] = array(
 				'text'  => $this->language->get('text_price_asc'),
@@ -433,6 +476,12 @@ class ControllerProductCategory extends Controller {
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
+
+			$data['atb'] = $atb;
+			$data['manufactor_id'] = $manufactor_id;
+
+			$data['count_product'] = count($data['products']);
+			//echo $atb; die();
 
 			if(!$this->request->get['filter_atb'])
 			$this->response->setOutput($this->load->view('product/category', $data));

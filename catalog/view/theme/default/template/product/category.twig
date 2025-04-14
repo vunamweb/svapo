@@ -1,170 +1,362 @@
 {{ header }}
 <main>
-        <section class="hero_banner cat">
-            <div class="item position-relative" style="--bg:url('../../../../../images/hero_banner2.jpg');--bg-mb:url('../../../../../images/hero_banner2_mb.jpg');">
-                <div class="container text-center">
-                    <div class="text1 mb-lg-5 mb-3 pb-4 text-uppercase">UNSER
-                        ANGEBOT</div>
-                    <div class="mb-lg-5 mb-3 pb-lg-5 pb-3 col-lg-7 mx-auto px-lg-4">
-                        <form action="./index.php" method="get" class="suche">
-							<div class="input-group input-group-lg mb-0">
-								<input type="hidden" name="route" value="product/search">
-								<input type="hidden" name="description" value="true">
-								<input type="text" name="search" class="btn_search btn_cta form-control bg-transparent border-secondary rounded-0 border-0 text-center" placeholder="WAS SUCHST DU?" autocomplete="off">
-								<button class="btn bg-transparent btn-outline-secondary rounded-0 border-end-0" type="submit"><img class="icon_search" src="images/search2.svg" alt="Canabis Suche"></button>
-							</div>
-						</form>
-                    </div>
-                    <div class="mb-0">
-                        <div class="mx-auto hstack gap-lg-3 gap-1 justify-content-lg-center justify-content-start">
+        <section>
+                <div class="container text-center">                    
+                    <div class="row mb-0">
+						<!--
+						<div class="col-6">
+							<form action="./index.php" method="get" class="suche">
+								<div class="input-group input-group-lg mb-0">
+									<input type="hidden" name="route" value="product/search">
+									<input type="hidden" name="description" value="true">
+									<input type="text" name="search" class="input-search form-control bg-transparent border-secondary rounded-0 border-0 text-center" placeholder="WAS SUCHST DU?" autocomplete="off">
+									<button class="btn bg-transparent btn-outline-secondary rounded-0 border-end-0" type="submit"><img class="icon_search" src="./images/search2.svg" alt="Canabis Suche"></button>
+								</div>
+							</form>
+						</div>
+						-->
+                        <div class="col-12 me-auto hstack gap-lg-3 gap-1 justify-content-end">
 							{% if logged %}
 
 							{% else %}
-								<a href="./index.php?route=account/account" class="btn_cta btn btn-lg py-4 btn-light text-uppercase rounded-0">KONTO ERSTELLEN</a>			
+								<a href="./index.php?route=account/account" class="btn_cta btn btn-lg py-2 text-uppercase rounded-0">LOGIN</a>			
 							{% endif %}
-                            <a href="./vorbestellen" class="btn_cta btn btn-lg py-4 btn-light text-uppercase rounded-0">Rezept hochladen</a>
+                            <a href="./vorbestellen" class="btn_cta btn btn-info btn-lg py-2 btn-light text-uppercase rounded-0">Rezept hochladen</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>		
+				<input type="hidden" id="atb" value={{ atb }}/>
+				<input type="hidden" id="manufactors" value={{ manufactor_id }}/>
+		</section>		
 		
 		<div class="start"></div>
+		
+		<section>
+			<div class="container">				
+				<div class="row cms-text">
+					<h1>WAS SUCHST DU?</h1>
+				</div>
+			</div>
+		</section>
 				
         <section class="megamenu">
 			<div class="container">
-				   {{ column_left }}					
-			</div>
-		</section>
-		
-		<section>
-            <div class="container">				
-                <div class="row">
-					<div class="col-md-4 col-sm-6 hidden-xs">
-      			  		<div class="btn-group btn-group-sm">
-        					<button type="button" id="list-view" class="btn btn-default" data-toggle="tooltip" title="{{ button_list }}"><i class="fa fa-th-list"></i></button>
-        					<button type="button" id="grid-view" class="btn btn-default" data-toggle="tooltip" title="{{ button_grid }}"><i class="fa fa-th"></i></button>
-      					</div>
-    				</div>
-					<div class="col-md-6 col-sm-6">
-					<div class="form-group input-group input-group-sm short_price_name">
-            <label class="input-group-addon label_short" for="input-sort">{{ text_sort }}</label>
-            <select id="input-sort" class="form-control" onchange="location = this.value;">
-              {% for sorts in sorts %}
-              {% if sorts.value == '%s-%s'|format(sort, order) %}
-              <option value="{{ sorts.href }}" selected="selected">{{ sorts.text }}</option>
-              {% else %}
-              <option value="{{ sorts.href }}">{{ sorts.text }}</option>
-              {% endif %}
-              {% endfor %}
-            </select>
-          </div>
+				<div class="row">
+					<div class="col hidden-md view">
+						<div class="btn-group btn-group-sm">
+							<button type="button" id="list-view" class="btn btn-default btn-list" data-toggle="tooltip" title="{{ button_list }}"><i class="fa fa-bars"></i></button>
+							<button type="button" id="grid-view" class="btn btn-default btn-list" data-toggle="tooltip" title="{{ button_grid }}"><i class="fa fa-th"></i></button>
+						</div>
 					</div>
-				</div>
+					{{ column_left }}					
+					<div class="col">
+							<div class="mega-link ">
+								<h4 class="title text-black">Sortierung</h4>
+								<div class="mega-menu ">
+								{% for sorts in sorts %}
+									{% set is_active = sorts.value == '%s-%s'|format(sort, order) %}
+									<a href="{{ sorts.href }}"
+									class="nav-link nav-sort col-xl-2 col-lg-3 col-6 col-md-4 text-secondary text2 no-wrap {{ is_active ? 'active' : '' }}">
+									{{ sorts.text }}
+									</a>
+								{% endfor %}
+								</div>
+							</div>
+						
+					</div>
+					<div class="col">
+						<!--<a href="#" class="btn btn-default resetfilter">Reset Filter</a>-->
+						<a href="./shop/" class="btn btn-default btn-reset text-black">Reset Filter</a>
+					</div>
 				</div>
 			</div>
 		</section>
 						
 		<section class="product">
 			<div class="container container_product" id="content">				
-				<div class="row g-0">
-                    <div class="col_right-OFF col-lg--auto">
 	                    <i class="fa fa-spinner loading" aria-hidden="true"></i>
                     	
-<div class="row row_sp d-flex flex-rows">
-	
-{% for product in products %}
-{% if product.stockid != 5 %}
-							<div class="col-md-4 col-lg-4 col-xl-3 col-12 product-grid CTA" ref="{{ product.href }}">
-                                <div class="item_sp h-100">
-                                    <div class="column-1 hide productThumb">
-										<a class="d-block" href="{{ product.href }}"><img class="image_sp" src="{{ product.thumb }}" alt="{{ product.name }}"></a>
+						<div class="row row_product">
+							<div class="col-12 product-layout product-list first-row">
+									<div class="co ">						
+									  Produkt
 									</div>
+									<div class="co ">						
+										Strain
+									</div>
+									<div class="co ">
+										Genetik
+									</div>
+									<div class="co land">
+										Land
+									</div>
+									<div class="co sml">						
+										{{ text_THC }}     	
+									</div>
+									<div class="co sml">						
+										CBD 	
+									</div>
+									<div class="co Behandlung">
+										Behandlung		
+									</div>
+									<div class="co ">
+										{{ text_Hersteller }}										
+									</div>
+									<div class="co ">
+										Bestand
+									</div>
+									<div class="co price">
+										Preis / g ml
+									</div>
+							
+							</div>
+	
+<div>Total {{ count_product }} results found </div>
+{% for product in products %}
+						<a href="{{ product.href }}" class="col-12 col-md-6 col-lg-4 col-xl-3 col-12 product-grid">
+                        	<div class="co coList">										
+                           		<h4>{{ product.name }}</h4>
+							</div>									
+							<div class="co coList">						
+							  {{ product.Kultivar }}
+							</div>
+							<div class="co coList">
+									{% for group in product.attributes_list %}
+										{% set listAttribute = group.list %}
 									
-									<div class="mobile-col-1">										
-                                    	<div class="text1 text_ellipsis column-2">
-                                    		<h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
-                                    	</div>
-										<div class="text2 text_ellipsis mb-4 column-4 price">
-											<b>{{ product.price }}</b> / Gramm
-										</div>						
-										<div class="mb-4 column-4 isstock">
-											{{ product.stock }}		 
+										{% for attribute in listAttribute %}
+											{% set name_lower = attribute.name|lower %}
+											{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}
+												{{ attribute.name }}
+											{% endif %}
+										{% endfor %}
+									{% endfor %}
+							</div>
+							<div class="co coList land">						
+								  {{ product.country }}
+							</div>
+							<div class="co coList sml">						
+			  					{{ product.THC }}
+							</div>
+							<div class="co coList sml">						
+								  {{ product.CBD }}
+							</div>
+							<div class="co coList Behandlung">						
+								  {{ product.Behandlung }}
+							</div>
+							<div class="co coList">						
+								<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.manufacturer_name }}" class="hersteller" />
+							</div>
+							<div class="co coList">
+								{{ product.stock }}													 
+							</div>
+							<div class="co coList price">						
+								<b>{{ product.price }}</b>
+							</div>
+							
+							<!-- v2 grid version --> 
+
+							<div class="coGrid">
+								<div class="">
+									<div class="bg-light2">
+										
+										<div class="grid-row">										
+											<div class="row">
+												<div class="col-12 hybrid-row rel">	
+													{% set matching_attributes = [] %}
+													
+													{% for group in product.attributes_list %}
+														{% set listAttribute = group.list %}
+													
+														{% for attribute in listAttribute %}
+															{% set name_lower = attribute.name|lower %}
+															{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}
+																{% set matching_attributes = matching_attributes|merge([attribute.name]) %}
+															{% endif %}
+														{% endfor %}
+													{% endfor %}
+													
+													{% if matching_attributes is not empty %}
+														<div class="hybrid">
+															<span class="badge bg-secondary {{ matching_attributes|join(', ') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ matching_attributes|join(', ') }}">{{ matching_attributes|join(', ') }}</span>
+														</div>
+													{% endif %}
+												</div>
+												<div class="col-8 plist">
+													<h4>{{ product.name }}<br />
+													<span>{{ product.Kultivar }}</span></h4>
+												</div>
+												<div class="col-4 ps-0 pt-2">	
+													<span class="badge bg-primary">{{ product.THC }} THC</span>	
+													<span class="badge bg-primary">{{ product.CBD }} CBD</span>
+												</div>
+											</div>
+										</div>
+										
+										<div class="grid-row">
+											<div class="row thc">
+												<div class="col-12 col-md-5 col-lg-6">	
+													<div class="grid-stock">
+														{{ product.stock }}	
+													</div>
+													<div class="grid-land">
+														<b>{{ product.country }}</b>
+													</div>
+
+												</div>
+												<div class="col-12 col-md-7 col-lg-6 text-right icons">
+													{% if contrast %}
+													{% else %}
+													<span class="icon"><img src="images/{{ product.Behandlung }}.svg" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ product.Behandlung }}" alt="{{ product.Behandlung }}"></span> 
+													{% endif %}
+													<span class="icon_attribute-text hide">{{ product.Behandlung }}</span>
+													&nbsp; &nbsp; 
+
+													{% for group in product.attributes_list %}
+														{% set listAttribute = group.list %}
+													
+														{% for attribute in listAttribute %}
+															{% set name_lower = attribute.name|lower %}
+															{% if 'hybrid' in name_lower or 'sativa' in name_lower or 'indica' in name_lower %}	
+															{% else %}
+																{% if attribute.image is not empty %}
+																	{% if contrast %}
+																	{% else %}
+																		<span class="icon"><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.name }}" alt="{{ attribute.name }}" /></span>
+																	{% endif %}
+																	<span class="icon_attribute-text hide">{{ attribute.name }}</span>
+																{% endif %}
+															{% endif %}
+														{% endfor %}							
+													{% endfor %}
+												</div>
+											</div>
+										</div>
+									</div>									
+									<div class="grid-row ps-4 pe-4 grid-mobileOff">	
+										<div class="row">
+											<div class="col-3">						
+											</div>
+											<div class="col-12 col-md-6 grid-img">						
+												<img class="image_sp" src="{{ product.thumb }}" alt="{{ product.name }}">
+											</div>
+											<div class="col-3">						
+											</div>
 										</div>
 									</div>
 									
-									<table class="table table-bordered table-list-view">
-										<tbody>							
-										<!--		
-											<tr>
-												  <td class="td-list-view">
-													  {{ text_Lager }}
-												  </td>
-												  <td>
-													  {{ product.stock }}													 
-												  </td>
-											</tr>
-										-->
-											<tr>
-												  <td class="td-list-view">
-													  {{ text_Kultivar }}   													  
-												  </td>
-												  <td>{{ product.Kultivar }}</td>
-											</tr>
-											<tr class="thc-list-view">
-												  <td>
-													  {{ text_THC }}     	
-												  </td>
-												  <td>{{ product.THC }}</td>
-											</tr>
-											<tr>
-												  <td class="td-list-view">
-													  {{ text_Hersteller }} 													  
-												  </td>
-												  <td class="img-list-view">
-													<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.name }}" class="hersteller" />
-												  </td>
-											</tr>
-											<tr class="next-row">
-												<td colspan="2">
-
-									<div class="attribute_product_in_category">
-										<ul>
-
-									{% for group in product.attributes_list %}
-										{% set listAttribute = group.list %}
-
-										{% for attribute in listAttribute %}
-											{% if attribute.image is not empty %}
-												<li class="icon"><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute"/>{{ attribute.name }}</li>
-											{% else %}
-												<!--<li>{{ attribute.name }}</li>-->
-											{% endif %}
-										{% endfor %}							
-									{% endfor %}
-
-										</ul>
+									<div class="grid-row ps-4 pe-4 price-logo">	
+										<div class="row h-100">
+											<div class="col-6 grid-price">						
+												<b>{{ product.price }}</b>
+												<span>{{ product.unit }}</span>
+											</div>
+											<div class="col-6 grid-logo">						
+												<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.manufacturer_name }}" class="hersteller" />	
+											</div>
+										</div>
 									</div>
-									
-												</td>
-											</tr>
-										  </tbody>
-									  </table>
-									
-                                    <!--<div class="text2 text_ellipsis column-3">{{ product.description }}</div>-->
-									                                    
-                                </div>
-                            </div>
-{% endif %}
+								
+								</div>
+							</div>
+							
+						</a>
 {% endfor %}
                         </div>
                     </div>
-                </div>
-            </div>
         </section>
     </main>
 {{ footer }}
 <script>
+    function resetFilter() {
+        var listAttribute = '';
+
+        $('.filter_attribute').each(function(){
+          $(this).prop('checked', false);
+		})
+
+        var currentURL = window.location.href;
+        //alert(currentURL);
+
+        $('.product .row_product').hide();
+        $('.loading').show();
+
+        $.ajax({
+            url: (!currentURL.includes('order') && !currentURL.includes('atb')) ? currentURL + '?filter_atb=true' + '&atb_id=' +listAttribute : currentURL + '&filter_atb=true' + '&atb_id=' +listAttribute,  // URL to fetch data from
+            method: 'GET', // HTTP method
+            success: function(data) {
+               $('.product .row_product').html(data);
+               $('.product .row_product').show();
+               $('.loading').hide();
+
+               if($('#list-view').hasClass('active'))
+                 $('#list-view').click();
+
+               if($('#grid-view').hasClass('active'))
+                 $('#grid-view').click();
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                console.error(status + ": " + error); // Log error to console
+            }
+        });
+	}
+
+	function prefillATB() {
+        var atb = $('#atb').val().replace('/', '');
+        var atbList = [];
+
+		var manufactors = $('#manufactors').val().replace('/', '');
+        var manufactorsList = [];
+		 
+        if(atb != '')
+		  atbList = atb.split(',');
+
+		if(manufactors != '')
+		  manufactorsList = manufactors.split(',');  
+
+		for (let i = 0; i < atbList.length; i++) {
+          $('input[id=check_'+atbList[i]+']').prop('checked', true);
+		}
+
+		for (let i = 0; i < manufactorsList.length; i++) {
+          $('input[id=manufactor_'+manufactorsList[i]+']').prop('checked', true);
+		}
+
+		/* var listAttribute = '';
+
+        $('.filter_attribute').each(function(){
+            if($(this).is(':checked') && !$(this).hasClass('filter_manufactor'))
+            listAttribute = listAttribute + $(this).attr('data') + ',';
+        })
+
+		var currentURL = window.location.href;
+        //alert(currentURL);
+
+        $('.product .row_product').hide();
+        $('.loading').show();
+
+        $.ajax({
+            url: (!currentURL.includes('order') && !currentURL.includes('atb') && !currentURL.includes('manufactor_id') ) ? currentURL + '?filter_atb=true' + '&atb_id=' +listAttribute : currentURL + '&filter_atb=true' + '&atb_id=' +listAttribute,  // URL to fetch data from
+            method: 'GET', // HTTP method
+            success: function(data) {
+               $('.product .row_product').html(data);
+               $('.product .row_product').show();
+               $('.loading').hide();
+
+               if($('#list-view').hasClass('active'))
+                 $('#list-view').click();
+
+               if($('#grid-view').hasClass('active'))
+                 $('#grid-view').click();
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                console.error(status + ": " + error); // Log error to console
+            }
+        }); */
+	}
+
 	var targetClass = 'div.start';
 
 	// Get the top position of the element with the specified class
@@ -174,4 +366,14 @@
 	$('html, body').animate({
 		scrollTop: targetPosition 
 	}, 'slow');
+
+	$(window).on("load", function() {
+      prefillATB();
+	});
+
+	$('.resetfilter').on('click', function(e) {
+	  e.preventDefault();
+	  resetFilter();
+	});
+
 </script> 

@@ -124,6 +124,31 @@ class ModelCatalogProduct extends Model {
 
         return ($query->row['text'] != '') ? $query->row['text'] : 'Keine Daten';
     }
+	
+	public function getValueCBDOfproduct($product_id) {
+		$sql = 'select text from '.DB_PREFIX.'product_attribute where product_id = '.$product_id.' and (attribute_id = 35 )';
+	
+		$query = $this->db->query($sql);
+	
+		return ($query->row['text'] != '') ? $query->row['text'] : 'Keine Daten';
+	}
+	
+	public function getValueBehandlungOfproduct($product_id) {
+		$sql = 'select text from '.DB_PREFIX.'product_attribute where product_id = '.$product_id.' and (attribute_id = 105 )';
+	
+		$query = $this->db->query($sql);
+	
+		return ($query->row['text'] != '') ? $query->row['text'] : 'Keine Daten';
+	}
+
+	public function getValueCountryOfproduct($product_id) {
+		$sql = 'select text from '.DB_PREFIX.'product_attribute where product_id = '.$product_id.' and (attribute_id = 42 )';
+	
+		$query = $this->db->query($sql);
+	
+		return ($query->row['text'] != '') ? $query->row['text'] : 'Keine Daten';
+	}
+
 
     public function checkActivateProduct($ansay_id) {
         $sql = 'select status from '.DB_PREFIX.'product where mpn = "'.$ansay_id.'"';
@@ -285,17 +310,22 @@ class ModelCatalogProduct extends Model {
         }
     }
 
-    public function getProductByAttribute( $results, $attribute_id ) {
+    public function getProductByAttribute( $results, $attribute_id, $manufacter_id ) {
+        //print_r($results);
         $response = array();
         
         $attribute_id = explode(',', $attribute_id);
+        $manufacter_list_id = explode(',', $manufacter_id);
+
+        //print_r($manufacter_list_id); die();
 
         //print_r($results[50]); die();
 
         foreach ( $results as $result ) {
-            $check = true;
+            $check = false;
 
             $attributes = $result[ 'attributes' ];
+            $product_manufacter_id = $result['manufacturer_id'];
 
             try {
                 $attributes = json_decode( $attributes );
@@ -311,8 +341,11 @@ class ModelCatalogProduct extends Model {
 
             //print_r($attributes); die();
             foreach($attribute_id as $id)
-              if($id != '' && !in_array($id, $attributes))
-                $check = false;  
+              if($id != '' && in_array($id, $attributes))
+                $check = true;
+                
+              if($manufacter_id != '' && in_array($product_manufacter_id, $manufacter_list_id))
+                $check = true;    
 
             //if(true)
             if ($check)
@@ -659,14 +692,35 @@ class ModelCatalogProduct extends Model {
         return $query->rows;
     }
 
+    public function getThcOfProduct($product_id) {
+        $attribute_id = 34;
+
+        $query = $this->db->query("SELECT text FROM " . DB_PREFIX . "product_attribute 
+        WHERE product_id = '" . (int)$product_id . "' 
+        AND attribute_id = '" . (int)$attribute_id . "'");
+
+        if ($query->num_rows) {
+            return $query->row['text']; // Output the attribute value
+        } else {
+            return null;
+        }
+    }
+
     public function getProductRelated( $product_id ) {
+        $THC_product_text = $this->getThcOfProduct($product_id);
+        //echo $THC_product_text; die();
+
         $product_data = array();
 
-        $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX . 'product_related pr LEFT JOIN ' . DB_PREFIX . 'product p ON (pr.related_id = p.product_id) LEFT JOIN ' . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE pr.product_id = '" . ( int )$product_id . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . ( int )$this->config->get( 'config_store_id' ) . "'" );
+        $query = $this->db->query("SELECT product_id FROM " . DB_PREFIX . "product_attribute 
+        WHERE product_id <> '" . (int)$product_id . "' 
+        AND text = '" . $THC_product_text . "'");
 
         foreach ( $query->rows as $result ) {
-            $product_data[ $result[ 'related_id' ] ] = $this->getProduct( $result[ 'related_id' ] );
+            $product_data[ $result[ 'product_id' ] ] = $this->getProduct( $result[ 'product_id' ] );
         }
+
+        //print_r($product_data); die();
 
         return $product_data;
     }
