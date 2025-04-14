@@ -2299,6 +2299,7 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function crontab2() {
+		echo 'dd';
 		$this->load->controller('mail/order/crontab2');
 	}
 
