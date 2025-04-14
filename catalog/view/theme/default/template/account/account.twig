@@ -1,4 +1,16 @@
 {{ header }}
+
+<div class="container cms-text mt-5 mb-5">
+	<div class="row">
+		<div class="col-12">
+			<h1>DEIN BENUTZERKONTO</h1>
+			<p>
+				Hier kannst du deine <b>Bestellungen einsehen, dein Rezept hochladen</b> und bei Bedarf dein <b>Passwort ändern</b>. Behalte den Überblick über deine Daten und passe dein Konto ganz nach deinen Bedürfnissen an.
+			</p>			
+		</div>
+	</div>	
+</div>
+
 <div id="account-account" class="container">
   <ul class="breadcrumb">
     {% for breadcrumb in breadcrumbs %}
@@ -17,11 +29,8 @@
     {% set class = 'col-sm-12' %}
     {% endif %}
     <div id="content" class="{{ class }}">{{ content_top }}
-      <h2>{{ text_my_account }}</h2>
-	  <hr>
+		<a href="./vorbestellen" class="btn btn_cta btn-info  btn-warning">Rezept hochladen</a>
       <ul class="list-unstyled account">
-		<li><a href="./vorbestellen" class="btn  btn-warning">Rezept hochladen</a></li>
-		<li><hr></li>
         <li><a href="{{ edit }}">{{ text_edit }}</a></li>
         <li><a href="{{ password }}">{{ text_password }}</a></li>
         <li><a href="{{ address }}">{{ text_address }}</a></li>
