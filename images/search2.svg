@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 26.1 27">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+        stroke: #fff;
+      }
+
+      .cls-2 {
+        stroke-linecap: round;
+        stroke-width: 4px;
+      }
+
+      .cls-3 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        opacity: 1;
+      }
+    </style>
+  </defs>
+  <g id="Group_21" data-name="Group 21" class="cls-4">
+    <g id="Ellipse_1" data-name="Ellipse 1">
+      <circle class="cls-3" cx="11" cy="11.2" r="10"/>
+      <circle class="cls-1" cx="11" cy="11.2" r="9.5"/>
+    </g>
+    <line id="Line_15" data-name="Line 15" class="cls-2" x1="18.1" y1="19.5" x2="23.9" y2="24.9"/>
+  </g>
+</svg>
