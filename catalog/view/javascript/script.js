@@ -2,27 +2,45 @@
 
 window.addEventListener('DOMContentLoaded', function () {
   const contrast = document.cookie.match(/contrast=([^;]+)/);
+
   if (contrast && contrast[1] === 'on') {
 	document.body.classList.add('high-contrast');
-	document.documentElement.classList.add('high-contrast'); // ← das ist <html>
-	document.getElementById('contrast-toggle').setAttribute('aria-pressed', 'true');
+	document.documentElement.classList.add('high-contrast');
+
+	// Alle Buttons aktualisieren
+	document.querySelectorAll('.contrast-toggle').forEach(btn => {
+	  btn.setAttribute('aria-pressed', 'true');
+	});
   }
+
+  // EventListener für alle Buttons
+  document.querySelectorAll('.contrast-toggle').forEach(btn => {
+	btn.addEventListener('click', function () {
+	  const isActive = document.body.classList.toggle('high-contrast');
+	  document.documentElement.classList.toggle('high-contrast', isActive);
+
+	  // Alle Buttons updaten (für Sync)
+	  document.querySelectorAll('.contrast-toggle').forEach(b => {
+		b.setAttribute('aria-pressed', isActive);
+	  });
+
+	  // Cookie setzen, 30 Tage
+	  document.cookie = "contrast=" + (isActive ? "on" : "off") + "; path=/; max-age=2592000";
+
+	  // Seite neu laden
+	  location.reload();
+	});
+  });
 });
 
-document.getElementById('contrast-toggle').addEventListener('click', function () {
-  const isActive = document.body.classList.toggle('high-contrast');
-  document.documentElement.classList.toggle('high-contrast', isActive);
-
-  this.setAttribute('aria-pressed', isActive);
-
-  // Cookie setzen, 30 Tage gültig
-  document.cookie = "contrast=" + (isActive ? "on" : "off") + "; path=/; max-age=2592000";
-
-  // Seite neu laden
-  location.reload();
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.icon_attribute').forEach(function (el) {
+	el.addEventListener('click', function (e) {
+	  e.stopPropagation(); // 💥 verhindert Klick auf <a>
+	  e.preventDefault();  // optional – falls du z. B. <a> im Icon hättest
+	});
+  });
 });
-
-
 /*
 function removeImagesForHighContrast() {
   if (document.body.classList.contains('high-contrast')) {
