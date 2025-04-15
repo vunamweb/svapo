@@ -108,7 +108,7 @@ class ModelCatalogCategory extends Model {
           $query = $this->db->query( 'SELECT * FROM ' . DB_PREFIX . "attribute a, ".DB_PREFIX."attribute_description ad WHERE a.attribute_id = ad.attribute_id and a.attribute_group_id = '" . ( int )$attribute_group_id . "'");
         
         foreach ( $query->rows as $row ) {
-            $response .= '<span class="nav-link col-xl-2 col-lg-3 col-6 col-md-4 text-secondary text2 no-wrap"><input id="check_'.$row['attribute_id'].'" type="checkbox" class="filter_attribute" data="'.$row['attribute_id'].'"/><label class="label_atb" for="check_'.$row['attribute_id'].'">'.$row[ 'name' ].'</label></span>';
+            $response .= '<span class="nav-link col-xl-2 col-lg-3 col-6 col-md-4 text-secondary text2 no-wrap"><input id="check_'.$row['attribute_id'].'" type="radio" name="filter_atb_'.$attribute_group_id.'" class="filter_attribute" data="'.$row['attribute_id'].'"/><label class="label_atb" for="check_'.$row['attribute_id'].'">'.$row[ 'name' ].'</label></span>';
         }
 
         // $response .= '</div>';
