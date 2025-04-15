@@ -310,18 +310,54 @@ class ModelCatalogProduct extends Model {
         }
     }
 
+    public function getAtbOfGenetik($attribute_id) {
+        foreach($attribute_id as $item)
+          if(str_contains($item, '_radio'))
+            return str_replace('_radio', '', $item);
+
+        return null;    
+    }
+
     public function getProductByAttribute( $results, $attribute_id, $manufacter_id ) {
         //print_r($results);
         $response = array();
+        $resultsNew = array();
         
         $attribute_id = explode(',', $attribute_id);
+        // get attribute of genetik
+        $atbOfGenetik = $this->getAtbOfGenetik($attribute_id);
+
         $manufacter_list_id = explode(',', $manufacter_id);
 
         //print_r($manufacter_list_id); die();
 
         //print_r($results[50]); die();
 
-        foreach ( $results as $result ) {
+        // if has filter of radio genetik, then just get result of atribute of genetik
+        if($atbOfGenetik) {
+            foreach ( $results as $result ) {
+                $attributes = $result[ 'attributes' ];
+
+                try {
+                    $attributes = json_decode( $attributes );
+    
+                    if($attributes == '' || $attributes == null)
+                      $attributes = array();
+                } catch( Exception $e ) {
+                    $attributes = array();
+                }
+
+                if(in_array($atbOfGenetik, $attributes))
+                 $resultsNew[] = $result;
+            } 
+        } else { // if not has filter of radio genetik
+            $resultsNew = $results;
+        }
+
+        //print_r($resultsNew); die();
+          
+        //echo $atbOfGenetik . '/' . count($attribute_id); die();
+        foreach ( $resultsNew as $result ) {
             $check = false;
 
             $attributes = $result[ 'attributes' ];
@@ -341,7 +377,8 @@ class ModelCatalogProduct extends Model {
 
             //print_r($attributes); die();
             foreach($attribute_id as $id)
-              if($id != '' && in_array($id, $attributes))
+              // if result contains atribute of filter or just filter of genetik
+              if($id != '' && ! str_contains($id, '_radio') && in_array($id, $attributes) || ($atbOfGenetik && count($attribute_id) == 2))
                 $check = true;
                 
               if($manufacter_id != '' && in_array($product_manufacter_id, $manufacter_list_id))
@@ -420,7 +457,7 @@ class ModelCatalogProduct extends Model {
             }
 
             if ( !empty( $data[ 'filter_name' ] ) && !empty( $data[ 'filter_tag' ] ) ) {
-                $sql .= ' OR ';
+                $sql .= ' AND ';
             }
 
             if ( !empty( $data[ 'filter_tag' ] ) ) {
