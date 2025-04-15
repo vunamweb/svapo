@@ -34,7 +34,16 @@
 		<section>
 			<div class="container">				
 				<div class="row cms-text">
-					<h1>WAS SUCHST DU?</h1>
+					<div class="col-12 col-md-4">
+						<form action="./index.php" method="get" class="suche">
+							<div class="input-group input-group-lg mb-0">
+								<input type="hidden" name="route" value="product/search">
+								<input type="hidden" name="description" value="true">
+								<input type="text" name="search" class="btn_search btn_cta form-control bg-transparent border-secondary rounded-0 border-0 text-center" placeholder="WAS SUCHST DU?" autocomplete="off">
+								<button class="btn bg-transparent btn-outline-secondary rounded-0 border-end-0" type="submit"><img class="icon_search" src="./images/search2.svg" alt="Canabis Suche"></button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -145,7 +154,7 @@
 								  {{ product.Behandlung }}
 							</div>
 							<div class="co coList">						
-								<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.manufacturer_name }}" class="hersteller" />
+								<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}&v=25" alt="{{ product.manufacturer_name }}" class="hersteller" />
 							</div>
 							<div class="co coList">
 								{{ product.stock }}													 
@@ -207,7 +216,7 @@
 												<div class="col-12 col-md-7 col-lg-6 text-right icons">
 													{% if contrast %}
 													{% else %}
-													<span class="icon"><img src="images/{{ product.Behandlung }}.svg" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ product.Behandlung }}" alt="{{ product.Behandlung }}"></span> 
+													<span class="icon"><img src="images/{{ product.Behandlung }}.svg?v=25" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ product.Behandlung }}" alt="{{ product.Behandlung }}"></span> 
 													{% endif %}
 													<span class="icon_attribute-text hide">{{ product.Behandlung }}</span>
 													&nbsp; &nbsp; 
@@ -222,7 +231,7 @@
 																{% if attribute.image is not empty %}
 																	{% if contrast %}
 																	{% else %}
-																		<span class="icon"><img src="uploads/icon/{{ attribute.image }}" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.name }}" alt="{{ attribute.name }}" /></span>
+																		<span class="icon"><img src="uploads/icon/{{ attribute.image }}?v=25" class="icon_attribute" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ attribute.name }}" alt="{{ attribute.name }}" /></span>
 																	{% endif %}
 																	<span class="icon_attribute-text hide">{{ attribute.name }}</span>
 																{% endif %}
@@ -238,7 +247,7 @@
 											<div class="col-3">						
 											</div>
 											<div class="col-12 col-md-6 grid-img">						
-												<img class="image_sp" src="{{ product.thumb }}" alt="{{ product.name }}">
+												<img class="image_sp" src="{{ product.thumb }}&v=25" alt="{{ product.name }}">
 											</div>
 											<div class="col-3">						
 											</div>
@@ -252,7 +261,7 @@
 												<span>{{ product.unit }}</span>
 											</div>
 											<div class="col-6 grid-logo">						
-												<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}" alt="{{ product.manufacturer_name }}" class="hersteller" />	
+												<img src="./mthumb.php?h=30&amp;src=image/{{ product.manufacturer_image }}&v=25" alt="{{ product.manufacturer_name }}" class="hersteller" />	
 											</div>
 										</div>
 									</div>
