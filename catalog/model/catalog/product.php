@@ -457,7 +457,7 @@ class ModelCatalogProduct extends Model {
             }
 
             if ( !empty( $data[ 'filter_name' ] ) && !empty( $data[ 'filter_tag' ] ) ) {
-                $sql .= ' AND ';
+                $sql .= ' OR ';
             }
 
             if ( !empty( $data[ 'filter_tag' ] ) ) {
