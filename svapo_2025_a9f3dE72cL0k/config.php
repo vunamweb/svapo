@@ -1,14 +1,17 @@
 <?php
+// PATH ADMIN
+define('PATH_ADMIN', 'svapo_2025_a9f3dE72cL0k');
+
 // HTTP
-define('HTTP_SERVER', 'http://localhost/pharmacy/svapo_2025_a9f3dE72cL0k/');
+define('HTTP_SERVER', 'http://localhost/pharmacy/'.PATH_ADMIN.'/');
 define('HTTP_CATALOG', 'http://localhost/pharmacy/');
 
 // HTTPS
-define('HTTPS_SERVER', 'http://localhost/pharmacy/svapo_2025_a9f3dE72cL0k/');
+define('HTTPS_SERVER', 'http://localhost/pharmacy/'.PATH_ADMIN.'/');
 define('HTTPS_CATALOG', 'http://localhost/pharmacy/');
 
 // DIR
-define('DIR_APPLICATION', '/Applications/XAMPP/xamppfiles/htdocs/pharmacy/svapo_2025_a9f3dE72cL0k/');
+define('DIR_APPLICATION', '/Applications/XAMPP/xamppfiles/htdocs/pharmacy/'.PATH_ADMIN.'/');
 define('DIR_SYSTEM', '/Applications/XAMPP/xamppfiles/htdocs/pharmacy/system/');
 define('DIR_IMAGE', '/Applications/XAMPP/xamppfiles/htdocs/pharmacy/image/');
 define('DIR_STORAGE', DIR_SYSTEM . 'storage/');

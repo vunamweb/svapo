@@ -355,7 +355,7 @@ class ControllerMailOrder extends Controller {
 		
 		$pdf_name = 'Auftragsbestaetigung-svapo-'.$order_info['order_id'].'.pdf';
 		$dompdf->loadHtml($this->load->view('mail/order_pdf', $data));
-		$file_location = "./admin/auftrag/".$pdf_name;
+		$file_location = "./".PATH_ADMIN."/auftrag/".$pdf_name;
 		$dompdf->setPaper('A4', 'Horizontal');
 		$dompdf->render();
 		$pdf = $dompdf->output();
@@ -1030,7 +1030,7 @@ class ControllerMailOrder extends Controller {
             $dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
 		}
 		
-		$file_location = "./admin/auftrag/".$pdf_name;
+		$file_location = "./".PATH_ADMIN."/auftrag/".$pdf_name;
 		$dompdf->setPaper('A4', 'Horizontal');
 		$dompdf->render();
 		$pdf = $dompdf->output();
@@ -1055,7 +1055,7 @@ class ControllerMailOrder extends Controller {
 
 			$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
 
-			$file_location = "./admin/invoice/".$pdf_name_invoice;
+			$file_location = "./".PATH_ADMIN."/invoice/".$pdf_name_invoice;
 
 			$dompdf->setPaper('A4', 'Horizontal');
 			$dompdf->render();
@@ -1545,7 +1545,7 @@ class ControllerMailOrder extends Controller {
 		
 		$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
 		$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
-		$file_location = "./admin/invoice/".$pdf_name;
+		$file_location = "./".PATH_ADMIN."/invoice/".$pdf_name;
 		//$status = 1;
 		$dompdf->setPaper('A4', 'Horizontal');
 		$dompdf->render();
@@ -1907,14 +1907,19 @@ class ControllerMailOrder extends Controller {
 			}
             $pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
 			$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
-			$file_location = "./admin/invoice/".$pdf_name;
+			$file_location = "./".PATH_ADMIN."/invoice/".$pdf_name;
 			//$status = 1;
 			$dompdf->setPaper('A4', 'Horizontal');
 			$dompdf->render();
+
 			$pdf = $dompdf->output();
-			// $file_location = "./pdf/Rechnung-svapo.pdf";
+
 			file_put_contents($file_location, $pdf);
-			//end
+			// upload invoice to server
+			$this->uploadFileToserver($file_location);
+			// delete invoice in server
+			$this->deleteFile($file_location);
+            //end
 			// $subject = html_entity_decode(sprintf($language->get('text_subject'), $order_info['store_name'], $order_info['order_id']), ENT_QUOTES, 'UTF-8');
 			$subject = html_entity_decode(sprintf('%s - Rechnung - ' . $order_info['order_id'], 'svapo.de, '.$order_info['store_name']), ENT_QUOTES, 'UTF-8');
 			$message = $this->load->view('mail/order_invoice', $data);
@@ -1952,7 +1957,7 @@ class ControllerMailOrder extends Controller {
 
 				$pdf_name = 'Rechnung-svapo-'.$order_info['order_id'].'.pdf';
 				$dompdf->loadHtml($this->load->view('mail/order_pdf_invoice_cancel', $data));
-				$file_location = "./admin/invoice/".$pdf_name;
+				$file_location = "./".PATH_ADMIN."/invoice/".$pdf_name;
 				$dompdf->setPaper('A4', 'Horizontal');
 				$dompdf->render();
 				$pdf = $dompdf->output();

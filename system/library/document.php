@@ -209,10 +209,10 @@ class Document {
      {
 		$files2 = '';
 		if($file && ($status == 1 || $status == 3)) {
-			$files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "admin/invoice/".$file;
+			$files1 = PATH_FILE_UPLOAD . $file; //str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "admin/invoice/".$file;
 			//$files2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/sign-pdf.pdf";
 		} else if($file && $status==2) {
-               $files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "admin/invoice/".$file;
+               $files1 = PATH_FILE_UPLOAD . $file; //str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "admin/invoice/".$file;
                
                //$files2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/" . $upload_file;
                //if (!file_exists($files2))
@@ -229,7 +229,7 @@ class Document {
         else {
 			// $files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Freiumschlag.pdf";
 			$files1 = null;
-			if($file) $files2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "admin/auftrag/".$file;			
+			if($file) $files2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "".PATH_ADMIN."/auftrag/".$file;			
 		}
 	 	
 		$mail = new PHPMailer();
@@ -269,7 +269,13 @@ class Document {
 		$mail->Body = $message;
 
           // attach invoice
-          if($files1) $mail->addAttachment($files1);
+          if($files1) {
+               $fileContents = file_get_contents($files1);
+               $fileName = basename($files1);
+               //$mail->addAttachment($files2);
+               $mail->addStringAttachment($fileContents, $fileName);
+               
+         }  
           // attach recipe from server
           if($files2) {
                $fileContents = file_get_contents($files2);

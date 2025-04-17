@@ -572,7 +572,7 @@ class ControllerApiOrder extends Controller {
 		
 		$pdf_name = 'Auftragsbestaetigung-svapo-'.$order_info['order_id'].'.pdf';
 		$dompdf->loadHtml($this->load->view('mail/order_ansay_pdf', $data));
-		$file_location = "./admin/auftrag/".$pdf_name;
+		$file_location = "./".PATH_ADMIN."/auftrag/".$pdf_name;
 		$dompdf->setPaper('A4', 'Horizontal');
 		$dompdf->render();
 		$pdf = $dompdf->output();

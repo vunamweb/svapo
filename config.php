@@ -185,3 +185,6 @@ define('SUBJECT_CRONTAB1', 'Auftragsbestätigung Erinnerung');
 // CRONTAB2
 define('DAY_CRONTAB2', 10);
 define('SUBJECT_CRONTAB2', 'Stornierung Deines Auftrags');
+
+// PATH ADMIN
+define('PATH_ADMIN', 'svapo_2025_a9f3dE72cL0k');
