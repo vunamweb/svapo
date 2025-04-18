@@ -189,6 +189,7 @@
 
         </table>
         <div>
+		<img src="{{ upload_file|replace({'uploads': 'thumbs', '.pdf': '.png'}) }}" >
         <a target="_blank" href="{{ upload_file }}">Link upload file</a>
         <input type="file" name="upload_file" id="upload_file_1" class="form-control">
         <br>
