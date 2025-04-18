@@ -179,8 +179,8 @@ class Document {
                $subject = ($docNow) ? 'Log File DocNow ' . date("Y-m-d_H-i-s") : 'Log File ' . date("Y-m-d_H-i-s");
                $from = SMTP_USER;
                $fromName = 'svapo.de';
-               $to = 'info@svapo.de';
-               //$to = 'vukynamkhtn@gmail.com';
+               //$to = 'info@svapo.de';
+               $to = 'vukynamkhtn@gmail.com';
                
                $message = 'A user failed to create an order with the following error and JSON<br>';
                $message .= $error;
@@ -284,8 +284,8 @@ class Document {
                $mail->addStringAttachment($fileContents, $fileName);
           } 
 
-          //if(false) {
-          if (!$mail->Send()) {
+          if(false) {
+          //if (!$mail->Send()) {
                //echo "Mailer Error: " . $mail->ErrorInfo;
                $this->writeLogSendMail($mail->ErrorInfo, $to);
 		} else {
