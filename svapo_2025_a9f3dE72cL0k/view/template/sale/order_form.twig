@@ -2419,7 +2419,7 @@ $('#button-save').on('click', function() {
 
                 var order_id = (json['order_id'] == undefined) ? $('input[name=\'order_id\']').val() : json['order_id'];
 
-				var url = '{{ catalog }}admin/index.php?route=sale/order/info&user_token={{ user_token }}&order_id='+order_id+'';
+				var url = '{{ catalog }}svapo_2025_a9f3dE72cL0k/index.php?route=sale/order/info&user_token={{ user_token }}&order_id='+order_id+'';
 
 				var formData = new FormData();
 				formData.append('upload_file', $('#upload_file_1')[0].files[0]);
