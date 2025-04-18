@@ -258,7 +258,7 @@ class Document {
 
           $mail->AddAddress($to);  
             
-          $mail->addBcc("svapo@7sc.eu");
+          //$mail->addBcc("svapo@7sc.eu");
 		//$mail->addBcc("vu@pixeldusche.com");
 		
 		$mail->Subject = $subject;
