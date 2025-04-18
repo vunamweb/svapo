@@ -168,19 +168,19 @@ class Document {
 
           $logfile = 'log/' . date("Y-m-d_H-i-s") . '.txt';  // Ersetze ":" durch "-"
           // Schreibmodus 'a' für Anfügen, falls die Datei bereits existiert
-          $handle = fopen($logfile, 'a');			
+          //$handle = fopen($logfile, 'a');			
           // Schreibe die Rohdaten (oder das decodierte Array in JSON-Form wieder) in die Datei
-          fwrite($handle, $data . PHP_EOL);  // Optional: json_encode($jsonData) um das Array wieder als JSON zu speichern			
+          //fwrite($handle, $data . PHP_EOL);  // Optional: json_encode($jsonData) um das Array wieder als JSON zu speichern			
           // Datei schließen
-          fclose($handle);
+          //fclose($handle);
 
           // SEND MAIL TO OWNER
           if($sendMail) {
                $subject = ($docNow) ? 'Log File DocNow ' . date("Y-m-d_H-i-s") : 'Log File ' . date("Y-m-d_H-i-s");
                $from = SMTP_USER;
                $fromName = 'svapo.de';
-               $to = 'info@svapo.de';
-               //$to = 'vukynamkhtn@gmail.com';
+               //$to = 'info@svapo.de';
+               $to = 'vukynamkhtn@gmail.com';
                
                $message = 'A user failed to create an order with the following error and JSON<br>';
                $message .= $error;
