@@ -5,9 +5,9 @@ class ModelToolImage extends Model {
             //return;
         }
         if ($this->request->server['HTTPS']) {
-			return 'admin/timthumb.php?src=' . HTTPS_SERVER . 'image/' . $filename . '&w='.$width.'&h='.$height.'';
+			return ''.PATH_ADMIN.'/timthumb.php?src=' . HTTPS_SERVER . 'image/' . $filename . '&w='.$width.'&h='.$height.'';
         } else {
-			return 'admin/timthumb.php?src=' . HTTP_SERVER . 'image/' . $filename . '&w='.$width.'&h='.$height.'';
+			return ''.PATH_ADMIN.'/timthumb.php?src=' . HTTP_SERVER . 'image/' . $filename . '&w='.$width.'&h='.$height.'';
         }       
 	}
 	
