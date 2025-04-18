@@ -1370,7 +1370,7 @@ $('#tab-product input[name=\'product\']').autocomplete({
 			success: function(json) {
 				response($.map(json, function(item) {
 					return {
-						label: item['name'],
+						label: item['name'] + ' — ' + item['meta_title'],
 						value: item['product_id'],
 						model: item['model'],
 						option: item['option'],
