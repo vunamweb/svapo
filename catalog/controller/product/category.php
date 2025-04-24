@@ -181,8 +181,6 @@ class ControllerProductCategory extends Controller {
 				'limit'              => $limit
 			);
 
-			echo $limit;
-
 			$product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
 			$results = $this->model_catalog_product->getProducts($filter_data);
@@ -345,17 +343,17 @@ class ControllerProductCategory extends Controller {
 				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.thc&order=DESC' . $url)
 			);
 			
-// 			$data['sorts'][] = array(
-// 				'text'  => $this->language->get('text_name_asc'),
-// 				'value' => 'pd.name-ASC',
-// 				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=pd.name&order=ASC' . $url)
-// 			);
-// 
-// 			$data['sorts'][] = array(
-// 				'text'  => $this->language->get('text_name_desc'),
-// 				'value' => 'pd.name-DESC',
-// 				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=pd.name&order=DESC' . $url)
-// 			);
+			$data['sorts'][] = array(
+				'text'  => $this->language->get('text_name_asc'),
+				'value' => 'pd.name-ASC',
+				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=pd.name&order=ASC' . $url)
+			);
+
+			$data['sorts'][] = array(
+				'text'  => $this->language->get('text_name_desc'),
+				'value' => 'pd.name-DESC',
+				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=pd.name&order=DESC' . $url)
+			);
 
 			$data['sorts'][] = array(
 				'text'  => $this->language->get('text_price_asc'),
