@@ -181,6 +181,8 @@ class ControllerProductCategory extends Controller {
 				'limit'              => $limit
 			);
 
+			echo $limit;
+
 			$product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
 			$results = $this->model_catalog_product->getProducts($filter_data);
