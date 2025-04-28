@@ -964,6 +964,18 @@ class ControllerApiOrder extends Controller {
 		// Close cURL sessi
 	}
 
+	public function deleteAllFileIntoFolder($folder) {
+		// Get all files in the folder
+		$files = glob($folder . '*');
+
+		// Loop through the files and delete them
+		foreach ($files as $file) {
+			if (is_file($file)) {
+				unlink($file);
+			}
+		}
+	}
+
 	public function saveDocumentToServer($base64_string, $order_id, $prefix_name) {
 		$mesage_error = 'Order created successfully, However upload document was failed because decode base 64 prescription URL' . 
 			'is not correct, maybe this url contains special character, Please correct it';
@@ -993,17 +1005,8 @@ class ControllerApiOrder extends Controller {
 			   $this->model_checkout_order->editPhotoOrder($order_id, $filename);
 			   // upload file to server
 			   $this->uploadFileToserver($savePath);
-			   // delete file on local
-			   if (file_exists($savePath)) {
-				if (unlink($savePath)) {
-					//echo "File deleted successfully.";
-				} else {
-					//echo "Error: Could not delete the file.";
-				}
-			} else {
-				//echo "Error: File does not exist.";
-			}
-					//echo "File downloaded and saved successfully to $savePath";
+			   // delete all file in folder rEzEpT
+			   $this->deleteAllFileIntoFolder($saveToDir);
 			} else {
 					//echo "Failed to save the file.";
 			}
