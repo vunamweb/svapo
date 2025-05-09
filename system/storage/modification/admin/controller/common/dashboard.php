@@ -11,7 +11,7 @@ class ControllerCommonDashboard extends Controller {
 			  if (isset($this->request->get['fcustomer']) && !empty($this->request->get['fcustomer'])) {
 				  $url = 'sale/order';
 				  $typedata = $this->request->get['fcustomer'];
-				  $type = 'filter_customer';
+				  $type = 'filter_customer_1';
 			  }
 			  if (isset($this->request->get['fcustomer_email']) && !empty($this->request->get['fcustomer_email'])) {
 				$url = 'sale/order';

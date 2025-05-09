@@ -135,6 +135,9 @@ class ControllerSaleOrder extends Controller {
 			$filter_customer = '';
 		}
 
+		if (isset($this->request->get['filter_customer_1']))
+			$filter_customer = $this->request->get['filter_customer_1'];
+
 		if (isset($this->request->get['filter_email'])) {
 			$filter_email = $this->request->get['filter_email'];
 		} else {
