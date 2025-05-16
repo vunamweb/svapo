@@ -179,8 +179,8 @@ class Document {
                $subject = ($docNow) ? 'Log File DocNow ' . date("Y-m-d_H-i-s") : 'Log File ' . date("Y-m-d_H-i-s");
                $from = SMTP_USER;
                $fromName = 'svapo.de';
-               //$to = 'info@svapo.de';
-               $to = 'vukynamkhtn@gmail.com';
+               $to = 'info@svapo.de';
+               //$to = 'vukynamkhtn@gmail.com';
                
                $message = 'A user failed to create an order with the following error and JSON<br>';
                $message .= $error;
@@ -229,7 +229,7 @@ class Document {
         else {
 			// $files1 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "pdf/Freiumschlag.pdf";
 			$files1 = null;
-			if($file) $files2 = str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "".PATH_ADMIN."/auftrag/".$file;			
+			if($file) $files2 = DIR_STORAGE . 'backup_auftragbestaetigung/' . $file; //str_replace("index.php", "", $_SERVER['SCRIPT_FILENAME']) . "".PATH_ADMIN."/auftrag/".$file;			
 		}
 	 	
 		$mail = new PHPMailer();
@@ -258,7 +258,7 @@ class Document {
 
           $mail->AddAddress($to);  
             
-          //$mail->addBcc("svapo@7sc.eu");
+          $mail->addBcc("svapo@7sc.eu");
 		//$mail->addBcc("vu@pixeldusche.com");
 		
 		$mail->Subject = $subject;
@@ -284,8 +284,8 @@ class Document {
                $mail->addStringAttachment($fileContents, $fileName);
           } 
 
-          if(false) {
-          //if (!$mail->Send()) {
+          //if(false) {
+          if (!$mail->Send()) {
                //echo "Mailer Error: " . $mail->ErrorInfo;
                $this->writeLogSendMail($mail->ErrorInfo, $to);
 		} else {

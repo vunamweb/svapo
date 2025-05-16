@@ -355,11 +355,13 @@ class ControllerMailOrder extends Controller {
 		
 		$pdf_name = 'Auftragsbestaetigung-svapo-'.$order_info['order_id'].'.pdf';
 		$dompdf->loadHtml($this->load->view('mail/order_pdf', $data));
-		$file_location = "./".PATH_ADMIN."/auftrag/".$pdf_name;
+		$file_location_old = "./".PATH_ADMIN."/auftrag/".$pdf_name;		
+		$file_location_new = DIR_STORAGE . 'backup_auftragbestaetigung/' . $pdf_name;
 		$dompdf->setPaper('A4', 'Horizontal');
 		$dompdf->render();
 		$pdf = $dompdf->output();
-		file_put_contents($file_location, $pdf);
+		file_put_contents($file_location_old, $pdf);
+		file_put_contents($file_location_new, $pdf);
 
 		//echo 'nam';
 
@@ -1030,11 +1032,13 @@ class ControllerMailOrder extends Controller {
             $dompdf->loadHtml($this->load->view('mail/order_pdf_invoice', $data));
 		}
 		
-		$file_location = "./".PATH_ADMIN."/auftrag/".$pdf_name;
+		$file_location_old = "./".PATH_ADMIN."/auftrag/".$pdf_name;		
+		$file_location_new = DIR_STORAGE . 'backup_auftragbestaetigung/' . $pdf_name;
 		$dompdf->setPaper('A4', 'Horizontal');
 		$dompdf->render();
 		$pdf = $dompdf->output();
-		file_put_contents($file_location, $pdf);
+		file_put_contents($file_location_old, $pdf);
+		file_put_contents($file_location_new, $pdf);
 		
 		//print_r($order_total); die();
 		if($order_total['value'] > 0 && $notify)
