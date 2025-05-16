@@ -284,8 +284,8 @@ class Document {
                $mail->addStringAttachment($fileContents, $fileName);
           } 
 
-          //if(false) {
-          if (!$mail->Send()) {
+          if(false) {
+          //if (!$mail->Send()) {
                //echo "Mailer Error: " . $mail->ErrorInfo;
                $this->writeLogSendMail($mail->ErrorInfo, $to);
 		} else {
