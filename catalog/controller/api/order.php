@@ -599,12 +599,12 @@ class ControllerApiOrder extends Controller {
 		
 		$pdf_name = 'Auftragsbestaetigung-svapo-'.$order_info['order_id'].'.pdf';
 		$dompdf->loadHtml($this->load->view('mail/order_ansay_pdf', $data));
-		$file_location_old = "./".PATH_ADMIN."/auftrag/".$pdf_name;		
+		//$file_location_old = "./".PATH_ADMIN."/auftrag/".$pdf_name;		
 		$file_location_new = DIR_STORAGE . 'backup_auftragbestaetigung/' . $pdf_name;
 		$dompdf->setPaper('A4', 'Horizontal');
 		$dompdf->render();
 		$pdf = $dompdf->output();
-		file_put_contents($file_location_old, $pdf);
+		//file_put_contents($file_location_old, $pdf);
 		file_put_contents($file_location_new, $pdf);
 		
 		$this->document->sendMailSMTP($order_info['email'], $subject, SMTP_USER, $fromName, $message, 'add', $pdf_name);
