@@ -124,6 +124,13 @@ class ModelCheckoutOrder extends Model {
 		return $prefix[0] . '-' . $prefix[1];
 	}
 
+	public function addHistoryOfOrder($order_id, $order_status_id) {
+		$comment = '';
+
+		$this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = '" . (int)$order_id . "', order_status_id = '" . (int)$order_status_id . "', notify = '0', comment = '".$comment."', date_added = DATE_ADD(NOW(), INTERVAL 1 SECOND)");
+	    $this->updateStatusOrder($order_status_id, $order_id);
+	}
+
 	public function duplicateOrder($order_id) {
 		$this->load->language('api/order');
 

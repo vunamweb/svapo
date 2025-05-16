@@ -683,10 +683,15 @@ class ControllerApiOrder extends Controller {
 			$customer_group_id = $response->customer_group_id;
 	
 			 if($order_id) {
-				$order_status_id = ($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) ? ORDER_STATUS_ID : 18;
+				$order_status_id = 18; //($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) ? ORDER_STATUS_ID : 18;
 	
 				//$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
 				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
+
+				// if customer's group is 2 or is delivery, then update status to 17
+				if($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType))
+				  $this->model_checkout_order->addHistoryOfOrder($order_id, ORDER_STATUS_ID);
+				// END  
 	
 				$urlDocument = $jsonData['prescriptionURL'];
 				$this->saveDocumentToServer($urlDocument, $order_id, 'Ansay');
@@ -787,10 +792,15 @@ class ControllerApiOrder extends Controller {
 			$customer_group_id = $response->customer_group_id;
 	
 			 if($order_id) {
-				$order_status_id = ($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) ? ORDER_STATUS_ID : 25;
+				$order_status_id = 25; //($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) ? ORDER_STATUS_ID : 25;
 	
 				//$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
 				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
+
+				// if customer's group is 2 or is delivery, then update status to 17
+				if($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType))
+				  $this->model_checkout_order->addHistoryOfOrder($order_id, ORDER_STATUS_ID);
+				// END  
 	
 				$urlDocument = $jsonData['prescriptionURL'];
 				$this->saveDocumentToServer($urlDocument, $order_id, 'Docnow');
@@ -891,10 +901,15 @@ class ControllerApiOrder extends Controller {
 			$customer_group_id = $response->customer_group_id;
 	
 			 if($order_id) {
-				$order_status_id = ($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) ? ORDER_STATUS_ID : 30;
+				$order_status_id = 30; //($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType)) ? ORDER_STATUS_ID : 30;
 	
 				//$this->model_checkout_order->updateStatusOrder($order_status_id, $order_id);
 				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
+
+				// if customer's group is 2 or is delivery, then update status to 17
+				if($customer_group_id == CUSTOMER_GROUP_ID || $this->checkdeliveryType($deliveryType))
+				  $this->model_checkout_order->addHistoryOfOrder($order_id, ORDER_STATUS_ID);
+				// END  
 	
 				$urlDocument = $jsonData['prescriptionURL'];
 				$this->saveDocumentToServer($urlDocument, $order_id, 'Mcos');
