@@ -41,13 +41,14 @@
 
 			<li class="dropdown" style="width:220px"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Bestellungen suchen<i class="fa fa-caret-down fa-fw"></i></a>
 			<ul class="dropdown-menu dropdown-menu-right" style="padding:10px;width:200px">
-			 <form id="1" name="s" action="index.php?route=sale/order">
+			 <form id="1" name="s" action="index.php">
 			<input type="hidden" name="user_token" value="{{ user_token }}"/>
-			<li><input type="text" name="foi" value="" placeholder="Auftragsnummer" id="sorderid" class="form-control pull-left" autocomplete="false" style="cursor: auto;"/></li>
+      <input type="hidden" name="route" value="sale/order"/>
+      <li><input type="text" name="foi" value="" placeholder="Auftragsnummer" id="sorderid" class="form-control pull-left" autocomplete="false" style="cursor: auto;"/></li>
 			<li role="separator" style="padding:5px;clear:both;"></li>
-			<li><input type="text" name="fcustomer" value="" placeholder="Kunde" id="product_model" class="form-control pull-left" autocomplete="false" style="cursor: auto;"/></li>
+			<li><input type="text" name="filter_customer" value="" placeholder="Kunde" id="product_model" class="form-control pull-left" autocomplete="false" style="cursor: auto;"/></li>
       <li role="separator" style="padding:5px;clear:both;"></li>
-			<li><input type="text" name="fcustomer_email" value="" placeholder="Email" id="customer_email" class="form-control pull-left" autocomplete="false" style="cursor: auto;"/></li>
+			<li><input type="text" name="filter_email" value="" placeholder="Email" id="customer_email" class="form-control pull-left" autocomplete="false" style="cursor: auto;"/></li>
       <!--
 			<li role="separator" style="padding:5px;clear:both;"></li>
 			<li><input type="text" name="fmodel" value="" placeholder="Product" id="product_model" class="form-control pull-left" autocomplete="false" style="cursor: auto;"/></li>

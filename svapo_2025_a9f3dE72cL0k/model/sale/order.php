@@ -180,9 +180,9 @@ class ModelSaleOrder extends Model {
 			$sql .= " AND CONCAT(o.firstname, ' ', o.lastname) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
 		}
 
-		if (!empty($data['filter_customer_1'])) {
+		/*if (!empty($data['filter_customer_1'])) {
 			$sql .= " AND CONCAT(o.firstname, ' ', o.lastname) LIKE '%" . $this->db->escape($data['filter_customer_1']) . "%'";
-		}
+		}*/
 
 		if (!empty($data['filter_email'])) {
 			$sql .= " AND email LIKE '%" . $this->db->escape($data['filter_email']) . "%'";
