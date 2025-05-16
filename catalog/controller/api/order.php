@@ -278,9 +278,36 @@ class ControllerApiOrder extends Controller {
 
 		return true;
 	}
+	
+	public function sendmymail(): void {
+		$allowed_key = 'hjgHHGFI4!jhg098Fds';
+		
+		if (!isset($this->request->get['key']) || $this->request->get['key'] !== $allowed_key) {
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode(['error' => 'unauthorized']));
+			return;
+		}
+		
+		$order_id = (int)$this->request->get['order_id'] ?? 0;		
+		$customer_group_id = (int)$this->request->get['gid'] ?? 0;
+	
+		$this->load->model('checkout/order');
+		$order_info = $this->model_checkout_order->getOrder($order_id);
+	
+		if ($order_info) {
+			$shipping = $customer_group_id == 2 ? 'pickup' : 'dhl';
+			$this->sendMail($order_info, $order_info['order_status_id'], $customer_group_id, $shipping);
+	
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode(['success' => 'Mail gesendet']));
+		} else {
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode(['error' => 'Bestellung nicht gefunden']));
+		}
+	}
 
 
-	public function sendMail($order_info, $order_status_id = 0, $customer_group_id, $deliveryType) {
+	public function sendMail($order_info, $order_status_id = 0, $customer_group_id = 0, $deliveryType = 0) {
 		// Check for any downloadable products
 		$download_status = false;
 
@@ -572,7 +599,8 @@ class ControllerApiOrder extends Controller {
 		
 		$pdf_name = 'Auftragsbestaetigung-svapo-'.$order_info['order_id'].'.pdf';
 		$dompdf->loadHtml($this->load->view('mail/order_ansay_pdf', $data));
-		$file_location = "./".PATH_ADMIN."/auftrag/".$pdf_name;
+		$file_location = "./".PATH_ADMIN."/auftrag/".$pdf_name;		
+		// $file_location = DIR_STORAGE . '/backup_auftragbestaetigung/' . $pdf_name;
 		$dompdf->setPaper('A4', 'Horizontal');
 		$dompdf->render();
 		$pdf = $dompdf->output();
@@ -1352,66 +1380,69 @@ class ControllerApiOrder extends Controller {
 	}
 
 	public function uploadFile() {
+		// 1. Prüfen, ob Datei korrekt hochgeladen wurde
+		if (
+			!isset($_FILES['upload_file']) ||
+			!is_uploaded_file($_FILES['upload_file']['tmp_name']) ||
+			$_FILES['upload_file']['error'] !== UPLOAD_ERR_OK
+		) {
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode(['error' => 'No file uploaded']));
+			return;
+		}
+	
 		$this->load->model('checkout/order');
-
+	
+		// 2. Bestell-ID aus GET
 		$order_id = $this->request->get['order_id'];
-
+	
+		// 3. Dateinamen bereinigen und eindeutig machen
 		$namePhoto = $_FILES["upload_file"]["name"];
-
-        $namePhoto = $this->removeSpecialCharacter($namePhoto);
-		$namePhoto = date("Y-m-dH-i-s") . '_' . $namePhoto;
-
+		$namePhoto = $this->removeSpecialCharacter($namePhoto); // eigene Funktion
+		$namePhoto = date("Y-m-d_H-i-s") . '_' . $namePhoto;
+	
+		// 4. Pfad und Dateiname vorbereiten
 		$tmpFilePath = $_FILES["upload_file"]['tmp_name'];
 		$fileName = $namePhoto;
-
-		// Open the file with CURLFile
-		$cfile = new CURLFile($tmpFilePath, $file['type'], $fileName);
-    
-		// Target server URL
+		$fileType = $_FILES["upload_file"]['type'];
+	
+		// 5. CURL-Upload an Zielserver
+		$cfile = new CURLFile($tmpFilePath, $fileType, $fileName);
 		$url = URL_UPLOAD;
 	
-		// Prepare the data for the POST request
 		$postData = [
 			'file' => $cfile,
-			// Add additional fields here if required
-			'additional_field' => 'value'
+			// optional: weitere Daten
+			// 'order_id' => $order_id,
 		];
 	
-		// Initialize cURL session
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		
-		// Execute cURL and get the response
+	
 		$response = curl_exec($ch);
 	
-		// Check for errors
 		if (curl_errno($ch)) {
-			echo 'Error:' . curl_error($ch);
-		} else {
-			$this->model_checkout_order->editPhotoOrder($order_id, $namePhoto);
-			echo 'Response from server: ' . $response;
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode(['error' => 'cURL error: ' . curl_error($ch)]));
+			curl_close($ch);
+			return;
 		}
-		
-		// Close cURL session
+	
 		curl_close($ch);
-
-		//echo $namePhoto . 'ddd'; die();
-
-		/*$targetDirectory = "rEzEpT/"; // Directory where uploaded files will be saved
-		$targetFile = $targetDirectory . basename($namePhoto); // Get the file name
-		
-		// Try to upload the file
-			if (move_uploaded_file($_FILES["upload_file"]["tmp_name"], $targetFile)) {
-				$this->model_checkout_order->editPhotoOrder($order_id, $namePhoto);
-			} else {
-				echo "Sorry, there was an error uploading your file.";
-			}*/
-	   // Send sign pdf
-	   // $this->load->controller('mail/order/sendSignPDF');  
-	   // End 
+	
+		// 6. Wenn Upload erfolgreich war, in DB speichern
+		$this->model_checkout_order->editPhotoOrder($order_id, $namePhoto);
+	
+		// 7. Erfolg zurückgeben (AJAX-kompatibel)
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode([
+			'success' => true,
+			'filename' => $namePhoto,
+			'server_response' => $response
+		]));
 	}
 
 	public function add() {
