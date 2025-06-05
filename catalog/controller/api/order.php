@@ -2489,7 +2489,7 @@ class ControllerApiOrder extends Controller {
     }
 
     public function getAddressOfOrder($order_info) {
-	   return trim($order_info['payment_address_1']);
+	   return trim($order_info['shipping_address_1'] ? $order_info['shipping_address_1'] : $order_info['payment_address_1']);
 	   //print_r($order_info); die();	
        $address_shipping = $order_info['shipping_address_1'];
 	   $address_payment = $order_info['payment_address_1'];
@@ -2545,16 +2545,16 @@ class ControllerApiOrder extends Controller {
 		//echo $country1 . '/////';
 		//die();
 		
-        $name2 = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
-		$address2 = $this->getAddressOfOrder($order_info); //$order_info['shipping_address_1'];
-		$companyCustomer =  $order_info['payment_company'];
-		$address2_2 = $order_info['payment_address_2'];
+        $name2 = $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'];
+        $address2 = $this->getAddressOfOrder($order_info); //$order_info['shipping_address_1'];
+		$companyCustomer =  $order_info['shipping_company'];
+		$address2_2 = $order_info['shipping_address_2'];
 		//echo $address2_2; die();
-		$postCode2 = $order_info['payment_postcode'];
+		$postCode2 = $order_info['shipping_postcode'];
 		$postCode2 = str_replace('<br>', '', $postCode2);
 
-		$city2 = $order_info['payment_city'];
-		$country2 = $order_info['payment_iso_code_3'];
+		$city2 = $order_info['shipping_city'];
+		$country2 = $order_info['shipping_iso_code_3'];
 
 		try {
 			$token = $this->getTokenDHL();
