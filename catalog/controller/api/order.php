@@ -2423,7 +2423,72 @@ class ControllerApiOrder extends Controller {
 		return $obj;
     }
 
-	public function getAddressOfOrder($order_info) {
+    public function getTokenDHL() {
+		$url = 'https://afdelivery.postdirekt.de/afdelivery/login/3.0.0';
+		$username = 'afdelivery.svapo';
+		$password = '4vSqP$p2Y$D?CJ8';
+
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+
+		$response = curl_exec($ch);
+		if (curl_errno($ch)) {
+			throw new Exception('Curl error: ' . curl_error($ch));
+		}
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+
+		if ($httpCode !== 200) {
+			throw new Exception("Failed to get token. HTTP Status Code: $httpCode. Response: $response");
+		}
+
+		$data = json_decode($response, true);
+		if (!isset($data['access_token'])) {
+			throw new Exception("Token not found in response: $response");
+		}
+
+		return $data['access_token'];
+    }
+
+    public function verifyAddress($token, $address, $postCode, $city) {
+		$url = 'https://afdelivery.postdirekt.de/afdelivery/verifyAddress/1.0.0';
+
+		$body = [
+			"requestId"   => "1",
+			"street"      => $address,
+			"postalCode"  => $postCode,
+			"city"        => $city,
+			"houseNumber" => ""
+		];
+
+		$headers = [
+			"Authorization: Bearer $token",
+			"Content-Type: application/json"
+		];
+
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
+
+		$response = curl_exec($ch);
+		if (curl_errno($ch)) {
+			throw new Exception('Curl error: ' . curl_error($ch));
+		}
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+
+		if ($httpCode !== 200) {
+			throw new Exception("Failed to verify address. HTTP Status Code: $httpCode. Response: $response");
+		}
+
+		return json_decode($response, true);
+    }
+
+    public function getAddressOfOrder($order_info) {
 	   return trim($order_info['payment_address_1']);
 	   //print_r($order_info); die();	
        $address_shipping = $order_info['shipping_address_1'];
@@ -2490,8 +2555,31 @@ class ControllerApiOrder extends Controller {
 
 		$city2 = $order_info['payment_city'];
 		$country2 = $order_info['payment_iso_code_3'];
-		
-		// Versanddetails
+
+		try {
+			$token = $this->getTokenDHL();
+			//echo $token; die();
+			$result = $this->verifyAddress($token, $address2, $postCode2, $city2);
+			
+			// if address invalid
+			if($result['similarity'] == 0) {
+				return 'Invalid address';
+			}
+			// END
+		} catch (Exception $e) {
+			return $e->getMessage();
+			//echo 'Error: ' . $e->getMessage();
+			//die();
+		}
+
+		//print_r($result);
+		//die();
+
+		$address2 = $result['street'] . ' ' . $result['houseNumber'];
+		$postCode2 = $result['postalCode'];
+		$city2 = $result['city'];
+
+        // Versanddetails
 		$shipmentDetails = '
 		{
 			"profile": "STANDARD_GRUPPENPROFIL",
