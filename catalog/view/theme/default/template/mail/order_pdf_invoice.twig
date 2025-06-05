@@ -70,7 +70,7 @@
 	  <tr>
 		<td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">
 			<b>{{ text_date_added }}</b>:&nbsp; {{ date_added }}<br/>
-			<b>{{ text_payment_method }}</b>:&nbsp; {{ payment_method }}<br/>
+			<b>{{ text_payment_method }}</b>:&nbsp; <b style="color:#ff0000;">bereits bezahlt</b><br/>
 		</td>
 		<td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">
 			<b>{{ text_email }}</b>:&nbsp; {{ email }}<br/>
@@ -123,7 +123,7 @@
 	<thead>
 	  <tr>
 		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: left; padding: 7px; color: #222222;">{{ text_product }}</td>
-		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_quantity }}</td>
+		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_quantity }} in g</td>
 		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_price }}</td>
 		<td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; background-color: #EFEFEF; font-weight: bold; text-align: right; padding: 7px; color: #222222;">{{ text_total }}</td>
 	  </tr>
@@ -173,6 +173,18 @@
 	
   </table>
   
+  <p style="font-size: 12px;text-align: left; padding: 7px;">
+	  Sollten Sie Fragen zu Ihrem Arzneimittel haben wie z.B.:<br />
+	  <br />
+	  - Was bewirkt dieses Arzneimittel im Körper?<br />
+	  - Wie und wann soll ich das Arzneimittel einnehmen?<br />
+	   -Wann tritt die Wirkung ein?<br />
+	  - Können unerwünschte Nebenwirkungen auftreten?<br />
+	  - Gibt es Unverträglichkeiten mit anderen Arznei-, Nahrungs- oder Genussmitteln, die ich nicht gleichzeitig einnehmen soll?<br />
+	  - Wie lange kann/soll ich das Arzneimittel einnehmen und was ist zu tun, wenn ich die Einnahme vergessen habe?<br />
+	  <br />
+	  steht Ihnen die Schloss-Apotheke, Paschalis Papadopoulos e. K., für eine Beratung zur Verfügung.
+  </p>
   
 <!--  <p style="margin-top: 0px; margin-bottom: 20px;">### {{ text_footer }}</p>-->
 </div>
