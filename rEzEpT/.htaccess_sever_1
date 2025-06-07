@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "Access to /shop/rEzEpT"
-AuthUserFile /kunden/homepages/31/d1006927561/htpasswd
-Require user SVAPO

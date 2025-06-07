@@ -1,1 +1,0 @@
-<?php $navID = array(2=>"hometest/"); ?>

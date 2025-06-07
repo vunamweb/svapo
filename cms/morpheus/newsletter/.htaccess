@@ -1,3 +1,0 @@
-RewriteRule  ^\.htaccess$ - [F]
-RewriteEngine on
-RewriteBase /
