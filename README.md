@@ -50,5 +50,5 @@ Svapo.de is powered by OpenCart and includes:
 | ![Homepage](1.png) | **Homepage**: Modern, responsive homepage showcasing featured categories, offers, and custom-designed wall decals. |
 | ![Category Page](2.png) | **Category Page**: Clean grid layout with filters for size, color, theme, and more. Users can easily find the right product. |
 | ![Product Page](3.png) | **Product Page**: Detailed view with high-resolution images, live color preview, size options, and related products. |
-| ![Shopping Cart](4.png) | **Shopping Cart**: Simple and intuitive cart system with editable quantities, shipping estimator, and coupon support. |
+| ![checkout Page](5.png) | **Shopping Cart**: Simple and intuitive cart system with editable quantities, shipping estimator, and coupon support. |
 | ![Admin Dashboard](6.png) | **Admin Panel**: Clean and powerful admin interface to manage orders, products, customers, and SEO settings. |
