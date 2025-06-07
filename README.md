@@ -47,9 +47,8 @@ Svapo.de is powered by OpenCart and includes:
 📸 Screenshots
 | Page | Description |
 |------|-------------|
-| ![Homepage](image/1.png) | **Homepage**: Modern, responsive homepage showcasing featured categories, offers, and custom-designed wall decals. |
-| ![Category Page](image/2.png) | **Category Page**: Clean grid layout with filters for size, color, theme, and more. Users can easily find the right product. |
-| ![Product Page](image/3.png) | **Product Page**: Detailed view with high-resolution images, live color preview, size options, and related products. |
-| ![Shopping Cart](image/4.png) | **Shopping Cart**: Simple and intuitive cart system with editable quantities, shipping estimator, and coupon support. |
-| ![Checkout Page](image/5.png) | **Checkout Page**: Guest or registered checkout with secure payment integration (PayPal, Klarna, etc.). |
-| ![Admin Dashboard](image/6.png) | **Admin Panel**: Clean and powerful admin interface to manage orders, products, customers, and SEO settings. |
+| ![Homepage](1.png) | **Homepage**: Modern, responsive homepage showcasing featured categories, offers, and custom-designed wall decals. |
+| ![Category Page](2.png) | **Category Page**: Clean grid layout with filters for size, color, theme, and more. Users can easily find the right product. |
+| ![Product Page](3.png) | **Product Page**: Detailed view with high-resolution images, live color preview, size options, and related products. |
+| ![Shopping Cart](4.png) | **Shopping Cart**: Simple and intuitive cart system with editable quantities, shipping estimator, and coupon support. |
+| ![Admin Dashboard](6.png) | **Admin Panel**: Clean and powerful admin interface to manage orders, products, customers, and SEO settings. |
