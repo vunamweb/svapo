@@ -1,76 +1,41 @@
-# Wandfreude.de - Custom OpenCart E-commerce Store
+# Svapo.de - OpenCart E-commerce Platform
 
-![Wandfreude Logo](image/Wandfreude-Logo.svg)
+Welcome to the official repository for **Svapo.de**, an e-commerce platform built on **OpenCart**. This platform provides a full-featured, extensible, and secure online shopping experience, tailored to the vaping and e-liquid retail industry.
 
-**Wandfreude.de** is a custom OpenCart-powered e-commerce platform specializing in high-quality wall tattoos, wall decals, and decorative vinyl designs for home interiors. This project is built for performance, flexibility, and a seamless user experience on both desktop and mobile platforms.
+## 🛒 Project Overview
 
-## 🌐 Live Website
+Svapo.de is powered by OpenCart and includes:
 
-👉 [Visit Wandfreude.de](https://www.wandfreude.de/)
+- Custom responsive theme optimized for performance and UX
+- Product catalog with advanced filtering and search
+- Multiple payment gateways (PayPal, credit card, etc.)
+- Shipping options with dynamic rate calculation
+- Multilingual and multicurrency support
+- GDPR-compliant features
+- SEO-friendly URLs and metadata
 
----
+## 🧰 Tech Stack
 
-## 🛠️ Built With
+- **OpenCart**: Core e-commerce functionality
+- **PHP 7+**: Backend logic
+- **MySQL**: Relational database
+- **HTML5, CSS3, JavaScript (jQuery)**: Frontend technologies
+- **Apache / Nginx**: Web server
+- **VQMod / OCMOD**: Extension/mod override management
 
-- [OpenCart](https://www.opencart.com/) 3.x
-- PHP 7.4+
-- MySQL
-- jQuery + Bootstrap
-- Custom OpenCart Themes and Extensions
-- SEO & Performance Optimization (Lighthouse Friendly)
-- Multilingual & Multi-currency support
-
----
-
-## 📦 Features
-
-- 🖼️ Custom wall tattoo product designer
-- 🛍️ Dynamic product filtering and categorization
-- 🔎 Full-text product search
-- 📱 Mobile-optimized responsive layout
-- 🧾 PDF invoice & order management
-- 🔐 Secure customer login and checkout
-- 💬 GDPR-compliant cookie & privacy tools
-- 📤 Contact forms and newsletter subscriptions
-- 🚚 Integrated shipping & tax calculation
-- 💳 Payment integration (PayPal, Klarna, and more)
-
----
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Apache/Nginx
-- PHP 7.4 or higher
-- MySQL 5.7+
-- Composer (optional)
-- vQmod or OCMOD enabled
+- Apache/Nginx web server
+- PHP 7.3+ with extensions: `curl`, `mbstring`, `zip`, `gd`, `xml`
+- MySQL or MariaDB
+- Composer (if using custom PHP packages)
 
 ### Installation
 
-1. Clone the repo:
+1. Clone the repository:
+
    ```bash
-   git clone https://github.com/vunamweb/wandfreude
-
-🧩 Customizations
-Custom modules developed in-house (e.g., tattoo color picker, wall preview)
-
-Optimized for fast page loads and low bounce rates
-
-Enhanced SEO metadata controls
-
-OpenCart theme modified for better UI/UX
-
-Compatibility with popular OpenCart extensions
-
-📸 Screenshots
-| Page | Description |
-|------|-------------|
-| ![Homepage](image/1.png) | **Homepage**: Modern, responsive homepage showcasing featured categories, offers, and custom-designed wall decals. |
-| ![Category Page](image/2.png) | **Category Page**: Clean grid layout with filters for size, color, theme, and more. Users can easily find the right product. |
-| ![Product Page](image/3.png) | **Product Page**: Detailed view with high-resolution images, live color preview, size options, and related products. |
-| ![Shopping Cart](image/4.png) | **Shopping Cart**: Simple and intuitive cart system with editable quantities, shipping estimator, and coupon support. |
-| ![Checkout Page](image/5.png) | **Checkout Page**: Guest or registered checkout with secure payment integration (PayPal, Klarna, etc.). |
-| ![Admin Dashboard](image/6.png) | **Admin Panel**: Clean and powerful admin interface to manage orders, products, customers, and SEO settings. |
-
-
-
+   git clone https://github.com/vunamweb/svapo
+   cd svapo-opencart
